@@ -854,6 +854,110 @@ body { padding: 48px 24px 96px; }
   color: var(--fg-inverse); font-weight: 700;
 }
 
+/* App home (simplified) */
+.app-home {
+  flex: 1; overflow: hidden;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+}
+.app-home-header {
+  display: flex; align-items: center;
+  height: 44px; padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px; flex-shrink: 0;
+}
+.app-home-logo {
+  font-size: 17px; font-weight: 800;
+  display: flex; align-items: center; gap: 4px;
+}
+.app-home-actions {
+  margin-left: auto; display: flex; gap: 4px;
+}
+.app-home-actions .icon-btn { width: 32px; height: 32px; }
+.app-home-actions .icon-btn svg { width: 22px; height: 22px; }
+.app-home-tabs {
+  display: flex; gap: 18px;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.app-home-tabs::-webkit-scrollbar { display: none; }
+.app-home-tabs .tab { color: var(--fg-weak); white-space: nowrap; cursor: pointer; }
+.app-home-tabs .tab.active {
+  color: var(--fg); font-weight: 700; position: relative;
+}
+.app-home-tabs .tab.active::after {
+  content: ''; position: absolute;
+  bottom: -10px; left: 0; right: 0;
+  height: 2px; background: var(--fg);
+}
+.app-home-grid {
+  flex: 1;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  overflow: hidden;
+}
+.app-home-card {
+  height: 160px; border-radius: 8px;
+  background: linear-gradient(135deg, #d8d0c4, #a89980);
+}
+.app-home-card:nth-child(2) { background: linear-gradient(135deg, #c4d3e8, #8ea7c8); }
+.app-home-card:nth-child(3) { background: linear-gradient(135deg, #e8d5b9, #c9a87a); }
+.app-home-card:nth-child(4) { background: linear-gradient(135deg, #d6f0d4, #88c488); }
+.app-bottom-nav {
+  height: 56px; border-top: 1px solid var(--border);
+  background: var(--bg); display: flex; flex-shrink: 0;
+}
+.app-nav-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 2px;
+  font-size: 10px; font-weight: 500; color: var(--fg-weak);
+}
+.app-nav-item svg { width: 22px; height: 22px; fill: currentColor; }
+.app-nav-item.active { color: var(--fg); font-weight: 700; }
+
+/* Push notification toast (iOS style) */
+.push-toast {
+  position: absolute;
+  top: 48px; left: 8px; right: 8px;
+  background: rgba(245,245,245,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex; gap: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  z-index: 10;
+  border: 1px solid rgba(0,0,0,0.05);
+  animation: pushSlide 0.4s ease-out;
+}
+@keyframes pushSlide {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+[data-theme="dark"] .push-toast {
+  background: rgba(40,40,40,0.92);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.push-icon {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: var(--bg-brand); color: var(--fg-inverse);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px; flex-shrink: 0;
+}
+.push-content { flex: 1; min-width: 0; }
+.push-row {
+  display: flex; justify-content: space-between;
+  align-items: baseline; font-size: 13px;
+}
+.push-row .push-app { font-weight: 700; color: var(--fg); }
+.push-row .push-time { font-size: 11px; color: var(--fg-weak); }
+.push-body { font-size: 13px; color: var(--fg); line-height: 17px; margin-top: 2px; }
+
 /* Hero stage 가로 정렬 (2 mobile screens) */
 .hero-stage-flex {
   display: flex; gap: 32px;
@@ -1473,8 +1577,8 @@ body { padding: 48px 24px 96px; }
   <!-- M00a — 앱 내 진입점 (고객센터 → 풀스크린 챗봇) -->
   <!-- ============================================ -->
   <section class="hero-stage">
-    <div class="hero-label">M00a — 앱 내 진입점 (고객센터 → 풀스크린 챗봇)</div>
-    <div class="hero-desc">앱 마이페이지 &gt; 고객센터에서 [채팅 상담하기] 버튼 클릭 → 풀스크린 챗봇 모달 진입. 기존 [1:1 카톡 상담하기]를 [채팅 상담하기]로 변경.</div>
+    <div class="hero-label">M00a — 앱 내 진입점 (고객센터 → 풀스크린 → 닫힌 상태 + 알림)</div>
+    <div class="hero-desc">① 고객센터 [채팅 상담하기] 클릭 → ② 풀스크린 챗봇 진입 → ③ 챗봇 닫고 다른 활동(쇼핑/콘텐츠) 중 푸시 알림 도착 → 탭하면 다시 풀스크린으로 복귀. 기존 [1:1 카톡 상담하기]를 [채팅 상담하기]로 변경.</div>
     <div class="hero-stage-flex">
       <!-- 화면 1: 앱 고객센터 페이지 -->
       <div class="stage-card">
@@ -1552,6 +1656,68 @@ body { padding: 48px 24px 96px; }
           <strong>풀스크린 진입</strong> 위젯 380×580 → 모바일 풀스크린 375×740<br>
           <strong>이후 흐름</strong> 시작 화면 → M02 첫인사 → 시나리오 분기 (M03~)<br>
           <strong>Open</strong> O11 모바일 풀스크린 vs Half-sheet (50% 화면) 결정 필요
+        </div>
+      </div>
+
+      <div class="hero-arrow">↩</div>
+
+      <!-- 화면 3: 닫힌 상태 + 푸시 알림 (앱 사용 중) -->
+      <div class="stage-card">
+        <div class="mobile-frame">
+          <div class="mobile-status">
+            <span>3:05</span>
+            <span class="mobile-status-icons">📶 5G 96</span>
+          </div>
+          <div class="app-home">
+            <div class="app-home-header">
+              <div class="app-home-logo">
+                <div class="web-logo-mark" style="width:22px; height:18px"></div>
+                오늘의집
+              </div>
+              <div class="app-home-actions">
+                <button class="icon-btn"><svg><use href="#i-magnifying-glass"/></svg></button>
+                <button class="icon-btn"><svg><use href="#i-bell"/></svg></button>
+                <button class="icon-btn"><svg><use href="#i-cart"/></svg></button>
+              </div>
+            </div>
+            <div class="app-home-tabs">
+              <span class="tab active">홈</span>
+              <span class="tab">추천</span>
+              <span class="tab">집들이</span>
+              <span class="tab">집사진</span>
+              <span class="tab">인기</span>
+            </div>
+            <div class="app-home-grid">
+              <div class="app-home-card"></div>
+              <div class="app-home-card"></div>
+              <div class="app-home-card"></div>
+              <div class="app-home-card"></div>
+            </div>
+            <div class="app-bottom-nav">
+              <div class="app-nav-item active"><svg><use href="#i-house-filled"/></svg>홈</div>
+              <div class="app-nav-item"><svg><use href="#i-magnifying-glass"/></svg>검색</div>
+              <div class="app-nav-item"><svg><use href="#i-photo"/></svg>집들이</div>
+              <div class="app-nav-item"><svg><use href="#i-person"/></svg>마이</div>
+            </div>
+          </div>
+          <!-- iOS 스타일 푸시 알림 토스트 -->
+          <div class="push-toast">
+            <div class="push-icon">오</div>
+            <div class="push-content">
+              <div class="push-row">
+                <span class="push-app">오집사</span>
+                <span class="push-time">지금</span>
+              </div>
+              <div class="push-body">고객님, 상담사가 답변을 보냈어요.
+탭해서 이어서 상담해주세요.</div>
+            </div>
+          </div>
+        </div>
+        <div class="spec spec-mobile">
+          <strong>닫힌 상태 + 알림</strong> 챗봇 종료 후 다른 활동(쇼핑·콘텐츠) 중 푸시 알림 도착<br>
+          <strong>알림 진입</strong> iOS/Android 푸시 알림 탭 → 챗봇 풀스크린 자동 진입 (직전 대화 컨텍스트 복원)<br>
+          <strong>변형</strong> 알림 거부 권한 → 앱 헤더 종 아이콘에 빨간 점 / 마이페이지 [진행 중 상담] 뱃지<br>
+          <strong>Open</strong> O9 푸시 알림 vs 알림톡 vs 앱 내 표기 채널 결정
         </div>
       </div>
     </div>
