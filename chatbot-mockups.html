@@ -1,0 +1,2389 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>오집사 챗봇 내재화 — Web Mockups (Phase 4)</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root {
+  --bg: #fff; --bg-weak: #f5f5f5; --bg-brand: #00a1ff; --bg-brand-weak: #f0f8fc;
+  --bg-inverse: #141414; --bg-dim: rgba(0,0,0,0.4); --bg-attention-weak: #fcf4dd;
+  --fg: #141414; --fg-weak: #8c8c8c; --fg-brand: #00a1ff; --fg-inverse: #fff;
+  --fg-attention: #b27800; --border: #e0e0e0; --border-brand: #00a1ff;
+  --border-brand-soft: rgba(0,161,255,.25); --accent-red: #fd3d4a; --accent-yellow: #ffc300;
+  --r-sm: 4px; --r-md: 8px; --r-lg: 12px; --r-xl: 16px; --r-full: 9999px;
+  --shadow-thin: 0 2px 5px 0 rgba(63,71,77,.05);
+  --shadow-basic: 0 2px 10px 0 rgba(63,71,77,.12);
+  --shadow-thick: 0 8px 30px rgba(0,0,0,.15);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  letter-spacing: -0.3px; background: var(--bg-weak); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+}
+body { padding: 48px 24px 96px; }
+.container { max-width: 1640px; margin: 0 auto; }
+.doc-header { margin-bottom: 32px; }
+.doc-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; line-height: 42px; }
+.doc-header .sub { color: var(--fg-weak); font-size: 16px; line-height: 24px; }
+.doc-header .meta { color: var(--fg-weak); font-size: 13px; margin-top: 12px; }
+.legend { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: 16px 20px; margin-bottom: 32px; font-size: 13px; color: var(--fg-weak); line-height: 1.7; }
+.legend strong { color: var(--fg); }
+
+/* === HERO STAGE (web + chatbot widget) === */
+.hero-stage { margin-bottom: 56px; }
+.hero-label { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.hero-desc { font-size: 14px; color: var(--fg-weak); margin-bottom: 16px; line-height: 22px; }
+
+.web-mockup {
+  position: relative; width: 100%; height: 760px; background: var(--bg);
+  border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--border);
+  box-shadow: var(--shadow-basic);
+}
+
+/* Web GNB */
+.web-gnb {
+  display: flex; align-items: center; height: 60px; padding: 0 40px;
+  border-bottom: 1px solid var(--border); gap: 32px; background: var(--bg);
+}
+.web-logo {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 18px; font-weight: 800; color: var(--fg); white-space: nowrap;
+}
+.web-logo-mark {
+  width: 26px; height: 22px; background: var(--bg-brand);
+  border-radius: 6px 12px 6px 6px; position: relative;
+}
+.web-logo-mark::before {
+  content: ''; position: absolute; top: -4px; left: 4px;
+  width: 18px; height: 12px; background: var(--bg-brand);
+  border-radius: 50% 50% 0 0;
+}
+.web-gnb-menu { display: flex; gap: 24px; font-size: 16px; font-weight: 700; }
+.web-gnb-menu a { color: var(--fg); cursor: pointer; }
+.web-gnb-menu a:first-child { color: var(--fg-brand); }
+.web-gnb-search {
+  flex: 1; max-width: 480px; height: 40px; background: var(--bg-weak);
+  border-radius: var(--r-full); display: flex; align-items: center;
+  padding: 0 16px; color: var(--fg-weak); font-size: 14px; gap: 8px;
+}
+.web-gnb-search svg { width: 16px; height: 16px; fill: currentColor; }
+.web-gnb-actions { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--fg); }
+.web-gnb-cart {
+  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+}
+.web-gnb-cart svg { width: 24px; height: 24px; fill: currentColor; }
+.web-gnb-write {
+  background: var(--bg-brand); color: var(--fg-inverse); height: 32px;
+  padding: 0 14px; border-radius: var(--r-md); font-size: 14px; font-weight: 700;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+/* Web tabs */
+.web-tabs {
+  display: flex; align-items: center; height: 50px; padding: 0 40px;
+  border-bottom: 1px solid var(--border); gap: 24px; font-size: 14px;
+  background: var(--bg);
+}
+.web-tabs .tab { color: var(--fg-weak); cursor: pointer; padding: 14px 0; position: relative; }
+.web-tabs .tab.active { color: var(--fg); font-weight: 700; }
+.web-tabs .tab.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--fg);
+}
+
+/* Web content */
+.web-content { padding: 24px 40px; display: flex; flex-direction: column; gap: 28px; }
+.web-hero-row { display: flex; gap: 16px; }
+.web-hero-img {
+  flex: 1; height: 280px; border-radius: var(--r-md); position: relative;
+  background: linear-gradient(135deg, #b8a890, #6e5e4a);
+}
+.web-hero-img.ad {
+  flex: 0 0 280px; background: linear-gradient(135deg, #d8c9a3, #b59f7a);
+  display: flex; flex-direction: column; padding: 20px; color: white;
+}
+.web-hero-img-text { position: absolute; bottom: 16px; left: 20px; color: white;
+  font-size: 18px; font-weight: 700; }
+.ad-tag { background: rgba(0,0,0,0.5); color: white; font-size: 11px;
+  padding: 3px 8px; border-radius: var(--r-sm); width: fit-content; margin-bottom: 8px; }
+.ad-text { font-size: 22px; font-weight: 800; line-height: 28px; margin-top: auto; }
+.ad-counter { position: absolute; bottom: 12px; right: 12px;
+  background: rgba(0,0,0,0.5); color: white; padding: 3px 10px; border-radius: var(--r-full); font-size: 11px; }
+
+/* Categories row */
+.web-categories { display: grid; grid-template-columns: repeat(9, 1fr); gap: 12px; }
+.cat-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.cat-icon {
+  width: 56px; height: 56px; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: white;
+}
+.cat-icon.purple { background: linear-gradient(135deg,#c0a5f0,#8e6dd6); }
+.cat-icon.red { background: var(--accent-red); }
+.cat-icon.blue { background: var(--bg-brand); }
+.cat-icon.green { background: #4ec97c; }
+.cat-icon.orange { background: #ff8a65; }
+.cat-icon.gray { background: var(--bg-weak); color: var(--fg); }
+.cat-icon svg { width: 24px; height: 24px; fill: currentColor; }
+.cat-label { font-size: 12px; color: var(--fg); }
+
+/* Recommended grid placeholder */
+.web-recom { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.web-recom-card {
+  height: 120px; border-radius: var(--r-md);
+  background: linear-gradient(135deg, #d4d4d4, #a0a0a0);
+}
+.web-recom-card:nth-child(2) { background: linear-gradient(135deg, #e8d5b9, #c9a87a); }
+.web-recom-card:nth-child(3) { background: linear-gradient(135deg, #c4d3e8, #8ea7c8); }
+.web-recom-card:nth-child(4) { background: linear-gradient(135deg, #e0e0e0, #b0b0b0); }
+.web-recom-card:nth-child(5) { background: linear-gradient(135deg, #d8c8b8, #a89888); }
+.web-recom-card:nth-child(6) { background: linear-gradient(135deg, #c0c0c0, #909090); }
+
+/* === Chatbot floating widget on hero === */
+.chatbot-floating {
+  position: absolute; bottom: 24px; right: 24px;
+  width: 380px; height: 580px;
+  z-index: 10;
+}
+
+/* Chatbot launcher (collapsed) — for showing closed state if needed */
+.chatbot-launcher {
+  position: absolute; bottom: 24px; right: 24px;
+  width: 60px; height: 60px;
+  background: var(--bg-brand); color: var(--fg-inverse);
+  border-radius: 50%; box-shadow: var(--shadow-thick);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9; cursor: pointer;
+}
+.chatbot-launcher svg { width: 28px; height: 28px; fill: currentColor; }
+
+/* === Chatbot widget (used standalone in series) === */
+.cw {
+  width: 380px; height: 580px;
+  background: var(--bg); border-radius: var(--r-xl);
+  border: 1px solid var(--border); box-shadow: var(--shadow-thick);
+  overflow: hidden; display: flex; flex-direction: column; position: relative;
+}
+
+/* Chatbot header */
+.cw-header {
+  height: 56px; background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 12px; gap: 4px; flex-shrink: 0;
+}
+.cw-header-mini {
+  display: flex; align-items: center; gap: 8px; flex: 1; padding-left: 8px;
+}
+.cw-header-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg-brand-weak); color: var(--fg-brand);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px;
+}
+.cw-header-name { font-size: 15px; font-weight: 700; color: var(--fg); }
+.cw-header-status { font-size: 11px; color: #4caf50; display: flex; align-items: center; gap: 4px; margin-top: 1px; }
+.cw-header-status::before { content: ''; width: 6px; height: 6px; background: #4caf50; border-radius: 50%; }
+.cw-header-info { display: flex; flex-direction: column; }
+
+.icon-btn {
+  width: 36px; height: 36px; background: none; border: none; color: var(--fg);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  border-radius: var(--r-md);
+}
+.icon-btn svg { width: 22px; height: 22px; fill: currentColor; display: block; }
+.icon-btn.sm svg { width: 18px; height: 18px; }
+.icon-btn:hover { background: var(--bg-weak); }
+
+/* Banner */
+.banner {
+  background: var(--bg-attention-weak); color: var(--fg-attention);
+  padding: 8px 16px; font-size: 12px; text-align: center; font-weight: 600; flex-shrink: 0;
+}
+
+/* Chat area */
+.chat {
+  flex: 1; overflow-y: auto; padding: 16px 12px 16px 16px;
+  display: flex; flex-direction: column; gap: 8px; background: var(--bg);
+}
+.chat::-webkit-scrollbar { width: 0; }
+
+/* === Start screen (welcome) === */
+.start {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 32px 24px; text-align: center; background: var(--bg);
+}
+.start-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: var(--bg-brand-weak); color: var(--fg-brand);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+}
+.start-icon svg { width: 36px; height: 36px; fill: currentColor; }
+.start-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+.start-desc { font-size: 14px; color: var(--fg-weak); margin-bottom: 28px; line-height: 22px; }
+.start-actions { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+
+/* Common buttons */
+.btn {
+  height: 40px; padding: 0 16px; border-radius: var(--r-md);
+  font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid transparent;
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  letter-spacing: -0.3px; font-family: inherit;
+}
+.btn svg { width: 14px; height: 14px; fill: currentColor; }
+.btn-primary { background: var(--bg-brand); color: var(--fg-inverse); }
+.btn-secondary { background: var(--bg); color: var(--fg); border-color: var(--border); }
+.btn-block { width: 100%; height: 48px; font-size: 15px; }
+.btn-md { height: 44px; font-size: 14px; }
+
+/* === Bot/User messages === */
+.sys-msg { text-align: center; font-size: 12px; color: var(--fg-weak); padding: 4px 0; }
+.bot-msg { display: flex; gap: 8px; align-items: flex-start; max-width: 88%; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--bg-brand-weak); color: var(--fg-brand);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 14px; flex-shrink: 0;
+}
+.bubble {
+  background: var(--bg-weak); padding: 10px 14px;
+  border-radius: var(--r-lg); border-top-left-radius: var(--r-sm);
+  font-size: 14px; line-height: 20px; white-space: pre-line; color: var(--fg);
+}
+.user-msg { display: flex; justify-content: flex-end; }
+.user-msg .bubble {
+  background: var(--bg-brand); color: var(--fg-inverse);
+  border-radius: var(--r-lg); border-top-right-radius: var(--r-sm);
+}
+
+/* === Quick reply chips === */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-left: 40px; margin-top: 4px; }
+.chip {
+  height: 32px; padding: 0 14px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--r-full);
+  color: var(--fg); font-size: 13px; font-weight: 500;
+  display: inline-flex; align-items: center; cursor: pointer;
+}
+.chip:hover { border-color: var(--border-brand); color: var(--fg-brand); }
+.chip.brand { background: var(--bg-brand-weak); border-color: var(--border-brand-soft); color: var(--fg-brand); }
+
+/* === Bot attached components === */
+.bot-attached { margin-left: 40px; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; }
+
+.card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px; max-width: 280px; width: 100%;
+}
+.card-row { display: flex; gap: 12px; align-items: flex-start; }
+.card-thumb {
+  width: 56px; height: 56px; border-radius: var(--r-md); flex-shrink: 0;
+  background: linear-gradient(135deg, #f0e6d8, #c9b8a3);
+}
+.card-thumb.thumb2 { background: linear-gradient(135deg, #d8e2f0, #8fa6c4); }
+.card-thumb.thumb3 { background: linear-gradient(135deg, #ffe5d4, #f7b888); }
+.card-thumb.thumb4 { background: linear-gradient(135deg, #d6f0d4, #88c488); }
+.card-info { flex: 1; min-width: 0; }
+.card-status { font-size: 11px; color: var(--fg-brand); margin-bottom: 4px; font-weight: 700; letter-spacing: 0; }
+.card-status.done { color: var(--fg-weak); }
+.card-status.alert { color: var(--accent-red); }
+.card-status.attention { color: var(--fg-attention); }
+.card-title {
+  font-size: 14px; color: var(--fg); font-weight: 500; line-height: 18px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.card-meta { font-size: 12px; color: var(--fg-weak); margin-top: 4px; line-height: 16px; }
+.card-actions {
+  display: flex; gap: 8px; margin-top: 12px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.card-actions .btn { flex: 1; height: 36px; font-size: 13px; }
+
+/* Carousel */
+.carousel {
+  display: flex; gap: 8px; overflow-x: auto; margin-left: 40px;
+  margin-right: -12px; padding-right: 12px; margin-top: 4px;
+}
+.carousel::-webkit-scrollbar { display: none; }
+.carousel .card { flex: 0 0 240px; max-width: 240px; }
+
+/* Step bar */
+.stepbar {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px 12px 12px; max-width: 280px;
+}
+.stepbar-row { display: flex; align-items: flex-start; position: relative; }
+.step { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; position: relative; }
+.step::after {
+  content: ''; position: absolute; top: 11px; left: calc(50% + 14px);
+  width: calc(100% - 28px); height: 2px; background: var(--border);
+}
+.step:last-child::after { display: none; }
+.step.done::after, .step.active::after { background: var(--bg-brand); }
+.step-circle {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--bg-weak); color: var(--fg-weak);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; z-index: 1;
+}
+.step.done .step-circle, .step.active .step-circle { background: var(--bg-brand); color: var(--fg-inverse); }
+.step-label { font-size: 11px; color: var(--fg-weak); font-weight: 500; z-index: 1; text-align: center; line-height: 14px; }
+.step.active .step-label, .step.done .step-label { color: var(--fg); }
+.step.active .step-label { font-weight: 700; }
+
+/* Form options */
+.form-options { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+.option {
+  display: flex; align-items: center; gap: 12px; padding: 12px 14px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); cursor: pointer; font-size: 14px;
+  color: var(--fg); line-height: 18px;
+}
+.option:hover { border-color: var(--border-brand); }
+.option.selected {
+  background: var(--bg-brand-weak); border-color: var(--border-brand);
+  color: var(--fg-brand); font-weight: 500;
+}
+.option-radio { width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--border); flex-shrink: 0; position: relative; }
+.option.selected .option-radio { border-color: var(--border-brand); }
+.option.selected .option-radio::after {
+  content: ''; position: absolute; inset: 3px; background: var(--bg-brand); border-radius: 50%;
+}
+.option-tag { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--fg-weak); }
+.option.selected .option-tag { color: var(--fg-brand); }
+
+/* Photo upload */
+.upload-grid { display: flex; gap: 6px; flex-wrap: wrap; max-width: 280px; }
+.upload-slot {
+  width: 64px; height: 64px; border: 1.5px dashed var(--border);
+  border-radius: var(--r-md); display: flex; align-items: center;
+  justify-content: center; color: var(--fg-weak); font-size: 11px;
+  flex-direction: column; gap: 2px; background: var(--bg);
+}
+.upload-slot svg { width: 18px; height: 18px; fill: currentColor; }
+.upload-slot.filled { border: 1px solid var(--border); background: linear-gradient(135deg, #d8e2f0, #8fa6c4); }
+.upload-slot.filled.f2 { background: linear-gradient(135deg, #ffe5d4, #f7b888); }
+
+/* Info card */
+.info-card {
+  background: var(--bg-brand-weak); border: 1px solid var(--border-brand-soft);
+  border-radius: var(--r-md); padding: 14px 16px; max-width: 280px;
+}
+.info-card h4 { font-size: 12px; color: var(--fg-brand); font-weight: 700; margin-bottom: 10px; }
+.info-row {
+  display: flex; justify-content: space-between; font-size: 13px;
+  color: var(--fg); margin-bottom: 6px; line-height: 18px;
+}
+.info-row.total {
+  margin-bottom: 0; margin-top: 8px; padding-top: 10px;
+  border-top: 1px solid var(--border-brand-soft); font-weight: 700; font-size: 15px;
+}
+.info-row.total .info-val { color: var(--fg-brand); }
+.info-label { color: var(--fg-weak); }
+.info-val { font-weight: 600; }
+.info-val.minus { color: var(--accent-red); }
+
+/* Input bar */
+.input-bar {
+  height: 60px; border-top: 1px solid var(--border); background: var(--bg);
+  display: flex; align-items: center; padding: 0 12px; gap: 8px; flex-shrink: 0;
+}
+.input-field {
+  flex: 1; height: 40px; background: var(--bg-weak); border-radius: var(--r-full);
+  padding: 0 16px; color: var(--fg-weak); font-size: 14px;
+  display: flex; align-items: center;
+}
+.send-btn {
+  width: 40px; height: 40px; background: var(--bg-brand);
+  color: var(--fg-inverse); border-radius: 50%; border: none;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.send-btn svg { width: 18px; height: 18px; fill: currentColor; }
+
+/* Modal (in-widget) */
+.dim { position: absolute; inset: 0; background: var(--bg-dim); z-index: 1; }
+.bottom-sheet {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: var(--bg); border-top-left-radius: var(--r-xl); border-top-right-radius: var(--r-xl);
+  padding: 8px 24px 24px; z-index: 2;
+}
+.sheet-handle {
+  width: 40px; height: 4px; background: var(--border);
+  border-radius: 2px; margin: 0 auto 20px;
+}
+.sheet-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.sheet-desc { font-size: 13px; color: var(--fg-weak); margin-bottom: 20px; line-height: 20px; }
+.sheet-actions { display: flex; flex-direction: column; gap: 8px; }
+
+/* Login screen */
+.login-screen { padding: 32px 24px; background: var(--bg); flex: 1; display: flex; flex-direction: column; }
+.login-logo { display: flex; justify-content: center; margin-bottom: 28px; gap: 8px; align-items: center; }
+.login-fields { margin-bottom: 16px; }
+.login-field {
+  width: 100%; height: 48px; border: 1px solid var(--accent-red);
+  padding: 0 16px; font-size: 14px; display: flex; align-items: center;
+  color: var(--fg-weak); background: var(--bg);
+}
+.login-field:first-child { border-radius: var(--r-sm) var(--r-sm) 0 0; border-bottom: none; }
+.login-field:last-child { border-radius: 0 0 var(--r-sm) var(--r-sm); }
+.login-btn {
+  width: 100%; height: 48px; background: var(--bg-brand); color: var(--fg-inverse);
+  border: none; border-radius: var(--r-sm); font-size: 16px; font-weight: 700; margin-bottom: 16px; cursor: pointer;
+}
+.login-links { display: flex; justify-content: center; gap: 24px; font-size: 13px;
+  color: var(--fg); margin-bottom: 28px; font-weight: 600; }
+.login-sns-label { text-align: center; font-size: 11px; color: var(--fg-weak); margin-bottom: 12px; }
+.login-sns { display: flex; justify-content: center; gap: 12px; margin-bottom: 16px; }
+.sns-btn { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 11px; font-weight: 800; }
+.sns-btn.fb { background: #3b5998; color: white; }
+.sns-btn.kk { background: #fee500; color: #000; }
+.sns-btn.nv { background: #03c75a; color: white; }
+.login-help { text-align: center; font-size: 12px; color: var(--fg-weak); margin-bottom: 16px; }
+.login-divider { height: 1px; background: var(--border); margin-bottom: 12px; }
+.login-guest { text-align: center; font-size: 13px; color: var(--fg); font-weight: 500; padding: 8px; }
+
+/* List items */
+.list { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+.list-item { padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--r-md);
+  background: var(--bg); cursor: pointer; }
+.list-item:hover { border-color: var(--border-brand); }
+.list-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.list-status {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: var(--r-full);
+}
+.list-status.brand { background: var(--bg-brand-weak); color: var(--fg-brand); }
+.list-status.gray { background: var(--bg-weak); color: var(--fg-weak); }
+.list-status.attention { background: var(--bg-attention-weak); color: var(--fg-attention); }
+.list-status.done { background: var(--bg-weak); color: var(--fg-weak); }
+.list-title { font-size: 13px; font-weight: 500; color: var(--fg); flex: 1; line-height: 18px; }
+.list-meta { font-size: 12px; color: var(--fg-weak); line-height: 16px; }
+.list-amount { font-size: 13px; font-weight: 700; color: var(--fg); }
+
+/* Modal tabs */
+.modal-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--bg); flex-shrink: 0; }
+.modal-tab {
+  flex: 1; text-align: center; padding: 12px 0; font-size: 13px;
+  color: var(--fg-weak); cursor: pointer; font-weight: 500; border-bottom: 2px solid transparent;
+}
+.modal-tab.active { color: var(--fg-brand); border-bottom-color: var(--bg-brand); font-weight: 700; }
+.modal-tab .badge { background: var(--bg-brand); color: var(--fg-inverse);
+  border-radius: var(--r-full); padding: 1px 6px; font-size: 10px; margin-left: 4px; font-weight: 700; }
+
+/* Coupon */
+.coupon { padding: 14px; border: 1px solid var(--border); border-radius: var(--r-md);
+  background: var(--bg); display: flex; gap: 12px; align-items: center; }
+.coupon-amount { font-size: 18px; font-weight: 800; color: var(--fg-brand); flex-shrink: 0; min-width: 64px; text-align: center; }
+.coupon-info { flex: 1; min-width: 0; }
+.coupon-name { font-size: 13px; font-weight: 600; }
+.coupon-meta { font-size: 11px; color: var(--fg-weak); margin-top: 2px; }
+
+/* Point */
+.point-summary { background: var(--bg-brand-weak); padding: 16px; border-radius: var(--r-md); max-width: 280px; }
+.point-amount { font-size: 26px; font-weight: 800; color: var(--fg-brand); }
+.point-amount-label { font-size: 13px; color: var(--fg-weak); margin-top: 2px; }
+
+.point-row {
+  display: flex; justify-content: space-between; padding: 10px 14px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); font-size: 13px; max-width: 280px; align-items: center;
+}
+.point-row.expire { background: var(--bg-attention-weak); border-color: rgba(178,120,0,0.2); }
+.point-row.expire .point-row-label { color: var(--fg-attention); font-weight: 600; }
+
+/* Agent connect */
+.agent-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 20px; max-width: 280px; text-align: center; }
+.agent-icon { width: 48px; height: 48px; background: var(--bg-brand-weak); color: var(--fg-brand);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+.agent-icon svg { width: 24px; height: 24px; fill: currentColor; }
+.agent-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.agent-meta { font-size: 12px; color: var(--fg-weak); margin-bottom: 16px; line-height: 18px; }
+.agent-actions { display: flex; flex-direction: column; gap: 8px; }
+
+/* Link button */
+.link-btn { display: inline-flex; align-items: center; gap: 4px; padding: 10px 14px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-md);
+  font-size: 13px; font-weight: 500; color: var(--fg); cursor: pointer; max-width: 280px; width: fit-content; }
+.link-btn svg { width: 14px; height: 14px; fill: var(--fg-weak); }
+
+/* === Series grid === */
+.series-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+.series-sub { font-size: 14px; color: var(--fg-weak); margin-bottom: 24px; line-height: 22px; }
+.grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 40px 32px;
+}
+.mockup { display: flex; flex-direction: column; }
+.mockup-label { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+.mockup-desc { font-size: 13px; color: var(--fg-weak); margin-bottom: 12px; line-height: 18px; }
+
+.spec { margin-top: 12px; padding: 10px 14px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--r-md); font-size: 11px;
+  color: var(--fg-weak); line-height: 16px; width: 380px; }
+.spec strong { color: var(--fg); }
+
+/* KMS-only banner */
+.kms-banner {
+  margin: 12px; padding: 10px 14px; background: var(--bg-attention-weak);
+  border: 1px solid rgba(178,120,0,0.15); border-radius: var(--r-md);
+  font-size: 12px; color: var(--fg-attention); line-height: 18px;
+}
+.kms-banner strong { font-weight: 700; }
+
+/* === Dark mode === */
+[data-theme="dark"] {
+  --bg: #0a0a0a; --bg-weak: #141414; --bg-brand: #00a1ff;
+  --bg-brand-weak: #01243f; --bg-inverse: #f5f5f5; --bg-dim: rgba(0,0,0,.6);
+  --bg-attention-weak: #472300;
+  --fg: #f5f5f5; --fg-weak: #acacac; --fg-brand: #00a1ff; --fg-inverse: #0a0a0a;
+  --fg-attention: #d19506; --border: #383838; --border-brand: #00a1ff;
+  --border-brand-soft: rgba(0,161,255,.4); --accent-red: #fd3d4a;
+  --shadow-thin: none; --shadow-basic: none; --shadow-thick: 0 0 0 1px var(--border);
+}
+[data-theme="dark"] body { background: var(--bg-weak); }
+[data-theme="dark"] .cw, [data-theme="dark"] .web-mockup { box-shadow: 0 0 0 1px var(--border); }
+[data-theme="dark"] .chatbot-floating .cw { box-shadow: 0 0 0 1px var(--border); }
+[data-theme="dark"] .web-recom-card { opacity: 0.6; }
+[data-theme="dark"] .web-hero-img { opacity: 0.85; }
+
+/* === Theme toggle === */
+.theme-toggle {
+  position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-full); padding: 8px 16px;
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; box-shadow: var(--shadow-thin);
+  font-size: 13px; font-weight: 600; color: var(--fg);
+  font-family: inherit;
+}
+.theme-toggle:hover { border-color: var(--border-brand); }
+
+/* === Launcher (closed state) === */
+.launcher-stage {
+  position: relative; width: 100%; height: 280px;
+  background: linear-gradient(135deg, #f0f4f8, #e0e8ef);
+  border-radius: var(--r-lg); border: 1px solid var(--border);
+  overflow: hidden;
+}
+[data-theme="dark"] .launcher-stage {
+  background: linear-gradient(135deg, #1a1f25, #0f1318);
+}
+.launcher-stage .floating-corner {
+  position: absolute; bottom: 24px; right: 24px;
+}
+.cb-launcher {
+  width: 60px; height: 60px;
+  background: var(--bg-brand); color: var(--fg-inverse);
+  border-radius: 50%; box-shadow: 0 4px 16px rgba(0,161,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; border: none; position: relative;
+}
+.cb-launcher svg { width: 28px; height: 28px; fill: currentColor; }
+.cb-badge {
+  position: absolute; top: -2px; right: -2px;
+  background: var(--accent-red); color: white;
+  font-size: 11px; font-weight: 700;
+  min-width: 20px; height: 20px;
+  border-radius: 9999px; padding: 0 6px;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--bg);
+}
+.cb-tooltip {
+  position: absolute; bottom: 76px; right: 0;
+  background: var(--bg); color: var(--fg);
+  border: 1px solid var(--border);
+  padding: 10px 14px; border-radius: var(--r-md);
+  font-size: 13px; white-space: nowrap;
+  box-shadow: var(--shadow-basic);
+  display: flex; align-items: center; gap: 8px;
+}
+.cb-tooltip::after {
+  content: ''; position: absolute; bottom: -6px; right: 22px;
+  width: 12px; height: 12px; background: var(--bg);
+  border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  transform: rotate(45deg);
+}
+.cb-tooltip-mark {
+  width: 6px; height: 6px; background: var(--accent-red); border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* === Back step button === */
+.back-step {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 6px 10px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  font-size: 12px; color: var(--fg-weak); cursor: pointer;
+  width: fit-content; font-family: inherit;
+  margin-left: 40px;
+}
+.back-step:hover { border-color: var(--border-brand); color: var(--fg-brand); }
+.back-step svg { width: 12px; height: 12px; fill: currentColor; }
+
+/* === Mobile fullscreen frame === */
+.mobile-frame {
+  width: 375px; height: 740px;
+  background: var(--bg);
+  border-radius: 36px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  position: relative;
+  box-shadow: var(--shadow-basic);
+}
+.mobile-frame::before {
+  content: ''; position: absolute; top: 6px; left: 50%;
+  transform: translateX(-50%); width: 120px; height: 26px;
+  background: #000; border-radius: 14px; z-index: 5;
+}
+.mobile-status {
+  height: 38px; padding: 8px 28px 0;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px; font-weight: 700; flex-shrink: 0;
+  background: var(--bg);
+}
+.mobile-status-icons { display: flex; gap: 4px; font-size: 11px; align-items: center; }
+
+.spec-mobile { width: 375px; }
+
+/* Sequence (무응답) */
+.seq-time {
+  font-size: 10px; font-weight: 600; color: var(--fg-weak);
+  background: var(--bg-weak); padding: 3px 10px; border-radius: var(--r-full);
+  align-self: center; margin: 8px auto;
+}
+
+/* Critical message banner */
+.critical-msg {
+  text-align: center; padding: 10px 14px;
+  background: rgba(253,61,74,0.08); color: var(--accent-red);
+  border: 1px solid rgba(253,61,74,0.25);
+  border-radius: var(--r-md);
+  font-size: 12px; line-height: 16px;
+  max-width: 280px; margin: 4px 0;
+  font-weight: 500;
+}
+.critical-msg svg { width: 14px; height: 14px; fill: currentColor; vertical-align: -2px; }
+
+/* Rejected card */
+.card.rejected { opacity: 0.7; background: var(--bg-weak); }
+
+/* === Live demo === */
+.cw .screen { display: none; flex-direction: column; height: 100%; }
+.cw .screen.active { display: flex; }
+.live-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent-red); color: white;
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: var(--r-full);
+  margin-left: 12px;
+}
+.live-badge::before {
+  content: ''; width: 6px; height: 6px; background: white;
+  border-radius: 50%; animation: blink 1.5s infinite;
+}
+@keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0.3; } }
+.live-hint {
+  margin-top: 12px; padding: 10px 14px;
+  background: var(--bg-brand-weak); border: 1px solid var(--border-brand-soft);
+  border-radius: var(--r-md); font-size: 12px; color: var(--fg-brand);
+  line-height: 18px;
+}
+.live-hint strong { font-weight: 700; }
+.live-launcher-floating {
+  position: absolute; bottom: 0; right: 0;
+  width: 60px; height: 60px;
+}
+</style>
+</head>
+<body>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+<symbol id="i-chevron-left" viewBox="0 0 480 480" fill="currentColor"><path d="M312.2 63.2C318.8 57.2 328.9 57.7 334.8 64.2C340.8 70.8 340.3 80.9 333.8 86.8L165.8 240L333.8 393.2C340.3 399.1 340.8 409.2 334.8 415.8C328.9 422.3 318.8 422.8 312.2 416.8L131.2 251.8L130.9 251.5C127.8 248.5 126 244.4 126 240C126 235.5 127.9 231.2 131.2 228.2L312.2 63.2Z"></path></symbol>
+<symbol id="i-x" viewBox="0 0 480 480" fill="currentColor"><path d="M373.7 83.7C379.9 77.4 390.1 77.4 396.3 83.7C402.6 89.9 402.6 100.1 396.3 106.3L262.6 240L396.3 373.7L396.6 374C402.6 380.2 402.5 390.2 396.3 396.3C390.2 402.5 380.2 402.6 374 396.6L373.7 396.3L240 262.6L106.3 396.3L106 396.6C99.8 402.6 89.8 402.5 83.7 396.3C77.5 390.2 77.4 380.2 83.4 374L83.7 373.7L217.4 240L83.7 106.3C77.4 100.1 77.4 89.9 83.7 83.7C89.9 77.4 100.1 77.4 106.3 83.7L240 217.4L373.7 83.7Z"></path></symbol>
+<symbol id="i-x-circle" viewBox="0 0 480 480" fill="currentColor"><path d="M288.7 168.7C294.9 162.4 305.1 162.4 311.3 168.7C317.6 174.9 317.6 185.1 311.3 191.3L262.6 240L311.3 288.7C317.6 294.9 317.6 305.1 311.3 311.3C305.1 317.6 294.9 317.6 288.7 311.3L240 262.6L191.3 311.3C185.1 317.6 174.9 317.6 168.7 311.3C162.4 305.1 162.4 294.9 168.7 288.7L217.4 240L168.7 191.3C162.4 185.1 162.4 174.9 168.7 168.7C174.9 162.5 185.1 162.5 191.3 168.7L240 217.4L288.7 168.7Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M240 36C352.7 36 444 127.3 444 240C444 352.7 352.7 444 240 444C127.3 444 36 352.7 36 240C36 127.3 127.3 36 240 36ZM240 68C145 68 68 145 68 240C68 335 145 412 240 412C335 412 412 335 412 240C412 145 335 68 240 68Z"></path></symbol>
+<symbol id="i-chevron-right" viewBox="0 0 480 480" fill="currentColor"><path d="M144.7 64.2C150.6 57.7 160.7 57.2 167.3 63.2L348.3 228.2C351.6 231.2 353.5 235.5 353.5 240C353.5 244.4 351.7 248.5 348.6 251.5L348.3 251.8L167.3 416.8C160.7 422.8 150.6 422.3 144.7 415.8C138.7 409.2 139.2 399.1 145.7 393.2L313.8 240L145.7 86.8C139.2 80.9 138.7 70.8 144.7 64.2Z"></path></symbol>
+<symbol id="i-chevron-down" viewBox="0 0 480 480" fill="currentColor"><path d="M393.2 142.2C399.1 135.7 409.2 135.2 415.8 141.2C422.3 147.1 422.8 157.2 416.8 163.8L251.8 344.8L251.5 345.1C248.5 348.2 244.4 350 240 350C235.5 350 231.2 348.1 228.2 344.8L63.2 163.8C57.2 157.2 57.7 147.1 64.2 141.2C70.8 135.2 80.9 135.7 86.8 142.2L240 310.2L393.2 142.2Z"></path></symbol>
+<symbol id="i-camera" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M239.8 193.3C285.1 193.3 321.8 230 321.8 275.3C321.8 320.6 285.1 357.3 239.8 357.3C194.6 357.3 157.8 320.6 157.8 275.3C157.8 230 194.6 193.3 239.8 193.3ZM239.8 225.3C212.2 225.3 189.8 247.7 189.8 275.3C189.8 302.9 212.2 325.3 239.8 325.3C267.4 325.3 289.8 302.9 289.8 275.3C289.8 247.7 267.4 225.3 239.8 225.3Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M189 104.6H307.7C345 104.7 375.6 113.5 396.6 135.3C417.6 156.9 426 188.2 426 226.5V324.2C426 362.5 417.5 393.8 396.6 415.4C375.5 437.2 344.8 446 307.3 446H173C135.5 446 104.8 437.2 83.6 415.5C62.9 394.2 54.3 363.5 54 326L54 324.2V226.5C54 188.1 62.6 156.8 83.6 135.2C104.8 113.5 135.5 104.6 173 104.6H189V104.6ZM172.5 136.6C139.8 136.7 119.2 144.5 106.5 157.5C93.7 170.6 86 192.2 86 226.5V324.2L86 325.8C86.2 359.1 93.9 380.2 106.5 393.1C119.3 406.2 140 414 173 414H307.3C340.3 414 360.9 406.2 373.6 393.2C386.3 380 394 358.5 394 324.2V226.5C394 192.2 386.4 170.7 373.6 157.5C361.2 144.7 341.1 136.9 309.2 136.6L307.6 136.6H172.5Z"></path> <path d="M284.8 48C293.7 48 300.8 55.2 300.8 64C300.8 72.8 293.7 80 284.8 80H194.8C186 80 178.8 72.8 178.8 64C178.8 55.2 186 48 194.8 48H284.8Z"></path></symbol>
+<symbol id="i-truck" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M268.5 51.6C295.8 51.6 319.1 57.9 335.4 74.2C348.5 87.2 355 104.7 357.2 125.1H384.7C394.8 125.1 403.9 131 408.1 140.2L451.6 235.4C452.5 237.5 453 239.7 453 242V348.8C453 373.9 432.7 394.2 407.6 394.2H388.9C382.1 416.9 361 433.4 336.1 433.4C311.2 433.4 290.1 416.9 283.3 394.2H194C187.1 416.9 166 433.4 141.1 433.4C116.2 433.4 95.2 416.9 88.3 394.2H80.4C55.7 394.2 35.6 374.5 35 350L35 348.8V141.1C35 113.8 41.2 90.5 57.5 74.2C73.8 57.9 97.2 51.6 124.5 51.6H268.5ZM141.1 355C128.3 355 117.9 365.4 117.9 378.2C117.9 391 128.3 401.4 141.1 401.4C153.9 401.4 164.3 391 164.3 378.2C164.3 365.4 153.9 355 141.1 355ZM336.1 355C323.3 355 312.9 365.4 312.9 378.2C312.9 391 323.3 401.4 336.1 401.4C348.9 401.4 359.3 391 359.3 378.2C359.3 365.4 348.9 355 336.1 355ZM124.5 83.6C101.4 83.6 88 88.9 80.2 96.8C72.3 104.6 67 118 67 141.1V348.8L67 349.1C67.2 356.4 73.1 362.2 80.4 362.2H88.3C95.2 339.5 116.2 323 141.1 323C166 323 187.1 339.5 194 362.2H283.3C289.2 342.7 305.6 327.7 326 323.9V141.1C326 118 320.7 104.6 312.8 96.8C305 88.9 291.6 83.6 268.5 83.6H124.5ZM358 327.5C372.8 333.9 384.2 346.6 388.9 362.2H407.6C415 362.2 421 356.2 421 348.8V258H358V327.5ZM358 226H412.1L380.7 157.1H358V226Z"></path></symbol>
+<symbol id="i-check-circle" viewBox="0 0 480 480" fill="currentColor"><path d="M308.7 184.7C314.9 178.4 325.1 178.4 331.3 184.7C337.6 190.9 337.6 201.1 331.3 207.3L232.8 305.9C229.8 308.9 225.7 310.6 221.4 310.6C217.2 310.6 213.1 308.9 210.1 305.9L148.7 244.4C142.4 238.2 142.4 228 148.7 221.8C154.9 215.5 165.1 215.5 171.3 221.8L221.4 271.9L308.7 184.7Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M238 36C350.7 36 442 127.3 442 240C442 352.7 350.7 444 238 444C125.3 444 34 352.7 34 240C34 127.3 125.3 36 238 36ZM238 68C143 68 66 145 66 240C66 335 143 412 238 412C333 412 410 335 410 240C410 145 333 68 238 68Z"></path></symbol>
+<symbol id="i-exclamation-triangle" viewBox="0 0 480 480" fill="currentColor"><path d="M240 308C249.9 308 258 316.1 258 326C258 335.9 249.9 344 240 344C230.1 344 222 335.9 222 326C222 316.1 230.1 308 240 308Z"></path> <path d="M240 179C248.8 179 256 186.2 256 195V276C256 284.8 248.8 292 240 292C231.2 292 224 284.8 224 276V195C224 186.2 231.2 179 240 179Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M200.2 77C217.9 46.3 262.1 46.3 279.8 77L435.7 347C453.4 377.7 431.3 416 395.9 416H84.1C48.7 416 26.6 377.7 44.3 347L200.2 77ZM252.1 93C246.7 83.7 233.3 83.7 227.9 93L72 363C66.6 372.3 73.3 384 84.1 384H395.9C406.7 384 413.4 372.3 408 363L252.1 93Z"></path></symbol>
+<symbol id="i-info-circle" viewBox="0 0 480 480" fill="currentColor"><path d="M240 209C248.8 209 256 216.2 256 225V306C256 314.8 248.8 322 240 322C231.2 322 224 314.8 224 306V225C224 216.2 231.2 209 240 209Z"></path> <path d="M240 157C249.9 157 258 165.1 258 175C258 184.9 249.9 193 240 193C230.1 193 222 184.9 222 175C222 165.1 230.1 157 240 157Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M240 47C346.6 47 433 133.4 433 240C433 346.6 346.6 433 240 433C133.4 433 47 346.6 47 240C47 133.4 133.4 47 240 47ZM240 79C151.1 79 79 151.1 79 240C79 328.9 151.1 401 240 401C328.9 401 401 328.9 401 240C401 151.1 328.9 79 240 79Z"></path></symbol>
+<symbol id="i-person" viewBox="0 0 480 480" fill="currentColor"><path d="M268.7 274C294 274 315.5 275.1 333.5 278.4C351.6 281.7 367.3 287.5 379.8 297.8C405.3 318.6 412.4 353 413.8 399.5C413.8 402 413.9 404.9 413.8 407.3C413.6 410.1 413.1 413.7 411.3 417.4C408.9 422.4 404.9 426.6 399.9 429.1C396.2 431.1 392.6 431.6 389.9 431.9C387.4 432.1 384.5 432.1 382 432.1H98C95.5 432.1 92.6 432.1 90.1 431.9C87.4 431.6 83.8 431.1 80.1 429.1C75.1 426.6 71.1 422.4 68.7 417.4C66.9 413.7 66.4 410.1 66.2 407.3C66.1 404.9 66.2 402 66.2 399.5C67.6 353 74.7 318.6 100.2 297.8C112.7 287.5 128.4 281.7 146.5 278.4C164.5 275.1 186 274 211.3 274H268.7ZM211.3 306C186.6 306 167.4 307.1 152.3 309.9C137.3 312.6 127.4 316.9 120.5 322.6C107.1 333.5 99.6 354.1 98.2 400.1H381.8C380.4 354.1 372.9 333.5 359.5 322.6C352.6 316.9 342.7 312.6 327.7 309.9C312.6 307.1 293.4 306 268.7 306H211.3ZM240 47.9C295.8 47.9 341 93.1 341 148.9C341 204.7 295.8 249.9 240 249.9C184.2 249.9 139 204.7 139 148.9C139 93.1 184.2 47.9 240 47.9ZM240 79.9C201.9 79.9 171 110.8 171 148.9C171 187 201.9 217.9 240 217.9C278.1 217.9 309 187 309 148.9C309 110.8 278.1 79.9 240 79.9Z" fill="currentColor"></path></symbol>
+<symbol id="i-house-filled" viewBox="0 0 480 480" fill="currentColor"><path d="M207.3 58.5C227.2 45.8 252.8 45.8 272.7 58.5L392.7 134.9L393.6 135.4C410.7 146.7 421 165.8 421 186.3V280.1L421 285.1V285.2L421 285.2C420.6 337.2 413.7 376 388.1 400.5C365.3 422.3 331.1 429.5 286 430.8V431H210C156.1 431 116 424.7 90.7 399.3C65.7 374.4 59.2 335.2 59 282.6L59 280.1V186.3C59 165.5 69.7 146.1 87.3 134.9L207.3 58.5Z" fill="currentColor"></path></symbol>
+<symbol id="i-arrow-up" viewBox="0 0 480 480" fill="currentColor"><path d="M229 64.7C235.1 58.5 245 58.5 251.2 64.4L251.5 64.7L390.3 202.7C396.5 208.9 396.6 219 390.3 225.3C384.1 231.5 374 231.6 367.7 225.3L256.2 114.5V404C256.2 412.8 249.1 420 240.2 420C231.4 420 224.2 412.8 224.2 404V114.5L112.8 225.3C106.5 231.6 96.4 231.5 90.2 225.3C83.9 219 84 208.9 90.2 202.7L229 64.7Z"></path></symbol>
+<symbol id="i-bubble" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M281.4 52.3C378.2 54.8 422 101.4 422 201.3L422 204.8L422 208.3C420.5 355 372.2 405.3 286.9 424L281.5 425.2L279.4 425.6C269.7 427.7 263.9 428.5 259.8 427.1L259.4 426.9L258.9 426.7C254.4 424.6 251.5 421.2 250 416.6L249.9 416.2C248.6 411.5 251.2 403.9 256.6 389.9L259.1 383.5C259.5 382.6 259.8 381.7 260.1 380.8L260.5 379.9C261.4 377.1 261.9 375.6 261.3 373.3C260.9 371.6 259.2 369.2 257.8 368.3C255.7 367 253.7 367 249.8 367L198.6 367.3V367.2C86.4 365.8 58 334.7 58 218.2V201.3C58 84.8 86.4 53.7 198.6 52.3V52.2H281.4V52.3ZM199 84.3C143.3 85 120.8 93.6 109.6 105.5C97.8 118 90 142.9 90 201.3V218.2C90 276.6 97.8 301.5 109.6 314C120.8 325.9 143.3 334.5 199 335.2L201.9 335.3L249.6 335C251.1 335 263.1 334 274.4 340.9L274.9 341.3L275.4 341.6C280.6 345 284 349.1 285.9 351.8C288 354.6 290.9 359.4 292.4 365.7C295.4 377.9 291.7 387.5 290.8 390.1C322.9 381.5 344.7 367.7 359.9 345.4C377.6 319.3 389.6 276.7 390 204.7L390 201.3L390 199.1C389.7 154.5 379.6 128 364.7 112.2C349.8 96.4 324.5 85.4 280.5 84.3L276.8 84.2H203.2L199 84.3Z" fill="currentColor"></path></symbol>
+<symbol id="i-bell" viewBox="0 0 480 480" fill="currentColor"><path d="M271.6 396.5C277.4 389.8 287.6 389.1 294.2 395C300.9 400.8 301.6 410.9 295.8 417.5C283.4 431.7 263.7 440 240 440C216.3 440 196.6 431.7 184.2 417.5C178.4 410.9 179.1 400.8 185.8 395C192.4 389.1 202.6 389.8 208.4 396.5C213.4 402.3 223.7 408 240 408C256.3 408 266.6 402.3 271.6 396.5Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M240 55C300.7 55 343.5 61.8 369.2 90.3C382.1 104.5 389.4 122.8 393.6 144.4C397.7 165.9 399 191.9 399 222.7V339H403C411.8 339 419 346.2 419 355C419 363.8 411.8 371 403 371H77C68.2 371 61 363.8 61 355C61 346.2 68.2 339 77 339H81V222.7C81 191.9 82.3 165.9 86.4 144.4C90.6 122.8 97.9 104.5 110.8 90.3C136.5 61.8 179.3 55 240 55ZM240 87C178.4 87 149.8 94.9 134.5 111.7C126.9 120.1 121.4 132.2 117.9 150.5C114.3 168.8 113 192.4 113 222.7V339H367V222.7C367 192.4 365.7 168.8 362.1 150.5C358.6 132.2 353.1 120.1 345.5 111.7C330.2 94.9 301.6 87 240 87Z"></path></symbol>
+<symbol id="i-clock" viewBox="0 0 480 480" fill="currentColor"><path d="M239 128C247.8 128 255 135.2 255 144V226.4C255 230.9 257.2 235.2 261 237.8L318.2 277.9C325.4 283 327.2 292.9 322.1 300.2C317 307.4 307.1 309.2 299.8 304.1L242.6 264.1C230.3 255.5 223 241.4 223 226.4V144C223 135.2 230.2 128 239 128Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M240 40C350.5 40 440 129.5 440 240C440 350.5 350.5 440 240 440C129.5 440 40 350.5 40 240C40 129.5 129.5 40 240 40ZM240 72C147.2 72 72 147.2 72 240C72 332.8 147.2 408 240 408C332.8 408 408 332.8 408 240C408 147.2 332.8 72 240 72Z"></path></symbol>
+<symbol id="i-won-sign" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M93.4 122.7C101.9 120.1 110.8 124.8 113.4 133.3L143.5 230.8H193.8L223.8 133.3L224 132.7C226.3 126.3 232.3 122 239.1 122C246.1 122 252.3 126.6 254.4 133.3L284.4 230.8H334.8L364.8 133.3C367.4 124.8 376.4 120.1 384.8 122.7C393.2 125.3 398 134.3 395.4 142.7L368.3 230.8H411C419.8 230.8 427 237.9 427 246.8C427 255.6 419.8 262.8 411 262.8H358.4L329.7 356C323.6 375.7 295.6 375.7 289.5 356L260.8 262.8H217.4L188.7 356C182.6 375.7 154.6 375.7 148.6 356L119.8 262.8H69C60.2 262.8 53 255.6 53 246.8C53 237.9 60.2 230.8 69 230.8H110L82.9 142.7C80.3 134.3 85 125.3 93.4 122.7ZM168.6 312.4L183.9 262.8H153.3L168.6 312.4ZM309.6 312.4L324.9 262.8H294.3L309.6 312.4ZM227.3 230.8H251L239.1 192.3L227.3 230.8Z"></path></symbol>
+<symbol id="i-gift" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M294.8 47.6C301.1 41.4 311.2 41.5 317.4 47.8C323.6 54.1 323.5 64.2 317.2 70.4L286.3 100.8C283.8 103.3 281.2 105.5 278.5 107.4H345.9C367.5 107.4 386.6 112.2 400.3 125.4C414 138.7 419 157.6 419 178.9V358C419 379.2 414 398.1 400.3 411.4C386.6 424.7 367.5 429.4 345.9 429.4H134.1C112.5 429.4 93.4 424.7 79.7 411.4C66.4 398.5 61.3 380.4 61 360L61 358V178.9C61 157.6 66 138.7 79.7 125.4C93.4 112.2 112.5 107.4 134.1 107.4H201.5C198.8 105.5 196.2 103.3 193.7 100.8L162.8 70.4C156.5 64.2 156.4 54.1 162.6 47.8C168.8 41.5 178.9 41.4 185.2 47.6L216.1 78C229.4 91.1 250.6 91.1 263.9 78L294.8 47.6ZM134.1 139.4C116.6 139.4 107.2 143.4 102 148.4C97 153.3 93 162.1 93 178.9V358L93 359.5C93.2 375.3 97.1 383.7 102 388.5C107.2 393.5 116.6 397.4 134.1 397.4H224V139.4H134.1ZM256 397.4H345.9C363.4 397.4 372.8 393.5 378 388.5C383 383.6 387 374.8 387 358V178.9C387 162.1 383 153.3 378 148.4C372.8 143.4 363.4 139.4 345.9 139.4H256V397.4Z"></path></symbol>
+<symbol id="i-ticket" viewBox="0 0 480 480" fill="currentColor"><path d="M305 251C313.8 251 321 258.2 321 267V279C321 287.8 313.8 295 305 295C296.2 295 289 287.8 289 279V267C289 258.2 296.2 251 305 251Z"></path> <path d="M305 185C313.8 185 321 192.2 321 201V213C321 221.8 313.8 229 305 229C296.2 229 289 221.8 289 213V201C289 192.2 296.2 185 305 185Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M255 82C274.3 82 291.7 86.4 304.2 98.8C304.5 99.1 304.7 99.4 305 99.7C305.3 99.4 305.5 99.1 305.8 98.8C318.3 86.4 335.7 82 355 82H382C401.3 82 418.7 86.4 431.2 98.8C443.6 111.3 448 128.7 448 148V332C448 351.3 443.6 368.7 431.2 381.2C418.7 393.6 401.3 398 382 398H355C335.7 398 318.3 393.6 305.8 381.2C305.5 380.9 305.3 380.6 305 380.3C304.7 380.6 304.5 380.9 304.2 381.2C291.7 393.6 274.3 398 255 398H96C76.7 398 59.3 393.6 46.8 381.2C34.4 368.7 30 351.3 30 332V148C30 128.7 34.4 111.3 46.8 98.8C59.3 86.4 76.7 82 96 82H255ZM96 114C81 114 73.4 117.5 69.5 121.5C65.5 125.4 62 133 62 148V332C62 347 65.5 354.6 69.5 358.5C73.4 362.5 81 366 96 366H255C270 366 277.6 362.5 281.5 358.5C285.5 354.6 289 347 289 332C289 323.2 296.2 316 305 316C313.8 316 321 323.2 321 332C321 347 324.5 354.6 328.5 358.5C332.4 362.5 340 366 355 366H382C397 366 404.6 362.5 408.5 358.5C412.5 354.6 416 347 416 332V148C416 133 412.5 125.4 408.5 121.5C404.6 117.5 397 114 382 114H355C340 114 332.4 117.5 328.5 121.5C324.5 125.4 321 133 321 148C321 156.8 313.8 164 305 164C296.2 164 289 156.8 289 148C289 133 285.5 125.4 281.5 121.5C277.6 117.5 270 114 255 114H96Z"></path></symbol>
+<symbol id="i-photo" viewBox="0 0 480 480" fill="currentColor"><path d="M188 157C205.1 157 219 170.9 219 188C219 205.1 205.1 219 188 219C170.9 219 157 205.1 157 188C157 170.9 170.9 157 188 157Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M321 62C350.9 62 376.1 68.8 393.6 86.4C411.2 103.9 418 129.1 418 159V321C418 350.9 411.2 376.1 393.6 393.6C376.1 411.2 350.9 418 321 418H159C129.1 418 103.9 411.2 86.4 393.6C68.8 376.1 62 350.9 62 321V159C62 129.1 68.8 103.9 86.4 86.4C103.9 68.8 129.1 62 159 62H321ZM310.5 259.1C304.9 253.5 295.8 253.6 290.4 259.4L170.3 386H321C346.7 386 361.9 380.1 371 371C378.4 363.6 383.7 352 385.4 334.1L310.5 259.1ZM159 94C133.3 94 118.1 99.9 109 109C99.9 118.1 94 133.3 94 159V321C94 346.7 99.9 361.9 109 371C113.9 375.9 120.5 379.8 129.6 382.5L267.2 237.3C285 218.6 314.8 218.2 333.1 236.5L386 289.4V159C386 133.3 380.1 118.1 371 109C361.9 99.9 346.7 94 321 94H159Z"></path></symbol>
+<symbol id="i-plus" viewBox="0 0 480 480" fill="currentColor"><path d="M240 44C248.8 44 256 51.2 256 60V224H420C428.8 224 436 231.2 436 240C436 248.8 428.8 256 420 256H256V420C256 428.8 248.8 436 240 436C231.2 436 224 428.8 224 420V256H60C51.2 256 44 248.8 44 240C44 231.2 51.2 224 60 224H224V60C224 51.2 231.2 44 240 44Z"></path></symbol>
+<symbol id="i-minus" viewBox="0 0 480 480" fill="currentColor"><path d="M406 224C414.8 224 422 231.2 422 240C422 248.8 414.8 256 406 256H74C65.2 256 58 248.8 58 240C58 231.2 65.2 224 74 224H406Z"></path></symbol>
+<symbol id="i-magnifying-glass" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M99.7 100.7C153.9 46.4 242 46.4 296.2 100.7C346.6 151.1 350.2 230.5 307.1 285.1L394.8 372.8C401 379.1 401 389.2 394.8 395.4C388.5 401.7 378.4 401.7 372.1 395.4L284.5 307.8C229.9 351.3 150.2 347.8 99.7 297.2C45.4 243 45.4 154.9 99.7 100.7ZM273.6 123.3C231.8 81.5 164.1 81.5 122.3 123.3C80.5 165.1 80.5 232.8 122.3 274.6C164.1 316.4 231.8 316.4 273.6 274.6C315.4 232.8 315.4 165.1 273.6 123.3Z"></path></symbol>
+<symbol id="i-cart" viewBox="0 0 480 480" fill="currentColor"><path d="M161 386C175.9 386 188 398.1 188 413C188 427.9 175.9 440 161 440C146.1 440 134 427.9 134 413C134 398.1 146.1 386 161 386Z"></path> <path d="M310 386C324.9 386 337 398.1 337 413C337 427.9 324.9 440 310 440C295.1 440 283 427.9 283 413C283 398.1 295.1 386 310 386Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M90.2 44C106 44 119.4 55.5 121.8 71.1L130.6 127.2H402C416.4 127.2 428 138.8 428 153.2V208.8C428 261.2 422.3 300.2 397.8 324.7C373.3 349.2 334.3 354.9 281.9 354.9H173.2C150.6 354.9 131.3 338.4 127.8 316L101.2 146.4C101.1 145.9 101 145.4 101 144.9L90.2 76L90.2 76L90.2 76H40C31.2 76 24 68.8 24 60C24 51.2 31.2 44 40 44H90.2ZM159.4 311.1C160.5 317.9 166.3 322.9 173.2 322.9H281.9C334.9 322.9 360.9 316.3 375.1 302.1C389.3 287.9 396 261.9 396 208.8V159.2H135.6L159.4 311.1Z"></path></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 480 480" fill="currentColor"><path d="M202.7 90C208.9 83.7 219 83.7 225.3 89.9C231.5 96.1 231.6 106.3 225.3 112.5L114.5 224H404C412.8 224 420 231.2 420 240C420 248.8 412.8 256 404 256H114.5L225.3 367.5C231.6 373.7 231.5 383.9 225.3 390.1C219 396.3 208.9 396.3 202.7 390L64.7 251.3C58.5 245.1 58.4 235.3 64.4 229L64.7 228.7L202.7 90Z"></path></symbol>
+<symbol id="i-pencil" viewBox="0 0 480 480" fill="currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M305.5 74C331.3 48.3 373.1 48.3 398.9 74L406 81.1C431.7 106.9 431.7 148.7 406 174.5L164.6 415.8C159.7 420.7 153.2 423.4 146.3 423.4L82.4 423.8C68.1 423.8 56.6 412.5 56.3 398.3L56.3 397.6L56.6 333.7C56.6 326.8 59.3 320.3 64.2 315.4L305.5 74ZM88.5 336.3L88.3 391.7L143.7 391.5L337.8 197.3L282.7 142.2L88.5 336.3ZM376.3 96.7C363 83.4 341.5 83.4 328.2 96.7L305.3 119.5L360.5 174.7L383.3 151.8C396.6 138.6 396.6 117 383.3 103.7L376.3 96.7Z"></path></symbol>
+<symbol id="i-paint-palette" viewBox="0 0 480 480" fill="currentColor"><path d="M146 187.2C160.9 187.2 173 199.2 173 214.2C173 229.1 160.9 241.2 146 241.2C131.1 241.2 119 229.1 119 214.2C119 199.2 131.1 187.2 146 187.2Z"></path> <path d="M342 187.2C356.9 187.2 369 199.2 369 214.2C369 229.1 356.9 241.2 342 241.2C327.1 241.2 315 229.1 315 214.2C315 199.2 327.1 187.2 342 187.2Z"></path> <path d="M201 116C215.9 116 228 128.1 228 143C228 157.9 215.9 170 201 170C186.1 170 174 157.9 174 143C174 128.1 186.1 116 201 116Z"></path> <path d="M287 116C301.9 116 314 128.1 314 143C314 157.9 301.9 170 287 170C272.1 170 260 157.9 260 143C260 128.1 272.1 116 287 116Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M248.4 40C351.9 40 436 123.9 436 227.4C436 255.6 428.2 283.4 410 304.4C391.4 325.8 363.5 338.2 327.3 338.2H291.9C286.2 338.2 280.6 339.7 276.9 342.2C273.8 344.3 271.8 347.1 271.8 352.4C271.8 357.3 273.8 360.5 279 366.8C283.3 371.8 293.8 382.5 293.8 398.1L293.8 399.2C293.6 410.4 290.2 421.4 281.1 429.4C272.1 437.2 260.2 439.9 248.3 440L248.1 440H248C136.6 439.5 44 358.2 44 244.5C44 131.6 135.5 40 248.4 40H248.4ZM248.4 72C153.2 72 76 149.3 76 244.5C76 338.4 152.1 407.5 248 408C256.1 407.9 259.1 406.1 259.9 405.3C260.4 404.9 261.8 403.6 261.8 398.1C261.8 396.6 261.3 395.4 254.6 387.4C248.8 380.6 239.8 369.7 239.8 352.4C239.8 335.7 247.8 323.4 258.8 315.8C269.1 308.8 281.6 306.2 291.9 306.2H327.3C355.8 306.2 374.2 296.7 385.8 283.4C397.7 269.7 404 250.2 404 227.4C404 141.6 334.3 72 248.4 72Z"></path></symbol>
+<symbol id="i-place-house" viewBox="0 0 480 480" fill="currentColor"><path d="M264 220C266.8 220 269 222.2 269 225V273C269 275.8 266.8 278 264 278H216C213.2 278 211 275.8 211 273V225C211 222.2 213.2 220 216 220H264Z"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M209.6 73.6C228.1 61.7 251.9 61.7 270.4 73.6L391 151.7C404.1 160.2 412 174.7 412 190.3V406C412 417.6 402.6 427 391 427H89C77.4 427 68 417.6 68 406V190.3C68 174.7 75.9 160.2 89 151.7L209.6 73.6ZM253 100.5C245.1 95.4 234.9 95.4 227 100.5L106.4 178.6C102.4 181.1 100 185.6 100 190.3V395H380V190.3C380 185.6 377.6 181.1 373.6 178.6L253 100.5Z"></path></symbol>
+</svg>
+
+<button class="theme-toggle" onclick="toggleTheme()">
+  <span id="themeIcon">🌙</span>
+  <span id="themeLabel">다크 모드</span>
+</button>
+
+<div class="container">
+  <div class="doc-header">
+    <h1>오집사 챗봇 내재화 — Web Mockups</h1>
+    <p class="sub">Phase 4 인앱/웹 챗봇. 오늘의집 웹 우측 하단 floating 위젯 형태. OHOUSE-DESIGN.md v0.4.2 + ICONS.md sprite 적용.</p>
+    <p class="meta">총 22개 화면 · 인웹 진입(M00, M00b) + 챗봇 모달 시퀀스(M01~M16) + 엣지/모바일(M17~M21) · 다크 모드 지원</p>
+  </div>
+
+  <div class="legend">
+    <strong>v4 — 라이브 데모 활성화</strong> · 메인 hero 위젯의 모든 버튼/chip/카드 클릭 가능. 시연·이해관계자 검토용.<br>
+    <strong>흐름 시뮬레이션</strong> · 시작 → [새 상담] → 첫인사 → chip 5종 → 인증 모달 → 로그인 → 주문 캐러셀/취소/포인트 → 배송/반품 단계 → 종료/NPS.<br>
+    <strong>제한</strong> · LLM 응답·실제 API 미연동 (AICX/ENG 작업). UI 분기만 동작. 우측 하단 그리드 22개는 spec 카탈로그로 유지.
+  </div>
+
+  <!-- ============================================ -->
+  <!-- M00 — 인웹 진입 (웹 메인 + 챗봇 위젯) -->
+  <!-- ============================================ -->
+  <section class="hero-stage">
+    <div class="hero-label">M00 — 인웹 진입 <span class="live-badge">LIVE 데모</span></div>
+    <div class="hero-desc">우하단 위젯의 모든 chip/카드/버튼이 클릭 가능합니다. 실제 흐름을 따라가보세요. (LLM·API는 미연동, UI 분기만 동작)</div>
+    <div class="web-mockup">
+      <!-- 오늘의집 GNB -->
+      <div class="web-gnb">
+        <div class="web-logo"><div class="web-logo-mark"></div>오늘의집</div>
+        <nav class="web-gnb-menu"><a>집구경</a><a>쇼핑</a><a>인테리어/생활</a></nav>
+        <div class="web-gnb-search"><svg><use href="#i-magnifying-glass"/></svg>통합검색</div>
+        <div class="web-gnb-actions">
+          <button class="web-gnb-cart" aria-label="장바구니"><svg><use href="#i-cart"/></svg></button>
+          <span>로그인</span><span>회원가입</span><span>고객센터</span>
+          <button class="web-gnb-write">글쓰기 <svg style="width:10px;height:10px;fill:currentColor"><use href="#i-chevron-down"/></svg></button>
+        </div>
+      </div>
+      <!-- 카테고리 탭 -->
+      <div class="web-tabs">
+        <span class="tab active">홈</span><span class="tab">추천</span><span class="tab">집들이</span>
+        <span class="tab">집사진</span><span class="tab">인기</span><span class="tab">쇼핑수다</span>
+        <span class="tab">집꾸미기</span><span class="tab">오집소식</span><span class="tab">취미/일상</span>
+        <span class="tab">3D인테리어</span>
+      </div>
+      <!-- 콘텐츠 -->
+      <div class="web-content">
+        <div class="web-hero-row">
+          <div class="web-hero-img">
+            <div class="web-hero-img-text">넓어진 거실에 가족 공간을 만든, 54평 럭셔리 하우스</div>
+          </div>
+          <div class="web-hero-img ad">
+            <div class="ad-tag">AD</div>
+            <div class="ad-text">강력건조분쇄<br>쿠쿠<br>음식물처리기</div>
+            <div class="ad-counter">2/17 +</div>
+          </div>
+        </div>
+        <div class="web-categories">
+          <div class="cat-item"><div class="cat-icon purple">~90%</div><div class="cat-label">오세일</div></div>
+          <div class="cat-item"><div class="cat-icon red">⚡</div><div class="cat-label">오늘의딜</div></div>
+          <div class="cat-item"><div class="cat-icon blue"><svg><use href="#i-magnifying-glass"/></svg></div><div class="cat-label">집들이</div></div>
+          <div class="cat-item"><div class="cat-icon green">🍀</div><div class="cat-label">행운출첵</div></div>
+          <div class="cat-item"><div class="cat-icon red"><svg><use href="#i-cube"/></svg></div><div class="cat-label">패키지할인</div></div>
+          <div class="cat-item"><div class="cat-icon gray"><svg><use href="#i-photo"/></svg></div><div class="cat-label">챌린지참여</div></div>
+          <div class="cat-item"><div class="cat-icon orange"><svg><use href="#i-cart"/></svg></div><div class="cat-label">오마트</div></div>
+          <div class="cat-item"><div class="cat-icon blue"><svg><use href="#i-truck"/></svg></div><div class="cat-label">원하는날도착</div></div>
+          <div class="cat-item"><div class="cat-icon gray"><svg><use href="#i-place-house"/></svg></div><div class="cat-label">이사·청소</div></div>
+        </div>
+        <div class="web-recom">
+          <div class="web-recom-card"></div>
+          <div class="web-recom-card"></div>
+          <div class="web-recom-card"></div>
+          <div class="web-recom-card"></div>
+          <div class="web-recom-card"></div>
+          <div class="web-recom-card"></div>
+        </div>
+      </div>
+
+      <!-- 챗봇 위젯 (라이브 데모) -->
+      <div class="chatbot-floating">
+        <div class="live-launcher-floating" id="liveLauncher" hidden>
+          <button class="cb-launcher" onclick="openWidget()" aria-label="채팅 열기">
+            <svg><use href="#i-bubble"/></svg>
+          </button>
+        </div>
+        <div class="cw" id="liveCw">
+
+          <!-- ▼ S1 시작 화면 -->
+          <div class="screen active" data-screen="start">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="start">
+              <div class="start-icon"><svg><use href="#i-bubble"/></svg></div>
+              <div class="start-title">오집사에 오신 것을 환영해요</div>
+              <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작하거나 이전 문의내역을 확인해보세요.</div>
+              <div class="start-actions">
+                <button class="btn btn-primary btn-block" onclick="showScreen('greeting')">새로운 상담 진행하기</button>
+                <button class="btn btn-secondary btn-block" onclick="showScreen('tickets')">나의 문의내역 확인</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ▼ S2 첫 인사 + 빠른 메뉴 -->
+          <div class="screen" data-screen="greeting">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">고객님, 안녕하세요!
+오늘의집 AI 상담사 오집사입니다.
+무엇을 도와드릴까요?</div></div>
+              <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">아래 빠른 메뉴를 선택하시거나
+메세지를 자유롭게 입력해주세요.</div></div>
+              <div class="chips">
+                <button class="chip" onclick="selectIntent('order')">주문/배송 조회</button>
+                <button class="chip" onclick="selectIntent('refund')">반품/교환</button>
+                <button class="chip" onclick="selectIntent('cancel')">주문 취소</button>
+                <button class="chip" onclick="selectIntent('point')">포인트/쿠폰</button>
+                <button class="chip" onclick="selectIntent('etc')">기타 문의</button>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S3 인증 모달 (비로그인) -->
+          <div class="screen" data-screen="auth">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">고객님, 안녕하세요!
+오늘의집 AI 상담사 오집사입니다.</div></div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+            <div class="dim"></div>
+            <div class="bottom-sheet">
+              <div class="sheet-handle"></div>
+              <div class="sheet-title">로그인이 필요한 메뉴예요</div>
+              <div class="sheet-desc">주문·배송·환불 등 개인 정보 확인을 위해 로그인이 필요해요.</div>
+              <div class="sheet-actions">
+                <button class="btn btn-primary btn-block" onclick="showScreen('login')">로그인하고 계속하기</button>
+                <button class="btn btn-secondary btn-block" onclick="showScreen('kms')">로그인 없이 일반 문의만</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ▼ S4 로그인 페이지 -->
+          <div class="screen" data-screen="login">
+            <div class="cw-header">
+              <button class="icon-btn" onclick="showScreen('greeting')"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:15px; font-weight:700">로그인</div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="login-screen">
+              <div class="login-logo"><div class="web-logo-mark"></div><span style="font-size:22px; font-weight:800">오늘의집</span></div>
+              <div class="login-fields">
+                <div class="login-field">이메일</div>
+                <div class="login-field">비밀번호</div>
+              </div>
+              <button class="login-btn" onclick="loginComplete()">로그인</button>
+              <div class="login-links"><span>비밀번호 재설정</span><span>회원가입</span></div>
+              <div class="login-sns-label">SNS계정으로 간편 로그인/회원가입</div>
+              <div class="login-sns">
+                <div class="sns-btn fb">f</div>
+                <div class="sns-btn kk">TALK</div>
+                <div class="sns-btn nv">N</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ▼ S5 KMS 모드 -->
+          <div class="screen" data-screen="kms">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="kms-banner"><strong>일반 문의 모드</strong> · 로그인 없이 진행 중. 주문·환불은 로그인 후 가능해요.</div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">로그인 없이 도움드릴 수 있는 메뉴예요.</div></div>
+              <div class="chips">
+                <button class="chip">상품 정보 문의</button>
+                <button class="chip">결제 수단 안내</button>
+                <button class="chip">반품/교환 정책</button>
+                <button class="chip">고객센터 운영시간</button>
+              </div>
+              <div class="bot-attached">
+                <button class="btn btn-secondary" style="height:36px; max-width:200px" onclick="showScreen('login')">로그인하러 가기 →</button>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S6 주문 캐러셀 -->
+          <div class="screen" data-screen="orders">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble" id="liveOrderQuery">주문한 상품 확인하고 싶어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">최근 주문 3건이 있어요.
+어떤 상품인지 선택해주세요.</div></div>
+              <div class="carousel">
+                <div class="card" onclick="selectOrder(1)" style="cursor:pointer"><div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                  <div class="card-status">배송중 · D-3</div>
+                  <div class="card-title">모듈 패브릭 4인 소파 (그레이)</div>
+                  <div class="card-meta">주문 #20260427-1234</div>
+                </div></div></div>
+                <div class="card" onclick="selectOrder(2)" style="cursor:pointer"><div class="card-row"><div class="card-thumb thumb2"></div><div class="card-info">
+                  <div class="card-status">배송중 · D-1</div>
+                  <div class="card-title">자취살림 침대 메탈프레임 SS</div>
+                  <div class="card-meta">주문 #20260426-2210</div>
+                </div></div></div>
+                <div class="card" onclick="selectOrder(3)" style="cursor:pointer"><div class="card-row"><div class="card-thumb thumb3"></div><div class="card-info">
+                  <div class="card-status done">배송완료 · 4/24</div>
+                  <div class="card-title">아이리스 6단 수납박스 ×4</div>
+                  <div class="card-meta">주문 #20260420-0451</div>
+                </div></div></div>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S7 배송 상태 -->
+          <div class="screen" data-screen="delivery">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">[모듈 패브릭 4인 소파] 배송 정보예요.
+4월 30일(수) 도착 예정이에요.</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row">
+                    <div class="card-thumb"></div>
+                    <div class="card-info">
+                      <div class="card-status">CJ대한통운 · 12345-67890</div>
+                      <div class="card-title">모듈 패브릭 4인 소파</div>
+                      <div class="card-meta">4/30(수) 도착 예정</div>
+                    </div>
+                  </div>
+                  <div class="stepbar" style="margin-top:14px; max-width:none">
+                    <div class="stepbar-row">
+                      <div class="step done"><div class="step-circle">✓</div><div class="step-label">결제완료</div></div>
+                      <div class="step done"><div class="step-circle">✓</div><div class="step-label">발송</div></div>
+                      <div class="step active"><div class="step-circle">3</div><div class="step-label">배송중</div></div>
+                      <div class="step"><div class="step-circle">4</div><div class="step-label">배송완료</div></div>
+                    </div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-secondary"><svg><use href="#i-truck"/></svg>택배사 추적</button>
+                    <button class="btn btn-secondary">판매자 문의</button>
+                  </div>
+                </div>
+              </div>
+              <div class="chips">
+                <button class="chip" onclick="showScreen('done')">도움됐어요</button>
+                <button class="chip" onclick="showScreen('greeting')">다른 문의</button>
+                <button class="chip" onclick="showScreen('agent')">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S8 반품 사유 -->
+          <div class="screen" data-screen="refund-form">
+            <div class="cw-header">
+              <button class="icon-btn" onclick="showScreen('orders')"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0">
+                <div class="stepbar" style="max-width:none">
+                  <div class="stepbar-row">
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                    <div class="step active"><div class="step-circle">2</div><div class="step-label">사유</div></div>
+                    <div class="step"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                    <div class="step"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 사유를 선택해주세요.</div></div>
+              <div class="bot-attached">
+                <div class="form-options">
+                  <div class="option" onclick="pickReason(this, 'simple')"><div class="option-radio"></div>단순 변심</div>
+                  <div class="option" onclick="pickReason(this, 'size')"><div class="option-radio"></div>사이즈가 안 맞아요</div>
+                  <div class="option" onclick="pickReason(this, 'defect')"><div class="option-radio"></div>상품 불량<span class="option-tag">사진 필요</span></div>
+                  <div class="option" onclick="pickReason(this, 'damage')"><div class="option-radio"></div>배송 중 파손</div>
+                  <div class="option" onclick="pickReason(this, 'etc')"><div class="option-radio"></div>기타</div>
+                </div>
+                <button class="btn btn-primary" id="refundNext" style="height:40px; max-width:200px; opacity:0.5; pointer-events:none" onclick="showScreen('refund-confirm')">다음 단계로 →</button>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">상세 사유 (선택)</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S9 환불 확인 -->
+          <div class="screen" data-screen="refund-confirm">
+            <div class="cw-header">
+              <button class="icon-btn" onclick="showScreen('refund-form')"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0">
+                <div class="stepbar" style="max-width:none">
+                  <div class="stepbar-row">
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">회수</div></div>
+                    <div class="step active"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 정보를 확인하고
+[반품 접수하기]를 눌러주세요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>환불 정보</h4>
+                  <div class="info-row"><span class="info-label">상품 금액</span><span class="info-val">1,290,000원</span></div>
+                  <div class="info-row"><span class="info-label">반품 배송비</span><span class="info-val minus">-4,000원</span></div>
+                  <div class="info-row"><span class="info-label">회수 방법</span><span class="info-val">택배 회수</span></div>
+                  <div class="info-row total"><span>최종 환불</span><span class="info-val">1,286,000원</span></div>
+                </div>
+                <button class="btn btn-primary btn-block" style="max-width:280px" onclick="showScreen('done')">반품 접수하기</button>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S10 주문 취소 -->
+          <div class="screen" data-screen="cancel">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">방금 결제한 주문 취소해주세요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">취소 가능한 주문이에요.
+바로 진행하시겠어요?</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row">
+                    <div class="card-thumb thumb2"></div>
+                    <div class="card-info">
+                      <div class="card-status">결제완료 · 즉시 취소 가능</div>
+                      <div class="card-title">자취살림 침대 메탈프레임 SS</div>
+                      <div class="card-meta">주문 #20260427-2210 · 215,000원</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="info-card">
+                  <h4>환불 안내</h4>
+                  <div class="info-row"><span class="info-label">취소 금액</span><span class="info-val">215,000원</span></div>
+                  <div class="info-row total"><span>예상 처리</span><span class="info-val">즉시</span></div>
+                </div>
+                <div class="card-actions" style="border:none; padding:0; max-width:280px">
+                  <button class="btn btn-primary" onclick="showScreen('done')">전체 취소</button>
+                  <button class="btn btn-secondary" onclick="showScreen('done')">부분 취소</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S11 포인트 조회 -->
+          <div class="screen" data-screen="point">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">내 포인트 얼마 남았어요?</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">현재 사용 가능한 포인트예요.</div></div>
+              <div class="bot-attached">
+                <div class="point-summary">
+                  <div class="point-amount">12,450P</div>
+                  <div class="point-amount-label">사용 가능</div>
+                </div>
+                <div class="point-row expire">
+                  <span class="point-row-label">⏰ 5/31 소멸 예정</span>
+                  <span style="font-weight:700; color:var(--fg-attention)">1,200P</span>
+                </div>
+                <div class="point-row">
+                  <span style="color:var(--fg-weak)">8/15 만료</span>
+                  <span style="font-weight:600">5,000P</span>
+                </div>
+              </div>
+              <div class="chips">
+                <button class="chip" onclick="showScreen('done')">도움됐어요</button>
+                <button class="chip" onclick="showScreen('greeting')">다른 문의</button>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S12 문의내역 -->
+          <div class="screen" data-screen="tickets">
+            <div class="cw-header">
+              <button class="icon-btn" onclick="showScreen('start')"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:15px; font-weight:700">나의 문의내역</div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="modal-tabs">
+              <div class="modal-tab active">진행 중<span class="badge">2</span></div>
+              <div class="modal-tab">종료</div>
+            </div>
+            <div class="chat" style="padding-top:12px">
+              <div class="list">
+                <div class="list-item">
+                  <div class="list-row"><span class="list-status brand">상담사 응대중</span><span class="list-meta">방금 전</span></div>
+                  <div class="list-title">반품 요청 - 모듈 패브릭 4인 소파</div>
+                  <div class="list-meta">상담사: 김지영</div>
+                </div>
+                <div class="list-item">
+                  <div class="list-row"><span class="list-status attention">답변 대기</span><span class="list-meta">2시간 전</span></div>
+                  <div class="list-title">배송지 변경 문의</div>
+                  <div class="list-meta">챗봇 응대 후 상담사 인계 완료</div>
+                </div>
+                <div class="list-item">
+                  <div class="list-row"><span class="list-status done">종료</span><span class="list-meta">어제</span></div>
+                  <div class="list-title">포인트 사용 방법 문의</div>
+                  <div class="list-meta">챗봇 자체 응대 종결</div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S13 상담사 연결 -->
+          <div class="screen" data-screen="agent">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">상담사 연결을 도와드릴게요.</div></div>
+              <div class="bot-attached">
+                <div class="agent-card">
+                  <div class="agent-icon"><svg><use href="#i-bubble"/></svg></div>
+                  <div class="agent-title">상담사 연결 대기 중</div>
+                  <div class="agent-meta">현재 약 5명 대기<br>예상 대기 시간 약 3분</div>
+                  <div class="agent-actions">
+                    <button class="btn btn-primary btn-block" onclick="showScreen('done')">연결되면 알림 받기</button>
+                    <button class="btn btn-secondary btn-block" onclick="showScreen('greeting')">연결 취소</button>
+                  </div>
+                </div>
+              </div>
+              <div class="sys-msg">상담사 연결 시 지금까지의 대화 내용이 함께 전달돼요</div>
+            </div>
+            <div class="input-bar">
+              <div class="input-field">메시지를 입력하세요</div>
+              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+            </div>
+          </div>
+
+          <!-- ▼ S14 종료 / NPS -->
+          <div class="screen" data-screen="done">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0; align-items:center">
+                <div class="agent-card" style="max-width:280px">
+                  <div class="agent-icon" style="background:rgba(76,175,80,0.1); color:#4caf50"><svg><use href="#i-check-circle"/></svg></div>
+                  <div class="agent-title">처리 완료</div>
+                  <div class="agent-meta">상담은 어떠셨나요?<br>이번 상담을 평가해주세요.</div>
+                  <div style="display:flex; gap:8px; justify-content:center; margin-bottom:16px; font-size:24px">
+                    <span style="cursor:pointer">😊</span>
+                    <span style="cursor:pointer">😐</span>
+                    <span style="cursor:pointer">😞</span>
+                  </div>
+                  <button class="btn btn-secondary btn-block" onclick="showScreen('start')">새 상담 시작</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="spec" style="width:auto; max-width:none; margin-top:16px">
+      <strong>🎬 라이브 데모 활성화</strong> · 위 위젯의 모든 chip/카드/버튼이 실제 클릭 가능. 실제 챗봇 흐름을 따라가보세요.<br>
+      <strong>흐름</strong> 시작 → [새 상담] → 첫인사 → chip 선택 → 인증 모달 → 로그인(시뮬레이션) → 시나리오 → 완료/NPS<br>
+      <strong>제한</strong> LLM·실제 API는 미연동(AICX/ENG 작업). UI 분기 시연용. 우상단 X로 닫고 launcher로 다시 열기 가능
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- M00b — Launcher (닫힌 상태) -->
+  <!-- ============================================ -->
+  <section class="hero-stage">
+    <div class="hero-label">M00b — Launcher (닫힌 상태) + 알림 뱃지</div>
+    <div class="hero-desc">위젯 평소 상태. 60px circle launcher가 우하단 상시 노출. 미확인 메시지/답변 있으면 빨간 뱃지로 카운트 표시. 클릭 시 위젯이 열리며 M01 시작 화면 또는 진행 중 상담으로 복귀.</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+      <div>
+        <div class="launcher-stage">
+          <div class="floating-corner">
+            <button class="cb-launcher" aria-label="채팅 열기">
+              <svg><use href="#i-bubble"/></svg>
+              <span class="cb-badge">1</span>
+            </button>
+          </div>
+        </div>
+        <div class="spec" style="width:auto; max-width:none">
+          <strong>기본 상태</strong> · 답변 1건 미확인. 뱃지에 숫자 표시 (10건 이상은 "9+")<br>
+          <strong>아이콘</strong> i-bubble (열림 상태도 동일하게 사용)
+        </div>
+      </div>
+      <div>
+        <div class="launcher-stage">
+          <div class="floating-corner">
+            <div class="cb-tooltip">
+              <span class="cb-tooltip-mark"></span>
+              상담사가 답변을 보냈어요
+            </div>
+            <button class="cb-launcher" aria-label="채팅 열기">
+              <svg><use href="#i-bubble"/></svg>
+              <span class="cb-badge">3</span>
+            </button>
+          </div>
+        </div>
+        <div class="spec" style="width:auto; max-width:none">
+          <strong>알림 툴팁</strong> · 새 답변 도착 시 자동 노출 (3~5초 후 fade out, 사용자 수동 닫기 가능)<br>
+          <strong>활용</strong> 챗봇 자체 응답이 끝나서 사용자 액션 대기 중일 때 / 상담사 답변 도착 시
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 시리즈 그리드 -->
+  <!-- ============================================ -->
+  <h2 class="series-title">챗봇 모달 시퀀스 — 시나리오별 화면</h2>
+  <p class="series-sub">위 hero의 우하단 위젯을 단독으로 분리한 화면들. 디자이너가 Figma로 옮길 때 1:1 대응.</p>
+
+  <div class="grid">
+
+    <!-- ============= M01 시작 화면 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M01 — 챗봇 시작 화면</div>
+      <div class="mockup-desc">위젯 첫 진입. 새 상담 vs 기존 문의내역 확인 분기. (Hero에 같은 화면 노출)</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini">
+            <div class="cw-header-avatar">오</div>
+            <div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div>
+          </div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="start">
+          <div class="start-icon"><svg><use href="#i-bubble"/></svg></div>
+          <div class="start-title">오집사에 오신 것을 환영해요</div>
+          <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작하거나 이전 문의내역을 확인해보세요.</div>
+          <div class="start-actions">
+            <button class="btn btn-primary btn-block">새로운 상담 진행하기</button>
+            <button class="btn btn-secondary btn-block">나의 문의내역 확인</button>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Header(Avatar+이름+status) · Welcome icon · Title + Desc · BoxButton brand-solid + outlined extra-large<br>
+        <strong>아이콘</strong> i-bubble (welcome), i-x (닫기)<br>
+        <strong>분기</strong> 새 상담 → M02 / 문의내역 → M16
+      </div>
+    </div>
+
+    <!-- ============= M02 첫 인사 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M02 — 첫 인사 + 빠른 메뉴</div>
+      <div class="mockup-desc">[새로운 상담 진행하기] 누른 직후. 호칭 "고객님"(로그인 여부 미확인 시점). 빠른 메뉴 5종 + 자유 입력 병행.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">고객님, 안녕하세요!
+오늘의집 AI 상담사 오집사입니다.
+무엇을 도와드릴까요?</div>
+          </div>
+          <div class="bot-msg">
+            <div class="avatar" style="visibility:hidden"></div>
+            <div class="bubble">아래 빠른 메뉴를 선택하시거나
+메세지를 자유롭게 입력해주세요.</div>
+          </div>
+          <div class="chips">
+            <button class="chip">주문/배송 조회</button>
+            <button class="chip">반품/교환</button>
+            <button class="chip">주문 취소</button>
+            <button class="chip">포인트/쿠폰</button>
+            <button class="chip">기타 문의</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Avatar 32 · Bubble · Chip(pill) ×5 · Input(pill) + Send brand-solid round<br>
+        <strong>분기 로직</strong> chip 누름 → 인증 필요한 카테고리(주문/배송, 반품/교환, 취소, 포인트/쿠폰)면 세션 체크 → 로그인 OK는 직진 / 비로그인은 M03<br>
+        <strong>호칭</strong> "고객님" 고정 (로그인 여부 모르는 시점)
+      </div>
+    </div>
+
+    <!-- ============= M03 인증 모달 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M03 — 인증 분기 모달 (비로그인일 때만)</div>
+      <div class="mockup-desc">로그인 필요 메뉴 클릭 시 챗봇 위젯 안에 bottom sheet 모달. 로그인 OK면 이 화면 스킵.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">고객님, 안녕하세요!
+오늘의집 AI 상담사 오집사입니다.
+무엇을 도와드릴까요?</div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+        <div class="dim"></div>
+        <div class="bottom-sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-title">로그인이 필요한 메뉴예요</div>
+          <div class="sheet-desc">주문·배송·환불 등 개인 정보 확인을 위해 로그인이 필요해요. 로그인 후 이어서 도와드릴게요.</div>
+          <div class="sheet-actions">
+            <button class="btn btn-primary btn-block">로그인하고 계속하기</button>
+            <button class="btn btn-secondary btn-block">로그인 없이 일반 문의만</button>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>분기</strong> 로그인하고 계속 → M04 / 일반 문의만 → M05 (KMS 모드)<br>
+        <strong>컴포넌트</strong> BottomSheet · Handle · BoxButton ×2 (block)<br>
+        <strong>구현 노트</strong> 로그인 후 컨텍스트(직전 의도+발화) 보존하여 위젯 재진입 시 그 지점부터 이어가야 함
+      </div>
+    </div>
+
+    <!-- ============= M04 로그인 페이지 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M04 — 오늘의집 로그인 페이지</div>
+      <div class="mockup-desc">[로그인하고 계속하기] 누르면 오늘의집 로그인 페이지로 이동. 로그인 완료 시 챗봇 위젯으로 자동 복귀.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">로그인</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="login-screen">
+          <div class="login-logo">
+            <div class="web-logo-mark"></div>
+            <span style="font-size:22px; font-weight:800">오늘의집</span>
+          </div>
+          <div class="login-fields">
+            <div class="login-field">이메일</div>
+            <div class="login-field">비밀번호</div>
+          </div>
+          <button class="login-btn">로그인</button>
+          <div class="login-links"><span>비밀번호 재설정</span><span>회원가입</span></div>
+          <div class="login-sns-label">SNS계정으로 간편 로그인/회원가입</div>
+          <div class="login-sns">
+            <div class="sns-btn fb">f</div>
+            <div class="sns-btn kk">TALK</div>
+            <div class="sns-btn nv">N</div>
+          </div>
+          <div class="login-help">로그인에 문제가 있으신가요?</div>
+          <div class="login-divider"></div>
+          <div class="login-guest">비회원 주문 조회하기</div>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>구현 노트</strong> 위젯 안에 임베드 vs 새 창 분리 결정 필요. 임베드면 로그인 SDK 연동, 새 창이면 postMessage로 토큰 받아 위젯 복귀<br>
+        <strong>비회원 주문조회</strong> 현재 별도 페이지로 이동하는 구조. 챗봇 컨텍스트 유지하려면 위젯 안에서 주문번호+휴대폰으로 인증 폼 별도 구현 필요 — <strong>Open Issue O13(신규)</strong>로 등록<br>
+        <strong>로그인 후</strong> 컨텍스트 복원하여 직전 의도부터 이어가기
+      </div>
+    </div>
+
+    <!-- ============= M05 KMS only ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M05 — KMS 모드 (로그인 없이 진행)</div>
+      <div class="mockup-desc">[로그인 없이 일반 문의만] 선택. PoC 수준의 KMS 기반 안내만 가능. 로그인 필요 항목은 안내 후 로그인 유도.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="kms-banner"><strong>일반 문의 모드</strong> · 로그인 없이 진행 중이에요. 주문·환불 등 개인 정보 확인은 로그인 후 가능해요.</div>
+        <div class="chat">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">로그인 없이 도움드릴 수 있는 메뉴예요.</div>
+          </div>
+          <div class="chips">
+            <button class="chip">상품 정보 문의</button>
+            <button class="chip">결제 수단 안내</button>
+            <button class="chip">멤버십 안내</button>
+            <button class="chip">반품/교환 정책</button>
+            <button class="chip">고객센터 운영시간</button>
+          </div>
+          <div class="bot-msg">
+            <div class="avatar" style="visibility:hidden"></div>
+            <div class="bubble">개인 주문 조회나 환불 같은 기능은
+로그인 후 다시 시도해주세요.</div>
+          </div>
+          <div class="bot-attached">
+            <button class="btn btn-secondary" style="height:36px; max-width:200px">로그인하러 가기 →</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>제한 표기</strong> 상단 attention banner로 모드 명시 — 사용자 혼선 방지<br>
+        <strong>커버리지</strong> KMS/FAQ 정책성 응대만 (Phase 1 Level 1). Level 2~4는 로그인 유도<br>
+        <strong>전환 트리거</strong> 사용자가 개인 정보성 질문 발화 시 자동으로 로그인 유도 카드 노출
+      </div>
+    </div>
+
+    <!-- ============= M06 주문 상품 조회 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M06 — 주문 상품 조회 (캐러셀)</div>
+      <div class="mockup-desc">로그인 후 주문 정보 조회. 최근 주문을 가로 스와이프 카드 캐러셀로 제시. 카드 클릭 시 상세(M07).</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">주문한 상품 확인하고 싶어요</div></div>
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">최근 주문 3건이 있어요.
+어떤 상품인지 선택해주세요.</div>
+          </div>
+          <div class="carousel">
+            <div class="card"><div class="card-row"><div class="card-thumb"></div><div class="card-info">
+              <div class="card-status">배송중 · D-3</div>
+              <div class="card-title">모듈 패브릭 4인 소파 (그레이)</div>
+              <div class="card-meta">주문 #20260427-1234</div>
+            </div></div></div>
+            <div class="card"><div class="card-row"><div class="card-thumb thumb2"></div><div class="card-info">
+              <div class="card-status">배송중 · D-1</div>
+              <div class="card-title">자취살림 침대 메탈프레임 SS</div>
+              <div class="card-meta">주문 #20260426-2210</div>
+            </div></div></div>
+            <div class="card"><div class="card-row"><div class="card-thumb thumb3"></div><div class="card-info">
+              <div class="card-status done">배송완료 · 4/24</div>
+              <div class="card-title">아이리스 6단 수납박스 ×4</div>
+              <div class="card-meta">주문 #20260420-0451</div>
+            </div></div></div>
+          </div>
+          <div class="chips" style="margin-top:8px">
+            <button class="chip">기간 변경</button>
+            <button class="chip">전체 주문 보기</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> User bubble · OrderCard ×3 carousel (가로 스와이프) · Chip ×2<br>
+        <strong>분기</strong> 카드 탭 → 문의 의도(배송/결제/반품 등)에 따라 M07/M08/M10/M11로 분기
+      </div>
+    </div>
+
+    <!-- ============= M07 배송 조회 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M07 — 배송 조회 (단계바)</div>
+      <div class="mockup-desc">선택된 주문의 배송 흐름 시각화. 4단계 step bar + 택배사 추적/판매자 문의 액션. 케러셀 흐름의 표준 패턴.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">[모듈 패브릭 4인 소파] 배송 정보예요.
+4월 30일(수) 도착 예정이에요.</div>
+          </div>
+          <div class="bot-attached">
+            <div class="card">
+              <div class="card-row">
+                <div class="card-thumb"></div>
+                <div class="card-info">
+                  <div class="card-status">CJ대한통운 · 12345-67890</div>
+                  <div class="card-title">모듈 패브릭 4인 소파 (그레이)</div>
+                  <div class="card-meta">4월 30일(수) 도착 예정</div>
+                </div>
+              </div>
+              <div class="stepbar" style="margin-top:14px; max-width:none">
+                <div class="stepbar-row">
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label">결제완료</div></div>
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label">발송</div></div>
+                  <div class="step active"><div class="step-circle">3</div><div class="step-label">배송중</div></div>
+                  <div class="step"><div class="step-circle">4</div><div class="step-label">배송완료</div></div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-secondary"><svg><use href="#i-truck"/></svg>택배사 추적</button>
+                <button class="btn btn-secondary">판매자 문의</button>
+              </div>
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip">도움됐어요</button>
+            <button class="chip">다른 문의</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> 합성 카드(썸네일+메타+Stepbar 4단계+Actions ×2)<br>
+        <strong>아이콘</strong> i-truck<br>
+        <strong>변형</strong> 배송 지연/오배송 시 step circle 색상을 critical(red)로
+      </div>
+    </div>
+
+    <!-- ============= M08 반품 접수 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M08 — 반품 접수 (단계바 + 사유 + 사진)</div>
+      <div class="mockup-desc">[반품/교환] → [반품 접수] 진입. 4단계 진행바 노출 후 사유 폼 + 조건부 사진 업로드. 1턴 1폼 원칙.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step active"><div class="step-circle">2</div><div class="step-label">사유</div></div>
+                <div class="step"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-label">환불 확인</div></div>
+              </div>
+            </div>
+          </div>
+          <button class="back-step" style="margin-left:0; margin-top:4px"><svg><use href="#i-arrow-left"/></svg>1단계로 돌아가기</button>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 사유를 선택해주세요.</div></div>
+          <div class="bot-attached">
+            <div class="form-options">
+              <div class="option"><div class="option-radio"></div>단순 변심</div>
+              <div class="option"><div class="option-radio"></div>사이즈가 안 맞아요</div>
+              <div class="option selected"><div class="option-radio"></div>상품 불량<span class="option-tag">사진 필요</span></div>
+              <div class="option"><div class="option-radio"></div>배송 중 파손</div>
+              <div class="option"><div class="option-radio"></div>기타</div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">불량 사진을 올려주세요.</div></div>
+          <div class="bot-attached">
+            <div class="upload-grid">
+              <div class="upload-slot filled"></div>
+              <div class="upload-slot filled f2"></div>
+              <div class="upload-slot"><svg><use href="#i-camera"/></svg>+ 추가</div>
+            </div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">상세 사유 (선택)</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> 단계바 4단계(2단계 active) · 단일선택 폼(radio + tag) · 사진 업로드 grid(Presigned URL)<br>
+        <strong>다음 단계</strong> 회수 방법 → 환불 확인 → 접수 완료 (각 단계 별도 화면)<br>
+        <strong>예외</strong> 구매확정 → 즉시 상담사 연결 (M15, E08)
+      </div>
+    </div>
+
+    <!-- ============= M09 클레임 상태 조회 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M09 — 클레임 상태 조회 (탭)</div>
+      <div class="mockup-desc">진행 중인 반품/교환/취소를 탭으로 분리 조회. 각 항목 클릭 시 상세 스텝바 + 단계 안내.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">클레임 진행 상태</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="modal-tabs">
+          <div class="modal-tab active">반품<span class="badge">2</span></div>
+          <div class="modal-tab">교환<span class="badge">1</span></div>
+          <div class="modal-tab">취소</div>
+        </div>
+        <div class="chat" style="padding-top:12px">
+          <div class="list">
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status brand">회수중</span>
+                <span class="list-meta">4/26 접수</span>
+              </div>
+              <div class="list-title">모듈 패브릭 4인 소파 (그레이)</div>
+              <div class="list-meta">택배 회수 대기 · 환불 1,286,000원 예정</div>
+            </div>
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status attention">반품 검수중</span>
+                <span class="list-meta">4/22 접수</span>
+              </div>
+              <div class="list-title">아이리스 6단 수납박스 ×4</div>
+              <div class="list-meta">파트너사 검수 진행 중 · 영업일 1~3일 소요</div>
+            </div>
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status done">반품 완료</span>
+                <span class="list-meta">4/15 처리</span>
+              </div>
+              <div class="list-title">디자인 우드 식탁 의자 ×2</div>
+              <div class="list-meta">환불 완료 (89,000원, 신용카드 취소)</div>
+            </div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Modal Tabs(badge 카운트) · ListItem ×N (status pill + 제목 + 메타)<br>
+        <strong>탭</strong> 반품 / 교환 / 취소 — 각각 진행 중 + 최근 완료 N건<br>
+        <strong>딥링크</strong> 항목 클릭 시 마이페이지 클레임 상세로 이동 옵션
+      </div>
+    </div>
+
+    <!-- ============= M10 교환 접수 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M10 — 교환 접수 (사이즈/옵션 재선택)</div>
+      <div class="mockup-desc">반품과 골격 동일하지만 "옵션 재선택" 단계 추가 → 5단계. 사이즈/색상 교환은 재고 확인 후 가능 여부 표시.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">교환 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                <div class="step active"><div class="step-circle">3</div><div class="step-label">옵션</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-label">회수</div></div>
+                <div class="step"><div class="step-circle">5</div><div class="step-label">환불</div></div>
+              </div>
+            </div>
+          </div>
+          <button class="back-step" style="margin-left:0; margin-top:4px"><svg><use href="#i-arrow-left"/></svg>이전 단계로</button>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환할 옵션을 선택해주세요.
+재고가 있는 옵션만 보여드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="form-options">
+              <div class="option"><div class="option-radio"></div>S 사이즈 / 그레이<span class="option-tag">재고 12</span></div>
+              <div class="option selected"><div class="option-radio"></div>M 사이즈 / 그레이<span class="option-tag">재고 7</span></div>
+              <div class="option"><div class="option-radio"></div>L 사이즈 / 그레이<span class="option-tag">재고 3</span></div>
+              <div class="option" style="opacity:0.5; cursor:not-allowed"><div class="option-radio"></div>L 사이즈 / 베이지<span class="option-tag">품절</span></div>
+            </div>
+          </div>
+          <div class="info-card">
+            <h4>교환 정보</h4>
+            <div class="info-row"><span class="info-label">선택 옵션</span><span class="info-val">M 사이즈 / 그레이</span></div>
+            <div class="info-row"><span class="info-label">예상 배송</span><span class="info-val">영업일 3~5일</span></div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> 5단계 stepbar · 단일선택 폼(재고 tag · 품절 disabled) · InfoCard 교환 정보<br>
+        <strong>분기</strong> 옵션 동일 교환 → 회수+재배송 / 사이즈만 교환 → 옵션 재선택 후 동일 흐름<br>
+        <strong>예외</strong> 모든 옵션 품절 시 → 환불 안내로 변경
+      </div>
+    </div>
+
+    <!-- ============= M11 취소 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M11 — 주문 취소 + 환불 안내</div>
+      <div class="mockup-desc">결제완료/배송준비 상태만 즉시 취소 가능. 다건 옵션 시 [부분 취소] 노출. 배송준비 시작 후엔 상담사 인계.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">방금 결제한 주문 취소해주세요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">취소 가능한 주문이에요.
+바로 진행하시겠어요?</div></div>
+          <div class="bot-attached">
+            <div class="card">
+              <div class="card-row">
+                <div class="card-thumb thumb2"></div>
+                <div class="card-info">
+                  <div class="card-status">결제완료 · 즉시 취소 가능</div>
+                  <div class="card-title">자취살림 침대 메탈프레임 SS</div>
+                  <div class="card-meta">주문 #20260427-2210 · 215,000원</div>
+                </div>
+              </div>
+            </div>
+            <div class="info-card">
+              <h4>환불 안내</h4>
+              <div class="info-row"><span class="info-label">취소 금액</span><span class="info-val">215,000원</span></div>
+              <div class="info-row"><span class="info-label">환불 수단</span><span class="info-val">신용카드 즉시 취소</span></div>
+              <div class="info-row total"><span>예상 처리</span><span class="info-val">즉시</span></div>
+            </div>
+            <div class="card-actions" style="border:none; padding:0; max-width:280px">
+              <button class="btn btn-primary">전체 취소</button>
+              <button class="btn btn-secondary">부분 취소</button>
+            </div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> User bubble · OrderCard(취소 가능 배지) · InfoCard 환불 · BoxButton primary+secondary<br>
+        <strong>예외</strong> 배송준비 시작 후 → 상담사 연결 카드 (M15, E08)
+      </div>
+    </div>
+
+    <!-- ============= M12 환불 내역 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M12 — 환불 내역 조회</div>
+      <div class="mockup-desc">완료된 환불 히스토리. 날짜순 리스트, 환불 수단/처리 시점 명시. 마이페이지 결제내역 딥링크.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">환불 내역</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">최근 3개월 환불 내역이에요.</div></div>
+          <div class="bot-attached">
+            <div class="list">
+              <div class="list-item">
+                <div class="list-row">
+                  <span class="list-status done">완료</span>
+                  <span class="list-meta">4/15</span>
+                  <span class="list-amount" style="margin-left:auto">89,000원</span>
+                </div>
+                <div class="list-title">디자인 우드 식탁 의자 ×2</div>
+                <div class="list-meta">신용카드 취소 · 4/13 카드 환불됨</div>
+              </div>
+              <div class="list-item">
+                <div class="list-row">
+                  <span class="list-status done">완료</span>
+                  <span class="list-meta">3/28</span>
+                  <span class="list-amount" style="margin-left:auto">42,500원</span>
+                </div>
+                <div class="list-title">아이리스 정리 박스 라지</div>
+                <div class="list-meta">계좌 환불 · 영업일 2일 소요</div>
+              </div>
+              <div class="list-item">
+                <div class="list-row">
+                  <span class="list-status done">완료</span>
+                  <span class="list-meta">3/12</span>
+                  <span class="list-amount" style="margin-left:auto">156,000원</span>
+                </div>
+                <div class="list-title">팔레트 프레임 더블 침대</div>
+                <div class="list-meta">신용카드 부분 취소 (포인트 1,500P 차감)</div>
+              </div>
+            </div>
+            <button class="link-btn">전체 결제내역 보러가기 <svg><use href="#i-chevron-right"/></svg></button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> ListItem ×N (status done · 날짜 · 금액 · 환불 수단)<br>
+        <strong>딥링크</strong> 마이페이지 결제내역 (오늘의집 웹/앱)
+      </div>
+    </div>
+
+    <!-- ============= M13 쿠폰 조회 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M13 — 쿠폰 조회</div>
+      <div class="mockup-desc">사용 가능 쿠폰 리스트. 할인율/금액 강조 + 만료일 + 사용 조건. 곧 만료되는 건 attention 색상.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">사용 가능한 쿠폰 알려주세요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">현재 사용 가능한 쿠폰 3장이 있어요.</div></div>
+          <div class="bot-attached">
+            <div class="list">
+              <div class="coupon">
+                <div class="coupon-amount">15%</div>
+                <div class="coupon-info">
+                  <div class="coupon-name">신규 가입 환영 쿠폰</div>
+                  <div class="coupon-meta">최대 5,000원 · 30,000원 이상 · ~6/30</div>
+                </div>
+              </div>
+              <div class="coupon" style="border-color:rgba(178,120,0,0.25); background:var(--bg-attention-weak)">
+                <div class="coupon-amount" style="color:var(--fg-attention)">3,000원</div>
+                <div class="coupon-info">
+                  <div class="coupon-name">생일 축하 쿠폰</div>
+                  <div class="coupon-meta" style="color:var(--fg-attention)">10,000원 이상 · <strong>~6/2 만료 임박</strong></div>
+                </div>
+              </div>
+              <div class="coupon">
+                <div class="coupon-amount">10%</div>
+                <div class="coupon-info">
+                  <div class="coupon-name">가구 카테고리 할인</div>
+                  <div class="coupon-meta">최대 20,000원 · 가구 한정 · ~12/31</div>
+                </div>
+              </div>
+            </div>
+            <button class="link-btn">전체 쿠폰함 보기 <svg><use href="#i-chevron-right"/></svg></button>
+          </div>
+          <div class="chips">
+            <button class="chip">쿠폰 등록</button>
+            <button class="chip">사용 안내</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Coupon ×N (할인 강조 + 이름 + 메타) · 만료 임박은 attention 컬러로 부드럽게 강조<br>
+        <strong>아이콘</strong> i-ticket (단일 표시 변형 시)
+      </div>
+    </div>
+
+    <!-- ============= M14 포인트 조회 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M14 — 포인트 조회 + 유효기간</div>
+      <div class="mockup-desc">포인트 보유 + 만료 일정. 만료 임박분은 attention 색상으로 강조. 마이페이지 포인트 내역 딥링크.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">내 포인트 얼마 남았어요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">현재 사용 가능한 포인트예요.</div></div>
+          <div class="bot-attached">
+            <div class="point-summary">
+              <div class="point-amount">12,450P</div>
+              <div class="point-amount-label">사용 가능</div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); margin:8px 0 4px; max-width:280px">만료 일정</div>
+            <div class="point-row expire">
+              <span class="point-row-label">⏰ 5/31 소멸 예정</span>
+              <span style="font-weight:700; color:var(--fg-attention)">1,200P</span>
+            </div>
+            <div class="point-row">
+              <span style="color:var(--fg-weak)">8/15 만료</span>
+              <span style="font-weight:600">5,000P</span>
+            </div>
+            <div class="point-row">
+              <span style="color:var(--fg-weak)">12/31 만료</span>
+              <span style="font-weight:600">6,250P</span>
+            </div>
+            <button class="link-btn" style="margin-top:8px">포인트 내역 보러가기 <svg><use href="#i-chevron-right"/></svg></button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Summary card(brand-weak bg) · Expire row(attention 색) · 일반 row · LinkButton<br>
+        <strong>아이콘</strong> i-clock (만료 임박)
+      </div>
+    </div>
+
+    <!-- ============= M15 상담사 연결 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M15 — 상담사 연결</div>
+      <div class="mockup-desc">Handover 시 대기 정보 + 알림 등록. 영업외(E10)/대기 다수(E11) variant 별도. 컨텍스트 자동 전달.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">상담사 연결을 도와드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="agent-card">
+              <div class="agent-icon"><svg><use href="#i-bubble"/></svg></div>
+              <div class="agent-title">상담사 연결 대기 중</div>
+              <div class="agent-meta">현재 약 5명 대기<br>예상 대기 시간 약 3분</div>
+              <div class="agent-actions">
+                <button class="btn btn-primary btn-block">연결되면 알림 받기</button>
+                <button class="btn btn-secondary btn-block">연결 취소</button>
+              </div>
+            </div>
+          </div>
+          <div class="sys-msg">상담사 연결 시 지금까지의 대화 내용이 함께 전달돼요</div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> AgentCard(bubble icon + meta + 2 actions) · System message<br>
+        <strong>Variants</strong> 영업외: "익일 09시 자동 인계" / 대기다수: "대기 중인 분이 많아요"<br>
+        <strong>Open</strong> O8 컨텍스트 전달 범위
+      </div>
+    </div>
+
+    <!-- ============= M16 나의 문의내역 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M16 — 나의 문의내역</div>
+      <div class="mockup-desc">M01의 [나의 문의내역 확인] 분기. 진행 중 + 종료된 티켓. 클릭 시 해당 상담 상세 또는 재진입.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">나의 문의내역</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="modal-tabs">
+          <div class="modal-tab active">진행 중<span class="badge">2</span></div>
+          <div class="modal-tab">종료</div>
+        </div>
+        <div class="chat" style="padding-top:12px">
+          <div class="list">
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status brand">상담사 응대중</span>
+                <span class="list-meta">방금 전</span>
+              </div>
+              <div class="list-title">반품 요청 - 모듈 패브릭 4인 소파</div>
+              <div class="list-meta">상담사: 김지영 · 마지막 메시지 "확인 후 안내드릴게요"</div>
+            </div>
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status attention">답변 대기</span>
+                <span class="list-meta">2시간 전</span>
+              </div>
+              <div class="list-title">배송지 변경 문의</div>
+              <div class="list-meta">챗봇 응대 후 상담사 인계 완료</div>
+            </div>
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status done">종료</span>
+                <span class="list-meta">어제</span>
+              </div>
+              <div class="list-title">포인트 사용 방법 문의</div>
+              <div class="list-meta">챗봇 자체 응대 종결</div>
+            </div>
+            <div class="list-item">
+              <div class="list-row">
+                <span class="list-status done">종료</span>
+                <span class="list-meta">3일 전</span>
+              </div>
+              <div class="list-title">반품 회수 일정 문의</div>
+              <div class="list-meta">상담사 응대 종결 (NPS 응답 완료)</div>
+            </div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Modal Tabs (진행 중/종료) · ListItem ×N<br>
+        <strong>분기</strong> 진행 중 항목 클릭 → 해당 채팅 재진입 (E12) / 종료 항목 클릭 → 종료된 대화 조회<br>
+        <strong>Open</strong> O7 채팅 이력 보관·조회 위치 (위젯 vs 마이페이지 vs 둘 다)
+      </div>
+    </div>
+
+    <!-- ============= M17 영업외 진입 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M17 — 영업시간 외 진입 (E01)</div>
+      <div class="mockup-desc">18:00~익일 09:00 진입 시. 상단 attention banner + KMS 모드. 상담사 연결은 익일 09시 자동 인계 + 알림 등록 안내.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status" style="color:var(--fg-attention)">⏰ 영업시간 외</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="banner">⏰ 지금은 운영시간 외예요 (09:00~18:00) · 일부 안내만 가능해요</div>
+        <div class="chat">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">고객님, 안녕하세요!
+지금은 운영시간 외라 자주 묻는 문의에만 답변드릴 수 있어요.
+상세 상담은 영업일 09시부터 도움드릴게요.</div>
+          </div>
+          <div class="chips">
+            <button class="chip">상품 정보</button>
+            <button class="chip">결제 수단</button>
+            <button class="chip">반품/교환 정책</button>
+            <button class="chip">배송 정책</button>
+          </div>
+          <div class="bot-msg">
+            <div class="avatar" style="visibility:hidden"></div>
+            <div class="bubble">상담사 답변이 필요하면 문의 등록해주세요.
+영업일 09시에 연결해드릴게요.</div>
+          </div>
+          <div class="bot-attached">
+            <button class="btn btn-primary" style="height:40px; max-width:200px"><svg><use href="#i-bell"/></svg>문의 등록 + 알림 받기</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>컴포넌트</strong> Banner(attention) · Header status를 attention 색상으로 · KMS chip · 알림 등록 CTA<br>
+        <strong>아이콘</strong> i-bell (알림 등록)<br>
+        <strong>Open</strong> O2 운영시간 정책 (24h KMS만 / 24h KMS+조회 / 09-18만)
+      </div>
+    </div>
+
+    <!-- ============= M18 무응답 종료 시퀀스 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M18 — 무응답 종료 시퀀스 (E02~E04)</div>
+      <div class="mockup-desc">사용자 무응답 시 8분→2분→3분 단계로 안내 후 자동 종료. NPS 미발송. 시간 라벨로 흐름 표기.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">[모듈 패브릭 4인 소파] 배송 정보예요.
+4월 30일(수) 도착 예정이에요.</div>
+          </div>
+          <div class="seq-time">8분 후 — 무응답 1차</div>
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">고객님, 추가로 도움이 필요하세요?</div>
+          </div>
+          <div class="chips"><button class="chip">네, 더 있어요</button><button class="chip">아니요</button></div>
+          <div class="seq-time">+2분 — 무응답 2차</div>
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">마지막으로 확인할게요.
+필요하면 언제든 다시 문의해주세요.</div>
+          </div>
+          <div class="seq-time">+3분 — 종료</div>
+          <div class="bot-attached" style="margin-left:0; align-items:center">
+            <div class="agent-card" style="max-width:280px">
+              <div class="agent-icon"><svg><use href="#i-clock"/></svg></div>
+              <div class="agent-title">상담이 종료되었어요</div>
+              <div class="agent-meta">필요하실 때 언제든 다시 문의해주세요.</div>
+              <button class="btn btn-secondary btn-block">새 상담 시작하기</button>
+            </div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>흐름</strong> Phase 1 학습 8-2-3분 정책 그대로 적용. 시각적으로 시간 라벨 노출<br>
+        <strong>정책</strong> 무응답 종료는 NPS 미발송 (Phase 1 결정)<br>
+        <strong>아이콘</strong> i-clock (종료 카드)
+      </div>
+    </div>
+
+    <!-- ============= M19 Critical 키워드 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M19 — Critical 키워드 → 즉시 인계 (E07)</div>
+      <div class="mockup-desc">상해/유통기한/대외기관/욕설 등 감지 시 챗봇 응대 우회 + 즉시 상담사 인계. 관리자 보고 + Serious VOC 후보로 자동 플래그.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">방금 받은 가구 모서리에 손이 베였어요</div></div>
+          <div class="bot-attached" style="margin-left:0; align-items:center">
+            <div class="critical-msg"><svg><use href="#i-exclamation-triangle"/></svg> 긴급 상담이 필요한 내용으로 확인되어<br>전문 상담사를 즉시 연결해드릴게요</div>
+          </div>
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">불편을 드려 정말 죄송합니다.
+지금 바로 전문 상담사가 도와드릴 거예요.
+혹시 사진을 첨부해주실 수 있을까요?</div>
+          </div>
+          <div class="bot-attached">
+            <div class="upload-grid">
+              <div class="upload-slot"><svg><use href="#i-camera"/></svg>+ 추가</div>
+            </div>
+            <div class="agent-card" style="margin-top:4px">
+              <div class="agent-icon" style="background:rgba(253,61,74,0.1); color:var(--accent-red)"><svg><use href="#i-bubble"/></svg></div>
+              <div class="agent-title">긴급 상담사 연결 중</div>
+              <div class="agent-meta">최우선 처리 · 1분 이내 응답 예상</div>
+              <button class="btn btn-secondary btn-block">연결 취소</button>
+            </div>
+          </div>
+          <div class="sys-msg">관리자에게 자동 보고됨 (Serious VOC 후보)</div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>키워드</strong> 상해/부상 · 유통기한·제조일자 · 대외기관(공정위/소비자원/언론) · 욕설/협박<br>
+        <strong>처리</strong> 챗봇 일반 분기 우회 → 즉시 상담사 + 사진 첨부 폼 + 관리자 보고 플래그<br>
+        <strong>UX</strong> 사과 멘트 우선 + 긴급성 강조 (red 색상 절제 사용)
+      </div>
+    </div>
+
+    <!-- ============= M20 클레임 거절 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M20 — 클레임 거절 (구매확정/기간초과, E08)</div>
+      <div class="mockup-desc">정책상 자동 처리 불가능한 케이스. 사유 명시 + 항상 상담사 옵션 제공 (자동 거절 X). Phase 1 운영 학습.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">이 의자 반품하고 싶어요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">이 주문은 자동 반품 접수가 어려워요.
+사유를 확인해주세요.</div></div>
+          <div class="bot-attached">
+            <div class="card rejected">
+              <div class="card-row">
+                <div class="card-thumb thumb4"></div>
+                <div class="card-info">
+                  <div class="card-status alert">반품 기간 초과</div>
+                  <div class="card-title">디자인 우드 식탁 의자 ×2</div>
+                  <div class="card-meta">구매확정 · 4/2 · 89,000원</div>
+                </div>
+              </div>
+            </div>
+            <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+              <h4 style="color:var(--accent-red)">왜 자동 처리가 어려운가요?</h4>
+              <div style="font-size:13px; color:var(--fg); line-height:18px">• 구매확정 후 7일이 지났어요<br>• 일반 반품 기간(배송완료 7일 이내)을 초과했어요<br>• 단, 상품 불량/오배송이라면 처리 가능해요</div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">상담사가 사유를 확인해서 도와드릴게요.</div>
+            <button class="btn btn-primary" style="height:40px; max-width:200px"><svg><use href="#i-bubble"/></svg>상담사 연결하기</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>원칙</strong> 자동 거절 X → 항상 상담사 옵션 제공 (Phase 1 역구조 학습 반영)<br>
+        <strong>UX</strong> 사유를 정중하게 + 예외 케이스(불량/오배송) 명시 + 상담사 연결 강조<br>
+        <strong>변형</strong> 동일 패턴: 취소 불가(배송준비 시작) / 교환 불가(품절) / 부분 반품 불가
+      </div>
+    </div>
+
+    <!-- ============= M21 모바일 풀스크린 ============= -->
+    <div class="mockup spec-mobile">
+      <div class="mockup-label">M21 — 모바일 풀스크린 (인앱)</div>
+      <div class="mockup-desc">모바일에서 챗봇 진입 시 위젯이 아닌 풀스크린 모달로 전환. 데스크톱 컴포넌트 그대로 사용, 사이즈만 적응.</div>
+      <div class="mobile-frame">
+        <div class="mobile-status">
+          <span>9:41</span>
+          <span class="mobile-status-icons">📶 ⚡ 🔋</span>
+        </div>
+        <div class="cw-header" style="border-bottom:1px solid var(--border)">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat" style="flex:1">
+          <div class="bot-msg">
+            <div class="avatar">오</div>
+            <div class="bubble">고객님, 안녕하세요!
+오늘의집 AI 상담사 오집사입니다.
+무엇을 도와드릴까요?</div>
+          </div>
+          <div class="bot-msg">
+            <div class="avatar" style="visibility:hidden"></div>
+            <div class="bubble">아래 빠른 메뉴를 선택하시거나
+메세지를 자유롭게 입력해주세요.</div>
+          </div>
+          <div class="chips">
+            <button class="chip">주문/배송 조회</button>
+            <button class="chip">반품/교환</button>
+            <button class="chip">주문 취소</button>
+            <button class="chip">포인트/쿠폰</button>
+            <button class="chip">기타 문의</button>
+          </div>
+        </div>
+        <div class="input-bar" style="padding-bottom:16px; height:76px">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec spec-mobile">
+        <strong>변경점</strong> 위젯 380×580 → 모바일 풀스크린 375×740 (status bar 38 + safe area 16)<br>
+        <strong>컴포넌트 재사용</strong> Header/Bubble/Chip/Input 그대로. 사이즈만 화면 폭에 맞게 fill<br>
+        <strong>Open</strong> O11 모바일 PWA에서 풀스크린 vs Half-sheet 결정 필요
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+function toggleTheme() {
+  const root = document.documentElement;
+  const icon = document.getElementById('themeIcon');
+  const label = document.getElementById('themeLabel');
+  if (root.dataset.theme === 'dark') {
+    delete root.dataset.theme;
+    icon.textContent = '🌙';
+    label.textContent = '다크 모드';
+  } else {
+    root.dataset.theme = 'dark';
+    icon.textContent = '☀️';
+    label.textContent = '라이트 모드';
+  }
+}
+
+// === 라이브 데모 컨트롤러 ===
+let demoIntent = null;
+let isLoggedIn = false;
+
+function showScreen(screen) {
+  document.querySelectorAll('#liveCw .screen').forEach(s => s.classList.remove('active'));
+  const target = document.querySelector(`#liveCw [data-screen="${screen}"]`);
+  if (target) {
+    target.classList.add('active');
+    // 채팅 영역 맨 위로 스크롤
+    const chat = target.querySelector('.chat');
+    if (chat) chat.scrollTop = 0;
+  }
+}
+
+function openWidget() {
+  document.getElementById('liveLauncher').hidden = true;
+  document.getElementById('liveCw').hidden = false;
+  showScreen('start');
+}
+
+function closeWidget() {
+  document.getElementById('liveLauncher').hidden = false;
+  document.getElementById('liveCw').hidden = true;
+}
+
+function selectIntent(intent) {
+  demoIntent = intent;
+  // 시연용으로 항상 비로그인 가정 → 인증 모달
+  if (!isLoggedIn) {
+    showScreen('auth');
+  } else {
+    routeByIntent();
+  }
+}
+
+function loginComplete() {
+  isLoggedIn = true;
+  routeByIntent();
+}
+
+function routeByIntent() {
+  // 의도에 따라 시나리오 분기
+  const queryMap = {
+    order: '주문한 상품 확인하고 싶어요',
+    refund: '반품하고 싶은 상품이 있어요',
+    cancel: '방금 결제한 주문 취소해주세요',
+    point: '내 포인트 얼마 남았어요?',
+    etc: '그 외 문의가 있어요'
+  };
+  const queryEl = document.getElementById('liveOrderQuery');
+  if (queryEl && queryMap[demoIntent]) queryEl.textContent = queryMap[demoIntent];
+
+  if (demoIntent === 'order') showScreen('orders');
+  else if (demoIntent === 'refund') showScreen('orders');
+  else if (demoIntent === 'cancel') showScreen('cancel');
+  else if (demoIntent === 'point') showScreen('point');
+  else showScreen('agent');
+}
+
+function selectOrder(orderId) {
+  // 의도에 따라 다음 화면 분기
+  if (demoIntent === 'refund') showScreen('refund-form');
+  else showScreen('delivery');
+}
+
+function pickReason(el, reason) {
+  // 라디오 버튼처럼 동작
+  el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  // [다음 단계로] 버튼 활성화
+  const nextBtn = document.getElementById('refundNext');
+  if (nextBtn) {
+    nextBtn.style.opacity = '1';
+    nextBtn.style.pointerEvents = 'auto';
+  }
+}
+</script>
+</body>
+</html>
