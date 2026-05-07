@@ -675,6 +675,116 @@ body { padding: 48px 24px 96px; }
 /* === Live demo === */
 .cw .screen { display: none; flex-direction: column; height: 100%; }
 .cw .screen.active { display: flex; }
+
+/* === Phase 3 클레임 컴포넌트 === */
+/* 귀책 배지 */
+.fault-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: var(--r-full);
+  font-size: 11px; font-weight: 700;
+}
+.fault-badge.buyer { background: var(--bg-attention-weak); color: var(--fg-attention); }
+.fault-badge.seller { background: var(--bg-brand-weak); color: var(--fg-brand); }
+
+/* 결제수단별 환불 일정 카드 */
+.payment-refund-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px; max-width: 280px;
+}
+.payment-refund-card h4 { font-size: 12px; font-weight: 700; color: var(--fg-weak); margin-bottom: 10px; }
+.pay-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--bg-weak);
+}
+.pay-row:last-child { border-bottom: none; padding-bottom: 0; }
+.pay-row .pay-method { color: var(--fg); font-weight: 500; }
+.pay-row .pay-period { color: var(--fg-weak); font-size: 12px; }
+.pay-row.current {
+  background: var(--bg-brand-weak); margin: 0 -14px; padding: 8px 14px;
+  border-bottom: none; border-left: 3px solid var(--bg-brand);
+}
+.pay-row.current .pay-method { color: var(--fg-brand); font-weight: 700; }
+
+/* 회수 방법 선택 */
+.collect-method { display: flex; flex-direction: column; gap: 6px; max-width: 280px; }
+.collect-card {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 14px; background: var(--bg); cursor: pointer;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.collect-card:hover { border-color: var(--border-brand); }
+.collect-card.selected { border-color: var(--border-brand); background: var(--bg-brand-weak); }
+.collect-icon {
+  width: 32px; height: 32px; border-radius: var(--r-md);
+  background: var(--bg-weak); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0;
+}
+.collect-icon svg { width: 18px; height: 18px; fill: var(--fg-weak); }
+.collect-card.selected .collect-icon { background: var(--bg-brand); }
+.collect-card.selected .collect-icon svg { fill: var(--fg-inverse); }
+.collect-info { flex: 1; }
+.collect-title { font-size: 14px; font-weight: 600; color: var(--fg); margin-bottom: 2px; }
+.collect-desc { font-size: 12px; color: var(--fg-weak); line-height: 16px; }
+
+/* 클레임 상태 추적 카드 */
+.tracking-card {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px; max-width: 280px;
+}
+.tracking-current {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 12px; background: var(--bg-brand-weak);
+  border-radius: var(--r-md); margin-bottom: 12px;
+}
+.tracking-current .pulse {
+  width: 8px; height: 8px; background: var(--bg-brand); border-radius: 50%;
+  animation: blink 1.5s infinite;
+}
+.tracking-current span { font-size: 13px; font-weight: 700; color: var(--fg-brand); }
+.tracking-meta { font-size: 12px; color: var(--fg-weak); margin-top: 4px; line-height: 16px; }
+
+/* 포인트 사전 케어 카드 */
+.point-care-card {
+  background: var(--bg-attention-weak);
+  border: 1px solid rgba(178,120,0,0.25);
+  border-radius: var(--r-md); padding: 14px 16px; max-width: 280px;
+}
+.point-care-card h4 { font-size: 12px; font-weight: 700; color: var(--fg-attention); margin-bottom: 8px; }
+.point-care-card p { font-size: 13px; color: var(--fg); line-height: 18px; margin-bottom: 8px; }
+.point-care-amount {
+  font-size: 18px; font-weight: 800; color: var(--fg-attention);
+  display: flex; align-items: baseline; gap: 4px;
+}
+.point-care-amount small { font-size: 12px; font-weight: 500; color: var(--fg-weak); }
+
+/* 자동 승인 카운트다운 */
+.countdown-card {
+  background: var(--bg-brand-weak); border: 1px solid var(--border-brand-soft);
+  border-radius: var(--r-md); padding: 12px 14px; max-width: 280px;
+  display: flex; gap: 10px; align-items: center;
+}
+.countdown-card svg { width: 20px; height: 20px; fill: var(--fg-brand); flex-shrink: 0; }
+.countdown-text { font-size: 12px; color: var(--fg); line-height: 16px; }
+.countdown-text strong { color: var(--fg-brand); font-weight: 700; }
+
+/* 케이스 섹션 헤더 (그리드 안에서) */
+.case-section-header {
+  grid-column: 1 / -1;
+  margin-top: 24px; margin-bottom: 0;
+  padding: 20px 24px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+}
+.case-section-header h3 {
+  font-size: 20px; font-weight: 700; margin-bottom: 6px;
+}
+.case-section-header p { font-size: 13px; color: var(--fg-weak); line-height: 20px; }
+.case-section-header .case-count {
+  display: inline-block; margin-left: 8px;
+  background: var(--bg-brand-weak); color: var(--fg-brand);
+  padding: 2px 10px; border-radius: var(--r-full);
+  font-size: 12px; font-weight: 700;
+}
 .live-badge {
   display: inline-flex; align-items: center; gap: 6px;
   background: var(--accent-red); color: white;
@@ -742,13 +852,13 @@ body { padding: 48px 24px 96px; }
   <div class="doc-header">
     <h1>오집사 챗봇 내재화 — Web Mockups</h1>
     <p class="sub">Phase 4 인앱/웹 챗봇. 오늘의집 웹 우측 하단 floating 위젯 형태. OHOUSE-DESIGN.md v0.4.2 + ICONS.md sprite 적용.</p>
-    <p class="meta">총 22개 화면 · 인웹 진입(M00, M00b) + 챗봇 모달 시퀀스(M01~M16) + 엣지/모바일(M17~M21) · 다크 모드 지원</p>
+    <p class="meta">총 38개 화면 · 인웹 진입(M00, M00b) + 챗봇 시퀀스(M01~M16) + 엣지/모바일(M17~M21) + Phase 3 클레임 케이스(M22~M37) · 다크 모드 지원</p>
   </div>
 
   <div class="legend">
-    <strong>v4 — 라이브 데모 활성화</strong> · 메인 hero 위젯의 모든 버튼/chip/카드 클릭 가능. 시연·이해관계자 검토용.<br>
-    <strong>흐름 시뮬레이션</strong> · 시작 → [새 상담] → 첫인사 → chip 5종 → 인증 모달 → 로그인 → 주문 캐러셀/취소/포인트 → 배송/반품 단계 → 종료/NPS.<br>
-    <strong>제한</strong> · LLM 응답·실제 API 미연동 (AICX/ENG 작업). UI 분기만 동작. 우측 하단 그리드 22개는 spec 카탈로그로 유지.
+    <strong>v5 — Phase 3 클레임 케이스 16종 추가</strong> · 노션 [Phase 3 Level 4 클레임 처리 시나리오] 문서 매핑.<br>
+    <strong>섹션</strong> · 🛒 주문취소/환불(4) · 📦 반품(6) · 🔄 교환(5) · 🔧 AS(1). 각 케이스마다 As-Is/To-Be/필요 API/Handover 조건 spec 반영.<br>
+    <strong>핵심 분기</strong> · 귀책 자동 매핑(구매자/판매자) · 사진 거부 시 포인트 사전 케어(Handover) · 결제수단별 환불 일정 · 자동 승인 카운트다운 · 분쟁/부분/구매확정은 모두 즉시 Handover.
   </div>
 
   <!-- ============================================ -->
@@ -2241,6 +2351,808 @@ body { padding: 48px 24px 96px; }
         <strong>원칙</strong> 자동 거절 X → 항상 상담사 옵션 제공 (Phase 1 역구조 학습 반영)<br>
         <strong>UX</strong> 사유를 정중하게 + 예외 케이스(불량/오배송) 명시 + 상담사 연결 강조<br>
         <strong>변형</strong> 동일 패턴: 취소 불가(배송준비 시작) / 교환 불가(품절) / 부분 반품 불가
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🛒 Phase 3 주문취소/환불 케이스 -->
+    <!-- ============================================ -->
+    <div class="case-section-header">
+      <h3>🛒 주문취소 / 환불 케이스 <span class="case-count">4종</span></h3>
+      <p>같은 "취소" 발화여도 주문 상태값에 따라 처리 방식이 달라짐. Phase 3 클레임 시나리오 문서 0-2 라이프사이클 매핑.</p>
+    </div>
+
+    <!-- ============= M22 취소 Case 1 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M22 — 취소 Case 1: 결제완료/배송준비중 (즉시 취소)</div>
+      <div class="mockup-desc">Phase 3 자동 처리 가능 영역. 결제완료=즉시, 배송준비중=판매자 승인 후. estimated-refund 자동 계산 후 1탭 접수.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">방금 결제했는데 취소해주세요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">결제완료 상태라 즉시 취소 가능해요.
+환불 정보를 확인해주세요.</div></div>
+          <div class="bot-attached">
+            <div class="card">
+              <div class="card-row">
+                <div class="card-thumb thumb2"></div>
+                <div class="card-info">
+                  <div class="card-status">결제완료 · 즉시 취소</div>
+                  <div class="card-title">자취살림 침대 메탈프레임 SS</div>
+                  <div class="card-meta">주문 #20260427-2210</div>
+                </div>
+              </div>
+            </div>
+            <div class="info-card">
+              <h4>예상 환불 금액</h4>
+              <div class="info-row"><span class="info-label">상품 금액</span><span class="info-val">215,000원</span></div>
+              <div class="info-row"><span class="info-label">사용 쿠폰</span><span class="info-val">-15,000원 자동 복원</span></div>
+              <div class="info-row"><span class="info-label">사용 포인트</span><span class="info-val">-2,000P 자동 복원</span></div>
+              <div class="info-row total"><span>최종 환불</span><span class="info-val">198,000원</span></div>
+            </div>
+            <button class="btn btn-primary btn-block" style="max-width:280px">취소 접수하기</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> POST /v2/claim/cancels · POST /v2/claim/orders/{id}/estimated-refund<br>
+        <strong>변형</strong> 배송준비중 → "판매자 승인 후 처리" 안내 + 1~2영업일 일정 표기<br>
+        <strong>자동화</strong> ✅ 챗봇 단독 처리 가능 (저위험 1순위)
+      </div>
+    </div>
+
+    <!-- ============= M23 취소 Case 2 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M23 — 취소 Case 2: 판매자 승인 대기 (조회/추적)</div>
+      <div class="mockup-desc">취소는 접수했으나 판매자 승인이 안 된 상태. 1~2영업일 정상 / 3영업일 초과 시 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">취소 접수했는데 왜 승인이 안되나요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">취소 진행 상황을 확인해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="tracking-card">
+              <div class="tracking-current">
+                <div class="pulse"></div>
+                <span>판매자 승인 대기 중</span>
+              </div>
+              <div style="font-size:13px; color:var(--fg); font-weight:600">자취살림 침대 메탈프레임 SS</div>
+              <div class="tracking-meta">취소 접수 4/27 14:32 · 경과 1영업일</div>
+              <div class="tracking-meta" style="margin-top:8px; padding-top:8px; border-top:1px solid var(--border)">배송준비중 단계 취소는 판매자가 출고 여부를 확인한 뒤 승인해요. <strong style="color:var(--fg)">1~2영업일</strong> 내 처리되는 것이 일반적이에요.</div>
+            </div>
+            <button class="btn btn-secondary" style="height:36px; max-width:200px">판매자에게 문의하기</button>
+          </div>
+          <div class="chips">
+            <button class="chip">알겠어요</button>
+            <button class="chip">취소 철회할게요</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v2/claim/lists (취소 클레임 상태)<br>
+        <strong>자동화</strong> 🔍 조회·정책 안내만. 3영업일 초과 / 철회 요청 시 Handover<br>
+        <strong>분기</strong> "취소 철회할게요" → M25(즉시 Handover)
+      </div>
+    </div>
+
+    <!-- ============= M24 취소/환불 Case 3 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M24 — 취소·환불 Case 3: 환불 일정 안내 (결제수단별)</div>
+      <div class="mockup-desc">환불 처리는 됐는데 입금/한도 복원이 안 됨. 결제수단별 환불 기간 다름. 기간 초과면 수기환불 → Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">환불됐다는데 카드 한도가 복원이 안 됐어요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">결제하신 수단의 환불 일정을 안내드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="payment-refund-card">
+              <h4>결제수단별 환불 일정</h4>
+              <div class="pay-row current">
+                <div>
+                  <div class="pay-method">신용카드 (현재)</div>
+                  <div class="pay-period" style="margin-top:2px">한도 복원까지</div>
+                </div>
+                <div style="font-weight:700; color:var(--fg-brand)">3~7영업일</div>
+              </div>
+              <div class="pay-row"><span class="pay-method">가상계좌 (무통장)</span><span class="pay-period">3~5영업일</span></div>
+              <div class="pay-row"><span class="pay-method">휴대폰 결제 (당월)</span><span class="pay-period">1~3영업일</span></div>
+              <div class="pay-row"><span class="pay-method">휴대폰 결제 (익월)</span><span class="pay-period">3~7영업일</span></div>
+              <div class="pay-row"><span class="pay-method">간편결제 (페이류)</span><span class="pay-period">3~7영업일</span></div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">환불 승인일 4/26 기준, <strong style="color:var(--fg)">5/3까지</strong>는 정상 범위예요. 그 이후에도 미반영이라면 알려주세요.</div>
+          </div>
+          <div class="chips">
+            <button class="chip">알겠어요</button>
+            <button class="chip">기간 지났어요</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v1/orders/{id} (결제수단·환불 상태) · GET /v2/claim/lists<br>
+        <strong>자동화</strong> 🔍 정책 안내 자동. 기간 초과 / 휴대폰 익월 / 무통장 미등록 → Handover (수기환불 영역)<br>
+        <strong>분기</strong> "기간 지났어요" → 증빙 수취 + 상담사 연결 (수기환불 OB)
+      </div>
+    </div>
+
+    <!-- ============= M25 취소 Case 4 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M25 — 취소 Case 4: 철회·구매확정 취소 (즉시 Handover)</div>
+      <div class="mockup-desc">취소를 다시 살리거나 구매확정 후 환불 요청. 시스템·정책 모두 상담사 권한이라 즉시 인계.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">구매확정 했는데 불량이라, 환불해주세요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">구매확정 후 환불은 판매자 협의가 필요해요.
+전문 상담사를 연결해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+              <h4 style="color:var(--accent-red)">왜 자동 처리가 어려운가요?</h4>
+              <div style="font-size:13px; color:var(--fg); line-height:18px">• 구매확정 상태는 시스템상 취소 불가<br>• 판매자 협의 + 회수 확인 후 〔구매확정주문취소〕 처리 필요<br>• 귀책 분쟁 시 본사 중재 영역</div>
+            </div>
+            <div class="agent-card">
+              <div class="agent-icon"><svg><use href="#i-bubble"/></svg></div>
+              <div class="agent-title">상담사 연결 중</div>
+              <div class="agent-meta">현재 약 4명 대기 · 예상 3분<br>판매자와 협의 후 회신드려요</div>
+              <div class="agent-actions">
+                <button class="btn btn-primary btn-block">연결되면 알림 받기</button>
+              </div>
+            </div>
+          </div>
+          <div class="sys-msg">대화 내용과 주문 정보가 함께 전달돼요</div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>변형</strong> "취소 철회" / "구매확정 취소" / "결제완료 취소 철회" 모두 같은 패턴<br>
+        <strong>자동화</strong> ❌ 모든 케이스 즉시 Handover (판매자 협의·시스템 우회 처리는 상담사 권한)<br>
+        <strong>API</strong> 조회만 자동화 (GET /v1/orders/{id}, GET /v2/claim/lists)
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 📦 Phase 3 반품 케이스 -->
+    <!-- ============================================ -->
+    <div class="case-section-header">
+      <h3>📦 반품 케이스 <span class="case-count">6종</span></h3>
+      <p>접수 전·후·승인·환불·분쟁의 5단계 라이프사이클. 귀책 분기와 사진 첨부 거부 시 포인트 사전 케어가 핵심.</p>
+    </div>
+
+    <!-- ============= M26 반품 Case 1: 접수 전 (귀책 분기 + 회수) ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M26 — 반품 Case 1: 접수 전 (귀책 자동 매핑 + 회수 방법)</div>
+      <div class="mockup-desc">사유 선택 → 시스템이 귀책 자동 분기 → 회수 방법(택배/직접) → 환불 사전 계산 → 1탭 접수. M08의 풀 흐름.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                <div class="step active"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">선택하신 사유로 자동 분류했어요.</div></div>
+          <div class="bot-attached">
+            <div style="display:flex; gap:6px; align-items:center; max-width:280px">
+              <span class="fault-badge seller">🏪 판매자 귀책</span>
+              <span style="font-size:12px; color:var(--fg-weak)">사진 필수 · 배송비 무료</span>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">상품을 어떻게 회수할까요?</div></div>
+          <div class="bot-attached">
+            <div class="collect-method">
+              <div class="collect-card selected">
+                <div class="collect-icon"><svg><use href="#i-truck"/></svg></div>
+                <div class="collect-info">
+                  <div class="collect-title">택배 회수 요청</div>
+                  <div class="collect-desc">기사가 직접 방문해 수거 (1~3영업일)</div>
+                </div>
+              </div>
+              <div class="collect-card">
+                <div class="collect-icon"><svg><use href="#i-arrow-up-from-bracket"/></svg></div>
+                <div class="collect-info">
+                  <div class="collect-title">직접 발송 (송장 입력)</div>
+                  <div class="collect-desc">이미 택배로 보냈어요</div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="height:40px; max-width:200px">다음 단계로 →</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>핵심</strong> 사유 선택 시 시스템이 귀책 자동 매핑(GET /v2/claim/reasons) → 배송비 정책 자동 결정<br>
+        <strong>회수 방법</strong> 택배 회수(자동 수거) / 직접 발송(송장 입력) 분기. 도서산간·화물택배 시 배송비 다름<br>
+        <strong>분기</strong> 구매자 귀책 → 배송비 결제 단계 추가 / 판매자 귀책 → 사진 첨부 단계 추가
+      </div>
+    </div>
+
+    <!-- ============= M27 반품 Case 1 변형: 사진 거부 → 포인트 케어 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M27 — 반품 Case 1 변형: 사진 거부 (포인트 사전 케어)</div>
+      <div class="mockup-desc">판매자 귀책 + 사진 첨부 거부 시. 검수 후 정상 판정 가능성 안내 + 포인트 사전 케어. 1만원 초과 시 관리자 권한 → Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">사진 첨부가 어려우신가요?</div></div>
+          <div class="bot-attached">
+            <div class="point-care-card">
+              <h4>⚠️ 사진 없이 접수 시 안내</h4>
+              <p>검수 단계에서 정상 상품으로 판정되면 <strong>왕복 배송비(예상 4,000원)</strong>이 고객님께 청구될 수 있어요.</p>
+              <p style="font-size:12px; color:var(--fg-weak); margin-bottom:0">우려되는 비용을 포인트로 미리 보상해드릴게요.</p>
+              <div style="margin-top:10px; padding-top:10px; border-top:1px solid rgba(178,120,0,0.2)">
+                <div class="point-care-amount">+4,000<small>P</small></div>
+                <div style="font-size:11px; color:var(--fg-weak); margin-top:2px">접수 즉시 적립 · 60일 사용 가능</div>
+              </div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">정확한 처리를 위해 사진을 다시 한 번 받아볼게요. 어렵다면 상담사가 직접 도와드릴게요.</div>
+            <div class="card-actions" style="border:none; padding:0; max-width:280px">
+              <button class="btn btn-secondary">사진 다시 첨부</button>
+              <button class="btn btn-primary">상담사 연결</button>
+            </div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>분기 트리거</strong> 사진 업로드 폼에서 [건너뛰기] 또는 [사진 없음] 선택 시<br>
+        <strong>자동화</strong> ❌ 즉시 Handover (포인트 사전 케어 권한 필요. 1만원 초과 시 관리자 권한)<br>
+        <strong>UX 강조</strong> 비용 위험 명확히 + 보상안 함께 제시 (Phase 1 학습)
+      </div>
+    </div>
+
+    <!-- ============= M28 반품 Case 2: 회수 대기 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M28 — 반품 Case 2: 회수 대기 (수거 추적)</div>
+      <div class="mockup-desc">반품 접수 후 수거가 안 옴. 자동수거(요청완료) / 자동수거(요청실패) / 수동수거 분기. 3영업일 초과 시 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">반품 접수했는데 수거가 안 와요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 진행 상황을 확인해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="tracking-card">
+              <div class="tracking-current">
+                <div class="pulse"></div>
+                <span>회수 대기 중 (자동수거 · 요청완료)</span>
+              </div>
+              <div style="font-size:13px; font-weight:600; color:var(--fg)">모듈 패브릭 4인 소파 (그레이)</div>
+              <div class="tracking-meta">반품 접수 4/27 14:32 · 경과 1영업일</div>
+              <div class="stepbar" style="margin-top:12px; max-width:none; padding:10px 8px">
+                <div class="stepbar-row">
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">접수</div></div>
+                  <div class="step active"><div class="step-circle">2</div><div class="step-label" style="font-size:10px">회수 대기</div></div>
+                  <div class="step"><div class="step-circle">3</div><div class="step-label" style="font-size:10px">검수</div></div>
+                  <div class="step"><div class="step-circle">4</div><div class="step-label" style="font-size:10px">환불</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="countdown-card">
+              <svg><use href="#i-clock"/></svg>
+              <div class="countdown-text">자동 수거는 <strong>1~3영업일</strong>이 일반적이에요. 오늘 또는 내일 중 회수 예정.</div>
+            </div>
+            <button class="btn btn-secondary" style="height:36px; max-width:200px">택배사 추적 (CJ대한통운)</button>
+          </div>
+          <div class="chips">
+            <button class="chip">알겠어요</button>
+            <button class="chip">주소 변경</button>
+            <button class="chip">반품 철회</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v2/claim/lists (수거처리유형, 회수송장번호)<br>
+        <strong>분기</strong> 자동수거 요청실패 / 수동수거(파트너사 직접 접수) → Handover<br>
+        <strong>임계</strong> 3영업일 초과 미회수 / 주소 변경 (이관 후) → Handover
+      </div>
+    </div>
+
+    <!-- ============= M29 반품 Case 3: 검수 중 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M29 — 반품 Case 3: 검수 중 (자동 승인 카운트다운)</div>
+      <div class="mockup-desc">상품 회수 후 파트너사 검수 단계. 8영업일 자동 승인 정책 안내. 반품 불가 처리 시 알림톡 사유 확인.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">상품 회수된 지 일주일인데 왜 처리 안되나요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">파트너사가 검수 중이에요.
+일정을 확인해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="tracking-card">
+              <div class="tracking-current">
+                <div class="pulse"></div>
+                <span>파트너사 검수 중</span>
+              </div>
+              <div style="font-size:13px; font-weight:600; color:var(--fg)">모듈 패브릭 4인 소파</div>
+              <div class="tracking-meta">수거완료 4/22 · 경과 5영업일 / 8영업일</div>
+              <div class="stepbar" style="margin-top:12px; max-width:none; padding:10px 8px">
+                <div class="stepbar-row">
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">접수</div></div>
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">회수</div></div>
+                  <div class="step active"><div class="step-circle">3</div><div class="step-label" style="font-size:10px">검수 중</div></div>
+                  <div class="step"><div class="step-circle">4</div><div class="step-label" style="font-size:10px">환불</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="countdown-card">
+              <svg><use href="#i-clock"/></svg>
+              <div class="countdown-text">검수가 지연되면 수거완료일 <strong>+7영업일째 자동 승인</strong>돼요. (4/30(수) 예상)</div>
+            </div>
+            <div class="critical-msg" style="background:rgba(178,120,0,0.08); color:var(--fg-attention); border-color:rgba(178,120,0,0.25)">
+              💡 검수 결과가 "반품 불가"로 통보되면 <strong>알림톡으로 사유 안내</strong> + 8영업일 후 자동 구매확정
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip">파트너사 문의</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v2/claim/lists (검수 단계, 거절 사유)<br>
+        <strong>자동화</strong> 🔍 정책 안내 + 카운트다운 자동. 반품 불가 처리 / 거절 사유 분쟁 → Handover<br>
+        <strong>핵심</strong> 8영업일 자동 승인 정책을 시각화해서 사용자 불안 해소
+      </div>
+    </div>
+
+    <!-- ============= M30 반품 Case 4: 환불 지연 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M30 — 반품 Case 4: 환불 지연 (수기환불 → Handover)</div>
+      <div class="mockup-desc">반품 승인은 났는데 환불금이 안 들어옴. 결제수단별 일정 안내 → 기간 초과 시 수기환불 영역(Handover).</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">반품 승인 났는데 환불이 안 와요. 벌써 10일 됐어요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">정상 환불 기간(7영업일)을 초과했네요.
+빠르게 처리해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card" style="background:rgba(178,120,0,0.08); border-color:rgba(178,120,0,0.25)">
+              <h4 style="color:var(--fg-attention)">처리 상황</h4>
+              <div class="info-row"><span class="info-label">반품 승인</span><span class="info-val">4/17 (10영업일 경과)</span></div>
+              <div class="info-row"><span class="info-label">결제수단</span><span class="info-val">신용카드</span></div>
+              <div class="info-row"><span class="info-label">환불 금액</span><span class="info-val">1,286,000원</span></div>
+              <div class="info-row total" style="color:var(--fg-attention)"><span>처리 상태</span><span class="info-val" style="color:var(--accent-red)">기간 초과 미환불</span></div>
+            </div>
+            <div style="font-size:12px; color:var(--fg); max-width:280px; line-height:18px"><strong>수기환불 처리 대상</strong>이에요. 본사 담당자가 카드사 확인 후 직접 입금해드릴게요.</div>
+            <div class="agent-card">
+              <div class="agent-icon" style="background:rgba(178,120,0,0.1); color:var(--fg-attention)"><svg><use href="#i-bubble"/></svg></div>
+              <div class="agent-title">담당자 연결 (수기환불)</div>
+              <div class="agent-meta">증빙 자료 받고 1~2영업일 내 처리</div>
+              <button class="btn btn-primary btn-block">담당자 연결하기</button>
+            </div>
+          </div>
+          <div class="sys-msg">결제 수단·금액·기간 정보가 함께 전달돼요</div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>자동화</strong> ❌ 수기환불은 본사 담당자 OB 영역. 챗봇은 즉시 Handover<br>
+        <strong>분기 트리거</strong> 휴대폰 익월 / 무통장 미등록 / 카드 오류 / 1년 경과 카드 / 복합결제 부분환불 분쟁 모두 동일<br>
+        <strong>UX</strong> 사과 우선 + 다음 액션 명시 (사용자 불안 해소)
+      </div>
+    </div>
+
+    <!-- ============= M31 반품 Case 5: 분쟁/부분/구매확정 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M31 — 반품 Case 5: 분쟁·부분반품·구매확정 (Handover 3종)</div>
+      <div class="mockup-desc">귀책 분쟁 / 동일옵션 부분반품(시스템 미지원) / 구매확정 후 반품(판매자 협의). 모두 즉시 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">5개 중 2개만 반품할 수 있나요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">동일 옵션의 부분 반품은
+시스템상 자동 처리가 어려워요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+              <h4 style="color:var(--accent-red)">왜 자동 처리가 어려운가요?</h4>
+              <div style="font-size:13px; color:var(--fg); line-height:18px">• 동일 옵션 부분반품은 시스템 미지원<br>• 일반적으로는 전체 반품 후 필요 수량 재구매로 안내<br>• 단, 센터담당자가 백오피스에서 직접 처리 가능</div>
+            </div>
+            <div class="agent-card">
+              <div class="agent-icon"><svg><use href="#i-bubble"/></svg></div>
+              <div class="agent-title">상담사 연결</div>
+              <div class="agent-meta">전체 반품 안내 + 미수궁 시 백오피스 이관</div>
+              <button class="btn btn-primary btn-block">상담사 연결하기</button>
+            </div>
+            <div style="font-size:11px; color:var(--fg-weak); max-width:280px; line-height:16px; margin-top:4px">💡 <strong>다른 케이스</strong>: 귀책 분쟁(불량 vs 정상품) / 구매확정 후 반품도 같은 패턴으로 즉시 상담사 연결돼요.</div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>3종 변형 (모두 동일 패턴)</strong> 귀책 분쟁 / 동일옵션 부분반품 / 구매확정 후 반품<br>
+        <strong>자동화</strong> ❌ 모두 즉시 Handover (쌍방 협의·시스템 우회는 상담사 권한)<br>
+        <strong>UX</strong> 시스템 한계 명시 + 대안 제시 + 즉시 인계
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🔄 Phase 3 교환 케이스 -->
+    <!-- ============================================ -->
+    <div class="case-section-header">
+      <h3>🔄 교환 케이스 <span class="case-count">5종</span></h3>
+      <p>반품과 골격 동일하지만 옵션 재선택 + 교환 비용 결제 + 재배송 단계가 추가. 재고 부족 시 반품으로 전환 안내.</p>
+    </div>
+
+    <!-- ============= M32 교환 Case 1: 접수 + 비용 결제 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M32 — 교환 Case 1: 접수 전 (옵션 재선택 + 비용 결제)</div>
+      <div class="mockup-desc">반품과 다른 점 — 옵션 재선택(재고 확인) + 교환 배송비 결제 단계. 구매자 귀책 시 환불 차감 불가, 따로 결제만.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">교환 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">상품</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">사유</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">옵션</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">회수</div></div>
+                <div class="step active"><div class="step-circle">5</div><div class="step-label" style="font-size:10px">비용 결제</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 비용을 결제해주세요.</div></div>
+          <div class="bot-attached">
+            <div style="display:flex; gap:6px; align-items:center; max-width:280px; margin-bottom:4px">
+              <span class="fault-badge buyer">🙋 구매자 귀책</span>
+              <span style="font-size:12px; color:var(--fg-weak)">사이즈 변경</span>
+            </div>
+            <div class="info-card">
+              <h4>교환 비용</h4>
+              <div class="info-row"><span class="info-label">왕복 배송비</span><span class="info-val">8,000원</span></div>
+              <div class="info-row"><span class="info-label">변경 옵션 추가금</span><span class="info-val">0원</span></div>
+              <div class="info-row total"><span>결제 금액</span><span class="info-val">8,000원</span></div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">⚠️ 교환 배송비는 환불 차감이 불가해요. 따로 결제만 가능합니다.</div>
+            <button class="btn btn-primary btn-block" style="max-width:280px">8,000원 결제하기</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> POST /v2/claim/exchanges · 결제 처리 API · GET /v2/claim/orders/{id}/estimated-refund<br>
+        <strong>분기</strong> 판매자 귀책 → 비용 결제 X / 구매자 귀책 → 결제 단계 추가<br>
+        <strong>예외</strong> 교환 상품 재고 부족 → 반품으로 전환 안내(별도 화면)
+      </div>
+    </div>
+
+    <!-- ============= M33 교환 Case 2: 회수 대기 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M33 — 교환 Case 2: 회수 대기</div>
+      <div class="mockup-desc">반품 Case 2(M28)와 동일 패턴. 자동/수동 수거 분기, 1~3영업일 정책, 3영업일 초과 시 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">교환 접수했는데 수거가 안 와요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 진행 상황을 확인해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="tracking-card">
+              <div class="tracking-current">
+                <div class="pulse"></div>
+                <span>회수 대기 중 (자동수거 · 요청완료)</span>
+              </div>
+              <div style="font-size:13px; font-weight:600; color:var(--fg)">자취살림 침대 메탈프레임 → SS</div>
+              <div class="tracking-meta">교환 접수 4/27 · 경과 1영업일</div>
+              <div class="stepbar" style="margin-top:12px; max-width:none; padding:10px 8px">
+                <div class="stepbar-row">
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:9px">접수</div></div>
+                  <div class="step active"><div class="step-circle">2</div><div class="step-label" style="font-size:9px">회수</div></div>
+                  <div class="step"><div class="step-circle">3</div><div class="step-label" style="font-size:9px">검수</div></div>
+                  <div class="step"><div class="step-circle">4</div><div class="step-label" style="font-size:9px">재배송</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="countdown-card">
+              <svg><use href="#i-clock"/></svg>
+              <div class="countdown-text">자동 수거는 <strong>1~3영업일</strong>이 일반적이에요.</div>
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip">알겠어요</button>
+            <button class="chip">교환 철회</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v2/claim/lists (수거 상태)<br>
+        <strong>임계</strong> 3영업일 초과 / 자동수거 실패 → Handover<br>
+        <strong>비고</strong> 반품 Case 2(M28)와 동일 컴포넌트 재사용 (단계바 라벨만 다름)
+      </div>
+    </div>
+
+    <!-- ============= M34 교환 Case 3: 재배송 미시작 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M34 — 교환 Case 3: 재배송 미시작 (검수→교환승인)</div>
+      <div class="mockup-desc">상품 회수 후 새 상품 출고 안 됨. 자동 교환완료 정책(181일) 안내. 2영업일+ 미출고 시 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">회수는 갔다는데 새 상품 언제 와요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">파트너사 검수가 끝나면 바로 출고돼요.</div></div>
+          <div class="bot-attached">
+            <div class="tracking-card">
+              <div class="tracking-current">
+                <div class="pulse"></div>
+                <span>교환 승인 (재배송 준비 중)</span>
+              </div>
+              <div style="font-size:13px; font-weight:600; color:var(--fg)">자취살림 침대 메탈프레임 → SS</div>
+              <div class="tracking-meta">수거완료 4/24 · 교환승인 4/27 · 경과 1영업일</div>
+              <div class="stepbar" style="margin-top:12px; max-width:none; padding:10px 8px">
+                <div class="stepbar-row">
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:9px">접수</div></div>
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:9px">회수</div></div>
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:9px">검수</div></div>
+                  <div class="step active"><div class="step-circle">4</div><div class="step-label" style="font-size:9px">재배송</div></div>
+                </div>
+              </div>
+            </div>
+            <div class="countdown-card">
+              <svg><use href="#i-clock"/></svg>
+              <div class="countdown-text">교환 승인 후 <strong>1~2영업일 내</strong> 출고가 일반적이에요. 곧 송장이 등록될 예정이에요.</div>
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip">알겠어요</button>
+            <button class="chip">파트너사 문의</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v2/claim/lists (교환 단계: 수거완료/교환승인/교환재배송중)<br>
+        <strong>임계</strong> 교환 승인 후 2영업일+ 미출고 → Handover<br>
+        <strong>정책</strong> 운송장 미등록 시 교환요청일 +181일 자동 교환완료 (사전 안내)
+      </div>
+    </div>
+
+    <!-- ============= M35 교환 Case 4: 운송장 등록 후 미도착 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M35 — 교환 Case 4: 운송장 등록 후 미도착</div>
+      <div class="mockup-desc">교환 상품 운송장은 떴는데 배송이 안 옴. 택배사 추적 + 정상 지연 vs 장기 미도착 분기.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">교환 재배송 송장은 떴는데 상품이 안 와요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">배송 추적 결과를 확인해드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="card">
+              <div class="card-row">
+                <div class="card-thumb thumb2"></div>
+                <div class="card-info">
+                  <div class="card-status alert">집화처리 (1일째)</div>
+                  <div class="card-title">자취살림 침대 메탈프레임 SS</div>
+                  <div class="card-meta">CJ대한통운 · 99887-66554</div>
+                </div>
+              </div>
+              <div class="stepbar" style="margin-top:14px; max-width:none">
+                <div class="stepbar-row">
+                  <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">집화</div></div>
+                  <div class="step active"><div class="step-circle">2</div><div class="step-label" style="font-size:10px">간선상차</div></div>
+                  <div class="step"><div class="step-circle">3</div><div class="step-label" style="font-size:10px">배송중</div></div>
+                  <div class="step"><div class="step-circle">4</div><div class="step-label" style="font-size:10px">완료</div></div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-secondary"><svg><use href="#i-truck"/></svg>택배사 추적</button>
+              </div>
+            </div>
+            <div class="countdown-card">
+              <svg><use href="#i-clock"/></svg>
+              <div class="countdown-text">송장 등록 후 <strong>1~3일 내 배송</strong>이 일반적이에요. 추가 1~2일 양해 부탁드려요.</div>
+            </div>
+          </div>
+          <div class="chips">
+            <button class="chip">알겠어요</button>
+            <button class="chip">5일 넘었어요</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v1/order_options/{id}/delivery_info (외부 택배사 추적)<br>
+        <strong>임계</strong> 운송장 등록 후 5영업일+ 미도착 / 강성 불만 / 자동 교환완료 임박 → Handover
+      </div>
+    </div>
+
+    <!-- ============= M36 교환 Case 5: 거절·부분교환 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M36 — 교환 Case 5: 거절·부분교환 (Handover)</div>
+      <div class="mockup-desc">교환 거절(알림톡 사유) / 동일옵션 부분교환(시스템 미지원) / 구매확정 후 교환(판매자 협의). 모두 즉시 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">판매자가 교환 거절했어요. 이유를 모르겠어요</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 거절 사유를 확인하고
+함께 해결 방법을 찾아볼게요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+              <h4 style="color:var(--accent-red)">거절 사유 (알림톡 발송됨)</h4>
+              <div style="font-size:13px; color:var(--fg); line-height:18px">"상품에 사용 흔적이 있어 교환 처리가 어렵습니다."<br><span style="color:var(--fg-weak); font-size:11px">— 자취살림 (4/26 통보)</span></div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">사유에 동의하지 않으시면 본사가 중재해드릴게요. 사진·증빙 함께 검토할게요.</div>
+            <div class="agent-card">
+              <div class="agent-icon"><svg><use href="#i-bubble"/></svg></div>
+              <div class="agent-title">상담사 연결 (본사 중재)</div>
+              <div class="agent-meta">파트너사 ↔ 본사 ↔ 고객 3자 검토</div>
+              <button class="btn btn-primary btn-block">상담사 연결하기</button>
+            </div>
+            <div style="font-size:11px; color:var(--fg-weak); max-width:280px; line-height:16px; margin-top:4px">💡 <strong>다른 케이스</strong>: 동일옵션 부분교환(시스템 미지원) / 구매확정 후 교환도 같은 패턴.</div>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>3종 변형</strong> 교환 거절 / 동일옵션 부분교환 / 구매확정 후 교환<br>
+        <strong>자동화</strong> ❌ 모두 즉시 Handover (쌍방 협의·시스템 우회는 상담사 권한)<br>
+        <strong>UX</strong> 거절 사유 명시 → 본사 중재 옵션 제시
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- 🔧 Phase 3 AS 케이스 -->
+    <!-- ============================================ -->
+    <div class="case-section-header">
+      <h3>🔧 AS 케이스 <span class="case-count">1종</span></h3>
+      <p>AS는 판매자/제조사 영역. 챗봇은 경로 안내만 자동화. 소요·비용·지연은 즉시 Handover.</p>
+    </div>
+
+    <!-- ============= M37 AS 안내 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M37 — AS 안내 (판매자/제조사 딥링크)</div>
+      <div class="mockup-desc">AS는 챗봇 처리 영역 외. "어디로 접수?" 같은 경로 문의만 자체 종결. 비용·소요·지연은 모두 Handover.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">상품 고장났는데 AS는 어떻게 받아요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">AS는 판매자/제조사가 직접 처리해요.
+주문하신 상품의 AS 창구로 안내드릴게요.</div></div>
+          <div class="bot-attached">
+            <div class="card">
+              <div class="card-row">
+                <div class="card-thumb"></div>
+                <div class="card-info">
+                  <div class="card-status">배송완료 · 4/24</div>
+                  <div class="card-title">모듈 패브릭 4인 소파 (그레이)</div>
+                  <div class="card-meta">판매자: 자취살림</div>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn btn-primary"><svg><use href="#i-bubble"/></svg>판매자 문의</button>
+                <button class="btn btn-secondary">제조사 정보</button>
+              </div>
+            </div>
+            <div class="info-card" style="background:var(--bg-weak); border-color:var(--border)">
+              <h4 style="color:var(--fg-weak)">AS 진행 안내</h4>
+              <div style="font-size:13px; color:var(--fg); line-height:18px">• 판매자 주문문의로 AS 접수<br>• 제조사가 별도 운영 시 직접 컨택<br>• 비용·소요일정은 판매자/제조사 정책 적용</div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">AS 진행 중인데 답이 없으세요?
+강성 불만이라면 본사가 중재해드릴게요.</div></div>
+          <div class="chips">
+            <button class="chip">소요·비용 문의</button>
+            <button class="chip">진행 지연</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <div class="input-field">메시지를 입력하세요</div>
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>API</strong> GET /v1/orders/{id} + 판매자 주문문의 딥링크<br>
+        <strong>자동화</strong> ⚠️ 경로 안내만 자체 종결 가능. 소요·비용·지연 → 모두 Handover<br>
+        <strong>Phase 3 범위 외</strong> 부록 A-1 표 참조 (AS 소요/비용/지연 ❌)
       </div>
     </div>
 
