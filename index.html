@@ -6172,6 +6172,593 @@ body { padding: 48px 24px 96px; }
       </div>
     </div>
   </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #9 — 배송지연 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      배송지연 풀 시나리오 (B5)
+      <span class="scenario-tag">운송장 흐름 없음 · 가송장 분기</span>
+    </div>
+    <div class="scenario-desc">"배송중인데 며칠째 멈춰있어요" → 챗봇이 운송장 추적 자동 조회 → 흐름 정상 vs 가송장/주소오류 분기 → 택배사 또는 파트너사 안내. KMS 6. 배송 - 배송지연 처리 매핑.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 운송장 자동 추적</div>
+      <div class="scenario-part-title">의도 파악 → 주문 선택 → 운송장 흐름 자동 조회 <small>(3 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 파악</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">상품이 며칠째 안 와요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">불편드려 죄송해요.
+배송 정보를 확인해드릴게요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">"안 와요" 키워드 → 사과 우선</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 배송중 주문 캐러셀</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">배송중 주문 2건이에요.
+어떤 상품인가요?</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status alert">배송중 · 예정일 3일 경과</div>
+                    <div class="card-title">모듈 패브릭 4인 소파</div>
+                    <div class="card-meta">CJ대한통운 · 12345-67890</div>
+                  </div></div>
+                </div>
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb thumb2"></div><div class="card-info">
+                    <div class="card-status">배송중 · 정상 범위</div>
+                    <div class="card-title">자취살림 침대 메탈프레임</div>
+                    <div class="card-meta">한진택배 · 99887-66554</div>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">예정일 경과 건은 alert 색상으로 자동 강조</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 운송장 흐름 자동 판정</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">[모듈 패브릭 4인 소파]</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">택배사 운송장 추적 결과를
+확인 중이에요...</div></div>
+              <div style="margin-left:30px; padding:12px 14px; background:var(--bg-weak); border-radius:8px; font-size:11px; color:var(--fg-weak); max-width:220px">⏳ 자동 분기<br>· 흐름 정상 + 단순 지연 → 택배사<br>· 흐름 없음 (가송장) → 파트너사<br>· 주소 오류 → 파트너사</div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>API</strong> GET /v1/order_options/{id}/delivery_info (외부 택배사 추적)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 사유별 응대 분기</div>
+      <div class="scenario-part-title">정상 지연 / 가송장 / 주소 오류 평행 분기</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4-A</span> 정상 지연 (택배사 사유)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">택배사 흐름은 정상이에요.
+지역·기상 영향으로 지연 중.</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status">집화처리 → 간선상차 (3일 정체)</div>
+                    <div class="card-title">CJ대한통운 12345-67890</div>
+                  </div></div>
+                  <div class="stepbar" style="margin-top:8px">
+                    <div class="stepbar-row">
+                      <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:9px">집화</div></div>
+                      <div class="step active"><div class="step-circle">2</div><div class="step-label" style="font-size:9px">간선</div></div>
+                      <div class="step"><div class="step-circle">3</div><div class="step-label" style="font-size:9px">배송</div></div>
+                      <div class="step"><div class="step-circle">4</div><div class="step-label" style="font-size:9px">완료</div></div>
+                    </div>
+                  </div>
+                  <div class="card-actions">
+                    <button class="btn btn-secondary"><svg><use href="#i-truck"/></svg>택배사 추적</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">3일 미만은 양해 안내. 5일+ 경과 시 파트너사 분기로 자동 전환</div>
+        </div>
+        <div class="scenario-arrow">vs</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4-B</span> 가송장 / 흐름 없음</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">운송장은 등록됐는데
+실제 이동 흐름이 없어요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">가송장 의심</h4>
+                  <div style="font-size:11px; line-height:15px">• 운송장 등록 후 3일 째 추적 데이터 없음<br>• 파트너사 출고 누락 가능성</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>판매자 문의</button>
+                <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>핵심 케이스</strong> 가송장은 파트너사 확인 필수 (재출고 일정 획득)</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 추가 문의 분기</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">또 도와드릴 일이 있나요?</div></div>
+              <div class="chips">
+                <button class="chip">취소하고 환불</button>
+                <button class="chip">계속 기다릴게요</button>
+                <button class="chip">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">[취소하고 환불] → 시나리오 #3 주문 취소 점프 (배송중→불가→반품 안내)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label" style="background:rgba(253,61,74,0.08); color:var(--accent-red)">⚠️ 예외 (2종)</div>
+      <div class="scenario-part-title">7일+ 장기 지연 / 분실 의심</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E1</span> 7일+ 장기 지연 → 즉시 인계</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">2주 됐는데 안 와요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">정말 죄송해요.
+빠른 처리를 위해 전문 상담사가 도와드릴게요.</div></div>
+              <div class="bot-attached">
+                <div class="agent-card">
+                  <div class="agent-icon" style="background:rgba(253,61,74,0.1); color:var(--accent-red)"><svg><use href="#i-bubble"/></svg></div>
+                  <div class="agent-title">긴급 처리 (장기 지연)</div>
+                  <div class="agent-meta">파트너사·택배사 동시 확인<br>최우선 응대</div>
+                  <button class="btn btn-primary btn-block">상담사 연결</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">7일+ 미수령은 SLA 초과 → 강성 우려 → 우선 응대</div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E2</span> 분실 의심 → B7 시나리오 점프</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">'배송완료'로 표시되는데
+받지 못하셨나요?</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(178,120,0,0.08); border-color:rgba(178,120,0,0.25)">
+                  <h4 style="color:var(--fg-attention)">분실 의심</h4>
+                  <div style="font-size:11px; line-height:15px">'배송완료' 표시 + 미수령 → 별도 절차로 진행</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">분실 조회로 전환</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">→ 시나리오 #10 B7 배송분실로 점프</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입·조회 3 + 분기 2(평행) + 추가 문의 1 + 예외 2 = <strong>8화면</strong> · <strong>API</strong> 외부 택배사 추적 + GET /v1/orders · <strong>자동화</strong> ⚠️ 부분(흐름 정상=자동, 가송장=파트너사) · <strong>자체 종결율</strong> ~50%
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #10 — 배송분실 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      배송분실 풀 시나리오 (B7)
+      <span class="scenario-tag">배송완료 + 미수령 · 위탁장소·대리수령 분기</span>
+    </div>
+    <div class="scenario-desc">"배송완료라는데 못 받았어요" → 챗봇이 위탁장소·대리수령 가능성 자동 안내 → 분실 확정 시 택배사·파트너사 확인 → 재출고 또는 환불. KMS 6. 배송 - 배송분실.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 1차 확인</div>
+      <div class="scenario-part-title">위탁장소 / 대리수령 가능성부터 자가 점검 <small>(3 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 파악 + 사과</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">배송완료라는데 못 받았어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">불편드려 죄송해요.
+함께 확인해드릴게요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 주문 + 위탁장소 자동 표기</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status done">배송완료 · 4/24 14:32</div>
+                    <div class="card-title">모듈 패브릭 4인 소파</div>
+                    <div class="card-meta">위탁장소: <strong>경비실</strong></div>
+                  </div></div>
+                </div>
+                <div class="info-card" style="background:rgba(178,120,0,0.08); border-color:rgba(178,120,0,0.25)">
+                  <h4 style="color:var(--fg-attention)">먼저 확인해주세요</h4>
+                  <div style="font-size:11px; line-height:15px">기사가 <strong>경비실에 위탁</strong>한 것으로 등록됐어요.<br>경비실에 확인해주실 수 있을까요?</div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">택배사 데이터에서 위탁장소 자동 추출 → 사용자 자가 확인</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 자가 확인 분기</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">확인 결과를 알려주세요.</div></div>
+              <div class="chips">
+                <button class="chip">경비실에서 찾았어요</button>
+                <button class="chip">가족이 받았어요</button>
+                <button class="chip">정말 없어요</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">[찾았어요/대리수령] → 자체 종결 / [정말 없어요] → S4 분실 확정</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 분실 확정 → 처리</div>
+      <div class="scenario-part-title">택배사·파트너사 확인 + 재출고 또는 환불</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4</span> 분실 확정 → 즉시 인계</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">정말 없어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">알겠습니다.
+정말 죄송해요.
+빠르게 처리해드릴게요.</div></div>
+              <div class="bot-attached">
+                <div class="agent-card">
+                  <div class="agent-icon" style="background:rgba(253,61,74,0.1); color:var(--accent-red)"><svg><use href="#i-bubble"/></svg></div>
+                  <div class="agent-title">분실 처리 (담당자 연결)</div>
+                  <div class="agent-meta">택배사 분실 확인 + 파트너사 재출고 또는 환불 협의</div>
+                  <div class="agent-actions">
+                    <button class="btn btn-primary btn-block">상담사 연결</button>
+                  </div>
+                </div>
+              </div>
+              <div class="sys-msg">위탁장소·시간·주문번호 자동 전달</div>
+            </div>
+          </div>
+          <div class="scenario-step-note"><strong>❌ Handover</strong> 분실 확정은 책임 소재 판정 필요 → 담당자 영역</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 후속 안내 (담당자 연결 후)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">담당자 처리 결과는
+알림톡으로 안내드려요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>예상 처리 옵션</h4>
+                  <div style="font-size:12px; color:var(--fg); line-height:18px">• <strong>재출고</strong>: 재고 있을 시 (1~3일)<br>• <strong>환불</strong>: 재고 부족 시<br>• <strong>포인트 케어</strong>: 불편 보상</div>
+                </div>
+                <button class="btn btn-secondary btn-block" style="max-width:220px; height:32px; font-size:12px">새 상담 시작</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label" style="background:rgba(253,61,74,0.08); color:var(--accent-red)">⚠️ 예외 (2종)</div>
+      <div class="scenario-part-title">위탁장소 미등록 / 강성 불만</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E1</span> 위탁장소 데이터 없음</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">위탁장소가 등록되지 않았어요.
+다음을 확인해주세요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>자가 확인 항목</h4>
+                  <div style="font-size:11px; line-height:15px">• 가족·지인이 대신 받지 않았는지<br>• 문 앞·우편함·소화전 옆 확인<br>• 옆집·다른 동 잘못 배송 여부</div>
+                </div>
+                <div class="card-actions" style="border:none; padding:0; max-width:220px">
+                  <button class="btn btn-secondary" style="height:32px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-truck"/></svg>택배사 확인</button>
+                  <button class="btn btn-primary" style="height:32px; font-size:12px">상담사 연결</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E2</span> 강성 불만 (상해/대외기관)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">소비자원 신고할게요</div></div>
+              <div class="bot-attached" style="margin-left:0; align-items:center">
+                <div class="critical-msg"><svg><use href="#i-exclamation-triangle"/></svg> 긴급 응대가 필요한 사안<br>관리자에게 즉시 연결</div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">진심으로 죄송해요.
+관리자가 즉시 도와드릴 거예요.</div></div>
+              <div class="bot-attached">
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">긴급 인계</button>
+              </div>
+              <div class="sys-msg">관리자 보고 + Serious VOC 자동 분류</div>
+            </div>
+          </div>
+          <div class="scenario-step-note"><strong>L3 매핑</strong> Critical 키워드 (대외기관) → 즉시 인계</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입·확인 3 + 분실 처리 2 + 예외 2 = <strong>7화면</strong> · <strong>API</strong> 외부 택배사 (위탁장소 데이터) · <strong>자동화</strong> ⚠️ 부분(자가 확인 자동, 분실 확정은 Handover) · <strong>자체 종결율</strong> ~40% (위탁장소·대리수령으로 발견되는 비율)
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #11 — 포장/파손 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      포장/파손 불량 풀 시나리오 (B8)
+      <span class="scenario-tag">사진 첨부 → 반품/교환 자동 전환</span>
+    </div>
+    <div class="scenario-desc">"받은 상품이 파손됐어요" → 챗봇이 사진 첨부 안내 → 사용자 의도(반품/교환) 분기 → 클레임 시나리오로 자동 전환. 가장 자연스러운 클레임 진입 포인트.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 사진 첨부</div>
+      <div class="scenario-part-title">사과 우선 + 증빙 수집 <small>(3 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 + 사과</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">받은 상품이 파손돼서 왔어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">정말 불편드려 죄송해요.
+사진을 보내주시면 빠르게 처리해드릴게요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">"파손/불량/이상" 키워드 → 사과 + 증빙 안내</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 주문 선택</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">어떤 상품인가요?</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status done">배송완료 · 4/24 (D-3)</div>
+                    <div class="card-title">모듈 패브릭 4인 소파</div>
+                    <div class="card-meta">반품/교환 가능</div>
+                  </div></div>
+                </div>
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb thumb3"></div><div class="card-info">
+                    <div class="card-status done">배송완료 · 4/22 (D-5)</div>
+                    <div class="card-title">아이리스 6단 수납박스</div>
+                    <div class="card-meta">반품/교환 가능</div>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">배송완료 + 7일 이내 주문만 자동 필터링</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 사진 첨부 폼</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">파손 부분이 잘 보이게
+사진을 올려주세요.
+포장 박스도 함께 찍어주시면 좋아요.</div></div>
+              <div class="bot-attached">
+                <div class="upload-grid">
+                  <div class="upload-slot filled"></div>
+                  <div class="upload-slot filled f2"></div>
+                  <div class="upload-slot filled"></div>
+                  <div class="upload-slot"><svg><use href="#i-camera"/></svg>+ 추가</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">다음 단계</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">상세 사유 (선택)</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>핵심</strong> 포장 박스 함께 권장 → 배송 중 파손 vs 출고 불량 판정 용이</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 의도 분기 + 클레임 자동 전환</div>
+      <div class="scenario-part-title">사용자 선택(반품/교환/AS) → 해당 시나리오로 컨텍스트 전달</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4</span> 의도 선택</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">어떻게 처리해드릴까요?</div></div>
+              <div class="bot-attached">
+                <div class="form-options">
+                  <div class="option selected"><div class="option-radio"></div>새 상품으로 교환<span class="option-tag">자동 처리</span></div>
+                  <div class="option"><div class="option-radio"></div>반품 + 환불<span class="option-tag">자동 처리</span></div>
+                  <div class="option"><div class="option-radio"></div>AS 받고 싶어요<span class="option-tag">판매자</span></div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">선택 완료</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">선택 후 → 5번 자동 전환 안내</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 자동 전환 (귀책 자동 매핑)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 접수 화면으로 이동할게요.
+사진과 사유는 자동으로 가져갈게요.</div></div>
+              <div class="bot-attached">
+                <div style="display:flex; gap:6px; align-items:center; max-width:220px">
+                  <span class="fault-badge seller">🏪 판매자 귀책</span>
+                  <span style="font-size:11px; color:var(--fg-weak)">배송비 무료</span>
+                </div>
+                <div class="info-card">
+                  <h4>이어서 진행</h4>
+                  <div style="font-size:11px; line-height:15px">• 사진 3장 첨부 완료<br>• 사유: 배송 중 파손<br>• 귀책: 판매자 (자동)</div>
+                </div>
+                <button class="btn btn-primary btn-block" style="max-width:220px; height:32px; font-size:12px">교환 접수 계속하기</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">→ 시나리오 #4 교환 접수 풀 흐름 점프 (Part C 옵션 재선택부터)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label" style="background:rgba(253,61,74,0.08); color:var(--accent-red)">⚠️ 예외 (3종)</div>
+      <div class="scenario-part-title">상해 발생 / 사진 거부 / 7일 초과</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E1</span> 상해 발생 → Critical 즉시 인계</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">조립하다 손이 베였어요</div></div>
+              <div class="bot-attached" style="margin-left:0; align-items:center">
+                <div class="critical-msg"><svg><use href="#i-exclamation-triangle"/></svg> 긴급 상담 필요<br>전문 상담사 즉시 연결</div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">정말 죄송해요.
+즉시 도와드릴게요.</div></div>
+              <div class="bot-attached">
+                <div class="upload-grid">
+                  <div class="upload-slot"><svg><use href="#i-camera"/></svg>상해 사진</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">긴급 인계</button>
+              </div>
+              <div class="sys-msg">관리자 보고 + Serious VOC</div>
+            </div>
+          </div>
+          <div class="scenario-step-note"><strong>M19/L3 매핑</strong> Critical 키워드(상해) → 즉시 인계</div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E2</span> 사진 거부 → 포인트 케어</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">사진 첨부가 어려우신가요?</div></div>
+              <div class="bot-attached">
+                <div class="point-care-card">
+                  <h4>⚠️ 사진 없이 진행</h4>
+                  <p style="font-size:12px">검수 시 정상품 판정되면 <strong>왕복 배송비</strong>가 청구될 수 있어요.</p>
+                  <div class="point-care-amount">+8,000<small>P</small></div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>D3/M27 매핑</strong> 포인트 사전 케어 → Handover</div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E3</span> 7일 초과 → 상담사 검토</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">2주 전 받은 거 파손이에요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">기간이 지났지만
+불량은 예외 검토가 가능해요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(178,120,0,0.08); border-color:rgba(178,120,0,0.25)">
+                  <h4 style="color:var(--fg-attention)">예외 검토 사유</h4>
+                  <div style="font-size:11px; line-height:15px">• 7일 초과(14일 경과)<br>• 단, 명백한 상품 불량은 처리 가능<br>• 사진 + 상세 사유 → 상담사 판정</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>D10/M20 매핑</strong> 자동 거절 X → 상담사 예외 검토</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입·사진 3 + 의도·자동전환 2 + 예외 3 = <strong>8화면</strong> · <strong>API</strong> 증빙 업로드 + GET /v1/orders · <strong>자동화</strong> ✅ 챗봇 단독 (반품/교환 시나리오 자동 점프) · <strong>자체 종결율</strong> ~70%
+      </div>
+    </div>
+  </section>
 </div>
 <script>
 function toggleTheme() {
