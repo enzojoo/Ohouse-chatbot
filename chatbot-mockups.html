@@ -5507,6 +5507,671 @@ body { padding: 48px 24px 96px; }
       </div>
     </div>
   </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #5 — 배송지 변경 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      배송지 변경 풀 시나리오 (B2)
+      <span class="scenario-tag">단순 조회 + 상태별 분기</span>
+    </div>
+    <div class="scenario-desc">"받는 주소 바꿔주세요" → 챗봇이 주문 상태값 자동 판정 → 결제완료(자동) / 배송준비중(파트너사 확인) / 배송중·완료(불가) 분기. KMS 6. 배송 - 배송지 변경.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 조회</div>
+      <div class="scenario-part-title">의도 파악 → 주문 캐러셀 <small>(3 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 파악</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">받는 주소 바꿔주세요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">어떤 주문의 배송지를
+변경하실까요?</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">자유 발화 또는 chip [주문/배송 조회] → [배송지 변경]</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 주문 캐러셀 (전체)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">최근 주문 3건이에요.</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb thumb2"></div><div class="card-info">
+                    <div class="card-status">결제완료 · 변경 가능</div>
+                    <div class="card-title">자취살림 침대 메탈프레임</div>
+                  </div></div>
+                </div>
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status attention">배송준비중 · 확인 필요</div>
+                    <div class="card-title">모듈 패브릭 4인 소파</div>
+                  </div></div>
+                </div>
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb thumb3"></div><div class="card-info">
+                    <div class="card-status alert">배송중 · 변경 불가</div>
+                    <div class="card-title">아이리스 6단 수납박스</div>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">상태별 가능 여부 사전 표기 (마찰 줄임)</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 주문 선택 → 분기</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">[자취살림 침대 메탈프레임]</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">결제완료 상태라
+바로 변경 가능해요.</div></div>
+              <div style="margin-left:30px; padding:12px 14px; background:var(--bg-weak); border-radius:8px; font-size:11px; color:var(--fg-weak); max-width:220px">⏳ 분기<br>· 결제완료 → 즉시 자동<br>· 배송준비중 → 파트너사 확인<br>· 배송중/완료 → 불가</div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 상태별 처리 + 새 주소 입력</div>
+      <div class="scenario-part-title">결제완료(즉시) vs 배송준비중(승인 대기) 평행 분기</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4-A</span> 결제완료 → 새 주소 입력</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">새 주소를 입력해주세요.</div></div>
+              <div class="bot-attached">
+                <div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px; max-width:220px">
+                  <div style="font-size:11px; color:var(--fg-weak); margin-bottom:4px">받는사람</div>
+                  <div style="font-size:12px; color:var(--fg); margin-bottom:8px">엔조</div>
+                  <div style="font-size:11px; color:var(--fg-weak); margin-bottom:4px">전화번호</div>
+                  <div style="font-size:12px; color:var(--fg); margin-bottom:8px">010-1234-5678</div>
+                  <div style="font-size:11px; color:var(--fg-weak); margin-bottom:4px">새 주소</div>
+                  <div style="font-size:12px; color:var(--fg-brand); border:1px dashed var(--border-brand); padding:6px 8px; border-radius:4px">+ 주소 검색하기</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">변경 완료</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>API</strong> PATCH /v1/orders/{id}/shipping-address (자동 처리)</div>
+        </div>
+        <div class="scenario-arrow">vs</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4-B</span> 배송준비중 → 파트너사 확인</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">배송준비 중이라
+파트너사 확인이 필요해요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(178,120,0,0.08); border-color:rgba(178,120,0,0.25)">
+                  <h4 style="color:var(--fg-attention)">출고 여부 확인</h4>
+                  <div style="font-size:11px; line-height:15px">파트너사가 출고 안 했다면 변경 가능. 이미 출고했다면 변경 불가.</div>
+                </div>
+                <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>판매자 문의</button>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>⚠️ 부분 자동화</strong> 챗봇이 직접 변경 불가 → 판매자/상담사</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 변경 완료 (4-A 후속)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="sys-msg">배송지 변경 완료</div>
+              <div class="bot-attached" style="margin-left:0; align-items:center">
+                <div class="agent-card">
+                  <div class="agent-icon" style="background:rgba(76,175,80,0.1); color:#4caf50"><svg><use href="#i-check-circle"/></svg></div>
+                  <div class="agent-title">배송지 변경 완료</div>
+                  <div class="agent-meta">서울 강남구 테헤란로 152<br>강남파이낸스센터 12층</div>
+                  <button class="btn btn-secondary btn-block">새 상담 시작</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label" style="background:rgba(253,61,74,0.08); color:var(--accent-red)">⚠️ 예외 (2종)</div>
+      <div class="scenario-part-title">배송중/완료 → 변경 불가 / 원하는날도착 특수 케이스</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E1</span> 배송중/완료 → 변경 불가</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">주소 바꿔주세요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">이미 배송 중이라
+주소 변경이 어려워요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">대안</h4>
+                  <div style="font-size:11px; line-height:15px">• 수령 거부 → 반품 후 재구매<br>• 업체직배송이면 기사 해피콜 시 협의 가능</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E2</span> 원하는날도착 → 배송일 재선택</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">원하는날도착 상품은
+주소 변경 시 배송일도 다시 선택해야 해요.</div></div>
+              <div class="bot-attached">
+                <div class="countdown-card">
+                  <svg><use href="#i-clock"/></svg>
+                  <div class="countdown-text">기존 5/15(목) → 새 주소 가능일 <strong>5/17(토) 이후</strong>로 변경 필요</div>
+                </div>
+                <div class="card-actions" style="border:none; padding:0; max-width:220px">
+                  <button class="btn btn-primary" style="height:32px; font-size:12px">배송일 재선택</button>
+                  <button class="btn btn-secondary" style="height:32px; font-size:12px">취소</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">[배송일 재선택] → 시나리오 #6 B3로 점프</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입 3 + 분기 2(평행) + 완료 1 + 예외 2 = <strong>8화면</strong> · <strong>API</strong> PATCH shipping-address · <strong>자동화</strong> ⚠️ 부분(결제완료만 자동, 배송준비중 이후는 파트너사) · <strong>자체 종결율</strong> ~50%
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #6 — 배송일 변경 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      배송일 변경 풀 시나리오 (B3)
+      <span class="scenario-tag">원하는날도착 · 빠른가전배송 한정</span>
+    </div>
+    <div class="scenario-desc">고객이 직접 배송일 선택한 상품(원하는날도착 등)의 배송일을 다시 잡는 흐름. D-3 이전만 가능. KMS 6. 배송 - 배송일 지정.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 조회</div>
+      <div class="scenario-part-title">변경 가능한 배송일 지정 주문만 필터링 <small>(3 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 파악</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">받는 날짜 바꾸고 싶어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">원하는날도착·빠른가전 상품만
+배송일 변경이 가능해요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 변경 가능 주문 캐러셀</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb thumb4"></div><div class="card-info">
+                    <div class="card-status">📅 5/15(목) · D-7 · 변경 가능</div>
+                    <div class="card-title">모듈 식탁 + 의자 4P</div>
+                    <div class="card-meta">원하는날도착</div>
+                  </div></div>
+                </div>
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status alert">📅 5/12(월) · D-2 · 변경 불가</div>
+                    <div class="card-title">건조기 9kg</div>
+                    <div class="card-meta">빠른가전배송</div>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">D-3 이상만 변경 가능, D-3 이내는 disabled</div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 캘린더 노출</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">원하는 배송일을 선택해주세요.
+일요일·공휴일 제외</div></div>
+              <div class="bot-attached">
+                <div style="background:var(--bg); border:1px solid var(--border); border-radius:6px; padding:10px; max-width:220px">
+                  <div style="font-size:11px; font-weight:700; text-align:center; margin-bottom:8px">2026년 5월</div>
+                  <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; font-size:10px; text-align:center; color:var(--fg-weak); margin-bottom:4px">
+                    <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+                  </div>
+                  <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:2px; font-size:11px; text-align:center">
+                    <div style="padding:4px; opacity:0.3">11</div>
+                    <div style="padding:4px; opacity:0.3">12</div>
+                    <div style="padding:4px; opacity:0.3">13</div>
+                    <div style="padding:4px; opacity:0.3">14</div>
+                    <div style="padding:4px; background:var(--bg-weak); border-radius:50%">15</div>
+                    <div style="padding:4px">16</div>
+                    <div style="padding:4px; background:var(--bg-brand); color:white; border-radius:50%; font-weight:700">17</div>
+                    <div style="padding:4px; opacity:0.3">18</div>
+                    <div style="padding:4px">19</div>
+                    <div style="padding:4px">20</div>
+                    <div style="padding:4px">21</div>
+                    <div style="padding:4px">22</div>
+                    <div style="padding:4px">23</div>
+                    <div style="padding:4px">24</div>
+                  </div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">5/17(토) 변경</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">파트너사 물류 휴일은 disabled. 4개월 내 선택 가능</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 변경 완료</div>
+      <div class="scenario-part-title">변경 확정 + 알림톡 발송 <small>(1 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4</span> 변경 완료</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="sys-msg">배송일 변경 완료</div>
+              <div class="bot-attached" style="margin-left:0; align-items:center">
+                <div class="agent-card">
+                  <div class="agent-icon" style="background:rgba(76,175,80,0.1); color:#4caf50"><svg><use href="#i-check-circle"/></svg></div>
+                  <div class="agent-title">배송일 변경 완료</div>
+                  <div class="agent-meta">5/15(목) → <strong>5/17(토)</strong><br>오전 도착 시간대<br>알림톡 발송 완료</div>
+                  <button class="btn btn-secondary btn-block">새 상담 시작</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label" style="background:rgba(253,61,74,0.08); color:var(--accent-red)">⚠️ 예외 (2종)</div>
+      <div class="scenario-part-title">D-3 임박 / 배송일 지정 미지원 상품</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E1</span> D-3 임박 → 변경 불가</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">5/12(월) 배송 미루고 싶어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">배송 3일 전이라
+시스템 변경이 어려워요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">대안</h4>
+                  <div style="font-size:11px; line-height:15px">• 기사 해피콜 시 협의<br>• 또는 파트너사 직접 연락</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E2</span> 배송일 지정 미지원</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">일반택배 도착일 지정해주세요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">일반택배는 배송일 지정이
+지원되지 않아요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">지원 상품</h4>
+                  <div style="font-size:11px; line-height:15px">• 원하는날도착<br>• 빠른가전배송<br>• 일부 빠른가구배송</div>
+                </div>
+                <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>판매자 문의</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입·조회 3 + 캘린더 1 + 완료 1 + 예외 2 = <strong>7화면</strong> · <strong>API</strong> GET /v1/order_options/{id}/delivery_calendar, PATCH delivery-date · <strong>자동화</strong> ✅ 챗봇 단독 (대상 상품 한정) · <strong>자체 종결율</strong> ~75%
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #7 — 포인트 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      포인트 풀 시나리오 (G1+G2+G3+G6)
+      <span class="scenario-tag">조회 + 만료 + VIP + 클레임 후 복구</span>
+    </div>
+    <div class="scenario-desc">잔액·만료·적립 기준·소멸 재발급·클레임 후 복구 정책까지 통합. KMS 14. 포인트 전체 매핑.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 잔액 조회</div>
+      <div class="scenario-part-title">기본 잔액 + VIP 등급 표시 <small>(2 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 파악</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">내 포인트 얼마예요?</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">고객님의 포인트 현황이에요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 잔액 카드 + VIP 배지</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-attached">
+                <div class="point-summary" style="position:relative">
+                  <div style="position:absolute; top:10px; right:10px; background:var(--accent-yellow); color:var(--fg); font-size:9px; font-weight:800; padding:2px 8px; border-radius:9999px">⭐ VIP</div>
+                  <div class="point-amount">12,450P</div>
+                  <div class="point-amount-label">사용 가능 · 적립률 3%</div>
+                </div>
+                <div class="chips">
+                  <button class="chip">만료 일정</button>
+                  <button class="chip">적립 기준</button>
+                  <button class="chip">소멸 복구</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">chip별 분기 (3, 4, 5, 6 화면)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 만료·적립·복구 분기</div>
+      <div class="scenario-part-title">chip별 4가지 분기 화면</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 만료 일정</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">만료 일정이에요.</div></div>
+              <div class="bot-attached">
+                <div class="point-row expire" style="max-width:220px">
+                  <span class="point-row-label">⏰ 5/31 소멸</span>
+                  <span style="font-weight:700; color:var(--fg-attention)">1,200P</span>
+                </div>
+                <div class="point-row" style="max-width:220px">
+                  <span style="color:var(--fg-weak); font-size:12px">8/15 만료</span>
+                  <span style="font-weight:600; font-size:12px">5,000P</span>
+                </div>
+                <div class="point-row" style="max-width:220px">
+                  <span style="color:var(--fg-weak); font-size:12px">12/31 만료</span>
+                  <span style="font-weight:600; font-size:12px">6,250P</span>
+                </div>
+                <button class="link-btn" style="font-size:11px">전체 내역 보기 <svg><use href="#i-chevron-right"/></svg></button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">소멸 7일 전 + 30일 전 앱푸시 자동 발송 (KMS 14)</div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4</span> 적립 기준 (VIP 강조)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">현재 VIP 등급이에요.
+실결제 금액의 3% 적립.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>등급별 적립률</h4>
+                  <div class="info-row"><span class="info-label">WELCOME</span><span class="info-val">0.1%</span></div>
+                  <div class="info-row" style="background:var(--bg-brand-weak); margin:0 -14px; padding:6px 14px"><span style="color:var(--fg-brand); font-weight:700">⭐ VIP (현재)</span><span style="color:var(--fg-brand); font-weight:700">3%</span></div>
+                  <div class="info-row total" style="font-size:11px"><span>VIP 유지 조건</span><span style="font-size:11px">3개월 6회 + 50만원</span></div>
+                </div>
+                <div style="font-size:11px; color:var(--fg-weak); max-width:220px">리뷰·집들이 작성으로도 적립 가능</div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 소멸 복구 (Handover)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">소멸 포인트 재발급은
+계정당 1회만 가능해요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>현재 복구 가능</h4>
+                  <div class="info-row"><span class="info-label">최근 3개월 소멸 합계</span><span class="info-val">3,450P</span></div>
+                  <div class="info-row total"><span>유효기간</span><span class="info-val">복구 후 30일</span></div>
+                </div>
+                <div style="font-size:11px; color:var(--fg-weak); max-width:220px">상담사가 재발급 처리 (계정 이력 검증 후)</div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>❌ Handover</strong> 권한 영역 (관리자 이관)</div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">6</span> 클레임 후 복구 정책</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">반품했는데 사용한 포인트 안 돌아왔어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 시 포인트는 자동 복구돼요.
+유효기간도 함께 봐드릴게요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>복구 내역</h4>
+                  <div class="info-row"><span class="info-label">사용한 포인트</span><span class="info-val">2,450P</span></div>
+                  <div class="info-row"><span class="info-label">복구 시점</span><span class="info-val">5/4 환불 완료</span></div>
+                  <div class="info-row total"><span>유효기간</span><span class="info-val" style="color:var(--fg-attention)">5/7까지 (3일)</span></div>
+                </div>
+                <div style="font-size:11px; color:var(--fg-weak); max-width:220px">⚠️ 만료 임박 시 환불 +3일 자동 연장</div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">판매자 귀책 = 자동 연장 / 구매자 귀책 = 기존 유효기간 (KMS 14)</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입 1 + 잔액 1 + chip 분기 4 = <strong>6화면</strong> · <strong>API</strong> GET /v1/users/{id}/points · <strong>자동화</strong> 🔍 조회 자동, 소멸 복구만 Handover · <strong>자체 종결율</strong> ~85%
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #8 — 쿠폰 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      쿠폰 풀 시나리오 (H1+H2+H3+H4)
+      <span class="scenario-tag">조회 + 사용 조건 + 만료 + 사용 안 됨 분기</span>
+    </div>
+    <div class="scenario-desc">사용 가능 쿠폰 + 사용 조건 + 만료 임박 + 사용 안 되는 케이스(결제수단 충돌) 통합.</div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입 + 쿠폰 리스트</div>
+      <div class="scenario-part-title">사용 가능 쿠폰 자동 정렬 (만료 임박 우선) <small>(2 스텝)</small></div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 의도 파악</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">사용 가능한 쿠폰 알려주세요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">3장이 있어요.
+만료 임박 순으로 정렬했어요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-arrow">→</div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 쿠폰 리스트</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-attached">
+                <div class="coupon" style="border-color:rgba(178,120,0,0.25); background:var(--bg-attention-weak)">
+                  <div class="coupon-amount" style="color:var(--fg-attention)">3,000원</div>
+                  <div class="coupon-info">
+                    <div class="coupon-name">생일 축하</div>
+                    <div class="coupon-meta" style="color:var(--fg-attention)">~6/2 임박</div>
+                  </div>
+                </div>
+                <div class="coupon">
+                  <div class="coupon-amount">15%</div>
+                  <div class="coupon-info">
+                    <div class="coupon-name">신규 가입 환영</div>
+                    <div class="coupon-meta">~6/30 · 3만원 이상</div>
+                  </div>
+                </div>
+                <div class="coupon">
+                  <div class="coupon-amount">10%</div>
+                  <div class="coupon-info">
+                    <div class="coupon-name">가구 카테고리</div>
+                    <div class="coupon-meta">~12/31 · 가구 한정</div>
+                  </div>
+                </div>
+                <div class="chips">
+                  <button class="chip">사용 조건</button>
+                  <button class="chip">사용 안 됨</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 사용 조건 / 사용 안 됨 분기</div>
+      <div class="scenario-part-title">FAQ + 결제수단 충돌 케이스 분기</div>
+      <div class="scenario-row">
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 사용 조건 안내</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">쿠폰 사용 조건이에요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>일반 룰</h4>
+                  <div style="font-size:12px; color:var(--fg); line-height:18px">• 한 주문에 <strong>장바구니 쿠폰 1장</strong> + 상품 쿠폰 별도<br>• 카드 즉시할인과 <strong>중복 불가</strong><br>• 일부 기획전 상품은 적용 제한<br>• 구매확정 후 회수</div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4</span> 사용 안 됨 (결제수단 충돌)</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">쿠폰 적용 안 돼요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">선택한 결제수단과
+충돌했을 가능성이 커요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(178,120,0,0.08); border-color:rgba(178,120,0,0.25)">
+                  <h4 style="color:var(--fg-attention)">자주 나오는 케이스</h4>
+                  <div style="font-size:11px; line-height:15px">• 카드 즉시할인 + 쿠폰 <strong>중복 불가</strong><br>• 네이버페이 일부 카드는 포인트 비활성<br>• 기획전 상품 (이벤트가 우선)</div>
+                </div>
+                <div class="card-actions" style="border:none; padding:0; max-width:220px">
+                  <button class="btn btn-secondary" style="height:32px; font-size:12px">다른 결제수단</button>
+                  <button class="btn btn-primary" style="height:32px; font-size:12px">상담사 연결</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">자주 인입되는 케이스 — 결제수단 변경 가이드 우선 제시</div>
+        </div>
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 마이페이지 딥링크</div>
+          <div class="cw-mini">
+            <div class="cw-header"><div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">전체 쿠폰함에서
+관리하실 수 있어요.</div></div>
+              <div class="bot-attached">
+                <button class="link-btn" style="font-size:12px"><svg style="width:14px; height:14px"><use href="#i-ticket"/></svg>전체 쿠폰함 보기 <svg><use href="#i-chevron-right"/></svg></button>
+                <div class="chips">
+                  <button class="chip">쿠폰 등록</button>
+                  <button class="chip">사용 내역</button>
+                  <button class="chip">도움됐어요</button>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>화면</strong> 진입·리스트 2 + 분기 3 = <strong>5화면</strong> · <strong>API</strong> GET /v1/users/{id}/coupons · <strong>자동화</strong> 🔍 조회 + 정책 안내 자동 · <strong>자체 종결율</strong> ~80%
+      </div>
+    </div>
+  </section>
 </div>
 <script>
 function toggleTheme() {
