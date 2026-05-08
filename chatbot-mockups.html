@@ -4196,6 +4196,622 @@ body { padding: 48px 24px 96px; }
       </div>
     </div>
   </section>
+
+  <!-- ============================================ -->
+  <!-- 🎬 풀 시나리오 백서 #2 — 반품 접수 -->
+  <!-- ============================================ -->
+  <section class="scenario-stage">
+    <div class="scenario-title">
+      반품 접수 풀 시나리오 (D1+D2+D3)
+      <span class="scenario-tag">인입 10.6% · Phase 3 핵심</span>
+    </div>
+    <div class="scenario-desc">"상품 불량으로 반품해주세요" → 챗봇이 주문 조회 → 사유 입력 → 귀책 자동 매핑 → 사진 첨부 (거부 시 포인트 케어 → Handover) → 회수 방법 → 환불 확인 → 접수 완료. 가장 복잡한 클레임 자동화 흐름. KMS 5-1. 교환/반품 + Phase 3 Level 4 시나리오 매핑.</div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- Part A. 진입 (S1~S4) -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part A. 진입</div>
+      <div class="scenario-part-title">"반품/교환" chip 또는 자유 발화 → 인증 <small>(4 스텝)</small></div>
+      <div class="scenario-row">
+        <!-- S1 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">1</span> 첫 인사 + chip</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">고객님, 안녕하세요!
+무엇을 도와드릴까요?</div></div>
+              <div class="chips">
+                <button class="chip">주문/배송 조회</button>
+                <button class="chip brand">반품/교환</button>
+                <button class="chip">주문 취소</button>
+                <button class="chip">포인트/쿠폰</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">[반품/교환] chip 또는 "반품해주세요" 발화</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S2 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">2</span> 의도 세분화</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">반품하고 싶어요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 도와드릴게요.
+어떤 종류의 문의이신가요?</div></div>
+              <div class="chips">
+                <button class="chip brand">반품 접수</button>
+                <button class="chip">반품 진행 상태</button>
+                <button class="chip">반품 철회</button>
+                <button class="chip">교환으로 변경</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">[반품 접수] 선택</div>
+          <div class="scenario-step-note">분기: 진행 상태 → D4~D6 / 철회 → D7 / 교환 변경 → E1</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S3 인증 분기 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">3</span> 인증 분기 (비로그인 시)</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 처리는 본인 인증이 필요해요.</div></div>
+            </div>
+            <div class="dim"></div>
+            <div class="bottom-sheet">
+              <div class="sheet-handle"></div>
+              <div class="sheet-title">로그인이 필요한 메뉴예요</div>
+              <div class="sheet-desc">반품 접수는 회원 인증이 필요한 처리예요.</div>
+              <div class="sheet-actions">
+                <button class="btn btn-primary btn-block">로그인하고 계속하기</button>
+                <button class="btn btn-secondary btn-block">로그인 없이 일반 문의만</button>
+              </div>
+            </div>
+          </div>
+          <div class="scenario-step-trigger">[로그인하고 계속] → S4</div>
+          <div class="scenario-step-note">로그인 OK시 스킵 → 바로 S5. KMS 모드는 반품 정책 안내만 가능</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S4 로그인 페이지 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">4</span> 로그인 페이지 → 컨텍스트 복원</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">로그인</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="login-screen">
+              <div class="login-logo"><div class="web-logo-mark"></div><span style="font-size:18px; font-weight:800">오늘의집</span></div>
+              <div class="login-fields">
+                <div class="login-field">이메일</div>
+                <div class="login-field">비밀번호</div>
+              </div>
+              <button class="login-btn">로그인</button>
+              <div class="login-sns-label">SNS계정으로 간편 로그인</div>
+              <div class="login-sns">
+                <div class="sns-btn fb">f</div>
+                <div class="sns-btn kk">TALK</div>
+                <div class="sns-btn nv">N</div>
+              </div>
+            </div>
+          </div>
+          <div class="scenario-step-trigger">로그인 완료 → "반품 접수" 컨텍스트 보존</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- Part B. 조회 (S5~S6) -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part B. 반품 가능 주문 조회</div>
+      <div class="scenario-part-title">배송중/배송완료 (수령 7일 이내) 주문만 자동 필터링 <small>(2 스텝)</small></div>
+      <div class="scenario-row">
+        <!-- S5 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">5</span> 반품 가능 주문 캐러셀</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0">
+                <div class="stepbar" style="max-width:none">
+                  <div class="stepbar-row">
+                    <div class="step active"><div class="step-circle">1</div><div class="step-label">상품</div></div>
+                    <div class="step"><div class="step-circle">2</div><div class="step-label">사유</div></div>
+                    <div class="step"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                    <div class="step"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품할 상품을 선택해주세요.</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status done">배송완료 · 4/24 (D-3)</div>
+                    <div class="card-title">모듈 패브릭 4인 소파</div>
+                    <div class="card-meta">1,290,000원 · 일반택배</div>
+                  </div></div>
+                </div>
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb thumb3"></div><div class="card-info">
+                    <div class="card-status done">배송완료 · 4/22 (D-5)</div>
+                    <div class="card-title">아이리스 6단 수납박스 ×4</div>
+                    <div class="card-meta">89,000원 · 일반택배</div>
+                  </div></div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">주문 카드 탭</div>
+          <div class="scenario-step-note"><strong>API</strong> GET /v1/orders + 룰 엔진 (배송중/완료 + 7일 이내 + 비구매확정)</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S6 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">6</span> 상품 확인 + 정책 안내</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0">
+                <div class="stepbar" style="max-width:none">
+                  <div class="stepbar-row">
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                    <div class="step active"><div class="step-circle">2</div><div class="step-label">사유</div></div>
+                    <div class="step"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                    <div class="step"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">선택하신 상품을 확인했어요.
+사유에 따라 배송비가 달라져요.</div></div>
+              <div class="bot-attached">
+                <div class="card">
+                  <div class="card-row"><div class="card-thumb"></div><div class="card-info">
+                    <div class="card-status">반품 가능 · 수령 D+3</div>
+                    <div class="card-title">모듈 패브릭 4인 소파</div>
+                  </div></div>
+                </div>
+                <div style="font-size:11px; color:var(--fg-weak); padding:6px 10px; background:var(--bg-weak); border-radius:4px; max-width:220px; line-height:14px">💡 <strong>구매자 귀책</strong>: 왕복 배송비 청구 (8,000원)<br>💡 <strong>판매자 귀책</strong>: 배송비 무료 + 사진 필수</div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">정책 사전 안내로 사용자 마찰 줄임</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- Part C. 사유 + 귀책 자동 분기 (S7) + 분기 평행 -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part C. 사유 선택 → 귀책 자동 매핑</div>
+      <div class="scenario-part-title">시스템이 사유 → 귀책 자동 분기 (구매자 vs 판매자)</div>
+      <div class="scenario-row">
+        <!-- S7 사유 폼 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">7</span> 사유 선택 폼</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 사유를 선택해주세요.</div></div>
+              <div class="bot-attached">
+                <div class="form-options">
+                  <div class="option"><div class="option-radio"></div>단순 변심<span class="option-tag">구매자</span></div>
+                  <div class="option"><div class="option-radio"></div>사이즈가 안 맞아요<span class="option-tag">구매자</span></div>
+                  <div class="option selected"><div class="option-radio"></div>상품 불량<span class="option-tag">판매자 · 사진</span></div>
+                  <div class="option"><div class="option-radio"></div>배송 중 파손<span class="option-tag">판매자 · 사진</span></div>
+                  <div class="option"><div class="option-radio"></div>오배송<span class="option-tag">판매자</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">상세 사유 (선택)</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>API</strong> GET /v2/claim/reasons (사유 목록 + 귀책 자동 매핑)</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S8-A 구매자 귀책 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">8-A</span> 구매자 귀책 분기</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">사유를 확인했어요.</div></div>
+              <div class="bot-attached">
+                <div style="display:flex; gap:6px; align-items:center; max-width:220px; margin-bottom:4px">
+                  <span class="fault-badge buyer">🙋 구매자 귀책</span>
+                </div>
+                <div class="info-card">
+                  <h4>예상 비용</h4>
+                  <div class="info-row"><span class="info-label">왕복 배송비</span><span class="info-val minus">-8,000원</span></div>
+                  <div class="info-row total"><span>환불 차감</span><span class="info-val">8,000원</span></div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">사진 첨부는 필요 없어요.
+바로 회수 단계로 넘어갈게요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">→ S10 회수 방법으로 직진</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S8-B 판매자 귀책 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">8-B</span> 판매자 귀책 분기</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">사유를 확인했어요.</div></div>
+              <div class="bot-attached">
+                <div style="display:flex; gap:6px; align-items:center; max-width:220px; margin-bottom:4px">
+                  <span class="fault-badge seller">🏪 판매자 귀책</span>
+                  <span style="font-size:11px; color:var(--fg-weak)">사진 필수</span>
+                </div>
+                <div class="info-card">
+                  <h4>예상 비용</h4>
+                  <div class="info-row"><span class="info-label">배송비</span><span class="info-val">무료</span></div>
+                  <div class="info-row total"><span>환불 금액</span><span class="info-val">1,290,000원</span></div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">불량 부분 사진을 올려주세요.
+판매자가 검수할 때 필요해요.</div></div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">→ S9 사진 첨부로</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- Part D. 사진 첨부 + 회수 -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part D. 사진 + 회수 방법</div>
+      <div class="scenario-part-title">판매자 귀책 시 사진 분기. 사진 거부 시 포인트 케어 → Handover (D3)</div>
+      <div class="scenario-row">
+        <!-- S9 사진 첨부 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">9</span> 사진 첨부 (판매자 귀책 시)</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">최대 5장까지 올릴 수 있어요.</div></div>
+              <div class="bot-attached">
+                <div class="upload-grid">
+                  <div class="upload-slot filled"></div>
+                  <div class="upload-slot filled f2"></div>
+                  <div class="upload-slot"><svg><use href="#i-camera"/></svg>+ 추가</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">다음 단계</button>
+                <button class="back-step" style="margin-left:0; margin-top:0">사진 없이 진행</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-trigger">[사진 없이 진행] → S9-Sub 분기</div>
+          <div class="scenario-step-note"><strong>API</strong> 증빙 업로드 저장소 (Presigned URL). O6 정책 결정 필요</div>
+        </div>
+
+        <div class="scenario-arrow">↓</div>
+
+        <!-- S9-Sub 사진 거부 → 포인트 케어 (D3 매핑) -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">9-Sub</span> 사진 거부 → 포인트 케어 (D3)</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">사진 첨부가 어려우신가요?</div></div>
+              <div class="bot-attached">
+                <div class="point-care-card">
+                  <h4>⚠️ 사진 없이 접수 시 안내</h4>
+                  <p style="font-size:12px">검수 시 정상품 판정되면 <strong>왕복 배송비(8,000원)</strong> 청구될 수 있어요.</p>
+                  <div class="point-care-amount">+8,000<small>P</small></div>
+                  <div style="font-size:10px; color:var(--fg-weak); margin-top:2px">접수 즉시 적립 · 60일 사용</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:160px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>❌ Handover</strong> 포인트 사전 케어는 권한 영역. 1만원 초과 시 관리자 승인 필요</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S10 회수 방법 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">10</span> 회수 방법 선택</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0">
+                <div class="stepbar" style="max-width:none">
+                  <div class="stepbar-row">
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                    <div class="step active"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                    <div class="step"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">회수 방법을 선택해주세요.</div></div>
+              <div class="bot-attached">
+                <div class="collect-method">
+                  <div class="collect-card selected">
+                    <div class="collect-icon"><svg><use href="#i-truck"/></svg></div>
+                    <div class="collect-info">
+                      <div class="collect-title">택배 회수</div>
+                      <div class="collect-desc">기사 방문 · 1~3영업일</div>
+                    </div>
+                  </div>
+                  <div class="collect-card">
+                    <div class="collect-icon"><svg><use href="#i-arrow-up-from-bracket"/></svg></div>
+                    <div class="collect-info">
+                      <div class="collect-title">직접 발송</div>
+                      <div class="collect-desc">송장번호 입력</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note">자동수거 가능 시 [택배 회수] 권장. 수동수거만 가능한 파트너사는 [직접 발송] 강제</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- Part E. 환불 확인 + 접수 -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="scenario-part">
+      <div class="scenario-part-label">Part E. 환불 확인 + 접수 + 종료</div>
+      <div class="scenario-part-title">최종 환불 정보 확인 후 1탭 접수 → 후속 안내 + NPS</div>
+      <div class="scenario-row">
+        <!-- S11 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">11</span> 환불 확인 + 접수</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+              <div style="flex:1; text-align:center; font-size:14px; font-weight:700">반품 접수</div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="bot-attached" style="margin-left:0">
+                <div class="stepbar" style="max-width:none">
+                  <div class="stepbar-row">
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                    <div class="step done"><div class="step-circle">✓</div><div class="step-label">회수</div></div>
+                    <div class="step active"><div class="step-circle">4</div><div class="step-label">환불</div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">정보를 확인하고 접수해주세요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card">
+                  <h4>환불 정보</h4>
+                  <div class="info-row"><span class="info-label">상품 금액</span><span class="info-val">1,290,000원</span></div>
+                  <div class="info-row"><span class="info-label">반품 배송비</span><span class="info-val minus">-4,000원</span></div>
+                  <div class="info-row total"><span>최종 환불</span><span class="info-val">1,286,000원</span></div>
+                </div>
+                <button class="btn btn-primary btn-block" style="max-width:220px; height:36px; font-size:13px">반품 접수하기</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>API</strong> POST /v2/claim/returns (멱등성 키 필수)</div>
+        </div>
+
+        <div class="scenario-arrow">→</div>
+
+        <!-- S12 접수 완료 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num">12</span> 접수 완료 + 후속 안내</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="sys-msg">반품 접수 완료 (#R20260508-3421)</div>
+              <div class="bot-attached" style="margin-left:0; align-items:center">
+                <div class="agent-card">
+                  <div class="agent-icon" style="background:rgba(76,175,80,0.1); color:#4caf50"><svg><use href="#i-check-circle"/></svg></div>
+                  <div class="agent-title">반품 접수 완료</div>
+                  <div class="agent-meta">1~3일 내 회수 → 검수 → 환불<br>진행 상황은 알림톡으로 안내</div>
+                  <button class="btn btn-secondary btn-block">새 상담 시작</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scenario-step-trigger">→ NPS 평가 또는 종료</div>
+          <div class="scenario-step-note">알림톡 자동 발송 + 마이페이지 클레임 상태 동기화</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <!-- 예외 케이스 (4종) -->
+    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+    <div class="scenario-part">
+      <div class="scenario-part-label" style="background:rgba(253,61,74,0.08); color:var(--accent-red)">⚠️ 예외 케이스 (Handover 4종)</div>
+      <div class="scenario-part-title">시스템·정책상 챗봇 자동 처리 불가능한 케이스</div>
+      <div class="scenario-row">
+        <!-- E1 구매확정 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E1</span> 구매확정 후 반품</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">구매확정 했는데 반품할게요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">구매확정 후엔 자동 처리가
+어려워요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">왜 어려운가요?</h4>
+                  <div style="font-size:11px; line-height:15px">• 구매확정 = 시스템상 클레임 종료<br>• 판매자 협의 + 회수 후 [구매확정주문취소] 처리</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>D9 매핑</strong> 판매자 협의 후 [구매확정주문취소] 기능 사용 (상담사 권한)</div>
+        </div>
+
+        <!-- E2 7일 초과 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E2</span> 7일 초과</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">2주 전 받은 거 반품할게요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">수령 후 7일이 지나
+일반 반품이 어려워요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">반품 불가 사유</h4>
+                  <div style="font-size:11px; line-height:15px">• 수령 후 14일 경과 (정책: 7일)<br>• 단, <strong>상품 불량/오배송</strong>이라면 처리 가능</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>D10 매핑</strong> 자동 거절 X · 항상 상담사 옵션 (예외 케이스 검토)</div>
+        </div>
+
+        <!-- E3 부분반품 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E3</span> 부분반품 시도</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">5개 중 2개만 반품할게요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">동일 옵션 부분 반품은
+시스템상 자동 처리가 어려워요.</div></div>
+              <div class="bot-attached">
+                <div class="info-card" style="background:rgba(253,61,74,0.05); border-color:rgba(253,61,74,0.2)">
+                  <h4 style="color:var(--accent-red)">대안</h4>
+                  <div style="font-size:11px; line-height:15px">• 일반: 전체 반품 후 필요 수량 재구매<br>• 특수: 백오피스 직접 처리 (상담사 이관)</div>
+                </div>
+                <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
+              </div>
+            </div>
+            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+          </div>
+          <div class="scenario-step-note"><strong>D8 매핑</strong> 시스템 미지원. CP 백오피스에서만 처리 가능</div>
+        </div>
+
+        <!-- E4 다수 옵션/다수 주문 -->
+        <div class="scenario-step">
+          <div class="scenario-step-head"><span class="num exception">E4</span> 귀책 분쟁</div>
+          <div class="cw-mini">
+            <div class="cw-header">
+              <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+              <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+            </div>
+            <div class="chat">
+              <div class="user-msg"><div class="bubble">판매자가 정상품이라는데
+저는 불량이라 생각해요</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">분쟁이 있는 사안은
+본사가 중재해드릴게요.</div></div>
+              <div class="bot-attached">
+                <div class="agent-card">
+                  <div class="agent-icon"><svg><use href="#i-bubble"/></svg></div>
+                  <div class="agent-title">본사 중재 (3자 협의)</div>
+                  <div class="agent-meta">파트너사 ↔ 본사 ↔ 고객<br>증빙 사진 포함 검토</div>
+                  <button class="btn btn-primary btn-block">상담사 연결</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scenario-step-note"><strong>Phase 3 케어 영역</strong> 3자 대화 + 포인트 케어 가능성 → 100% 상담사 권한</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시나리오 요약 -->
+    <div style="margin-top:32px; padding:20px 24px; background:var(--bg-brand-weak); border:1px solid var(--border-brand-soft); border-radius:var(--r-md)">
+      <div style="font-size:14px; font-weight:700; color:var(--fg-brand); margin-bottom:8px">📊 시나리오 요약</div>
+      <div style="font-size:13px; color:var(--fg); line-height:20px">
+        <strong>총 화면 수</strong> 진입 4 + 조회 2 + 사유·귀책 3(분기 평행 2) + 사진·회수 3(Sub 1) + 환불·접수 2 + 예외 4 = <strong>18화면</strong> · <strong>API 의존</strong> GET /v1/orders, GET /v2/claim/reasons, POST /v2/claim/returns, 증빙 업로드 저장소 · <strong>자동화 수준</strong> ✅ 챗봇 단독 (Phase 3 Level 4) · <strong>예상 자체 종결율</strong> 약 60% (사진 거부·구매확정·기간초과·분쟁 케이스 40%는 Handover) · <strong>매핑</strong> KMS 5-1. 교환/반품 + Phase 3 Level 4 시나리오 Case 1
+      </div>
+    </div>
+  </section>
 </div>
 <script>
 function toggleTheme() {
