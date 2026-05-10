@@ -354,6 +354,11 @@ body { padding: 48px 24px 96px; }
 }
 .option-tag { margin-left: auto; font-size: 11px; font-weight: 500; color: var(--fg-weak); }
 .option.selected .option-tag { color: var(--fg-brand); }
+.option-group-label { font-size: 12px; font-weight: 500; color: var(--fg-weak); padding: 6px 2px 0; }
+.option-group-label:first-child { padding-top: 0; }
+.option-check { width: 18px; height: 18px; border: 1.5px solid var(--border); border-radius: 4px; flex-shrink: 0; position: relative; background: var(--bg); }
+.option.selected .option-check { background: var(--bg-brand); border-color: var(--bg-brand); }
+.option.selected .option-check::after { content: '✓'; position: absolute; color: var(--fg-inverse); font-size: 13px; font-weight: 700; line-height: 1; top: 1px; left: 3px; }
 
 /* Photo upload */
 .upload-grid { display: flex; gap: 6px; flex-wrap: wrap; max-width: 280px; }
@@ -396,6 +401,8 @@ body { padding: 48px 24px 96px; }
   padding: 0 16px; color: var(--fg-weak); font-size: 14px;
   display: flex; align-items: center;
 }
+input.input-field { border: none; outline: none; color: var(--fg); font-family: inherit; }
+input.input-field::placeholder { color: var(--fg-weak); }
 .send-btn {
   width: 40px; height: 40px; background: var(--bg-brand);
   color: var(--fg-inverse); border-radius: 50%; border: none;
@@ -1335,7 +1342,7 @@ body { padding: 48px 24px 96px; }
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1351,7 +1358,7 @@ body { padding: 48px 24px 96px; }
 오늘의집 AI 상담사 오집사입니다.</div></div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
             <div class="dim"></div>
@@ -1410,7 +1417,7 @@ body { padding: 48px 24px 96px; }
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1444,7 +1451,7 @@ body { padding: 48px 24px 96px; }
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1489,7 +1496,7 @@ body { padding: 48px 24px 96px; }
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1512,20 +1519,37 @@ body { padding: 48px 24px 96px; }
                   </div>
                 </div>
               </div>
-              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 사유를 선택해주세요.</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품하는 이유를 알려주세요.</div></div>
               <div class="bot-attached">
                 <div class="form-options">
-                  <div class="option" onclick="pickReason(this, 'simple')"><div class="option-radio"></div>단순 변심</div>
-                  <div class="option" onclick="pickReason(this, 'size')"><div class="option-radio"></div>사이즈가 안 맞아요</div>
-                  <div class="option" onclick="pickReason(this, 'defect')"><div class="option-radio"></div>상품 불량<span class="option-tag">사진 필요</span></div>
-                  <div class="option" onclick="pickReason(this, 'damage')"><div class="option-radio"></div>배송 중 파손</div>
-                  <div class="option" onclick="pickReason(this, 'etc')"><div class="option-radio"></div>기타</div>
+                  <div class="option-group-label">배송비 직접 부담</div>
+                  <div class="option" data-group="buyer" onclick="pickReason(this, 'not-needed')"><div class="option-radio"></div>상품이 필요하지 않아요</div>
+                  <div class="option" data-group="buyer" onclick="pickReason(this, 'change-option')"><div class="option-radio"></div>색상, 사이즈를 바꾸고 싶어요</div>
+                  <div class="option" data-group="buyer" onclick="pickReason(this, 'other-order')"><div class="option-radio"></div>다른 상품을 주문하고 싶어요</div>
+                  <div class="option" data-group="buyer" onclick="pickReason(this, 'cheaper')"><div class="option-radio"></div>더 저렴한 곳이 있어요</div>
+                  <div class="option" data-group="buyer" onclick="pickReason(this, 'etc')"><div class="option-radio"></div>다른 이유가 있어요</div>
+                  <div class="option-group-label">판매자가 배송비 부담</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'mismatch')"><div class="option-radio"></div>상품 정보와 실제 상품이 달라요</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'missing-part')"><div class="option-radio"></div>구성품, 부속품이 없어요</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'damaged')"><div class="option-radio"></div>파손된 상품을 받았어요</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'wrong-option')"><div class="option-radio"></div>주문한 옵션과 다른 상품을 받았어요</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'defect')"><div class="option-radio"></div>상품에 문제가 있어요</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'late-ship')"><div class="option-radio"></div>상품 발송이 늦어지고 있어요</div>
+                  <div class="option" data-group="seller" onclick="pickReason(this, 'soldout')"><div class="option-radio"></div>상품이 품절되어 판매자가 반품을 요청했어요</div>
                 </div>
-                <button class="btn btn-primary" id="refundNext" style="height:40px; max-width:200px; opacity:0.5; pointer-events:none" onclick="showScreen('refund-confirm')">다음 단계로 →</button>
+              </div>
+              <div id="refundExtras" style="display:none; flex-direction:column; gap:8px; margin-left:32px">
+                <div class="bot-msg" style="gap:8px"><div class="avatar" style="visibility:hidden"></div><div class="bubble">사진을 첨부하거나 상세 사유를 입력해주세요. (선택)</div></div>
+                <div class="bot-attached">
+                  <div class="upload-grid" id="refundUploadGrid">
+                    <div class="upload-slot" onclick="addRefundPhoto(this)"><svg><use href="#i-camera"/></svg>+ 추가</div>
+                  </div>
+                  <button class="btn btn-primary" id="refundNext" style="height:40px; max-width:200px; opacity:0.5; pointer-events:none" onclick="goRefundConfirm()">다음 단계로 →</button>
+                </div>
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">상세 사유 (선택)</div>
+              <input class="input-field" id="refundDetailInput" type="text" placeholder="상세 사유 (선택)" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1554,15 +1578,16 @@ body { padding: 48px 24px 96px; }
                 <div class="info-card">
                   <h4>환불 정보</h4>
                   <div class="info-row"><span class="info-label">상품 금액</span><span class="info-val">1,290,000원</span></div>
-                  <div class="info-row"><span class="info-label">반품 배송비</span><span class="info-val minus">-4,000원</span></div>
+                  <div class="info-row" id="refundShippingRow"><span class="info-label">반품 배송비</span><span class="info-val minus" id="refundShippingVal">-4,000원</span></div>
                   <div class="info-row"><span class="info-label">회수 방법</span><span class="info-val">택배 회수</span></div>
-                  <div class="info-row total"><span>최종 환불</span><span class="info-val">1,286,000원</span></div>
+                  <div class="info-row total"><span>최종 환불</span><span class="info-val" id="refundTotalVal">1,286,000원</span></div>
                 </div>
+                <div id="refundFaultNote" style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px; margin-top:4px">💡 구매자 귀책 사유 — 왕복 배송비 4,000원이 환불 금액에서 차감돼요.</div>
                 <button class="btn btn-primary btn-block" style="max-width:280px" onclick="showScreen('done')">반품 접수하기</button>
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1575,32 +1600,46 @@ body { padding: 48px 24px 96px; }
             </div>
             <div class="chat">
               <div class="user-msg"><div class="bubble">방금 결제한 주문 취소해주세요</div></div>
-              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">취소 가능한 주문이에요.
-바로 진행하시겠어요?</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">3개 상품이 취소 가능해요.
+취소할 상품을 선택해주세요.</div></div>
               <div class="bot-attached">
-                <div class="card">
-                  <div class="card-row">
-                    <div class="card-thumb thumb2"></div>
-                    <div class="card-info">
-                      <div class="card-status">결제완료 · 즉시 취소 가능</div>
-                      <div class="card-title">자취살림 침대 메탈프레임 SS</div>
-                      <div class="card-meta">주문 #20260427-2210 · 215,000원</div>
+                <div class="form-options" id="cancelItems" style="max-width:280px">
+                  <div class="option cancel-item selected" data-price="215000" onclick="toggleCancelItem(this)">
+                    <div class="option-check"></div>
+                    <div style="display:flex; flex-direction:column; flex:1; gap:2px">
+                      <span style="font-size:13px; font-weight:600">자취살림 침대 메탈프레임 SS</span>
+                      <span style="font-size:11px; color:var(--fg-weak)">결제완료 · 215,000원</span>
+                    </div>
+                  </div>
+                  <div class="option cancel-item selected" data-price="1290000" onclick="toggleCancelItem(this)">
+                    <div class="option-check"></div>
+                    <div style="display:flex; flex-direction:column; flex:1; gap:2px">
+                      <span style="font-size:13px; font-weight:600">모듈 패브릭 4인 소파 (그레이)</span>
+                      <span style="font-size:11px; color:var(--fg-weak)">결제완료 · 1,290,000원</span>
+                    </div>
+                  </div>
+                  <div class="option cancel-item selected" data-price="89000" onclick="toggleCancelItem(this)">
+                    <div class="option-check"></div>
+                    <div style="display:flex; flex-direction:column; flex:1; gap:2px">
+                      <span style="font-size:13px; font-weight:600">아이리스 6단 수납박스 ×4</span>
+                      <span style="font-size:11px; color:var(--fg-weak)">결제완료 · 89,000원</span>
                     </div>
                   </div>
                 </div>
                 <div class="info-card">
                   <h4>환불 안내</h4>
-                  <div class="info-row"><span class="info-label">취소 금액</span><span class="info-val">215,000원</span></div>
+                  <div class="info-row"><span class="info-label">선택 상품</span><span class="info-val" id="cancelSelectedCount">3개 / 3개</span></div>
+                  <div class="info-row"><span class="info-label">취소 금액</span><span class="info-val" id="cancelTotalAmount">1,594,000원</span></div>
                   <div class="info-row total"><span>예상 처리</span><span class="info-val">즉시</span></div>
                 </div>
                 <div class="card-actions" style="border:none; padding:0; max-width:280px">
-                  <button class="btn btn-primary" onclick="showScreen('done')">전체 취소</button>
-                  <button class="btn btn-secondary" onclick="showScreen('done')">부분 취소</button>
+                  <button class="btn btn-primary" id="cancelAllBtn" onclick="cancelAll()">전체 취소 (3개)</button>
+                  <button class="btn btn-secondary" id="cancelPartialBtn" onclick="cancelPartial()" style="opacity:0.5; pointer-events:none">부분 취소</button>
                 </div>
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1634,7 +1673,7 @@ body { padding: 48px 24px 96px; }
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1670,7 +1709,7 @@ body { padding: 48px 24px 96px; }
               </div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1697,7 +1736,7 @@ body { padding: 48px 24px 96px; }
               <div class="sys-msg">상담사 연결 시 지금까지의 대화 내용이 함께 전달돼요</div>
             </div>
             <div class="input-bar">
-              <div class="input-field">메시지를 입력하세요</div>
+              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
               <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
             </div>
           </div>
@@ -1994,7 +2033,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2023,7 +2062,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
         <div class="dim"></div>
@@ -2115,7 +2154,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2165,7 +2204,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2221,7 +2260,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2254,17 +2293,26 @@ body { padding: 48px 24px 96px; }
             </div>
           </div>
           <button class="back-step" style="margin-left:0; margin-top:4px"><svg><use href="#i-arrow-left"/></svg>1단계로 돌아가기</button>
-          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 사유를 선택해주세요.</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품하는 이유를 알려주세요.</div></div>
           <div class="bot-attached">
             <div class="form-options">
-              <div class="option"><div class="option-radio"></div>단순 변심</div>
-              <div class="option"><div class="option-radio"></div>사이즈가 안 맞아요</div>
-              <div class="option selected"><div class="option-radio"></div>상품 불량<span class="option-tag">사진 필요</span></div>
-              <div class="option"><div class="option-radio"></div>배송 중 파손</div>
-              <div class="option"><div class="option-radio"></div>기타</div>
+              <div class="option-group-label">배송비 직접 부담</div>
+              <div class="option"><div class="option-radio"></div>상품이 필요하지 않아요</div>
+              <div class="option"><div class="option-radio"></div>색상, 사이즈를 바꾸고 싶어요</div>
+              <div class="option"><div class="option-radio"></div>다른 상품을 주문하고 싶어요</div>
+              <div class="option"><div class="option-radio"></div>더 저렴한 곳이 있어요</div>
+              <div class="option"><div class="option-radio"></div>다른 이유가 있어요</div>
+              <div class="option-group-label">판매자가 배송비 부담</div>
+              <div class="option"><div class="option-radio"></div>상품 정보와 실제 상품이 달라요</div>
+              <div class="option"><div class="option-radio"></div>구성품, 부속품이 없어요</div>
+              <div class="option selected"><div class="option-radio"></div>파손된 상품을 받았어요</div>
+              <div class="option"><div class="option-radio"></div>주문한 옵션과 다른 상품을 받았어요</div>
+              <div class="option"><div class="option-radio"></div>상품에 문제가 있어요</div>
+              <div class="option"><div class="option-radio"></div>상품 발송이 늦어지고 있어요</div>
+              <div class="option"><div class="option-radio"></div>상품이 품절되어 판매자가 반품을 요청했어요</div>
             </div>
           </div>
-          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">불량 사진을 올려주세요.</div></div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">파손 사진을 올려주세요.</div></div>
           <div class="bot-attached">
             <div class="upload-grid">
               <div class="upload-slot filled"></div>
@@ -2274,13 +2322,14 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">상세 사유 (선택)</div>
+          <input class="input-field" type="text" placeholder="상세 사유 (선택)" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
       <div class="spec">
-        <strong>컴포넌트</strong> 단계바 4단계(2단계 active) · 단일선택 폼(radio + tag) · 사진 업로드 grid(Presigned URL)<br>
+        <strong>컴포넌트</strong> 단계바 4단계(2단계 active) · 단일선택 폼(귀책별 2섹션: 직접부담 5 + 판매자부담 7) · 사진 업로드 grid(Presigned URL)<br>
         <strong>다음 단계</strong> 회수 방법 → 환불 확인 → 접수 완료 (각 단계 별도 화면)<br>
+        <strong>귀책 자동 매핑</strong> 섹션 헤더로 배송비 부담 주체 표시 → 시스템이 자동 분기<br>
         <strong>예외</strong> 구매확정 → 즉시 상담사 연결 (M15, E08)
       </div>
     </div>
@@ -2329,7 +2378,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2342,8 +2391,8 @@ body { padding: 48px 24px 96px; }
 
     <!-- ============= M10 교환 접수 ============= -->
     <div class="mockup">
-      <div class="mockup-label">M10 — 교환 접수 (사이즈/옵션 재선택)</div>
-      <div class="mockup-desc">반품과 골격 동일하지만 "옵션 재선택" 단계 추가 → 5단계. 사이즈/색상 교환은 재고 확인 후 가능 여부 표시.</div>
+      <div class="mockup-label">M10 — 교환 접수 (사유 선택)</div>
+      <div class="mockup-desc">반품과 동일한 4단계 흐름. 실제 앱은 교환할 옵션을 직접 고르지 않고 사유만 선택 → 시스템이 동일 옵션으로 재발송 처리. 사유는 귀책별 2섹션 분류.</div>
       <div class="cw">
         <div class="cw-header">
           <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
@@ -2355,39 +2404,38 @@ body { padding: 48px 24px 96px; }
             <div class="stepbar" style="max-width:none">
               <div class="stepbar-row">
                 <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
-                <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
-                <div class="step active"><div class="step-circle">3</div><div class="step-label">옵션</div></div>
-                <div class="step"><div class="step-circle">4</div><div class="step-label">회수</div></div>
-                <div class="step"><div class="step-circle">5</div><div class="step-label">환불</div></div>
+                <div class="step active"><div class="step-circle">2</div><div class="step-label">사유</div></div>
+                <div class="step"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-label">환불</div></div>
               </div>
             </div>
           </div>
-          <button class="back-step" style="margin-left:0; margin-top:4px"><svg><use href="#i-arrow-left"/></svg>이전 단계로</button>
-          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환할 옵션을 선택해주세요.
-재고가 있는 옵션만 보여드릴게요.</div></div>
+          <button class="back-step" style="margin-left:0; margin-top:4px"><svg><use href="#i-arrow-left"/></svg>1단계로 돌아가기</button>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환하는 이유를 알려주세요.</div></div>
           <div class="bot-attached">
             <div class="form-options">
-              <div class="option"><div class="option-radio"></div>S 사이즈 / 그레이<span class="option-tag">재고 12</span></div>
-              <div class="option selected"><div class="option-radio"></div>M 사이즈 / 그레이<span class="option-tag">재고 7</span></div>
-              <div class="option"><div class="option-radio"></div>L 사이즈 / 그레이<span class="option-tag">재고 3</span></div>
-              <div class="option" style="opacity:0.5; cursor:not-allowed"><div class="option-radio"></div>L 사이즈 / 베이지<span class="option-tag">품절</span></div>
+              <div class="option-group-label">배송비 직접 부담</div>
+              <div class="option selected"><div class="option-radio"></div>색상, 사이즈를 바꾸고 싶어요</div>
+              <div class="option"><div class="option-radio"></div>다른 이유가 있어요</div>
+              <div class="option-group-label">배송비 판매자 부담</div>
+              <div class="option"><div class="option-radio"></div>상품 정보와 실제 상품이 달라요</div>
+              <div class="option"><div class="option-radio"></div>구성품, 부속품이 없어요</div>
+              <div class="option"><div class="option-radio"></div>파손된 상품을 받았어요</div>
+              <div class="option"><div class="option-radio"></div>주문한 옵션과 다른 상품을 받았어요</div>
+              <div class="option"><div class="option-radio"></div>상품에 문제가 있어요</div>
             </div>
-          </div>
-          <div class="info-card">
-            <h4>교환 정보</h4>
-            <div class="info-row"><span class="info-label">선택 옵션</span><span class="info-val">M 사이즈 / 그레이</span></div>
-            <div class="info-row"><span class="info-label">예상 배송</span><span class="info-val">영업일 3~5일</span></div>
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="상세 사유 (선택)" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
       <div class="spec">
-        <strong>컴포넌트</strong> 5단계 stepbar · 단일선택 폼(재고 tag · 품절 disabled) · InfoCard 교환 정보<br>
-        <strong>분기</strong> 옵션 동일 교환 → 회수+재배송 / 사이즈만 교환 → 옵션 재선택 후 동일 흐름<br>
-        <strong>예외</strong> 모든 옵션 품절 시 → 환불 안내로 변경
+        <strong>컴포넌트</strong> 단계바 4단계(2단계 active) · 단일선택 폼(귀책별 2섹션: 직접부담 2 + 판매자부담 5)<br>
+        <strong>다음 단계</strong> 회수 방법 → 환불(배송비 차감) 확인 → 접수 완료<br>
+        <strong>실제 앱 대응</strong> 교환 옵션은 사용자가 고르지 않음 → 동일 옵션 재발송. 사이즈 변경 등은 반품 후 재주문 안내<br>
+        <strong>예외</strong> 동일 옵션 재고 없음 → 환불로 자동 전환 안내
       </div>
     </div>
 
@@ -2428,7 +2476,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2484,7 +2532,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2538,7 +2586,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2582,7 +2630,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2617,7 +2665,7 @@ body { padding: 48px 24px 96px; }
           <div class="sys-msg">상담사 연결 시 지금까지의 대화 내용이 함께 전달돼요</div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2679,7 +2727,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2723,7 +2771,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2772,7 +2820,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2817,7 +2865,7 @@ body { padding: 48px 24px 96px; }
           <div class="sys-msg">관리자에게 자동 보고됨 (Serious VOC 후보)</div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2862,7 +2910,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2916,7 +2964,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -2958,7 +3006,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3004,7 +3052,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3045,7 +3093,7 @@ body { padding: 48px 24px 96px; }
           <div class="sys-msg">대화 내용과 주문 정보가 함께 전달돼요</div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3114,7 +3162,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3155,7 +3203,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3208,7 +3256,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3263,7 +3311,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3306,7 +3354,7 @@ body { padding: 48px 24px 96px; }
           <div class="sys-msg">결제 수단·금액·기간 정보가 함께 전달돼요</div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3345,7 +3393,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3403,7 +3451,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3455,7 +3503,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3507,7 +3555,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3564,7 +3612,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3603,7 +3651,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3664,7 +3712,7 @@ body { padding: 48px 24px 96px; }
           </div>
         </div>
         <div class="input-bar">
-          <div class="input-field">메시지를 입력하세요</div>
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
           <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
         </div>
       </div>
@@ -3762,7 +3810,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">포인트/쿠폰</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[주문/배송 조회] 탭 또는 자유 발화</div>
         </div>
@@ -3830,7 +3878,7 @@ body { padding: 48px 24px 96px; }
                 </div></div></div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">주문 카드 탭</div>
           <div class="scenario-step-note"><strong>API</strong> GET /v1/orders (최근 1개월). 4건 이상 시 [전체 주문 보기] chip 추가</div>
@@ -3852,7 +3900,7 @@ body { padding: 48px 24px 96px; }
 배송 정보를 확인 중이에요...</div></div>
               <div style="margin-left:30px; padding:12px 14px; background:var(--bg-weak); border-radius:8px; font-size:11px; color:var(--fg-weak); max-width:220px">⏳ 배송 유형 자동 판정 중<br>· 일반 택배<br>· 화물 택배<br>· 업체 직접 배송<br>· 원하는날 배송</div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">자동 분기 (배송 유형 판정)</div>
           <div class="scenario-step-note"><strong>API</strong> GET /v1/order_options/{id}/delivery_info. 배송 유형에 따라 Part C의 4가지 화면 중 하나로 분기</div>
@@ -3902,7 +3950,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>특징</strong> 운송장 번호 + 4단계 진행바 + 택배사 추적 딥링크. <strong>API</strong> 운송장 → 택배사 외부 추적 URL</div>
         </div>
@@ -3943,7 +3991,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); padding:6px 10px; background:var(--bg-weak); border-radius:4px; max-width:220px">💡 <strong>화물 택배</strong>는 출발 전 기사님이 사전 연락드려요</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>특징</strong> 운송장 + 화물사 추적 + 사전 연락 안내 추가. 도서산간 시 추가 배송비 명시</div>
         </div>
@@ -3976,7 +4024,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-attention); padding:6px 10px; background:var(--bg-attention-weak); border-radius:4px; max-width:220px">⚠️ 운송장 추적 불가. 배송일·시간은 판매자 직접 확인</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>특징</strong> 운송장 X, 단계바 X. <strong>판매자 문의 강조</strong> (Primary 버튼). 상품 페이지 안내일 표기</div>
         </div>
@@ -4011,7 +4059,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>특징</strong> 고객 선택 배송일 표기 + D-N 카운트다운 + <strong>배송일 변경 기능 안내</strong> (D-3 이전만)</div>
         </div>
@@ -4070,7 +4118,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">기타 문의</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[다른 문의] chip 탭</div>
           <div class="scenario-step-note">이전 의도(배송 조회)는 시스템 메시지로 마킹. 다른 시나리오 진입 시 컨텍스트 분리</div>
@@ -4143,7 +4191,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); padding:6px 10px; background:var(--bg-weak); border-radius:4px; max-width:220px">💡 판매자 문의로 정확한 배송 일정을 받아볼 수 있어요</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>UX</strong> 사과 우선 + 판매자 문의 강조 (Primary). 1일 미만은 정상 양해, 3일+ 경과시 상담사 연결 자동 추천</div>
         </div>
@@ -4181,7 +4229,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>UX</strong> 정상 범위(2일 이내)는 양해 안내. 2일+ 경과시 판매자/상담사 옵션 강화. 화물 택배는 더 길게(3일) 적용</div>
         </div>
@@ -4232,7 +4280,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">포인트/쿠폰</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[반품/교환] chip 또는 "반품해주세요" 발화</div>
         </div>
@@ -4258,7 +4306,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">교환으로 변경</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[반품 접수] 선택</div>
           <div class="scenario-step-note">분기: 진행 상태 → D4~D6 / 철회 → D7 / 교환 변경 → E1</div>
@@ -4368,7 +4416,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">주문 카드 탭</div>
           <div class="scenario-step-note"><strong>API</strong> GET /v1/orders + 룰 엔진 (배송중/완료 + 7일 이내 + 비구매확정)</div>
@@ -4408,7 +4456,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); padding:6px 10px; background:var(--bg-weak); border-radius:4px; max-width:220px; line-height:14px">💡 <strong>구매자 귀책</strong>: 왕복 배송비 청구 (8,000원)<br>💡 <strong>판매자 귀책</strong>: 배송비 무료 + 사진 필수</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">정책 사전 안내로 사용자 마찰 줄임</div>
         </div>
@@ -4432,18 +4480,21 @@ body { padding: 48px 24px 96px; }
               <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
             </div>
             <div class="chat">
-              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 사유를 선택해주세요.</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품하는 이유를 알려주세요.</div></div>
               <div class="bot-attached">
                 <div class="form-options">
-                  <div class="option"><div class="option-radio"></div>단순 변심<span class="option-tag">구매자</span></div>
-                  <div class="option"><div class="option-radio"></div>사이즈가 안 맞아요<span class="option-tag">구매자</span></div>
-                  <div class="option selected"><div class="option-radio"></div>상품 불량<span class="option-tag">판매자 · 사진</span></div>
-                  <div class="option"><div class="option-radio"></div>배송 중 파손<span class="option-tag">판매자 · 사진</span></div>
-                  <div class="option"><div class="option-radio"></div>오배송<span class="option-tag">판매자</span></div>
+                  <div class="option-group-label">배송비 직접 부담</div>
+                  <div class="option"><div class="option-radio"></div>상품이 필요하지 않아요</div>
+                  <div class="option"><div class="option-radio"></div>색상, 사이즈를 바꾸고 싶어요</div>
+                  <div class="option"><div class="option-radio"></div>다른 이유가 있어요</div>
+                  <div class="option-group-label">판매자가 배송비 부담</div>
+                  <div class="option selected"><div class="option-radio"></div>파손된 상품을 받았어요</div>
+                  <div class="option"><div class="option-radio"></div>주문한 옵션과 다른 상품을 받았어요</div>
+                  <div class="option"><div class="option-radio"></div>상품에 문제가 있어요</div>
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">상세 사유 (선택)</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="상세 사유 (선택)" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>API</strong> GET /v2/claim/reasons (사유 목록 + 귀책 자동 매핑)</div>
         </div>
@@ -4474,7 +4525,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">사진 첨부는 필요 없어요.
 바로 회수 단계로 넘어갈게요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">→ S10 회수 방법으로 직진</div>
         </div>
@@ -4506,7 +4557,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">불량 부분 사진을 올려주세요.
 판매자가 검수할 때 필요해요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">→ S9 사진 첨부로</div>
         </div>
@@ -4541,7 +4592,7 @@ body { padding: 48px 24px 96px; }
                 <button class="back-step" style="margin-left:0; margin-top:0">사진 없이 진행</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[사진 없이 진행] → S9-Sub 분기</div>
           <div class="scenario-step-note"><strong>API</strong> 증빙 업로드 저장소 (Presigned URL). O6 정책 결정 필요</div>
@@ -4569,7 +4620,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:160px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>❌ Handover</strong> 포인트 사전 케어는 권한 영역. 1만원 초과 시 관리자 승인 필요</div>
         </div>
@@ -4616,7 +4667,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">자동수거 가능 시 [택배 회수] 권장. 수동수거만 가능한 파트너사는 [직접 발송] 강제</div>
         </div>
@@ -4661,7 +4712,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary btn-block" style="max-width:220px; height:36px; font-size:13px">반품 접수하기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>API</strong> POST /v2/claim/returns (멱등성 키 필수)</div>
         </div>
@@ -4721,7 +4772,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>D9 매핑</strong> 판매자 협의 후 [구매확정주문취소] 기능 사용 (상담사 권한)</div>
         </div>
@@ -4746,7 +4797,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>D10 매핑</strong> 자동 거절 X · 항상 상담사 옵션 (예외 케이스 검토)</div>
         </div>
@@ -4771,7 +4822,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>D8 매핑</strong> 시스템 미지원. CP 백오피스에서만 처리 가능</div>
         </div>
@@ -4842,7 +4893,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">포인트/쿠폰</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[주문 취소] chip 또는 "취소해주세요" 발화</div>
         </div>
@@ -4915,7 +4966,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">주문 카드 탭 → 상태별 분기</div>
           <div class="scenario-step-note"><strong>API</strong> GET /v1/orders + 룰 (결제완료/배송준비중만)</div>
@@ -4931,7 +4982,7 @@ body { padding: 48px 24px 96px; }
 확인 중이에요...</div></div>
               <div style="margin-left:30px; padding:12px 14px; background:var(--bg-weak); border-radius:8px; font-size:11px; color:var(--fg-weak); max-width:220px">⏳ 자동 분기 중<br>· 결제완료 → 즉시 취소<br>· 배송준비중 → 판매자 승인 대기</div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">상태에 따라 6-A 또는 6-B로 분기</div>
         </div>
@@ -4963,7 +5014,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[전체 취소] → S7 환불 일정으로</div>
           <div class="scenario-step-note">부분 취소 → E3 예외 (시스템 미지원)</div>
@@ -4988,7 +5039,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">취소 요청하기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[취소 요청] → 판매자 승인 대기 (M23 패턴)</div>
         </div>
@@ -5018,7 +5069,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>특수 케이스</strong> 휴대폰 익월·무통장 미등록·1년 경과 카드 → 수기환불 (Handover)</div>
         </div>
@@ -5100,7 +5151,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">[반품 접수로] → 시나리오 #2 D 반품 풀 흐름으로 점프</div>
         </div>
@@ -5120,7 +5171,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>M25 매핑</strong> 구매확정 취소도 동일 패턴 (판매자 협의 영역)</div>
         </div>
@@ -5140,7 +5191,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">반품 D8과 동일 패턴 (시스템 미지원)</div>
         </div>
@@ -5184,7 +5235,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">포인트/쿠폰</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[반품/교환] chip</div>
         </div>
@@ -5202,7 +5253,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">반품/교환 상태</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[교환 접수] → S3</div>
         </div>
@@ -5216,7 +5267,7 @@ body { padding: 48px 24px 96px; }
 주문 내역을 가져올게요.</div></div>
               <div class="sys-msg">— 인증 OK —</div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">반품 시나리오 Part A와 동일 패턴 (비로그인 분기 포함)</div>
         </div>
@@ -5255,7 +5306,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">5단계 진행바 (반품의 4단계 + 옵션 재선택)</div>
         </div>
@@ -5265,19 +5316,24 @@ body { padding: 48px 24px 96px; }
           <div class="cw-mini">
             <div class="cw-header"><button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button><div style="flex:1; text-align:center; font-size:14px; font-weight:700">교환 접수</div><button class="icon-btn"><svg><use href="#i-x"/></svg></button></div>
             <div class="chat">
-              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 사유를 선택해주세요.</div></div>
+              <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환하는 이유를 알려주세요.</div></div>
               <div class="bot-attached">
                 <div class="form-options">
-                  <div class="option selected"><div class="option-radio"></div>사이즈 변경<span class="option-tag">구매자</span></div>
-                  <div class="option"><div class="option-radio"></div>색상 변경<span class="option-tag">구매자</span></div>
-                  <div class="option"><div class="option-radio"></div>상품 불량<span class="option-tag">판매자 · 사진</span></div>
-                  <div class="option"><div class="option-radio"></div>오배송<span class="option-tag">판매자</span></div>
+                  <div class="option-group-label">배송비 직접 부담</div>
+                  <div class="option selected"><div class="option-radio"></div>색상, 사이즈를 바꾸고 싶어요</div>
+                  <div class="option"><div class="option-radio"></div>다른 이유가 있어요</div>
+                  <div class="option-group-label">배송비 판매자 부담</div>
+                  <div class="option"><div class="option-radio"></div>상품 정보와 실제 상품이 달라요</div>
+                  <div class="option"><div class="option-radio"></div>구성품, 부속품이 없어요</div>
+                  <div class="option"><div class="option-radio"></div>파손된 상품을 받았어요</div>
+                  <div class="option"><div class="option-radio"></div>주문한 옵션과 다른 상품을 받았어요</div>
+                  <div class="option"><div class="option-radio"></div>상품에 문제가 있어요</div>
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="상세 사유 (선택)" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
-          <div class="scenario-step-note">반품과 사유 옵션 동일. 귀책 자동 분기 (반품 시나리오 S7 패턴)</div>
+          <div class="scenario-step-note">반품 옵션의 부분집합 (직접부담 2 + 판매자부담 5). 섹션 헤더가 귀책 자동 매핑</div>
         </div>
       </div>
     </div>
@@ -5303,7 +5359,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">옵션 선택 → S7로</div>
           <div class="scenario-step-note"><strong>M10 매핑</strong> 재고 0인 옵션은 disabled. 모든 옵션 품절 시 6-Sub로</div>
@@ -5327,7 +5383,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">[반품 접수로] → 시나리오 #2 D 반품 풀 흐름으로 점프</div>
         </div>
@@ -5364,7 +5420,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -5399,7 +5455,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary btn-block" style="max-width:220px; height:32px; font-size:12px">8,000원 결제하기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">판매자 귀책이면 비용 결제 X · 사진 첨부 단계 추가</div>
         </div>
@@ -5452,7 +5508,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">본사 중재 요청</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>M36 매핑</strong> Handover (3자 협의)</div>
         </div>
@@ -5472,7 +5528,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">반품 D8과 동일 패턴</div>
         </div>
@@ -5492,7 +5548,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">긴급 상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">자동 처리 직전 → 우선 상담사 인계 필요</div>
         </div>
@@ -5531,7 +5587,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">어떤 주문의 배송지를
 변경하실까요?</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">자유 발화 또는 chip [주문/배송 조회] → [배송지 변경]</div>
         </div>
@@ -5563,7 +5619,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">상태별 가능 여부 사전 표기 (마찰 줄임)</div>
         </div>
@@ -5578,7 +5634,7 @@ body { padding: 48px 24px 96px; }
 바로 변경 가능해요.</div></div>
               <div style="margin-left:30px; padding:12px 14px; background:var(--bg-weak); border-radius:8px; font-size:11px; color:var(--fg-weak); max-width:220px">⏳ 분기<br>· 결제완료 → 즉시 자동<br>· 배송준비중 → 파트너사 확인<br>· 배송중/완료 → 불가</div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -5606,7 +5662,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">변경 완료</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>API</strong> PATCH /v1/orders/{id}/shipping-address (자동 처리)</div>
         </div>
@@ -5627,7 +5683,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>⚠️ 부분 자동화</strong> 챗봇이 직접 변경 불가 → 판매자/상담사</div>
         </div>
@@ -5672,7 +5728,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -5693,7 +5749,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">[배송일 재선택] → 시나리오 #6 B3로 점프</div>
         </div>
@@ -5731,7 +5787,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">원하는날도착·빠른가전 상품만
 배송일 변경이 가능해요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -5757,7 +5813,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">D-3 이상만 변경 가능, D-3 이내는 disabled</div>
         </div>
@@ -5795,7 +5851,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">5/17(토) 변경</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">파트너사 물류 휴일은 disabled. 4개월 내 선택 가능</div>
         </div>
@@ -5846,7 +5902,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -5865,7 +5921,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>판매자 문의</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -5901,7 +5957,7 @@ body { padding: 48px 24px 96px; }
               <div class="user-msg"><div class="bubble">내 포인트 얼마예요?</div></div>
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">고객님의 포인트 현황이에요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -5923,7 +5979,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">chip별 분기 (3, 4, 5, 6 화면)</div>
         </div>
@@ -5956,7 +6012,7 @@ body { padding: 48px 24px 96px; }
                 <button class="link-btn" style="font-size:11px">전체 내역 보기 <svg><use href="#i-chevron-right"/></svg></button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">소멸 7일 전 + 30일 전 앱푸시 자동 발송 (KMS 14)</div>
         </div>
@@ -5977,7 +6033,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); max-width:220px">리뷰·집들이 작성으로도 적립 가능</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -5997,7 +6053,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>❌ Handover</strong> 권한 영역 (관리자 이관)</div>
         </div>
@@ -6019,7 +6075,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); max-width:220px">⚠️ 만료 임박 시 환불 +3일 자동 연장</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">판매자 귀책 = 자동 연장 / 구매자 귀책 = 기존 유효기간 (KMS 14)</div>
         </div>
@@ -6057,7 +6113,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">3장이 있어요.
 만료 임박 순으로 정렬했어요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -6094,7 +6150,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -6117,7 +6173,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -6139,7 +6195,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">자주 인입되는 케이스 — 결제수단 변경 가이드 우선 제시</div>
         </div>
@@ -6159,7 +6215,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -6196,7 +6252,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">불편드려 죄송해요.
 배송 정보를 확인해드릴게요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">"안 와요" 키워드 → 사과 우선</div>
         </div>
@@ -6225,7 +6281,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">예정일 경과 건은 alert 색상으로 자동 강조</div>
         </div>
@@ -6240,7 +6296,7 @@ body { padding: 48px 24px 96px; }
 확인 중이에요...</div></div>
               <div style="margin-left:30px; padding:12px 14px; background:var(--bg-weak); border-radius:8px; font-size:11px; color:var(--fg-weak); max-width:220px">⏳ 자동 분기<br>· 흐름 정상 + 단순 지연 → 택배사<br>· 흐름 없음 (가송장) → 파트너사<br>· 주소 오류 → 파트너사</div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>API</strong> GET /v1/order_options/{id}/delivery_info (외부 택배사 추적)</div>
         </div>
@@ -6278,7 +6334,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">3일 미만은 양해 안내. 5일+ 경과 시 파트너사 분기로 자동 전환</div>
         </div>
@@ -6299,7 +6355,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>핵심 케이스</strong> 가송장은 파트너사 확인 필수 (재출고 일정 획득)</div>
         </div>
@@ -6316,7 +6372,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">[취소하고 환불] → 시나리오 #3 주문 취소 점프 (배송중→불가→반품 안내)</div>
         </div>
@@ -6344,7 +6400,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">7일+ 미수령은 SLA 초과 → 강성 우려 → 우선 응대</div>
         </div>
@@ -6363,7 +6419,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">분실 조회로 전환</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">→ 시나리오 #10 B7 배송분실로 점프</div>
         </div>
@@ -6401,7 +6457,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">불편드려 죄송해요.
 함께 확인해드릴게요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -6424,7 +6480,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">택배사 데이터에서 위탁장소 자동 추출 → 사용자 자가 확인</div>
         </div>
@@ -6441,7 +6497,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">정말 없어요</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[찾았어요/대리수령] → 자체 종결 / [정말 없어요] → S4 분실 확정</div>
         </div>
@@ -6492,7 +6548,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-secondary btn-block" style="max-width:220px; height:32px; font-size:12px">새 상담 시작</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -6520,7 +6576,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -6576,7 +6632,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">정말 불편드려 죄송해요.
 사진을 보내주시면 빠르게 처리해드릴게요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">"파손/불량/이상" 키워드 → 사과 + 증빙 안내</div>
         </div>
@@ -6604,7 +6660,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">배송완료 + 7일 이내 주문만 자동 필터링</div>
         </div>
@@ -6627,7 +6683,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">다음 단계</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">상세 사유 (선택)</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="상세 사유 (선택)" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>핵심</strong> 포장 박스 함께 권장 → 배송 중 파손 vs 출고 불량 판정 용이</div>
         </div>
@@ -6653,7 +6709,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">선택 완료</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">선택 후 → 5번 자동 전환 안내</div>
         </div>
@@ -6677,7 +6733,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary btn-block" style="max-width:220px; height:32px; font-size:12px">교환 접수 계속하기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">→ 시나리오 #4 교환 접수 풀 흐름 점프 (Part C 옵션 재선택부터)</div>
         </div>
@@ -6725,7 +6781,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>D3/M27 매핑</strong> 포인트 사전 케어 → Handover</div>
         </div>
@@ -6745,7 +6801,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>D10/M20 매핑</strong> 자동 거절 X → 상담사 예외 검토</div>
         </div>
@@ -6782,7 +6838,7 @@ body { padding: 48px 24px 96px; }
               <div class="user-msg"><div class="bubble">내 주문 어떻게 됐어요?</div></div>
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">최근 주문 상태를 확인해드릴게요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -6813,7 +6869,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">상태별 색상 자동 매핑 (입금대기=attention 등)</div>
         </div>
@@ -6833,7 +6889,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">결제수단 문의</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">상태별 가능 액션 자동 필터링 (KMS 1. 주문 여정 매트릭스)</div>
         </div>
@@ -6860,7 +6916,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">변경 완료</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>API</strong> PATCH order option (결제완료만). 가격 다르면 disabled</div>
         </div>
@@ -6882,7 +6938,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); max-width:220px">⚠️ 카드 즉시할인 + 쿠폰·포인트 중복 불가</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">KMS 15 결제수단 상세 정책 자동 안내</div>
         </div>
@@ -6909,7 +6965,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">취소 후 재구매</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">[취소 후 재구매] → 시나리오 #3 주문 취소 점프</div>
         </div>
@@ -6929,7 +6985,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -6966,7 +7022,7 @@ body { padding: 48px 24px 96px; }
               <div class="bot-msg"><div class="avatar">오</div><div class="bubble">AS는 판매자/제조사가
 직접 처리해요.</div></div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -6981,7 +7037,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">아니요</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[네] → S3 / [아니요] → 일반 가이드</div>
         </div>
@@ -7009,7 +7065,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">제조사 별도 운영 시 chip에 표시</div>
         </div>
@@ -7042,7 +7098,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">진행 지연</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[소요·비용/지연] chip → Handover (Phase 3 범위 외)</div>
         </div>
@@ -7087,7 +7143,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">일반 문의만</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -7107,7 +7163,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">조회하기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>O13 매핑</strong> 비회원 인증 처리 방안 — 이 폼이 챗봇 안에 임베드 vs 외부 페이지로 이동</div>
         </div>
@@ -7126,7 +7182,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">회원가입하기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -7178,7 +7234,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">자주 인입되는 케이스 (KMS 검색 1위 FAQ)</div>
         </div>
@@ -7204,7 +7260,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px">마이페이지 탈퇴</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">손실 명확히 안내 + 마이페이지에서 직접 진행 (챗봇 처리 X)</div>
         </div>
@@ -7247,7 +7303,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">배송기사 불만</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">발화 키워드로 자동 분류 또는 chip 선택</div>
         </div>
@@ -7273,7 +7329,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">의도에 따라 다음 분기 (3-A/B/C/D)로</div>
         </div>
@@ -7299,7 +7355,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bubble"/></svg>판매자 문의</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">3일 미만은 양해, 3일+ 파트너사 / 5일+ 본사 이관</div>
         </div>
@@ -7322,7 +7378,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7341,7 +7397,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px">원하는날도착 보기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">실제 배송비 오차 (상품페이지 vs 청구) 시 → 파트너사 확인</div>
         </div>
@@ -7364,7 +7420,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">담당자 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">배송 유형별 책임 주체 다름 (오늘의집 vs 파트너사)</div>
         </div>
@@ -7387,7 +7443,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -7432,7 +7488,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:160px; font-size:12px"><svg style="width:12px; height:12px"><use href="#i-bell"/></svg>익일 09시 알림 받기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">진입 시각 검증 → 09-18 외 자동 트리거</div>
           <div class="scenario-step-note">KMS 모드만 활성. 알림 등록 시 익일 자동 인계</div>
@@ -7458,7 +7514,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">[새로 시작] 시 기존 티켓 자동 종결 정책 결정 필요</div>
         </div>
@@ -7549,7 +7605,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-secondary" style="height:32px; max-width:140px; font-size:12px">로그인하러 가기</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7611,7 +7667,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">사업자 영수증</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -7638,7 +7694,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note">결제수단에 따라 안내 다름</div>
         </div>
@@ -7667,7 +7723,7 @@ body { padding: 48px 24px 96px; }
                 <button class="link-btn" style="font-size:12px">마이페이지 결제내역 <svg><use href="#i-chevron-right"/></svg></button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7685,7 +7741,7 @@ body { padding: 48px 24px 96px; }
                 <button class="link-btn" style="font-size:12px">네이버페이 결제내역 <svg><use href="#i-chevron-right"/></svg></button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7703,7 +7759,7 @@ body { padding: 48px 24px 96px; }
                 <button class="link-btn" style="font-size:12px">국세청 홈택스 <svg><use href="#i-chevron-right"/></svg></button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7721,7 +7777,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
       </div>
@@ -7763,7 +7819,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">가격 불만</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-arrow">→</div>
@@ -7778,7 +7834,7 @@ body { padding: 48px 24px 96px; }
                 <button class="chip">구매 전 상품 (탐색 중)</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-trigger">[구매한 상품] → 주문에서 → 판매자 문의 / [구매 전] → 상품번호 입력</div>
         </div>
@@ -7810,7 +7866,7 @@ body { padding: 48px 24px 96px; }
                 <div style="font-size:11px; color:var(--fg-weak); max-width:220px">사이즈·색상·재질 등 모든 상품 디테일은 판매자가 직접 답변</div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7832,7 +7888,7 @@ body { padding: 48px 24px 96px; }
                 </div>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
         </div>
         <div class="scenario-step">
@@ -7851,7 +7907,7 @@ body { padding: 48px 24px 96px; }
                 <button class="btn btn-primary" style="height:32px; max-width:140px; font-size:12px">상담사 연결</button>
               </div>
             </div>
-            <div class="input-bar"><div class="input-field">메시지 입력</div><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
+            <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
           <div class="scenario-step-note"><strong>❌ Handover</strong> 본사 검증 필요 영역 (판매자 X)</div>
         </div>
@@ -7993,16 +8049,97 @@ function selectOrder(orderId) {
   else showScreen('delivery');
 }
 
+let refundState = { group: null, reason: null, photos: 0, note: '' };
+
 function pickReason(el, reason) {
-  // 라디오 버튼처럼 동작
+  // 라디오 버튼처럼 동작 (option-group-label은 .option 클래스 없어서 제외됨)
   el.parentElement.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
+  // 사유 + 귀책 그룹 저장
+  refundState.group = el.dataset.group || 'buyer';
+  refundState.reason = reason;
+  // 사진/텍스트 입력 영역 노출
+  const extras = document.getElementById('refundExtras');
+  if (extras) extras.style.display = 'flex';
   // [다음 단계로] 버튼 활성화
   const nextBtn = document.getElementById('refundNext');
   if (nextBtn) {
     nextBtn.style.opacity = '1';
     nextBtn.style.pointerEvents = 'auto';
   }
+}
+
+function addRefundPhoto(slot) {
+  // 클릭된 슬롯을 채워진 이미지로 변환
+  refundState.photos += 1;
+  slot.classList.add('filled');
+  if (refundState.photos % 2 === 0) slot.classList.add('f2');
+  slot.innerHTML = '';
+  // 새 + 추가 슬롯 추가 (최대 5개까지)
+  const grid = document.getElementById('refundUploadGrid');
+  if (grid && refundState.photos < 5) {
+    const next = document.createElement('div');
+    next.className = 'upload-slot';
+    next.setAttribute('onclick', 'addRefundPhoto(this)');
+    next.innerHTML = '<svg><use href="#i-camera"/></svg>+ 추가';
+    grid.appendChild(next);
+  }
+}
+
+function toggleCancelItem(el) {
+  el.classList.toggle('selected');
+  updateCancelSummary();
+}
+
+function updateCancelSummary() {
+  const items = document.querySelectorAll('.cancel-item');
+  const selected = document.querySelectorAll('.cancel-item.selected');
+  const total = Array.from(selected).reduce((sum, el) => sum + parseInt(el.dataset.price), 0);
+  const countLabel = document.getElementById('cancelSelectedCount');
+  const totalLabel = document.getElementById('cancelTotalAmount');
+  const allBtn = document.getElementById('cancelAllBtn');
+  const partialBtn = document.getElementById('cancelPartialBtn');
+
+  if (countLabel) countLabel.textContent = selected.length + '개 / ' + items.length + '개';
+  if (totalLabel) totalLabel.textContent = total.toLocaleString() + '원';
+  if (allBtn) allBtn.textContent = '전체 취소 (' + items.length + '개)';
+  if (partialBtn) {
+    const isPartial = selected.length > 0 && selected.length < items.length;
+    partialBtn.style.opacity = isPartial ? '1' : '0.5';
+    partialBtn.style.pointerEvents = isPartial ? 'auto' : 'none';
+    partialBtn.textContent = isPartial ? '부분 취소 (' + selected.length + '개)' : '부분 취소';
+  }
+}
+
+function cancelAll() {
+  document.querySelectorAll('.cancel-item').forEach(el => el.classList.add('selected'));
+  updateCancelSummary();
+  showScreen('done');
+}
+
+function cancelPartial() {
+  showScreen('done');
+}
+
+function goRefundConfirm() {
+  // 상세 사유 텍스트 저장
+  const detailInput = document.getElementById('refundDetailInput');
+  if (detailInput) refundState.note = detailInput.value || '';
+  // S9 환불 정보 갱신 (귀책 그룹별 배송비 차감)
+  const shippingVal = document.getElementById('refundShippingVal');
+  const shippingRow = document.getElementById('refundShippingRow');
+  const totalVal = document.getElementById('refundTotalVal');
+  const faultNote = document.getElementById('refundFaultNote');
+  if (refundState.group === 'seller') {
+    if (shippingVal) { shippingVal.textContent = '0원'; shippingVal.classList.remove('minus'); }
+    if (totalVal) totalVal.textContent = '1,290,000원';
+    if (faultNote) faultNote.innerHTML = '💡 판매자 귀책 사유 — 반품 배송비는 판매자가 부담해요.';
+  } else {
+    if (shippingVal) { shippingVal.textContent = '-4,000원'; shippingVal.classList.add('minus'); }
+    if (totalVal) totalVal.textContent = '1,286,000원';
+    if (faultNote) faultNote.innerHTML = '💡 구매자 귀책 사유 — 왕복 배송비 4,000원이 환불 금액에서 차감돼요.';
+  }
+  showScreen('refund-confirm');
 }
 </script>
 </body>
