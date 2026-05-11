@@ -1,0 +1,1480 @@
+[
+  {
+    "id": "000",
+    "type": "mockup",
+    "label": "M01 — 챗봇 시작 화면",
+    "filename": "000_mockup_M01___챗봇_시작_화면.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "001",
+    "type": "mockup",
+    "label": "M02 — 첫 인사 + 빠른 메뉴",
+    "filename": "001_mockup_M02___첫_인사___빠른_메뉴.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "002",
+    "type": "mockup",
+    "label": "M03 — 인증 분기 모달 (비로그인일 때만)",
+    "filename": "002_mockup_M03___인증_분기_모달__비로그인일_때만_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "003",
+    "type": "mockup",
+    "label": "M04 — 오늘의집 로그인 페이지",
+    "filename": "003_mockup_M04___오늘의집_로그인_페이지.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "004",
+    "type": "mockup",
+    "label": "M05 — KMS 모드 (로그인 없이 진행)",
+    "filename": "004_mockup_M05___KMS_모드__로그인_없이_진행_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "005",
+    "type": "mockup",
+    "label": "M06 — 주문 상품 조회 (캐러셀)",
+    "filename": "005_mockup_M06___주문_상품_조회__캐러셀_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "006",
+    "type": "mockup",
+    "label": "M07 — 배송 조회 (단계바)",
+    "filename": "006_mockup_M07___배송_조회__단계바_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "007",
+    "type": "mockup",
+    "label": "M08 — 반품 접수 (단계바 + 사유 + 사진)",
+    "filename": "007_mockup_M08___반품_접수__단계바___사유___사진_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "008",
+    "type": "mockup",
+    "label": "M09 — 클레임 상태 조회 (탭)",
+    "filename": "008_mockup_M09___클레임_상태_조회__탭_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "009",
+    "type": "mockup",
+    "label": "M10 — 교환 접수 (사유 선택)",
+    "filename": "009_mockup_M10___교환_접수__사유_선택_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "010",
+    "type": "mockup",
+    "label": "M11 — 주문 취소 + 환불 안내",
+    "filename": "010_mockup_M11___주문_취소___환불_안내.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "011",
+    "type": "mockup",
+    "label": "M12 — 환불 내역 조회",
+    "filename": "011_mockup_M12___환불_내역_조회.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "012",
+    "type": "mockup",
+    "label": "M13 — 쿠폰 조회",
+    "filename": "012_mockup_M13___쿠폰_조회.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "013",
+    "type": "mockup",
+    "label": "M14 — 포인트 조회 + 유효기간",
+    "filename": "013_mockup_M14___포인트_조회___유효기간.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "014",
+    "type": "mockup",
+    "label": "M15 — 상담사 연결",
+    "filename": "014_mockup_M15___상담사_연결.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "015",
+    "type": "mockup",
+    "label": "M16 — 나의 문의내역",
+    "filename": "015_mockup_M16___나의_문의내역.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "016",
+    "type": "mockup",
+    "label": "M17 — 영업시간 외 진입 (E01)",
+    "filename": "016_mockup_M17___영업시간_외_진입__E01_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "017",
+    "type": "mockup",
+    "label": "M18 — 무응답 종료 시퀀스 (E02~E04)",
+    "filename": "017_mockup_M18___무응답_종료_시퀀스__E02_E04_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "018",
+    "type": "mockup",
+    "label": "M19 — Critical 키워드 → 즉시 인계 (E07)",
+    "filename": "018_mockup_M19___Critical_키워드___즉시_인계__E07_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "019",
+    "type": "mockup",
+    "label": "M20 — 클레임 거절 (구매확정/기간초과, E08)",
+    "filename": "019_mockup_M20___클레임_거절__구매확정_기간초과__E08_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "020",
+    "type": "mockup",
+    "label": "M22 — 취소 Case 1: 결제완료/배송준비중 (즉시 취소)",
+    "filename": "020_mockup_M22___취소_Case_1__결제완료_배송준비중__즉시_취소_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "021",
+    "type": "mockup",
+    "label": "M23 — 취소 Case 2: 판매자 승인 대기 (조회/추적)",
+    "filename": "021_mockup_M23___취소_Case_2__판매자_승인_대기__조회_추적_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "022",
+    "type": "mockup",
+    "label": "M24 — 취소·환불 Case 3: 환불 일정 안내 (결제수단별)",
+    "filename": "022_mockup_M24___취소_환불_Case_3__환불_일정_안내__결제수단별_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "023",
+    "type": "mockup",
+    "label": "M25 — 취소 Case 4: 철회·구매확정 취소 (즉시 Handover)",
+    "filename": "023_mockup_M25___취소_Case_4__철회_구매확정_취소__즉시_Handover_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "024",
+    "type": "mockup",
+    "label": "M26 — 반품 Case 1: 접수 전 (귀책 자동 매핑 + 회수 방법)",
+    "filename": "024_mockup_M26___반품_Case_1__접수_전__귀책_자동_매핑___회수_방법_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "025",
+    "type": "mockup",
+    "label": "M27 — 반품 Case 1 변형: 사진 첨부 거부",
+    "filename": "025_mockup_M27___반품_Case_1_변형__사진_첨부_거부.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "026",
+    "type": "mockup",
+    "label": "M28 — 반품 Case 2: 회수 대기 (수거 추적)",
+    "filename": "026_mockup_M28___반품_Case_2__회수_대기__수거_추적_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "027",
+    "type": "mockup",
+    "label": "M29 — 반품 Case 3: 검수 중 (자동 승인 카운트다운)",
+    "filename": "027_mockup_M29___반품_Case_3__검수_중__자동_승인_카운트다운_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "028",
+    "type": "mockup",
+    "label": "M30 — 반품 Case 4: 환불 지연 (Handover)",
+    "filename": "028_mockup_M30___반품_Case_4__환불_지연__Handover_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "029",
+    "type": "mockup",
+    "label": "M31 — 반품 Case 5: 분쟁·부분반품·구매확정 (Handover 3종)",
+    "filename": "029_mockup_M31___반품_Case_5__분쟁_부분반품_구매확정__Handover_3종_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "030",
+    "type": "mockup",
+    "label": "M32 — 교환 Case 1: 접수 전 (옵션 재선택 + 비용 결제)",
+    "filename": "030_mockup_M32___교환_Case_1__접수_전__옵션_재선택___비용_결제_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "031",
+    "type": "mockup",
+    "label": "M33 — 교환 Case 2: 회수 대기",
+    "filename": "031_mockup_M33___교환_Case_2__회수_대기.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "032",
+    "type": "mockup",
+    "label": "M34 — 교환 Case 3: 재배송 미시작 (검수→교환승인)",
+    "filename": "032_mockup_M34___교환_Case_3__재배송_미시작__검수_교환승인_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "033",
+    "type": "mockup",
+    "label": "M35 — 교환 Case 4: 운송장 등록 후 미도착",
+    "filename": "033_mockup_M35___교환_Case_4__운송장_등록_후_미도착.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "034",
+    "type": "mockup",
+    "label": "M36 — 교환 Case 5: 거절·부분교환 (Handover)",
+    "filename": "034_mockup_M36___교환_Case_5__거절_부분교환__Handover_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "035",
+    "type": "mockup",
+    "label": "M37 — AS 안내 (판매자/제조사 딥링크)",
+    "filename": "035_mockup_M37___AS_안내__판매자_제조사_딥링크_.png",
+    "section": "M-mockup 갤러리"
+  },
+  {
+    "id": "036",
+    "type": "demo",
+    "label": "S — start",
+    "filename": "036_demo_start.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "037",
+    "type": "demo",
+    "label": "S — greeting",
+    "filename": "037_demo_greeting.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "038",
+    "type": "demo",
+    "label": "S — auth",
+    "filename": "038_demo_auth.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "039",
+    "type": "demo",
+    "label": "S — login",
+    "filename": "039_demo_login.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "040",
+    "type": "demo",
+    "label": "S — kms",
+    "filename": "040_demo_kms.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "041",
+    "type": "demo",
+    "label": "S — orders",
+    "filename": "041_demo_orders.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "042",
+    "type": "demo",
+    "label": "S — delivery",
+    "filename": "042_demo_delivery.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "043",
+    "type": "demo",
+    "label": "S — refund-form",
+    "filename": "043_demo_refund-form.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "044",
+    "type": "demo",
+    "label": "S — refund-confirm",
+    "filename": "044_demo_refund-confirm.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "045",
+    "type": "demo",
+    "label": "S — cancel",
+    "filename": "045_demo_cancel.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "046",
+    "type": "demo",
+    "label": "S — point",
+    "filename": "046_demo_point.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "047",
+    "type": "demo",
+    "label": "S — tickets",
+    "filename": "047_demo_tickets.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "048",
+    "type": "demo",
+    "label": "S — agent",
+    "filename": "048_demo_agent.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "049",
+    "type": "demo",
+    "label": "S — done",
+    "filename": "049_demo_done.png",
+    "section": "인터랙티브 데모 (M00)"
+  },
+  {
+    "id": "050",
+    "type": "scenario-step",
+    "label": "2 챗봇 시작 화면",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "050_scenario_배송_조회_풀_시나리오_2_챗봇_시작_화면.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "051",
+    "type": "scenario-step",
+    "label": "3 첫 인사 + 빠른 메뉴",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "051_scenario_배송_조회_풀_시나리오_3_첫_인사___빠른_메뉴.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "052",
+    "type": "scenario-step",
+    "label": "4 인증 분기 (비로그인 시)",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "052_scenario_배송_조회_풀_시나리오_4_인증_분기__비로그인_시_.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "053",
+    "type": "scenario-step",
+    "label": "5 주문 리스트 캐러셀",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "053_scenario_배송_조회_풀_시나리오_5_주문_리스트_캐러셀.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "054",
+    "type": "scenario-step",
+    "label": "6 상품 선택 → 배송 정보 조회",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "054_scenario_배송_조회_풀_시나리오_6_상품_선택___배송_정보_조회.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "055",
+    "type": "scenario-step",
+    "label": "7-A 일반 택배",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "055_scenario_배송_조회_풀_시나리오_7-A_일반_택배.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "056",
+    "type": "scenario-step",
+    "label": "7-B 화물 택배",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "056_scenario_배송_조회_풀_시나리오_7-B_화물_택배.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "057",
+    "type": "scenario-step",
+    "label": "7-C 업체 직접 배송",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "057_scenario_배송_조회_풀_시나리오_7-C_업체_직접_배송.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "058",
+    "type": "scenario-step",
+    "label": "7-D 원하는날 배송",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "058_scenario_배송_조회_풀_시나리오_7-D_원하는날_배송.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "059",
+    "type": "scenario-step",
+    "label": "8-A 도움됐어요 → 종료 / NPS",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "059_scenario_배송_조회_풀_시나리오_8-A_도움됐어요___종료___NPS.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "060",
+    "type": "scenario-step",
+    "label": "8-B 다른 문의 → 첫 인사 복귀",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "060_scenario_배송_조회_풀_시나리오_8-B_다른_문의___첫_인사_복귀.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "061",
+    "type": "scenario-step",
+    "label": "8-C 상담사 연결",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "061_scenario_배송_조회_풀_시나리오_8-C_상담사_연결.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "062",
+    "type": "scenario-step",
+    "label": "E1 \"배송일 지났는데 안 와요\"",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "062_scenario_배송_조회_풀_시나리오_E1__배송일_지났는데_안_와요_.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "063",
+    "type": "scenario-step",
+    "label": "E2 \"운송장 추적이 안 돼요\"",
+    "scenario": "배송 조회 풀 시나리오",
+    "filename": "063_scenario_배송_조회_풀_시나리오_E2__운송장_추적이_안_돼요_.png",
+    "section": "배송 조회 풀 시나리오"
+  },
+  {
+    "id": "064",
+    "type": "scenario-step",
+    "label": "1 첫 인사 + chip",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "064_scenario_반품_접수_풀_시나리오__D1_D2_D3__1_첫_인사___chip.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "065",
+    "type": "scenario-step",
+    "label": "2 의도 세분화",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "065_scenario_반품_접수_풀_시나리오__D1_D2_D3__2_의도_세분화.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "066",
+    "type": "scenario-step",
+    "label": "3 인증 분기 (비로그인 시)",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "066_scenario_반품_접수_풀_시나리오__D1_D2_D3__3_인증_분기__비로그인_시_.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "067",
+    "type": "scenario-step",
+    "label": "4 로그인 페이지 → 컨텍스트 복원",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "067_scenario_반품_접수_풀_시나리오__D1_D2_D3__4_로그인_페이지___컨텍스트_복원.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "068",
+    "type": "scenario-step",
+    "label": "5 반품 가능 주문 캐러셀",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "068_scenario_반품_접수_풀_시나리오__D1_D2_D3__5_반품_가능_주문_캐러셀.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "069",
+    "type": "scenario-step",
+    "label": "6 상품 확인 + 정책 안내",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "069_scenario_반품_접수_풀_시나리오__D1_D2_D3__6_상품_확인___정책_안내.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "070",
+    "type": "scenario-step",
+    "label": "7 사유 선택 폼",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "070_scenario_반품_접수_풀_시나리오__D1_D2_D3__7_사유_선택_폼.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "071",
+    "type": "scenario-step",
+    "label": "8-A 구매자 귀책 분기",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "071_scenario_반품_접수_풀_시나리오__D1_D2_D3__8-A_구매자_귀책_분기.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "072",
+    "type": "scenario-step",
+    "label": "8-B 판매자 귀책 분기",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "072_scenario_반품_접수_풀_시나리오__D1_D2_D3__8-B_판매자_귀책_분기.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "073",
+    "type": "scenario-step",
+    "label": "9 사진 첨부 (판매자 귀책 시)",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "073_scenario_반품_접수_풀_시나리오__D1_D2_D3__9_사진_첨부__판매자_귀책_시_.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "074",
+    "type": "scenario-step",
+    "label": "9-Sub 사진 거부 → 그대로 접수",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "074_scenario_반품_접수_풀_시나리오__D1_D2_D3__9-Sub_사진_거부___그대로_접수.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "075",
+    "type": "scenario-step",
+    "label": "10 회수 방법 선택",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "075_scenario_반품_접수_풀_시나리오__D1_D2_D3__10_회수_방법_선택.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "076",
+    "type": "scenario-step",
+    "label": "11 환불 확인 + 접수",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "076_scenario_반품_접수_풀_시나리오__D1_D2_D3__11_환불_확인___접수.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "077",
+    "type": "scenario-step",
+    "label": "12 접수 완료 + 후속 안내",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "077_scenario_반품_접수_풀_시나리오__D1_D2_D3__12_접수_완료___후속_안내.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "078",
+    "type": "scenario-step",
+    "label": "E1 구매확정 후 반품",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "078_scenario_반품_접수_풀_시나리오__D1_D2_D3__E1_구매확정_후_반품.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "079",
+    "type": "scenario-step",
+    "label": "E2 7일 초과",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "079_scenario_반품_접수_풀_시나리오__D1_D2_D3__E2_7일_초과.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "080",
+    "type": "scenario-step",
+    "label": "E3 부분반품 시도",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "080_scenario_반품_접수_풀_시나리오__D1_D2_D3__E3_부분반품_시도.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "081",
+    "type": "scenario-step",
+    "label": "E4 귀책 분쟁",
+    "scenario": "반품 접수 풀 시나리오 (D1+D2+D3)",
+    "filename": "081_scenario_반품_접수_풀_시나리오__D1_D2_D3__E4_귀책_분쟁.png",
+    "section": "반품 접수 풀 시나리오 (D1+D2+D3)"
+  },
+  {
+    "id": "082",
+    "type": "scenario-step",
+    "label": "1 첫 인사 + chip",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "082_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__1_첫_인사___chip.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "083",
+    "type": "scenario-step",
+    "label": "2 인증 분기",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "083_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__2_인증_분기.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "084",
+    "type": "scenario-step",
+    "label": "3 로그인 → 컨텍스트 복원",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "084_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__3_로그인___컨텍스트_복원.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "085",
+    "type": "scenario-step",
+    "label": "4 취소 가능 주문 캐러셀",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "085_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__4_취소_가능_주문_캐러셀.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "086",
+    "type": "scenario-step",
+    "label": "5 상태 자동 판정",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "086_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__5_상태_자동_판정.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "087",
+    "type": "scenario-step",
+    "label": "6-A 결제완료 → 즉시 취소",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "087_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__6-A_결제완료___즉시_취소.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "088",
+    "type": "scenario-step",
+    "label": "6-B 배송준비중 → 판매자 승인 대기",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "088_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__6-B_배송준비중___판매자_승인_대기.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "089",
+    "type": "scenario-step",
+    "label": "7 결제수단별 환불 일정",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "089_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__7_결제수단별_환불_일정.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "090",
+    "type": "scenario-step",
+    "label": "8 취소 접수 완료",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "090_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__8_취소_접수_완료.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "091",
+    "type": "scenario-step",
+    "label": "9 NPS Case 1",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "091_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__9_NPS_Case_1.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "092",
+    "type": "scenario-step",
+    "label": "E1 배송중/완료 → 반품으로",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "092_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__E1_배송중_완료___반품으로.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "093",
+    "type": "scenario-step",
+    "label": "E2 취소 철회 / 구매확정 취소",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "093_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__E2_취소_철회___구매확정_취소.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "094",
+    "type": "scenario-step",
+    "label": "E3 부분 취소",
+    "scenario": "주문 취소 풀 시나리오 (C1+C2+C3+C5)",
+    "filename": "094_scenario_주문_취소_풀_시나리오__C1_C2_C3_C5__E3_부분_취소.png",
+    "section": "주문 취소 풀 시나리오 (C1+C2+C3+C5)"
+  },
+  {
+    "id": "095",
+    "type": "scenario-step",
+    "label": "1 첫 인사 + chip",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "095_scenario_교환_접수_풀_시나리오__E1_E2_E5__1_첫_인사___chip.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "096",
+    "type": "scenario-step",
+    "label": "2 의도 세분화 → 교환",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "096_scenario_교환_접수_풀_시나리오__E1_E2_E5__2_의도_세분화___교환.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "097",
+    "type": "scenario-step",
+    "label": "3 인증 → 로그인 (생략)",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "097_scenario_교환_접수_풀_시나리오__E1_E2_E5__3_인증___로그인__생략_.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "098",
+    "type": "scenario-step",
+    "label": "4 교환 가능 주문 캐러셀",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "098_scenario_교환_접수_풀_시나리오__E1_E2_E5__4_교환_가능_주문_캐러셀.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "099",
+    "type": "scenario-step",
+    "label": "5 사유 폼",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "099_scenario_교환_접수_풀_시나리오__E1_E2_E5__5_사유_폼.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "100",
+    "type": "scenario-step",
+    "label": "6 회수 방법 (반품과 동일)",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "100_scenario_교환_접수_풀_시나리오__E1_E2_E5__6_회수_방법__반품과_동일_.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "101",
+    "type": "scenario-step",
+    "label": "7 교환 비용 결제 ⭐ 교환 특이",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "101_scenario_교환_접수_풀_시나리오__E1_E2_E5__7_교환_비용_결제___교환_특이.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "102",
+    "type": "scenario-step",
+    "label": "8 접수 완료",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "102_scenario_교환_접수_풀_시나리오__E1_E2_E5__8_접수_완료.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "103",
+    "type": "scenario-step",
+    "label": "E1 교환 거절 (판매자 통보)",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "103_scenario_교환_접수_풀_시나리오__E1_E2_E5__E1_교환_거절__판매자_통보_.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "104",
+    "type": "scenario-step",
+    "label": "E2 부분교환",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "104_scenario_교환_접수_풀_시나리오__E1_E2_E5__E2_부분교환.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "105",
+    "type": "scenario-step",
+    "label": "E3 운송장 미등록 장기 미도착",
+    "scenario": "교환 접수 풀 시나리오 (E1+E2+E5)",
+    "filename": "105_scenario_교환_접수_풀_시나리오__E1_E2_E5__E3_운송장_미등록_장기_미도착.png",
+    "section": "교환 접수 풀 시나리오 (E1+E2+E5)"
+  },
+  {
+    "id": "106",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "106_scenario_배송지_변경_풀_시나리오__B2__1_의도_파악.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "107",
+    "type": "scenario-step",
+    "label": "2 주문 캐러셀 (전체)",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "107_scenario_배송지_변경_풀_시나리오__B2__2_주문_캐러셀__전체_.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "108",
+    "type": "scenario-step",
+    "label": "3 주문 선택 → 분기",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "108_scenario_배송지_변경_풀_시나리오__B2__3_주문_선택___분기.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "109",
+    "type": "scenario-step",
+    "label": "4-A 결제완료 → 새 주소 입력",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "109_scenario_배송지_변경_풀_시나리오__B2__4-A_결제완료___새_주소_입력.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "110",
+    "type": "scenario-step",
+    "label": "4-B 배송준비중 → 파트너사 확인",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "110_scenario_배송지_변경_풀_시나리오__B2__4-B_배송준비중___파트너사_확인.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "111",
+    "type": "scenario-step",
+    "label": "5 변경 완료 (4-A 후속)",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "111_scenario_배송지_변경_풀_시나리오__B2__5_변경_완료__4-A_후속_.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "112",
+    "type": "scenario-step",
+    "label": "E1 배송중/완료 → 변경 불가",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "112_scenario_배송지_변경_풀_시나리오__B2__E1_배송중_완료___변경_불가.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "113",
+    "type": "scenario-step",
+    "label": "E2 원하는날도착 → 배송일 재선택",
+    "scenario": "배송지 변경 풀 시나리오 (B2)",
+    "filename": "113_scenario_배송지_변경_풀_시나리오__B2__E2_원하는날도착___배송일_재선택.png",
+    "section": "배송지 변경 풀 시나리오 (B2)"
+  },
+  {
+    "id": "114",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "배송일 변경 풀 시나리오 (B3)",
+    "filename": "114_scenario_배송일_변경_풀_시나리오__B3__1_의도_파악.png",
+    "section": "배송일 변경 풀 시나리오 (B3)"
+  },
+  {
+    "id": "115",
+    "type": "scenario-step",
+    "label": "2 변경 가능 주문 캐러셀",
+    "scenario": "배송일 변경 풀 시나리오 (B3)",
+    "filename": "115_scenario_배송일_변경_풀_시나리오__B3__2_변경_가능_주문_캐러셀.png",
+    "section": "배송일 변경 풀 시나리오 (B3)"
+  },
+  {
+    "id": "116",
+    "type": "scenario-step",
+    "label": "3 캘린더 노출",
+    "scenario": "배송일 변경 풀 시나리오 (B3)",
+    "filename": "116_scenario_배송일_변경_풀_시나리오__B3__3_캘린더_노출.png",
+    "section": "배송일 변경 풀 시나리오 (B3)"
+  },
+  {
+    "id": "117",
+    "type": "scenario-step",
+    "label": "4 변경 완료",
+    "scenario": "배송일 변경 풀 시나리오 (B3)",
+    "filename": "117_scenario_배송일_변경_풀_시나리오__B3__4_변경_완료.png",
+    "section": "배송일 변경 풀 시나리오 (B3)"
+  },
+  {
+    "id": "118",
+    "type": "scenario-step",
+    "label": "E1 D-3 임박 → 변경 불가",
+    "scenario": "배송일 변경 풀 시나리오 (B3)",
+    "filename": "118_scenario_배송일_변경_풀_시나리오__B3__E1_D-3_임박___변경_불가.png",
+    "section": "배송일 변경 풀 시나리오 (B3)"
+  },
+  {
+    "id": "119",
+    "type": "scenario-step",
+    "label": "E2 배송일 지정 미지원",
+    "scenario": "배송일 변경 풀 시나리오 (B3)",
+    "filename": "119_scenario_배송일_변경_풀_시나리오__B3__E2_배송일_지정_미지원.png",
+    "section": "배송일 변경 풀 시나리오 (B3)"
+  },
+  {
+    "id": "120",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "포인트 풀 시나리오 (G1+G2+G3+G6)",
+    "filename": "120_scenario_포인트_풀_시나리오__G1_G2_G3_G6__1_의도_파악.png",
+    "section": "포인트 풀 시나리오 (G1+G2+G3+G6)"
+  },
+  {
+    "id": "121",
+    "type": "scenario-step",
+    "label": "2 잔액 카드 + VIP 배지",
+    "scenario": "포인트 풀 시나리오 (G1+G2+G3+G6)",
+    "filename": "121_scenario_포인트_풀_시나리오__G1_G2_G3_G6__2_잔액_카드___VIP_배지.png",
+    "section": "포인트 풀 시나리오 (G1+G2+G3+G6)"
+  },
+  {
+    "id": "122",
+    "type": "scenario-step",
+    "label": "3 만료 일정",
+    "scenario": "포인트 풀 시나리오 (G1+G2+G3+G6)",
+    "filename": "122_scenario_포인트_풀_시나리오__G1_G2_G3_G6__3_만료_일정.png",
+    "section": "포인트 풀 시나리오 (G1+G2+G3+G6)"
+  },
+  {
+    "id": "123",
+    "type": "scenario-step",
+    "label": "4 적립 기준 (VIP 강조)",
+    "scenario": "포인트 풀 시나리오 (G1+G2+G3+G6)",
+    "filename": "123_scenario_포인트_풀_시나리오__G1_G2_G3_G6__4_적립_기준__VIP_강조_.png",
+    "section": "포인트 풀 시나리오 (G1+G2+G3+G6)"
+  },
+  {
+    "id": "124",
+    "type": "scenario-step",
+    "label": "5 소멸 복구 (Handover)",
+    "scenario": "포인트 풀 시나리오 (G1+G2+G3+G6)",
+    "filename": "124_scenario_포인트_풀_시나리오__G1_G2_G3_G6__5_소멸_복구__Handover_.png",
+    "section": "포인트 풀 시나리오 (G1+G2+G3+G6)"
+  },
+  {
+    "id": "125",
+    "type": "scenario-step",
+    "label": "6 클레임 후 복구 정책",
+    "scenario": "포인트 풀 시나리오 (G1+G2+G3+G6)",
+    "filename": "125_scenario_포인트_풀_시나리오__G1_G2_G3_G6__6_클레임_후_복구_정책.png",
+    "section": "포인트 풀 시나리오 (G1+G2+G3+G6)"
+  },
+  {
+    "id": "126",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "쿠폰 풀 시나리오 (H1+H2+H3+H4)",
+    "filename": "126_scenario_쿠폰_풀_시나리오__H1_H2_H3_H4__1_의도_파악.png",
+    "section": "쿠폰 풀 시나리오 (H1+H2+H3+H4)"
+  },
+  {
+    "id": "127",
+    "type": "scenario-step",
+    "label": "2 쿠폰 리스트",
+    "scenario": "쿠폰 풀 시나리오 (H1+H2+H3+H4)",
+    "filename": "127_scenario_쿠폰_풀_시나리오__H1_H2_H3_H4__2_쿠폰_리스트.png",
+    "section": "쿠폰 풀 시나리오 (H1+H2+H3+H4)"
+  },
+  {
+    "id": "128",
+    "type": "scenario-step",
+    "label": "3 사용 조건 안내",
+    "scenario": "쿠폰 풀 시나리오 (H1+H2+H3+H4)",
+    "filename": "128_scenario_쿠폰_풀_시나리오__H1_H2_H3_H4__3_사용_조건_안내.png",
+    "section": "쿠폰 풀 시나리오 (H1+H2+H3+H4)"
+  },
+  {
+    "id": "129",
+    "type": "scenario-step",
+    "label": "4 마이페이지 딥링크",
+    "scenario": "쿠폰 풀 시나리오 (H1+H2+H3+H4)",
+    "filename": "129_scenario_쿠폰_풀_시나리오__H1_H2_H3_H4__4_마이페이지_딥링크.png",
+    "section": "쿠폰 풀 시나리오 (H1+H2+H3+H4)"
+  },
+  {
+    "id": "130",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "130_scenario_배송지연_풀_시나리오__B5__1_의도_파악.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "131",
+    "type": "scenario-step",
+    "label": "2 배송중 주문 캐러셀",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "131_scenario_배송지연_풀_시나리오__B5__2_배송중_주문_캐러셀.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "132",
+    "type": "scenario-step",
+    "label": "3 운송장 흐름 자동 판정",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "132_scenario_배송지연_풀_시나리오__B5__3_운송장_흐름_자동_판정.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "133",
+    "type": "scenario-step",
+    "label": "4-A 정상 지연 (택배사 사유)",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "133_scenario_배송지연_풀_시나리오__B5__4-A_정상_지연__택배사_사유_.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "134",
+    "type": "scenario-step",
+    "label": "4-B 가송장 / 흐름 없음",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "134_scenario_배송지연_풀_시나리오__B5__4-B_가송장___흐름_없음.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "135",
+    "type": "scenario-step",
+    "label": "5 추가 문의 분기",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "135_scenario_배송지연_풀_시나리오__B5__5_추가_문의_분기.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "136",
+    "type": "scenario-step",
+    "label": "E1 7일+ 장기 지연",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "136_scenario_배송지연_풀_시나리오__B5__E1_7일__장기_지연.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "137",
+    "type": "scenario-step",
+    "label": "E2 배송완료 표시 + 미수령",
+    "scenario": "배송지연 풀 시나리오 (B5)",
+    "filename": "137_scenario_배송지연_풀_시나리오__B5__E2_배송완료_표시___미수령.png",
+    "section": "배송지연 풀 시나리오 (B5)"
+  },
+  {
+    "id": "138",
+    "type": "scenario-step",
+    "label": "1 의도 파악 + 사과",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "138_scenario_배송분실_풀_시나리오__B7__1_의도_파악___사과.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "139",
+    "type": "scenario-step",
+    "label": "2 주문 + 위탁장소 자동 표기",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "139_scenario_배송분실_풀_시나리오__B7__2_주문___위탁장소_자동_표기.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "140",
+    "type": "scenario-step",
+    "label": "3 자가 확인 분기",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "140_scenario_배송분실_풀_시나리오__B7__3_자가_확인_분기.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "141",
+    "type": "scenario-step",
+    "label": "4 분실 확정 → 판매자 문의",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "141_scenario_배송분실_풀_시나리오__B7__4_분실_확정___판매자_문의.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "142",
+    "type": "scenario-step",
+    "label": "5 후속 안내",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "142_scenario_배송분실_풀_시나리오__B7__5_후속_안내.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "143",
+    "type": "scenario-step",
+    "label": "E1 위탁장소 데이터 없음",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "143_scenario_배송분실_풀_시나리오__B7__E1_위탁장소_데이터_없음.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "144",
+    "type": "scenario-step",
+    "label": "E2 강성 불만 (상해/대외기관)",
+    "scenario": "배송분실 풀 시나리오 (B7)",
+    "filename": "144_scenario_배송분실_풀_시나리오__B7__E2_강성_불만__상해_대외기관_.png",
+    "section": "배송분실 풀 시나리오 (B7)"
+  },
+  {
+    "id": "145",
+    "type": "scenario-step",
+    "label": "1 의도 + 사과",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "145_scenario_포장_파손_불량_풀_시나리오__B8__1_의도___사과.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "146",
+    "type": "scenario-step",
+    "label": "2 주문 선택",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "146_scenario_포장_파손_불량_풀_시나리오__B8__2_주문_선택.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "147",
+    "type": "scenario-step",
+    "label": "3 사진 첨부 폼",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "147_scenario_포장_파손_불량_풀_시나리오__B8__3_사진_첨부_폼.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "148",
+    "type": "scenario-step",
+    "label": "4 의도 선택",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "148_scenario_포장_파손_불량_풀_시나리오__B8__4_의도_선택.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "149",
+    "type": "scenario-step",
+    "label": "5 자동 전환 (귀책 자동 매핑)",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "149_scenario_포장_파손_불량_풀_시나리오__B8__5_자동_전환__귀책_자동_매핑_.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "150",
+    "type": "scenario-step",
+    "label": "E1 상해 발생",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "150_scenario_포장_파손_불량_풀_시나리오__B8__E1_상해_발생.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "151",
+    "type": "scenario-step",
+    "label": "E2 사진 거부 → 그대로 접수",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "151_scenario_포장_파손_불량_풀_시나리오__B8__E2_사진_거부___그대로_접수.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "152",
+    "type": "scenario-step",
+    "label": "E3 7일 초과",
+    "scenario": "포장/파손 불량 풀 시나리오 (B8)",
+    "filename": "152_scenario_포장_파손_불량_풀_시나리오__B8__E3_7일_초과.png",
+    "section": "포장/파손 불량 풀 시나리오 (B8)"
+  },
+  {
+    "id": "153",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "주문 정보 통합 풀 시나리오 (A1+A4)",
+    "filename": "153_scenario_주문_정보_통합_풀_시나리오__A1_A4__1_의도_파악.png",
+    "section": "주문 정보 통합 풀 시나리오 (A1+A4)"
+  },
+  {
+    "id": "154",
+    "type": "scenario-step",
+    "label": "2 전체 주문 + 상태 표시",
+    "scenario": "주문 정보 통합 풀 시나리오 (A1+A4)",
+    "filename": "154_scenario_주문_정보_통합_풀_시나리오__A1_A4__2_전체_주문___상태_표시.png",
+    "section": "주문 정보 통합 풀 시나리오 (A1+A4)"
+  },
+  {
+    "id": "155",
+    "type": "scenario-step",
+    "label": "3 카드 탭 → 가능 액션 노출",
+    "scenario": "주문 정보 통합 풀 시나리오 (A1+A4)",
+    "filename": "155_scenario_주문_정보_통합_풀_시나리오__A1_A4__3_카드_탭___가능_액션_노출.png",
+    "section": "주문 정보 통합 풀 시나리오 (A1+A4)"
+  },
+  {
+    "id": "156",
+    "type": "scenario-step",
+    "label": "4 결제수단 문의",
+    "scenario": "주문 정보 통합 풀 시나리오 (A1+A4)",
+    "filename": "156_scenario_주문_정보_통합_풀_시나리오__A1_A4__4_결제수단_문의.png",
+    "section": "주문 정보 통합 풀 시나리오 (A1+A4)"
+  },
+  {
+    "id": "157",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "AS 풀 시나리오 (F1)",
+    "filename": "157_scenario_AS_풀_시나리오__F1__1_의도_파악.png",
+    "section": "AS 풀 시나리오 (F1)"
+  },
+  {
+    "id": "158",
+    "type": "scenario-step",
+    "label": "2 구매 여부 분기",
+    "scenario": "AS 풀 시나리오 (F1)",
+    "filename": "158_scenario_AS_풀_시나리오__F1__2_구매_여부_분기.png",
+    "section": "AS 풀 시나리오 (F1)"
+  },
+  {
+    "id": "159",
+    "type": "scenario-step",
+    "label": "3 주문 선택 + 판매자 표기",
+    "scenario": "AS 풀 시나리오 (F1)",
+    "filename": "159_scenario_AS_풀_시나리오__F1__3_주문_선택___판매자_표기.png",
+    "section": "AS 풀 시나리오 (F1)"
+  },
+  {
+    "id": "160",
+    "type": "scenario-step",
+    "label": "4 AS 창구 안내",
+    "scenario": "AS 풀 시나리오 (F1)",
+    "filename": "160_scenario_AS_풀_시나리오__F1__4_AS_창구_안내.png",
+    "section": "AS 풀 시나리오 (F1)"
+  },
+  {
+    "id": "161",
+    "type": "scenario-step",
+    "label": "1 비회원 첫 인사",
+    "scenario": "회원 진입 풀 시나리오 (I1+I2+I3)",
+    "filename": "161_scenario_회원_진입_풀_시나리오__I1_I2_I3__1_비회원_첫_인사.png",
+    "section": "회원 진입 풀 시나리오 (I1+I2+I3)"
+  },
+  {
+    "id": "162",
+    "type": "scenario-step",
+    "label": "2-A 비회원 주문조회 폼",
+    "scenario": "회원 진입 풀 시나리오 (I1+I2+I3)",
+    "filename": "162_scenario_회원_진입_풀_시나리오__I1_I2_I3__2-A_비회원_주문조회_폼.png",
+    "section": "회원 진입 풀 시나리오 (I1+I2+I3)"
+  },
+  {
+    "id": "163",
+    "type": "scenario-step",
+    "label": "2-B 회원가입 유도",
+    "scenario": "회원 진입 풀 시나리오 (I1+I2+I3)",
+    "filename": "163_scenario_회원_진입_풀_시나리오__I1_I2_I3__2-B_회원가입_유도.png",
+    "section": "회원 진입 풀 시나리오 (I1+I2+I3)"
+  },
+  {
+    "id": "164",
+    "type": "scenario-step",
+    "label": "3 로그인 페이지",
+    "scenario": "회원 진입 풀 시나리오 (I1+I2+I3)",
+    "filename": "164_scenario_회원_진입_풀_시나리오__I1_I2_I3__3_로그인_페이지.png",
+    "section": "회원 진입 풀 시나리오 (I1+I2+I3)"
+  },
+  {
+    "id": "165",
+    "type": "scenario-step",
+    "label": "4 SNS 중복 가입 안내",
+    "scenario": "회원 진입 풀 시나리오 (I1+I2+I3)",
+    "filename": "165_scenario_회원_진입_풀_시나리오__I1_I2_I3__4_SNS_중복_가입_안내.png",
+    "section": "회원 진입 풀 시나리오 (I1+I2+I3)"
+  },
+  {
+    "id": "166",
+    "type": "scenario-step",
+    "label": "E1 탈퇴 안내 + 포인트 경고",
+    "scenario": "회원 진입 풀 시나리오 (I1+I2+I3)",
+    "filename": "166_scenario_회원_진입_풀_시나리오__I1_I2_I3__E1_탈퇴_안내___포인트_경고.png",
+    "section": "회원 진입 풀 시나리오 (I1+I2+I3)"
+  },
+  {
+    "id": "167",
+    "type": "scenario-step",
+    "label": "1 자유 발화",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "167_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__1_자유_발화.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "168",
+    "type": "scenario-step",
+    "label": "2 주문 선택",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "168_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__2_주문_선택.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "169",
+    "type": "scenario-step",
+    "label": "3-A 출고지연 (B4)",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "169_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__3-A_출고지연__B4_.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "170",
+    "type": "scenario-step",
+    "label": "3-B 배송누락 (B6)",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "170_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__3-B_배송누락__B6_.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "171",
+    "type": "scenario-step",
+    "label": "3-C 배송비 불만 (B9)",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "171_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__3-C_배송비_불만__B9_.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "172",
+    "type": "scenario-step",
+    "label": "3-D 배송기사 불만 (B10)",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "172_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__3-D_배송기사_불만__B10_.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "173",
+    "type": "scenario-step",
+    "label": "4 추가 문의 분기",
+    "scenario": "배송 기타 이슈 통합 (B4+B6+B9+B10)",
+    "filename": "173_scenario_배송_기타_이슈_통합__B4_B6_B9_B10__4_추가_문의_분기.png",
+    "section": "배송 기타 이슈 통합 (B4+B6+B9+B10)"
+  },
+  {
+    "id": "174",
+    "type": "scenario-step",
+    "label": "L1 영업외 진입",
+    "scenario": "엣지 케이스 풀 시퀀스 (L1~L5)",
+    "filename": "174_scenario_엣지_케이스_풀_시퀀스__L1_L5__L1_영업외_진입.png",
+    "section": "엣지 케이스 풀 시퀀스 (L1~L5)"
+  },
+  {
+    "id": "175",
+    "type": "scenario-step",
+    "label": "L5 진행 중 상담 재진입",
+    "scenario": "엣지 케이스 풀 시퀀스 (L1~L5)",
+    "filename": "175_scenario_엣지_케이스_풀_시퀀스__L1_L5__L5_진행_중_상담_재진입.png",
+    "section": "엣지 케이스 풀 시퀀스 (L1~L5)"
+  },
+  {
+    "id": "176",
+    "type": "scenario-step",
+    "label": "L2 무응답 종료 시퀀스",
+    "scenario": "엣지 케이스 풀 시퀀스 (L1~L5)",
+    "filename": "176_scenario_엣지_케이스_풀_시퀀스__L1_L5__L2_무응답_종료_시퀀스.png",
+    "section": "엣지 케이스 풀 시퀀스 (L1~L5)"
+  },
+  {
+    "id": "177",
+    "type": "scenario-step",
+    "label": "L3 Critical 키워드 상담원 연결",
+    "scenario": "엣지 케이스 풀 시퀀스 (L1~L5)",
+    "filename": "177_scenario_엣지_케이스_풀_시퀀스__L1_L5__L3_Critical_키워드_상담원_연결.png",
+    "section": "엣지 케이스 풀 시퀀스 (L1~L5)"
+  },
+  {
+    "id": "178",
+    "type": "scenario-step",
+    "label": "L4-A 비로그인 KMS 모드",
+    "scenario": "엣지 케이스 풀 시퀀스 (L1~L5)",
+    "filename": "178_scenario_엣지_케이스_풀_시퀀스__L1_L5__L4-A_비로그인_KMS_모드.png",
+    "section": "엣지 케이스 풀 시퀀스 (L1~L5)"
+  },
+  {
+    "id": "179",
+    "type": "scenario-step",
+    "label": "L4-B 인증 거부 의도 명확",
+    "scenario": "엣지 케이스 풀 시퀀스 (L1~L5)",
+    "filename": "179_scenario_엣지_케이스_풀_시퀀스__L1_L5__L4-B_인증_거부_의도_명확.png",
+    "section": "엣지 케이스 풀 시퀀스 (L1~L5)"
+  },
+  {
+    "id": "180",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "영수증/증빙 통합 (J1+J2+J3+J4)",
+    "filename": "180_scenario_영수증_증빙_통합__J1_J2_J3_J4__1_의도_파악.png",
+    "section": "영수증/증빙 통합 (J1+J2+J3+J4)"
+  },
+  {
+    "id": "181",
+    "type": "scenario-step",
+    "label": "2 주문 선택",
+    "scenario": "영수증/증빙 통합 (J1+J2+J3+J4)",
+    "filename": "181_scenario_영수증_증빙_통합__J1_J2_J3_J4__2_주문_선택.png",
+    "section": "영수증/증빙 통합 (J1+J2+J3+J4)"
+  },
+  {
+    "id": "182",
+    "type": "scenario-step",
+    "label": "3-A 신용카드 영수증 (앱 내)",
+    "scenario": "영수증/증빙 통합 (J1+J2+J3+J4)",
+    "filename": "182_scenario_영수증_증빙_통합__J1_J2_J3_J4__3-A_신용카드_영수증__앱_내_.png",
+    "section": "영수증/증빙 통합 (J1+J2+J3+J4)"
+  },
+  {
+    "id": "183",
+    "type": "scenario-step",
+    "label": "3-B 네이버페이/토스 (외부 채널)",
+    "scenario": "영수증/증빙 통합 (J1+J2+J3+J4)",
+    "filename": "183_scenario_영수증_증빙_통합__J1_J2_J3_J4__3-B_네이버페이_토스__외부_채널_.png",
+    "section": "영수증/증빙 통합 (J1+J2+J3+J4)"
+  },
+  {
+    "id": "184",
+    "type": "scenario-step",
+    "label": "3-C 현금영수증 (무통장)",
+    "scenario": "영수증/증빙 통합 (J1+J2+J3+J4)",
+    "filename": "184_scenario_영수증_증빙_통합__J1_J2_J3_J4__3-C_현금영수증__무통장_.png",
+    "section": "영수증/증빙 통합 (J1+J2+J3+J4)"
+  },
+  {
+    "id": "185",
+    "type": "scenario-step",
+    "label": "3-D 사업자 영수증 (Handover)",
+    "scenario": "영수증/증빙 통합 (J1+J2+J3+J4)",
+    "filename": "185_scenario_영수증_증빙_통합__J1_J2_J3_J4__3-D_사업자_영수증__Handover_.png",
+    "section": "영수증/증빙 통합 (J1+J2+J3+J4)"
+  },
+  {
+    "id": "186",
+    "type": "scenario-step",
+    "label": "1 의도 파악",
+    "scenario": "상품 문의 통합 (K1+K2+K3)",
+    "filename": "186_scenario_상품_문의_통합__K1_K2_K3__1_의도_파악.png",
+    "section": "상품 문의 통합 (K1+K2+K3)"
+  },
+  {
+    "id": "187",
+    "type": "scenario-step",
+    "label": "2 구매 여부 분기",
+    "scenario": "상품 문의 통합 (K1+K2+K3)",
+    "filename": "187_scenario_상품_문의_통합__K1_K2_K3__2_구매_여부_분기.png",
+    "section": "상품 문의 통합 (K1+K2+K3)"
+  },
+  {
+    "id": "188",
+    "type": "scenario-step",
+    "label": "3-A 상품 정보·옵션 (K1)",
+    "scenario": "상품 문의 통합 (K1+K2+K3)",
+    "filename": "188_scenario_상품_문의_통합__K1_K2_K3__3-A_상품_정보_옵션__K1_.png",
+    "section": "상품 문의 통합 (K1+K2+K3)"
+  },
+  {
+    "id": "189",
+    "type": "scenario-step",
+    "label": "3-B 재입고 일정 (K2)",
+    "scenario": "상품 문의 통합 (K1+K2+K3)",
+    "filename": "189_scenario_상품_문의_통합__K1_K2_K3__3-B_재입고_일정__K2_.png",
+    "section": "상품 문의 통합 (K1+K2+K3)"
+  },
+  {
+    "id": "190",
+    "type": "scenario-step",
+    "label": "3-C 페이지 오류·가격 불만 (K3)",
+    "scenario": "상품 문의 통합 (K1+K2+K3)",
+    "filename": "190_scenario_상품_문의_통합__K1_K2_K3__3-C_페이지_오류_가격_불만__K3_.png",
+    "section": "상품 문의 통합 (K1+K2+K3)"
+  }
+]
