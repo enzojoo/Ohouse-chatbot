@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AICX 어드민 — 상담원 응대 화면별 디테일 목업</title>
+<style>
+  :root{
+    --bg:#EEF1F7; --ink:#1E2330; --ink-2:#4B5468; --ink-3:#8A93A6;
+    --line:#E5E8F0; --line-2:#EEF1F7;
+    --brand:#2F6BFF; --brand-soft:#E8F0FF; --brand-deep:#1B4FD6;
+    --green:#21C07A; --green-soft:#DFF7EC;
+    --amber:#F0A52B; --amber-soft:#FFF1D9;
+    --pink:#E94668; --pink-soft:#FCE3E9;
+    --violet:#7A5CFF; --violet-soft:#EFEAFF;
+    --aisum-from:#E9FBF3; --aisum-to:#E8F0FF;
+    --nav-bg:#0E1424; --nav-ink:#9BA4BA;
+    --shadow:0 1px 2px rgba(20,30,60,.04), 0 4px 12px rgba(20,30,60,.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:13px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  button{font:inherit;color:inherit;background:transparent;border:0;cursor:pointer}
+  input,textarea,select{font:inherit;color:inherit}
+
+  /* document layout */
+  .doc{max-width:1560px;margin:0 auto;padding:32px 28px 80px}
+  .doc-head{margin-bottom:20px}
+  .doc-head h1{margin:0;font-size:22px}
+  .doc-head .sub{color:var(--ink-2);margin-top:6px;font-size:13px}
+  .doc-head .meta{margin-top:10px;display:flex;gap:14px;color:var(--ink-3);font-size:11.5px;flex-wrap:wrap}
+  .doc-head .meta a{color:var(--brand-deep);text-decoration:none;font-weight:600}
+
+  .toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:28px;box-shadow:var(--shadow)}
+  .toc h3{margin:0 0 10px;font-size:13px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.05em}
+  .toc .groups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+  @media(max-width:1100px){.toc .groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .toc .g .gt{font-weight:700;color:var(--ink);margin-bottom:6px;font-size:12.5px}
+  .toc .g a{display:block;color:var(--ink-2);text-decoration:none;font-size:12.5px;padding:3px 0}
+  .toc .g a:hover{color:var(--brand-deep)}
+  .toc .g a .n{display:inline-block;width:22px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+
+  /* per-screen card */
+  .screen{margin:0 0 40px}
+  .screen-head{margin-bottom:14px}
+  .screen-head .row1{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .screen-num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:700;color:#fff;background:var(--brand);padding:3px 9px;border-radius:8px}
+  .screen-grp{font-size:11.5px;font-weight:700;color:var(--brand-deep);background:var(--brand-soft);padding:3px 9px;border-radius:8px}
+  .screen-head h2{margin:0;font-size:20px}
+  .screen-head .desc{color:var(--ink-2);margin-top:8px;font-size:13px;line-height:1.65;max-width:1100px}
+
+  .stage{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(20,30,60,.06);overflow:hidden;position:relative}
+  .stage-label{position:absolute;top:10px;left:14px;background:#0E1424;color:#fff;font-size:10.5px;padding:3px 8px;border-radius:6px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;z-index:5;opacity:.88}
+
+  .notes{background:#fff;border:1px dashed #C9D2E5;border-radius:12px;padding:14px 16px;margin-top:14px;color:var(--ink-2);font-size:12.5px;line-height:1.75}
+  .notes b{color:var(--ink)}
+  .notes ul{margin:4px 0 0;padding-left:18px}
+  .notes code{background:#F0F3F9;padding:1px 5px;border-radius:5px;font-size:11.5px}
+
+  .divider{height:1px;background:linear-gradient(to right, transparent, #C9D2E5, transparent);margin:50px 0}
+  .group-banner{display:flex;align-items:center;gap:14px;margin:14px 0 22px}
+  .group-banner .gb-line{flex:1;height:1px;background:#C9D2E5}
+  .group-banner .gb-tag{font-weight:700;color:var(--ink);background:#fff;border:1px solid var(--line);padding:6px 14px;border-radius:999px;font-size:12.5px}
+
+  /* shared admin shell (stage interior) */
+  .app{display:grid;grid-template-columns:64px 1fr;min-height:760px}
+  .nav{background:var(--nav-bg);color:var(--nav-ink);display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:6px}
+  .nav .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#2F6BFF,#7A5CFF);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;margin-bottom:8px}
+  .nav .ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#9BA4BA;font-size:18px}
+  .nav .ico.on{background:#1A2540;color:#fff}
+  .nav .spacer{flex:1}
+  .nav .me{width:36px;height:36px;border-radius:50%;background:#F0A52B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+  .main{display:flex;flex-direction:column;min-width:0}
+  .topbar{display:flex;align-items:center;gap:14px;padding:14px 22px;background:#fff;border-bottom:1px solid var(--line);position:relative}
+  .crumbs{color:var(--ink-3)} .crumbs .here{color:var(--ink);font-weight:600;margin-left:6px}
+  .topbar .title{font-size:18px;font-weight:700;margin-left:4px}
+  .topbar .spacer{flex:1}
+  .cti{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:999px}
+  .cti .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .cti.away .dot{background:var(--amber)}
+  .cti.busy .dot{background:var(--pink)}
+  .cti .lbl{font-weight:600}
+  .cti .meta{color:var(--ink-3);font-size:12px}
+  .chip-btn{height:32px;padding:0 12px;border:1px solid var(--line);border-radius:999px;display:inline-flex;align-items:center;gap:6px;background:#fff}
+  .chip-btn .badge{background:var(--brand);color:#fff;border-radius:999px;padding:1px 7px;font-size:11px;font-weight:700}
+  .alert{padding:6px 12px;border:1px solid var(--amber);background:var(--amber-soft);color:#7A4A00;border-radius:999px;font-weight:600}
+  .alert.danger{border-color:#E94668;background:var(--pink-soft);color:#A8243E}
+
+  .ws{display:grid;grid-template-columns:300px minmax(0,1fr) 340px;gap:14px;padding:14px 22px;flex:1;min-height:0;background:#F5F7FB}
+  .ws.wide-mid{grid-template-columns:300px minmax(0,1fr) 360px}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:0}
+  .panel .ph{padding:12px 14px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px}
+  .panel .ph h3{margin:0;font-size:14px}
+  .filterbar{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line-2);overflow:auto}
+  .filterbar .f{padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink-2);font-size:12px;white-space:nowrap}
+  .filterbar .f.on{background:var(--brand-soft);border-color:#C7D8FF;color:var(--brand-deep)}
+  .search{margin:10px 12px;height:34px;border:1px solid var(--line);border-radius:10px;background:#F8FAFE;padding:0 10px;display:flex;align-items:center;gap:6px;color:var(--ink-3)}
+  .search input{border:0;background:transparent;outline:none;flex:1;font:inherit;color:var(--ink)}
+  .list{overflow:auto;padding:4px 6px 12px;flex:1}
+  .row{padding:10px 12px;border-radius:10px;cursor:pointer;display:flex;flex-direction:column;gap:6px}
+  .row + .row{margin-top:2px}
+  .row:hover{background:#F8FAFE}
+  .row.on{background:#EEF3FF;outline:1px solid #C7D8FF}
+  .row.warn{outline:1px solid #F4D78A;background:#FFF7E5}
+  .row.danger{outline:1px solid #F4B7C2;background:#FCE3E9}
+  .row .l1{display:flex;align-items:center;gap:6px}
+  .row .name{font-weight:700}
+  .row .src{font-size:11px;color:var(--ink-3);padding:1px 6px;border:1px solid var(--line);border-radius:999px}
+  .row .src.app{color:#1B4FD6;border-color:#C7D8FF;background:#EEF3FF}
+  .row .src.web{color:#7A5CFF;border-color:#D9CFFF;background:var(--violet-soft)}
+  .row .badge{margin-left:auto;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700}
+  .badge.live{background:var(--green-soft);color:#0E7F4F}
+  .badge.wait{background:var(--amber-soft);color:#7A4A00}
+  .badge.bot{background:var(--brand-soft);color:var(--brand-deep)}
+  .badge.alert{background:var(--pink-soft);color:#A8243E}
+  .row .msg{color:var(--ink-2);font-size:12px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .row .meta{display:flex;justify-content:space-between;color:var(--ink-3);font-size:11px}
+  .row .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(33,192,122,.5);animation:pulse 1.4s infinite}
+  .row .pulse.amb{background:#F0A52B;box-shadow:0 0 0 0 rgba(240,165,43,.6)}
+  .row .pulse.red{background:#E94668;box-shadow:0 0 0 0 rgba(233,70,104,.6);animation:pulseRed 1s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(33,192,122,.5)}70%{box-shadow:0 0 0 8px rgba(33,192,122,0)}100%{box-shadow:0 0 0 0 rgba(33,192,122,0)}}
+  @keyframes pulseRed{0%{box-shadow:0 0 0 0 rgba(233,70,104,.6)}70%{box-shadow:0 0 0 9px rgba(233,70,104,0)}100%{box-shadow:0 0 0 0 rgba(233,70,104,0)}}
+  .row .warn-line{display:inline-flex;align-items:center;gap:4px;color:#A8243E;font-weight:700;font-size:11px;margin-top:2px}
+
+  .conv{display:flex;flex-direction:column;min-height:0;position:relative}
+  .conv .head{padding:12px 18px;border-bottom:1px solid var(--line-2)}
+  .conv .head .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .conv .head .top h2{margin:0;font-size:16px}
+  .conv .head .top .sub{color:var(--ink-3);font-size:12px}
+  .conv .meta-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .kv{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:8px;background:#F8FAFE;font-size:12px;color:var(--ink-2);border:1px solid var(--line-2)}
+  .kv b{color:var(--ink);font-weight:600}
+  .kv .crit{color:#A8243E;font-weight:700}
+  .tag{font-size:11px;padding:3px 8px;border-radius:999px;background:var(--brand-soft);color:var(--brand-deep);font-weight:600}
+  .tag.warn{background:var(--amber-soft);color:#7A4A00}
+  .tag.danger{background:var(--pink-soft);color:#A8243E}
+  .tag.violet{background:var(--violet-soft);color:#3B26B2}
+  .tag.green{background:var(--green-soft);color:#0E7F4F}
+
+  .conv .body{flex:1;overflow:auto;padding:14px 22px;background:#FAFBFD;max-height:520px}
+  .day{display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:11px;margin:8px 0 14px}
+  .day::before,.day::after{content:"";flex:1;border-top:1px dashed #DEE3EE;margin:0 12px}
+  .sysline{text-align:center;color:var(--ink-3);font-size:12px;margin:8px 0}
+  .sysline .pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#fff;border:1px dashed #DEE3EE}
+  .sysline.handover .pill{border-color:#F4D78A;background:#FFF7E5;color:#7A4A00;font-weight:700}
+  .turn{display:flex;gap:8px;margin:8px 0;max-width:78%}
+  .turn .av{width:28px;height:28px;border-radius:50%;flex:0 0 28px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+  .turn .who{font-size:11px;color:var(--ink-3);margin-bottom:2px}
+  .turn .bub{padding:9px 12px;border-radius:14px;font-size:13.2px;white-space:pre-wrap;word-break:break-word}
+  .turn .ts{font-size:10px;color:var(--ink-3);margin-top:3px}
+  .turn.cust .av{background:#8A93A6}
+  .turn.cust .bub{background:#fff;border:1px solid var(--line);border-top-left-radius:4px}
+  .turn.bot{margin-left:auto;flex-direction:row-reverse;text-align:right}
+  .turn.bot .av{background:linear-gradient(135deg,#7A5CFF,#2F6BFF)}
+  .turn.bot .bub{background:var(--brand-soft);color:#0F2A6B;border:1px solid #D6E2FF;border-top-right-radius:4px}
+  .turn.agent{margin-left:auto;flex-direction:row-reverse;text-align:right}
+  .turn.agent .av{background:#1B4FD6}
+  .turn.agent .bub{background:var(--brand);color:#fff;border-top-right-radius:4px}
+  .turn.super{margin-left:auto;flex-direction:row-reverse;text-align:right}
+  .turn.super .av{background:#F0A52B}
+  .turn.super .bub{background:#FFF7E5;color:#7A4A00;border:1px solid #F4D78A;border-top-right-radius:4px}
+  .turn .bub .masked{color:#A8243E;background:#FCE3E9;padding:1px 6px;border-radius:6px;font-weight:700;letter-spacing:1px}
+  .turn .att{margin-top:6px;display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--ink-2);font-size:12px}
+  .turn.cust .bub.alert-msg{border:1.5px solid #E94668;background:#FCE3E9}
+
+  .ai-handover{margin:8px 0 14px;border-radius:14px;padding:14px 16px;background:linear-gradient(135deg,var(--aisum-from),var(--aisum-to));border:1px solid #CDE6DC}
+  .ai-handover h4{margin:0 0 8px;font-size:13px;color:#0E7F4F;display:flex;align-items:center;gap:6px}
+  .ai-handover .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px}
+  .ai-handover .lbl{font-size:11px;color:var(--ink-3)}
+  .ai-handover .val{font-size:12.5px;color:var(--ink)}
+  .ai-handover .summary{margin-top:8px;color:var(--ink);font-size:12.5px;background:#fff;border-radius:10px;padding:10px 12px;border:1px solid #D6EBE0}
+  .ai-handover .turn-history{margin-top:8px;display:flex;flex-direction:column;gap:4px}
+  .ai-handover .turn-history .t{font-size:11.5px;color:var(--ink-2);background:#fff;border:1px solid #D6EBE0;border-radius:8px;padding:6px 8px}
+  .ai-handover .turn-history .t b{color:var(--ink);font-weight:600;margin-right:4px}
+  .conf{display:inline-flex;align-items:center;gap:4px;font-weight:700;color:#0E7F4F}
+  .conf .bar{width:60px;height:4px;border-radius:999px;background:#CDE6DC;overflow:hidden}
+  .conf .bar i{display:block;height:100%;background:#21C07A}
+
+  .composer{border-top:1px solid var(--line-2);padding:10px 14px;background:#fff;position:relative}
+  .quick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .quick .q{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #C7D8FF;background:var(--brand-soft);color:var(--brand-deep)}
+  .quick .q.muted{background:#F8FAFE;color:var(--ink-2);border-color:var(--line)}
+  .input-wrap{border:1px solid var(--line);border-radius:14px;padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+  .input-wrap.focus{border-color:#C7D8FF;box-shadow:0 0 0 3px rgba(47,107,255,.08)}
+  .input-wrap .text{min-height:46px;outline:none;font-size:13px;color:var(--ink);padding:6px 4px}
+  .input-wrap .text .placeholder{color:var(--ink-3)}
+  .toolbar{display:flex;align-items:center;gap:4px}
+  .toolbar .tool{height:30px;padding:0 8px;min-width:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:var(--ink-2);gap:4px}
+  .toolbar .tool:hover{background:#F0F3F9}
+  .toolbar .tool.danger{color:var(--pink)}
+  .toolbar .sep{width:1px;height:18px;background:var(--line);margin:0 4px}
+  .toolbar .spacer{flex:1}
+  .toolbar .send{background:var(--brand);color:#fff;height:32px;padding:0 14px;border-radius:8px;font-weight:700}
+
+  .dropdown{position:absolute;left:14px;right:14px;bottom:88px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 28px rgba(20,30,60,.12);overflow:hidden;z-index:20}
+  .dropdown .dh{padding:8px 12px;font-size:11px;color:var(--ink-3);background:#FAFBFD;border-bottom:1px solid var(--line-2);display:flex;justify-content:space-between}
+  .dropdown .di{padding:10px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line-2);cursor:pointer}
+  .dropdown .di:last-child{border-bottom:0}
+  .dropdown .di:hover,.dropdown .di.on{background:#EEF3FF}
+  .dropdown .di .key{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;background:#F0F3F9;color:var(--ink-2);padding:2px 6px;border-radius:4px}
+  .dropdown .di .nm{font-weight:700}
+  .dropdown .di .prev{color:var(--ink-2);font-size:12px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+  .dropdown .di .src{font-size:11px;color:var(--ink-3);padding:1px 6px;border:1px solid var(--line);border-radius:999px;white-space:nowrap}
+
+  .tabs{display:flex;gap:6px;padding:10px 12px 0;border-bottom:1px solid var(--line-2)}
+  .tabs .t{padding:8px 10px;font-size:12px;color:var(--ink-3);border-bottom:2px solid transparent;cursor:pointer}
+  .tabs .t.on{color:var(--ink);border-color:var(--brand);font-weight:700}
+  .rpanel-body{overflow:auto;padding:14px 14px 18px;flex:1}
+  .card{border:1px solid var(--line-2);border-radius:12px;padding:12px;margin-bottom:10px;background:#fff}
+  .card h5{margin:0 0 10px;font-size:12px;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .card.hi{background:#FFF7E5;border-color:#F4D78A}
+  .card.hi h5{color:#7A4A00}
+  .person{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .person .av{width:40px;height:40px;border-radius:50%;background:#E5E8F0;color:#4B5468;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .person .nm{font-weight:700}
+  .person .meta{color:var(--ink-3);font-size:12px}
+  .kvlist{display:grid;grid-template-columns:96px 1fr;row-gap:6px;column-gap:8px;font-size:12.5px}
+  .kvlist .k{color:var(--ink-3)}
+  .kvlist .v{color:var(--ink);text-align:right}
+  .order{border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:6px;font-size:12.5px;background:#FAFBFD}
+  .order .ono{font-weight:700}
+  .order .meta{display:flex;justify-content:space-between;color:var(--ink-3);font-size:11px;margin-top:2px}
+  .order .state{margin-top:6px}
+  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700}
+  .pill.ship{background:var(--brand-soft);color:var(--brand-deep)}
+  .pill.delay{background:var(--amber-soft);color:#7A4A00}
+  .pill.done{background:var(--green-soft);color:#0E7F4F}
+  .order.connected{background:#EEF3FF;border-color:#C7D8FF}
+
+  .timeline{position:relative;padding-left:14px}
+  .timeline::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;border-left:2px dashed #DEE3EE}
+  .timeline .e{position:relative;padding:4px 0 10px}
+  .timeline .e::before{content:"";position:absolute;left:-13px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+  .timeline .e.bot::before{background:var(--violet)}
+  .timeline .e.ho::before{background:var(--amber)}
+  .timeline .e.mg::before{background:#F0A52B}
+  .timeline .e.end::before{background:var(--ink-3)}
+  .timeline .e b{font-size:12.5px}
+  .timeline .e .t{font-size:11px;color:var(--ink-3)}
+
+  .toast{position:absolute;right:20px;bottom:20px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 28px rgba(20,30,60,.16);padding:14px 16px;width:340px;z-index:30}
+  .toast .ttl{font-weight:700;display:flex;align-items:center;gap:6px}
+  .toast .body{font-size:12.5px;color:var(--ink-2);margin:6px 0 10px}
+  .toast .act{display:flex;gap:8px;justify-content:flex-end}
+  .toast .act .acc{background:var(--brand);color:#fff;padding:6px 12px;border-radius:8px;font-weight:700}
+  .toast .ring{position:absolute;top:14px;right:16px;width:30px;height:30px;border-radius:50%;background:conic-gradient(var(--brand) 65%, #E5E8F0 0);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700}
+  .toast .ring::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff}
+  .toast .ring span{position:relative;z-index:1;color:var(--brand)}
+
+  .scrim{position:absolute;inset:0;background:rgba(15,22,40,.36);display:flex;align-items:center;justify-content:center;z-index:40}
+  .modal{background:#fff;border-radius:16px;width:520px;max-width:92%;box-shadow:0 22px 60px rgba(15,22,40,.22);overflow:hidden}
+  .modal.wide{width:760px}
+  .modal.xl{width:920px}
+  .modal .mh{padding:16px 20px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px}
+  .modal .mh h3{margin:0;font-size:15px}
+  .modal .mh .x{margin-left:auto;color:var(--ink-3)}
+  .modal .mb{padding:18px 20px;max-height:540px;overflow:auto}
+  .modal .mf{padding:12px 16px;border-top:1px solid var(--line-2);display:flex;justify-content:flex-end;gap:8px}
+  .modal .mf .primary{background:var(--brand);color:#fff;padding:8px 14px;border-radius:8px;font-weight:700}
+  .modal .mf .ghost{padding:8px 14px;border-radius:8px;border:1px solid var(--line);color:var(--ink-2)}
+  .modal .mf .danger{background:var(--pink);color:#fff;padding:8px 14px;border-radius:8px;font-weight:700}
+
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:11.5px;color:var(--ink-3);margin-bottom:5px;font-weight:600}
+  .field input[type=text],.field select,.field textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:#fff;outline:none}
+  .field textarea{min-height:88px;resize:vertical}
+  .opts{display:flex;gap:6px;flex-wrap:wrap}
+  .opts .o{padding:6px 10px;border:1px solid var(--line);border-radius:999px;font-size:12px;color:var(--ink-2);cursor:pointer}
+  .opts .o.on{background:var(--brand-soft);border-color:#C7D8FF;color:var(--brand-deep);font-weight:700}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+  .drop{border:2px dashed #C7D8FF;border-radius:12px;background:#F8FAFE;padding:28px;text-align:center;color:var(--ink-2)}
+  .files{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+  .file{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
+  .file .ic{width:34px;height:34px;border-radius:8px;background:#EEF3FF;color:var(--brand-deep);display:flex;align-items:center;justify-content:center;font-weight:700}
+  .file .nm{flex:1;font-size:12.5px}
+  .file .nm .size{color:var(--ink-3);font-size:11px;margin-left:6px}
+  .file .pb{width:120px;height:4px;background:#EEF1F7;border-radius:999px;overflow:hidden}
+  .file .pb i{display:block;height:100%;background:var(--brand);width:62%}
+  .file .x{color:var(--ink-3)}
+
+  .ticket-form{display:grid;grid-template-columns:1fr 320px;gap:18px}
+  .ticket-form .preview{background:#FAFBFD;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12.5px;color:var(--ink-2);max-height:460px;overflow:auto}
+  .ticket-form .preview h6{margin:0 0 6px;color:var(--ink);font-size:12.5px}
+  .ticket-form .preview .ln{padding:4px 0;border-bottom:1px dashed #EEF1F7}
+
+  .history-list{display:flex;flex-direction:column;gap:6px;max-height:380px;overflow:auto}
+  .hi-row{padding:10px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;display:flex;flex-direction:column;gap:4px}
+  .hi-row:hover{background:#F8FAFE}
+  .hi-row .l{display:flex;align-items:center;gap:8px}
+  .hi-row .l b{font-size:12.5px}
+  .hi-row .meta{color:var(--ink-3);font-size:11.5px;display:flex;justify-content:space-between}
+  .hi-row .snippet{color:var(--ink-2);font-size:12px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+
+  .dotg{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px}
+  .dota{background:var(--amber)} .dotr{background:var(--pink)}
+  .label-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+  <div class="doc-head">
+    <h1>AICX 어드민 — 상담원 응대 화면별 디테일 목업 (v2)</h1>
+    <div class="sub">ECA 채팅상담 기능을 AICX 어드민에 이식하기 위한 화면 명세. 인앱/웹 챗봇 핸드오버 시나리오 기준. 15개 화면 · 2026.05.15</div>
+    <div class="meta">
+      <a href="./requirements.md" target="_blank">📄 requirements.md — 기능/기술 요구사항</a>
+      <a href="./index.html" target="_blank">🗂 v1 — 요약 목업</a>
+    </div>
+  </div>
+
+  <div class="toc">
+    <h3>화면 인덱스</h3>
+    <div class="groups">
+      <div class="g">
+        <div class="gt">A · 인입/수락</div>
+        <a href="#s1"><span class="n">01</span>인입 알림 토스트</a>
+        <a href="#s2"><span class="n">02</span>수락 직후 컨텍스트</a>
+      </div>
+      <div class="g">
+        <div class="gt">B · 응대 메인</div>
+        <a href="#s3"><span class="n">03</span>일반 응대 진행 중</a>
+        <a href="#s4"><span class="n">04</span>무응답 + SLA 임박</a>
+        <a href="#s5"><span class="n">05</span>매크로 / 자동완성</a>
+        <a href="#s6"><span class="n">06</span>매니저 @ 자동완성</a>
+        <a href="#s7"><span class="n">07</span>추천 답변 패널</a>
+      </div>
+      <div class="g">
+        <div class="gt">C · 특수 상태</div>
+        <a href="#s8"><span class="n">08</span>금칙어 마스킹</a>
+        <a href="#s9"><span class="n">09</span>첨부 업로드</a>
+        <a href="#s10"><span class="n">10</span>지원상담(매니저 참여)</a>
+      </div>
+      <div class="g">
+        <div class="gt">D · 종료 / 이관</div>
+        <a href="#s11"><span class="n">11</span>티켓 이관 모달</a>
+        <a href="#s12"><span class="n">12</span>상담 종료 안내</a>
+        <a href="#s13"><span class="n">13</span>종료 후 티켓 작성</a>
+      </div>
+      <div class="g">
+        <div class="gt">E · 사이드 패널</div>
+        <a href="#s14"><span class="n">14</span>멀티 주문 연결</a>
+        <a href="#s15"><span class="n">15</span>과거 대화 팝업</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag">A · 인입 / 수락</div><div class="gb-line"></div></div>
+
+  <!-- ============ S1 인입 토스트 ============ -->
+  <section class="screen" id="s1">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S01</span>
+        <span class="screen-grp">A · 인입/수락</span>
+        <h2>인입 알림 토스트 — 챗봇이 인계 요청한 순간</h2>
+      </div>
+      <div class="desc">대기 상태 상담원의 화면 우측 하단에 토스트로 띄움. 잔여 카운트가 0이 되거나 수락 안 하면 자동으로 큐의 다음 가능 상담원에게 라우팅됨. 핸드오버 핵심 컨텍스트(인텐트·신뢰도·인증 여부)를 토스트에서 미리 노출.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S01 · 인입 토스트</div>
+      <div class="app">
+        <div data-tpl="NAV"></div>
+        <section class="main">
+          <div data-tpl="TOPBAR_READY"></div>
+          <div class="ws">
+            <div data-tpl="LEFT_LIST_QUIET"></div>
+            <div class="panel conv">
+              <div class="head"><div class="top"><h2 style="color:var(--ink-3)">상담 대기 중</h2><span class="sub">선택된 상담 없음</span></div></div>
+              <div class="body" style="display:flex;align-items:center;justify-content:center;color:var(--ink-3)">
+                <div style="text-align:center">
+                  <div style="font-size:38px;opacity:.5">💬</div>
+                  <div style="margin-top:10px">새 인입을 기다리고 있어요.</div>
+                  <div style="font-size:11.5px;margin-top:4px">대기 상태일 때 챗봇으로부터 인계 받을 수 있습니다.</div>
+                </div>
+              </div>
+            </div>
+            <div data-tpl="RIGHT_EMPTY"></div>
+          </div>
+          <div class="toast">
+            <div class="ring"><span>12</span></div>
+            <div class="ttl">📨 새 인입 — 챗봇 인계</div>
+            <div class="body">
+              <div><b>이도윤</b> · 웹 SDK · 회원 1년차</div>
+              <div style="margin-top:4px;color:#4B5468">"창 길이가 긴데 맞춤 제작도 가능한가요?"</div>
+              <div style="margin-top:6px"><span class="tag">맞춤제작</span> <span class="tag">가구</span> <span class="tag warn">봇 응답 불가</span></div>
+              <div style="margin-top:6px;color:#8A93A6;font-size:11px">신뢰도 0.91 · 본인 인증 ✓ · 장바구니 1건</div>
+            </div>
+            <div class="act"><button class="acc">수락 (Enter)</button></div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="notes">
+      <b>인터랙션</b>
+      <ul>
+        <li>토스트 노출과 동시에 알림음(차임 1회) + 좌측 리스트 "대기" 카운트 +1</li>
+        <li>잔여 카운트 0초 도달 또는 응답 없음 → 자동으로 큐의 다음 가능 상담원에게 라우팅</li>
+        <li>수락: 좌측 리스트에 해당 상담 카드 추가 + 가운데 패널에 핸드오버 컨텍스트 표시(S02)</li>
+        <li>거절 기능은 미운영 — 본인이 응대 불가하면 수락 후 즉시 이관(S11)으로 처리</li>
+      </ul>
+      <b>표시 데이터(핸드오버 페이로드 일부)</b>
+      <ul>
+        <li>고객명 · 채널 · 회원 등급</li>
+        <li>마지막 고객 발화 1줄</li>
+        <li>인텐트 Top 1~2 + "봇 응답 불가" 라벨(해당 시)</li>
+        <li>신뢰도 / 본인 인증 여부 / 사전 검증된 컨텍스트(주문·장바구니 등)</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S2 수락 직후 ============ -->
+  <section class="screen" id="s2">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S02</span>
+        <span class="screen-grp">A · 인입/수락</span>
+        <h2>수락 직후 — 핸드오버 컨텍스트 (응대 시작 전 필독)</h2>
+      </div>
+      <div class="desc">상담원이 토스트에서 수락한 직후 가장 먼저 보는 화면. 챗봇이 응답한 turn 히스토리·AI 요약·검증된 컨텍스트가 한 화면에 정리됨. 첫 메시지를 입력하기 전 상담원이 이 카드를 보고 응대 흐름을 잡음.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S02 · 수락 직후</div>
+      <div class="app">
+        <div data-tpl="NAV"></div>
+        <section class="main">
+          <div data-tpl="TOPBAR_BUSY"></div>
+          <div class="ws">
+            <div data-tpl="LEFT_LIST_NEW_ACCEPTED"></div>
+            <div class="panel conv">
+              <div class="head">
+                <div class="top"><h2>이도윤</h2><span class="sub">웹 SDK · 회원 1년차 · 장바구니 1건</span></div>
+                <div class="meta-row">
+                  <span class="kv">상태 <b>응대 시작 전</b></span>
+                  <span class="kv">우선순위 <b>일반</b></span>
+                  <span class="kv">유형 <b>실시간 채팅</b></span>
+                  <span class="tag">#맞춤제작</span>
+                  <span class="tag">#가구</span>
+                </div>
+              </div>
+              <div class="body">
+                <div class="day">2026.05.15 (목)</div>
+                <div class="sysline handover"><span class="pill">⛓ 챗봇 → 상담원 인계 · 14:21 · 사유 [봇 응답 불가 영역]</span></div>
+
+                <div class="ai-handover">
+                  <h4>🧠 AI 핸드오버 요약 — 응대 시작 전 필독</h4>
+                  <div class="grid">
+                    <div><div class="lbl">분류 인텐트 (Top 3)</div><div class="val">맞춤제작 (0.62) · 사이즈문의 (0.29) · 단순상담 (0.09)</div></div>
+                    <div><div class="lbl">감지된 감정</div><div class="val">중립 · 정보 탐색</div></div>
+                    <div><div class="lbl">신뢰도</div><div class="val"><span class="conf">0.91 <span class="bar"><i style="width:91%"></i></span></span></div></div>
+                    <div><div class="lbl">사전 검증</div><div class="val">본인 인증 ✓ · 장바구니 1건 ✓ · 결제 이력 없음</div></div>
+                  </div>
+                  <div class="summary">
+                    고객은 <b>거실 창 길이 약 2,400mm 블라인드</b>를 찾고 있으며, 표준 사이즈 제품 페이지(2,000mm)를 둘러본 뒤 맞춤제작 가능 여부를 물었습니다. <b>제작 가능 여부 · 추가 비용 · 리드타임</b>을 함께 안내해야 합니다. 챗봇이 KMS에서 추출한 표준 안내문이 추천 답변 1번에 미리 채워져 있습니다.
+                  </div>
+                  <div class="turn-history">
+                    <div class="t"><b>고객 14:18</b>안녕하세요, 블라인드 보고 있는데 사이즈 문의 있어요.</div>
+                    <div class="t"><b>봇 14:18</b>안녕하세요! 어떤 사이즈인지 알려주시면 추천드릴게요.</div>
+                    <div class="t"><b>고객 14:20</b>창문 길이가 2400 정도인데 표준이 2000까지밖에 없네요. 맞춤도 되나요?</div>
+                    <div class="t"><b>봇 14:20</b>죄송해요, 맞춤제작 견적은 상담사가 도와드려야 해서 지금 연결할게요!</div>
+                  </div>
+                </div>
+
+                <div class="sysline"><span class="pill">💡 추천 첫 응답 3개 · KMS · 템플릿</span></div>
+              </div>
+
+              <div class="composer">
+                <div class="quick">
+                  <button class="q">✉ 맞춤제작 가능 SKU 안내</button>
+                  <button class="q">📐 사이즈 확인 가이드 발송</button>
+                  <button class="q">⏱ 리드타임 / 추가비 안내</button>
+                  <button class="q muted">+ 직접 입력</button>
+                </div>
+                <div class="input-wrap">
+                  <div class="text"><span class="placeholder">고객에게 보낼 첫 메시지를 입력하세요. / 로 매크로, @ 로 매니저 호출</span></div>
+                  <div class="toolbar">
+                    <button class="tool">📎</button><button class="tool">🖼</button><button class="tool">🧩</button>
+                    <button class="tool">🪪</button><button class="tool">🎫</button><button class="tool">🙋</button>
+                    <span class="sep"></span><button class="tool">⏱</button><button class="tool danger">🚪</button>
+                    <span class="spacer"></span><button class="tool">↪ 이관</button><button class="send">전송 ↵</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div data-tpl="RIGHT_LIVE"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="notes">
+      <b>레이아웃 정책</b>: AI 요약 카드는 대화 흐름의 인계 시점에 인라인으로 박힘 — 나중에 응대 중 스크롤 위로 돌아가면 항상 같은 위치에서 다시 볼 수 있음.<br>
+      <b>턴 히스토리</b>: 챗봇이 받은 마지막 N턴(기본 6턴)을 카드 안에 압축 표시. 전체 보기는 우측 패널 "이전 이력" 탭에서.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag">B · 응대 메인</div><div class="gb-line"></div></div>
+
+  <!-- ============ S3 일반 응대 ============ -->
+  <section class="screen" id="s3">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S03</span><span class="screen-grp">B · 응대 메인</span><h2>일반 응대 — 진행 중</h2></div>
+      <div class="desc">상담원이 핸드오버 받은 후 대화를 주고받는 상태. 멀티채팅 3건 동시 응대, SLA 정상 범위. 좌측 리스트·중앙 대화·우측 컨텍스트가 가장 일반적인 상태로 보이는 모습.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S03 · 일반 응대</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div>
+            <div class="body">
+              <div class="day">2026.05.15 (목)</div>
+              <div class="sysline"><span class="pill">챗봇 대화 시작 · 14:09</span></div>
+              <div class="turn bot"><div class="av">AI</div><div><div class="who">집들이봇 · AI</div><div class="bub">안녕하세요. 오늘의집 고객센터입니다. 주문 또는 배송 관련 문의를 도와드릴게요.</div><div class="ts">14:09</div></div></div>
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">토요일 배송으로 안내받았는데 기사님 연락이 아직 없어요.</div><div class="ts">14:10</div></div></div>
+              <div class="turn bot"><div class="av">AI</div><div><div class="who">집들이봇 · AI</div><div class="bub">주문번호를 확인해볼게요. 잠시만 기다려 주세요.</div><div class="ts">14:10</div></div></div>
+              <div class="sysline handover"><span class="pill">⛓ 상담원 인계 · 14:11 · [배송지연·대형가구] · 신뢰도 0.86</span></div>
+              <div data-tpl="AI_SUMMARY_KIM"></div>
+              <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">안녕하세요. 기사 배정 상태를 확인 중이고, 확인되는 대로 바로 안내드릴게요.</div><div class="ts">14:12</div></div></div>
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">감사합니다. 빨리 확인 부탁드려요.</div><div class="ts">14:13</div></div></div>
+              <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">고객님, 토요일 오전 10~14시 사이 도착이 가능한 권역으로 분류되어 있어 기사님 연락이 오늘 안에 갈 예정입니다. 혹시라도 연락이 안 되시면 제가 콜백으로 다시 안내드릴게요.</div><div class="att">📎 SOP-LD-031_배송시간안내.pdf</div><div class="ts">14:14</div></div></div>
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">네 알겠습니다. 기사님이 오시기 30분 전에 연락 가능한가요?</div><div class="ts">14:15</div></div></div>
+            </div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>화면 구성</b>: 좌측 리스트(3건 진행 중, 1건 대기), 중앙 대화창(상담원/고객/봇/시스템 메시지 모두), 우측 컨텍스트(고객/상담/주문/타임라인/태그)<br>
+      <b>새 메시지 알림</b>: 다른 상담의 신규 메시지가 오면 좌측 카드에 카운트 배지 / 우측 상단 알림 카운트 증가
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S4 무응답 + SLA ============ -->
+  <section class="screen" id="s4">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S04</span><span class="screen-grp">B · 응대 메인</span><h2>무응답 60초 경고 + SLA 임박</h2></div>
+      <div class="desc">멀티 채팅 중 한 상담에서 고객 또는 상담사가 60초 이상 무응답인 경우 좌측 리스트 카드가 펄스로 강조됨. SLA 잔여 1분 이하는 상단 배너로도 강조. ECA의 핵심 운영 시각화를 그대로 가져옴.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S04 · 무응답 / SLA 임박</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main">
+        <header class="topbar">
+          <div class="crumbs">운영 ·<span class="here">채팅 응대</span></div>
+          <div class="title">실시간 상담</div>
+          <div class="spacer"></div>
+          <div class="cti busy"><span class="dot"></span><span class="lbl">응대중</span><span class="meta">3 / 5 응대중 · 1 무응답</span></div>
+          <button class="chip-btn">알림 <span class="badge">5</span></button>
+          <button class="alert danger">⏱ SLA 잔여 0:42 — 김서연</button>
+        </header>
+        <div class="ws">
+          <div class="panel">
+            <div class="ph"><h3>내 상담</h3><span style="margin-left:auto;color:#8A93A6;font-size:11px">3 / 5</span></div>
+            <div class="filterbar"><span class="f on">진행중 3</span><span class="f">대기 1</span><span class="f">종료 7</span></div>
+            <div class="search">🔍 <input placeholder="검색"></div>
+            <div class="list">
+              <div class="row danger on">
+                <div class="l1"><span class="pulse red"></span><span class="name">김서연</span><span class="src app">앱</span><span class="badge alert">SLA 임박</span></div>
+                <div class="msg">기사님이 오시기 30분 전에 연락 가능한가요?</div>
+                <div class="meta"><span>OH-20260513-1182</span><span>방금</span></div>
+                <div class="warn-line">⚠ SLA 잔여 0:42 · 상담사 무응답 1:08</div>
+              </div>
+              <div class="row warn">
+                <div class="l1"><span class="pulse amb"></span><span class="name">정하늘</span><span class="src app">앱</span><span class="badge wait">고객 무응답</span></div>
+                <div class="msg">이번 주 금요일 시공을 다음 주로 미룰 수 있을까요?</div>
+                <div class="meta"><span>OH-20260510-0731</span><span>13분 전</span></div>
+                <div class="warn-line" style="color:#7A4A00">⏳ 고객 무응답 1:24</div>
+              </div>
+              <div class="row">
+                <div class="l1"><span class="name">최예린</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+                <div class="msg">교환 받으려는 색상이 품절이면 다른 색상으로도 가능한가요?</div>
+                <div class="meta"><span>OH-20260512-0998</span><span>22분 전</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM_CRIT"></div>
+            <div class="body">
+              <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">고객님, 토요일 오전 10~14시 사이 도착이 가능한 권역으로 분류되어 있어 기사님 연락이 오늘 안에 갈 예정입니다.</div><div class="ts">14:14</div></div></div>
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">네 알겠습니다. 기사님이 오시기 30분 전에 연락 가능한가요?</div><div class="ts">14:15</div></div></div>
+              <div class="sysline"><span class="pill" style="background:#FCE3E9;border-color:#F4B7C2;color:#A8243E;font-weight:700">⚠ 상담사 무응답 1분 08초 · SLA 잔여 0:42</span></div>
+            </div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <div data-tpl="RIGHT_LIVE_SLA"></div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>경고 단계</b>
+      <ul>
+        <li>0~30초: 정상 (회색)</li>
+        <li>30~60초: 노랑 펄스 + "응답 필요" 라벨</li>
+        <li>60초~: 빨강 펄스 + 시스템 메시지 인서트(중앙 대화창에 자동)</li>
+        <li>SLA 잔여 1분 이하: 상단 빨강 배너 + 카드 배경 빨강</li>
+      </ul>
+      <b>에스컬레이션 정책</b>: SLA 위반 시 매니저에게 자동 알림(설정 가능), 강제 이관 옵션 활성화
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S5 매크로 / ============ -->
+  <section class="screen" id="s5">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S05</span><span class="screen-grp">B · 응대 메인</span><h2>매크로 (/) 자동완성</h2></div>
+      <div class="desc">입력창에서 <code>/</code> 입력 시 추천 메시지·스니펫·매크로가 드롭다운으로 노출. ECA의 추천메시지 + Alt+0~9 단축키를 통합한 인터페이스. KMS 출처가 라벨로 함께 표시되어 상담원이 안내문의 신뢰도를 확인.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S05 · 매크로 자동완성</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div>
+            <div class="body">
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">기사님이 오시기 30분 전에 연락 가능한가요?</div><div class="ts">14:15</div></div></div>
+            </div>
+            <div class="composer">
+              <div class="quick">
+                <button class="q">📚 KMS · 토요일 배송 운영 안내</button>
+                <button class="q">✉ 템플릿 · 배차지연 안내</button>
+                <button class="q muted">+ 추천 더보기</button>
+              </div>
+              <div class="input-wrap focus">
+                <div class="text"><span style="background:#EEF3FF;color:#1B4FD6;padding:1px 5px;border-radius:5px;font-weight:700">/배송</span><span style="color:var(--ink-3)"> </span></div>
+                <div class="toolbar">
+                  <button class="tool">📎</button><button class="tool">🖼</button><button class="tool">🧩</button>
+                  <button class="tool">🪪</button><button class="tool">🎫</button><button class="tool">🙋</button>
+                  <span class="sep"></span><button class="tool">⏱</button><button class="tool danger">🚪</button>
+                  <span class="spacer"></span><button class="send">전송 ↵</button>
+                </div>
+              </div>
+
+              <div class="dropdown">
+                <div class="dh"><span>매크로 · 추천메시지 · 스니펫 — "배송"</span><span>↑↓ 이동 · ↵ 삽입 · Tab 미리보기</span></div>
+                <div class="di on">
+                  <span class="key">Alt+1</span>
+                  <div style="flex:1">
+                    <div class="nm">/배송시간_안내</div>
+                    <div class="prev">고객님, 기사님은 출발 30분 전에 직접 연락드리는 것이 원칙입니다. 다만 권역에 따라 약 20분 전후로 차이가 있을 수 있어요.</div>
+                  </div>
+                  <span class="src">KMS · LD-031</span>
+                </div>
+                <div class="di">
+                  <span class="key">Alt+2</span>
+                  <div style="flex:1">
+                    <div class="nm">/배차지연_사과</div>
+                    <div class="prev">기다리시게 해서 정말 죄송합니다. 현재 기사 배정 상태를 확인 중이며, 확인 즉시 빠르게 안내드릴게요.</div>
+                  </div>
+                  <span class="src">템플릿 · 운영</span>
+                </div>
+                <div class="di">
+                  <span class="key">Alt+3</span>
+                  <div style="flex:1">
+                    <div class="nm">/배송조회_링크</div>
+                    <div class="prev">아래 링크에서 실시간으로 배송 상태를 확인하실 수 있어요: {{tracking_url}}</div>
+                  </div>
+                  <span class="src">템플릿 · 운영</span>
+                </div>
+                <div class="di">
+                  <span class="key">Alt+4</span>
+                  <div style="flex:1">
+                    <div class="nm">/대형가구_배송정책</div>
+                    <div class="prev">대형가구는 2인 1조로 배송되며 사전 연락 후 도착 시간이 협의됩니다. 토요일은 인바운드는 받지 않고...</div>
+                  </div>
+                  <span class="src">KMS · LD-019</span>
+                </div>
+                <div class="di">
+                  <span class="key">⌘+K</span>
+                  <div style="flex:1"><div class="nm" style="color:var(--ink-3)">KMS 전체에서 검색하기</div></div>
+                  <span class="src">KMS</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>변수 치환</b>: <code>{{tracking_url}}</code>, <code>{{order_id}}</code>, <code>{{eta}}</code> 등은 현재 컨텍스트(연결된 주문/고객)에서 자동 채워짐.<br>
+      <b>출처 라벨</b>: KMS / 템플릿 / 개인 스니펫을 색으로 구분. 클릭 시 원문 페이지 열림.<br>
+      <b>관리자 vs 개인</b>: 추천메시지는 (1) 관리자 마스터, (2) 본인 스니펫 두 레이어. ECA의 채팅 개인설정과 동일 구조.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S6 매니저 @ ============ -->
+  <section class="screen" id="s6">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S06</span><span class="screen-grp">B · 응대 메인</span><h2>매니저 멘션 (@) 자동완성</h2></div>
+      <div class="desc">상담 중 도움이 필요할 때 입력창에 <code>@</code>로 매니저를 호출. 멘션된 매니저에게는 알림이 가고, 매니저가 수락하면 지원상담 모드(S10)로 진입.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S06 · 매니저 멘션</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div>
+            <div class="body">
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">대형가구라 같이 들어주실 분이 필요한데, 그것도 같이 와주시는 거 맞나요?</div><div class="ts">14:18</div></div></div>
+            </div>
+            <div class="composer">
+              <div class="input-wrap focus">
+                <div class="text"><span style="background:#FFF1D9;color:#7A4A00;padding:1px 5px;border-radius:5px;font-weight:700">@김</span><span style="color:var(--ink-3)"> </span></div>
+                <div class="toolbar">
+                  <button class="tool">📎</button><button class="tool">🖼</button><button class="tool">🧩</button>
+                  <button class="tool">🪪</button><button class="tool">🎫</button><button class="tool">🙋</button>
+                  <span class="sep"></span><button class="tool">⏱</button><button class="tool danger">🚪</button>
+                  <span class="spacer"></span><button class="send">전송 ↵</button>
+                </div>
+              </div>
+              <div class="dropdown">
+                <div class="dh"><span>매니저 호출 — "김"</span><span>↑↓ 이동 · ↵ 멘션 추가</span></div>
+                <div class="di on">
+                  <span class="key" style="width:30px;height:30px;border-radius:50%;background:#F0A52B;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;padding:0">민</span>
+                  <div style="flex:1"><div class="nm">김민지 매니저 <span class="dotg"></span><span style="color:var(--ink-3);font-weight:400;font-size:11.5px">대기 · 즉시 응답 가능</span></div><div class="prev">서비스운영팀 · 배송/CS 전문</div></div>
+                  <span class="src">즐겨찾기</span>
+                </div>
+                <div class="di">
+                  <span class="key" style="width:30px;height:30px;border-radius:50%;background:#7A5CFF;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;padding:0">철</span>
+                  <div style="flex:1"><div class="nm">김철수 매니저 <span class="dota"></span><span style="color:var(--ink-3);font-weight:400;font-size:11.5px">이석 · 5분 전</span></div><div class="prev">서비스운영팀 · QA</div></div>
+                  <span class="src">최근 호출</span>
+                </div>
+                <div class="di">
+                  <span class="key" style="width:30px;height:30px;border-radius:50%;background:#1B4FD6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;padding:0">건</span>
+                  <div style="flex:1"><div class="nm">김건우 팀장 <span class="dotr"></span><span style="color:var(--ink-3);font-weight:400;font-size:11.5px">오프라인</span></div><div class="prev">CS팀 · 강성 민원 에스컬레이션</div></div>
+                  <span class="src">팀장</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>매니저 상태 표시</b>: 대기(녹색) / 이석(노랑) / 오프라인(빨강). 상태에 따라 응답 가능 시간 안내.<br>
+      <b>호출 방식</b>: (1) 비공개 멘션(고객 미노출, 내부 알림만) (2) 지원상담 참여 요청(고객에게 노출) — 옵션 선택 가능
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S7 추천 답변 ============ -->
+  <section class="screen" id="s7">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S07</span><span class="screen-grp">B · 응대 메인</span><h2>추천 답변 패널 — KMS 출처 명시</h2></div>
+      <div class="desc">AI가 현재 대화 맥락 기반으로 답변 3~5개를 생성. 각 답변은 출처(KMS 페이지·이전 유사 응대·템플릿)와 신뢰도가 함께 표시되어 상담원이 검증된 내용임을 확인 후 사용. ECA에는 없던 신규 기능.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S07 · 추천 답변</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div>
+            <div class="body">
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">기사님이 오시기 30분 전에 연락 가능한가요?</div><div class="ts">14:15</div></div></div>
+              <div class="sysline"><span class="pill">💡 추천 답변 3개 · KMS 기반</span></div>
+              <div style="display:grid;grid-template-columns:1fr;gap:8px;margin:8px 0">
+                <div style="border:1px solid #C7D8FF;background:#EEF3FF;border-radius:12px;padding:10px 12px">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                    <span style="font-weight:700;color:#1B4FD6">#1 — 권장</span>
+                    <span class="tag">KMS · LD-031</span>
+                    <span class="conf" style="margin-left:auto">매칭도 0.94 <span class="bar"><i style="width:94%"></i></span></span>
+                  </div>
+                  <div style="font-size:12.8px;color:#0F2A6B">고객님, 기사님은 출발 약 30분 전에 직접 연락드리는 것이 원칙입니다. 다만 권역·교통 상황에 따라 ±20분 정도 차이가 있을 수 있어요. 만약 도착 예정 시간이 지나도 연락이 없으시면 제가 바로 콜백으로 확인 도와드릴게요.</div>
+                  <div style="display:flex;gap:6px;margin-top:8px">
+                    <button class="chip-btn">↵ 삽입 후 수정</button>
+                    <button class="chip-btn">→ 바로 전송</button>
+                    <button class="chip-btn" style="color:var(--ink-3)">출처 보기 ↗</button>
+                  </div>
+                </div>
+                <div style="border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                    <span style="font-weight:700">#2</span>
+                    <span class="tag">템플릿 · 운영</span>
+                    <span class="conf" style="margin-left:auto;color:var(--ink-2)">매칭도 0.78 <span class="bar"><i style="width:78%;background:#8A93A6"></i></span></span>
+                  </div>
+                  <div style="font-size:12.8px;color:var(--ink-2)">네, 기사님께서 출발 30분 전 직접 연락드릴 예정입니다. 추가로 안내드릴 사항이 있다면 알려주세요.</div>
+                  <div style="display:flex;gap:6px;margin-top:8px">
+                    <button class="chip-btn">↵ 삽입 후 수정</button>
+                    <button class="chip-btn">→ 바로 전송</button>
+                  </div>
+                </div>
+                <div style="border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                    <span style="font-weight:700">#3</span>
+                    <span class="tag violet">유사 응대 · 2025-12-04</span>
+                    <span class="conf" style="margin-left:auto;color:var(--ink-2)">매칭도 0.72 <span class="bar"><i style="width:72%;background:#8A93A6"></i></span></span>
+                  </div>
+                  <div style="font-size:12.8px;color:var(--ink-2)">고객님, 보통 30분 전 연락이 가지만 토요일은 OB 시간대(오전~오후 2시)에만 연락 가능한 점 양해 부탁드려요.</div>
+                  <div style="display:flex;gap:6px;margin-top:8px">
+                    <button class="chip-btn">↵ 삽입 후 수정</button>
+                    <button class="chip-btn">→ 바로 전송</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>표시 정보</b>: 매칭도(%), 출처 카테고리(KMS/템플릿/유사응대), 원문 링크<br>
+      <b>인터랙션</b>: "삽입 후 수정"(입력창 채움) / "바로 전송"(즉시 발화) / "유용하지 않음" 피드백(학습 시그널)<br>
+      <b>가드레일</b>: 매칭도 < 0.6은 권장 표시 제거, 답변 카드 본문에 "AI 생성 — 송출 전 검토 권장" 마이크로 카피
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag">C · 특수 상태</div><div class="gb-line"></div></div>
+
+  <!-- ============ S8 금칙어 ============ -->
+  <section class="screen" id="s8">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S08</span><span class="screen-grp">C · 특수 상태</span><h2>금칙어 마스킹 — 양방향 차단</h2></div>
+      <div class="desc">고객/상담사가 금칙어를 보내면 대화창에 <code>*</code>로 마스킹되어 표시. 우측 패널에 금칙어 감지 카드와 강성 민원 라우팅 후보 안내. ECA의 핵심 보호 기능을 그대로 가져옴.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S08 · 금칙어 마스킹</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM_CRIT"></div>
+            <div class="body">
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub alert-msg">진짜 너무 <span class="masked">****</span> 답답해서요. 이거 <span class="masked">****</span> 이번 주 안에 안 오면 환불해주세요.</div><div class="ts">14:13</div></div></div>
+              <div class="sysline"><span class="pill" style="border-color:#F4B7C2;background:#FCE3E9;color:#A8243E;font-weight:700">⚠ 금칙어 2건 감지 · 강성 후보 분류</span></div>
+              <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">고객님, 불편 끼쳐드려 정말 죄송해요. 지금 바로 우선 권역으로 재요청 처리하고, 매니저와 함께 도와드리겠습니다.</div><div class="ts">14:14</div></div></div>
+            </div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <aside class="panel">
+            <div class="tabs"><div class="t on">고객 정보</div><div class="t">주문/티켓</div><div class="t">이관</div><div class="t">이전</div></div>
+            <div class="rpanel-body">
+              <div class="card hi">
+                <h5>⚠ 금칙어 감지</h5>
+                <div style="font-size:12.5px">최근 2분 내 <b>2회</b> 감지. 강성 민원 분류 후보로 자동 마킹되었어요.</div>
+                <div class="label-row">
+                  <span class="tag danger">강성 후보</span>
+                  <span class="tag warn">cx_serious_voc 후보</span>
+                </div>
+                <div style="display:flex;gap:6px;margin-top:8px">
+                  <button class="chip-btn">매니저 호출</button>
+                  <button class="chip-btn">cx_serious_voc 보고</button>
+                </div>
+              </div>
+              <div class="card">
+                <div class="person">
+                  <div class="av">김</div>
+                  <div><div class="nm">김서연</div><div class="meta">오늘의집 프라임 · 회원 2년차</div></div>
+                </div>
+                <div class="kvlist">
+                  <div class="k">유저ID</div><div class="v">ohouse_23841</div>
+                  <div class="k">최근 강성 이력</div><div class="v" style="color:#A8243E">없음</div>
+                </div>
+              </div>
+              <div class="card">
+                <h5>감지 상세</h5>
+                <div class="kvlist">
+                  <div class="k">규칙</div><div class="v">관리자 마스터 v3</div>
+                  <div class="k">매칭 카테고리</div><div class="v">욕설·비방</div>
+                  <div class="k">발화 방향</div><div class="v">고객 → 상담사</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>마스킹 규칙</b>: 관리자 등록 금칙어 사전 기반. 양방향(고객→상담사, 상담사→고객) 모두 *로 표시.<br>
+      <b>강성 후보 자동 마킹</b>: N분 내 M회 이상 감지 / 특정 키워드 카테고리 → <code>cx_serious_voc</code> 후보 큐로 보고 옵션 노출<br>
+      <b>저장</b>: 마스킹된 원문은 별도 보안 로그에 저장되지만 어드민 UI에는 *로만 노출
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S9 첨부 업로드 ============ -->
+  <section class="screen" id="s9">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S09</span><span class="screen-grp">C · 특수 상태</span><h2>첨부 업로드 모달</h2></div>
+      <div class="desc">상담사가 이미지·문서를 고객에게 전송하는 화면. ECA의 SMS 링크 발송 대신 인앱/웹은 SDK 인라인 첨부. 개인정보 자동 검출(주민번호·카드번호 패턴) 시 경고.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S09 · 첨부 업로드</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div>
+            <div class="body"></div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+        <div class="scrim">
+          <div class="modal wide">
+            <div class="mh"><h3>파일 첨부 — 김서연 고객에게 전송</h3><span class="x">✕</span></div>
+            <div class="mb">
+              <div class="drop">
+                <div style="font-size:30px;opacity:.5;margin-bottom:8px">📂</div>
+                <b>파일을 여기에 끌어놓거나</b> 클릭해서 선택하세요<br>
+                <span style="font-size:11.5px;color:var(--ink-3)">이미지(JPG/PNG/HEIC), PDF, 영상(MP4) · 개별 25MB · 최대 5개</span>
+              </div>
+              <div class="files">
+                <div class="file">
+                  <div class="ic">IMG</div>
+                  <div class="nm">SOP-LD-031_배송시간안내.png<span class="size">1.4MB</span></div>
+                  <div class="pb"><i style="width:100%;background:var(--green)"></i></div>
+                  <div class="x">✓ 업로드 완료</div>
+                </div>
+                <div class="file">
+                  <div class="ic">PDF</div>
+                  <div class="nm">배송_재배차_안내.pdf<span class="size">820KB</span></div>
+                  <div class="pb"><i></i></div>
+                  <div class="x">62%</div>
+                </div>
+                <div class="file" style="background:#FFF1D9;border-color:#F4D78A">
+                  <div class="ic" style="background:#FFE0AC;color:#7A4A00">⚠</div>
+                  <div class="nm" style="color:#7A4A00"><b>주민등록증_사본.jpg</b> <span class="size">2.1MB</span> — <b>개인정보 검출됨</b>
+                    <div style="font-size:11px;font-weight:400;color:#7A4A00">주민번호 패턴이 검출되어 전송이 차단되었습니다. 마스킹 후 다시 첨부해주세요.</div>
+                  </div>
+                  <div class="x">차단</div>
+                </div>
+              </div>
+              <div class="field" style="margin-top:18px">
+                <label>고객 메시지에 첨부될 메모 (선택)</label>
+                <textarea placeholder="첨부 파일과 함께 보낼 안내 메시지를 입력하세요."></textarea>
+              </div>
+              <div class="opts">
+                <span class="o on">고객 다운로드 허용</span>
+                <span class="o">상담사 전용 (내부 메모)</span>
+              </div>
+            </div>
+            <div class="mf">
+              <button class="ghost">취소</button>
+              <button class="primary">2개 첨부 전송</button>
+            </div>
+          </div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>개인정보 자동 검출</b>: 주민번호·카드번호·계좌번호 패턴 → 전송 차단(상담사 보호) · 검출 로그 기록<br>
+      <b>제한</b>: 개별 25MB / 합산 50MB / 최대 5개 · 자료 발송 후 72시간 유효 — ECA 정책 유지<br>
+      <b>내부 메모</b>: 상담사 전용 첨부는 대화창에 노출되지 않고 우측 패널 첨부 탭에만 저장
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S10 지원상담 ============ -->
+  <section class="screen" id="s10">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S10</span><span class="screen-grp">C · 특수 상태</span><h2>지원상담 — 매니저가 참여한 3자 대화</h2></div>
+      <div class="desc">매니저가 호출 수락 후 대화에 참여한 상태. 고객·상담사·매니저 동시 입력 가능, 매니저 메시지는 별도 색(앰버)으로 표시되어 고객에게도 매니저임이 명확. 상담원의 매니저 호출(@) 또는 매니저의 모니터링 후 자발적 참여로 시작.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S10 · 지원상담</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div>
+            <div style="margin:10px 22px 0;padding:10px 12px;border-radius:10px;background:#FFF7E5;border:1px solid #F4D78A;color:#7A4A00;font-size:12.5px;display:flex;align-items:center;gap:8px">
+              <span style="font-size:14px">👀</span>
+              <div><b>김민지 매니저</b>가 지원상담 모드로 참여 중. 매니저 메시지는 고객에게 노출됩니다. 종료는 매니저 또는 팀장만 가능.</div>
+              <button class="chip-btn" style="margin-left:auto">지원상담 종료</button>
+            </div>
+            <div class="body">
+              <div class="sysline"><span class="pill" style="border-color:#F4D78A;background:#FFF7E5;color:#7A4A00;font-weight:700">🙋 매니저 김민지 · 지원상담 시작 · 14:13</span></div>
+              <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">고객님, 잠시만요. 매니저님께도 함께 확인 부탁드리겠습니다.</div><div class="ts">14:13</div></div></div>
+              <div class="turn super"><div class="av">매</div><div><div class="who">김민지 · 매니저 (지원상담)</div><div class="bub">고객님, 안녕하세요. 오늘의집 매니저 김민지입니다. 토요일 배송 권역 확인했고, 오늘 안으로 기사 배정과 함께 콜백이 갈 수 있도록 우선 처리하겠습니다.</div><div class="ts">14:13</div></div></div>
+              <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">아 감사합니다. 그럼 오늘 안에 연락 받을 수 있는 거죠?</div><div class="ts">14:14</div></div></div>
+              <div class="turn super"><div class="av">매</div><div><div class="who">김민지 · 매니저 (지원상담)</div><div class="bub">네, 오늘 18시 이전 연락드리겠습니다. 연락이 안 가는 상황이 생기면 박상담 상담사가 콜백 즉시 도와드릴 거예요.</div><div class="ts">14:15</div></div></div>
+            </div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <aside class="panel">
+            <div class="tabs"><div class="t on">고객 정보</div><div class="t">주문/티켓</div><div class="t">이관</div><div class="t">이전</div></div>
+            <div class="rpanel-body">
+              <div class="card hi">
+                <h5>지원상담 참여자</h5>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:50%;background:#8A93A6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">고</span><b>김서연</b> <span style="color:var(--ink-3);font-size:11.5px">· 고객</span></div>
+                  <div style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:50%;background:#1B4FD6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">상</span><b>박상담</b> <span style="color:var(--ink-3);font-size:11.5px">· 1차 응대 상담사</span></div>
+                  <div style="display:flex;align-items:center;gap:8px"><span style="width:24px;height:24px;border-radius:50%;background:#F0A52B;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">매</span><b>김민지</b> <span style="color:var(--ink-3);font-size:11.5px">· 매니저 (지원상담) · 14:13 입장</span></div>
+                </div>
+              </div>
+              <div class="card">
+                <h5>고객 정보</h5>
+                <div class="kvlist">
+                  <div class="k">유저ID</div><div class="v">ohouse_23841</div>
+                  <div class="k">채널</div><div class="v">오늘의집 앱 (iOS)</div>
+                </div>
+              </div>
+              <div class="card">
+                <h5>인계 / 이관 타임라인</h5>
+                <div class="timeline">
+                  <div class="e bot"><b>챗봇 응대 시작</b><div class="t">14:09</div></div>
+                  <div class="e ho"><b>상담원 인계</b><div class="t">14:11 · 박상담</div></div>
+                  <div class="e mg"><b>지원상담 시작</b><div class="t">14:13 · 매니저 김민지</div></div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>참여 모드</b>
+      <ul>
+        <li><b>지원상담 (Visible)</b>: 고객에게 매니저 메시지가 보임. 본 화면.</li>
+        <li><b>위스퍼 (Whisper)</b>: 고객에게는 보이지 않고 상담사에게만 보임. 코칭 용도.</li>
+      </ul>
+      <b>권한</b>: 지원상담 시작·종료는 매니저/팀장만. 상담사는 매니저 호출만 가능.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag">D · 종료 / 이관</div><div class="gb-line"></div></div>
+
+  <!-- ============ S11 이관 모달 ============ -->
+  <section class="screen" id="s11">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S11</span><span class="screen-grp">D · 종료/이관</span><h2>티켓 이관 모달 — 다른 상담사에게 호전환</h2></div>
+      <div class="desc">ECA의 호전환 기능. 받는 상담사는 "대기" 상태일 때만 선택 가능. 이관 사유와 인계 메모를 작성하면 받는 상담사에게는 핸드오버 컨텍스트와 함께 메모가 전달됨.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S11 · 티켓 이관</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div><div class="body"></div><div data-tpl="COMPOSER_PLAIN"></div></div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+        <div class="scrim">
+          <div class="modal wide">
+            <div class="mh"><h3>티켓 이관 — 김서연 (OH-20260513-1182)</h3><span class="x">✕</span></div>
+            <div class="mb">
+              <div class="row2">
+                <div>
+                  <div class="field">
+                    <label>이관 받을 상담사 / 그룹</label>
+                    <div style="border:1px solid var(--line);border-radius:10px;padding:6px;display:flex;flex-direction:column;gap:4px;max-height:260px;overflow:auto">
+                      <div style="padding:8px 10px;border-radius:8px;background:#EEF3FF;display:flex;align-items:center;gap:8px;cursor:pointer">
+                        <span style="width:28px;height:28px;border-radius:50%;background:#1B4FD6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">이</span>
+                        <div style="flex:1"><b>이재훈</b> <span class="dotg"></span><span style="color:var(--ink-3);font-size:11.5px">대기</span><div style="color:var(--ink-3);font-size:11.5px">서비스운영팀 · 대형가구 전담 · 동시응대 2/5</div></div>
+                        <span class="tag green">선택됨</span>
+                      </div>
+                      <div style="padding:8px 10px;border-radius:8px;display:flex;align-items:center;gap:8px;cursor:pointer">
+                        <span style="width:28px;height:28px;border-radius:50%;background:#7A5CFF;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">박</span>
+                        <div style="flex:1"><b>박정아</b> <span class="dotg"></span><span style="color:var(--ink-3);font-size:11.5px">대기</span><div style="color:var(--ink-3);font-size:11.5px">CS팀 · 동시응대 3/5</div></div>
+                      </div>
+                      <div style="padding:8px 10px;border-radius:8px;display:flex;align-items:center;gap:8px;cursor:not-allowed;opacity:.55">
+                        <span style="width:28px;height:28px;border-radius:50%;background:#8A93A6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">최</span>
+                        <div style="flex:1"><b>최예린</b> <span class="dota"></span><span style="color:var(--ink-3);font-size:11.5px">이석</span><div style="color:var(--ink-3);font-size:11.5px">서비스운영팀 · 동시응대 5/5</div></div>
+                        <span class="tag warn">선택 불가</span>
+                      </div>
+                      <div style="padding:8px 10px;border-radius:8px;display:flex;align-items:center;gap:8px;cursor:pointer">
+                        <span style="width:28px;height:28px;border-radius:50%;background:#21C07A;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">그</span>
+                        <div style="flex:1"><b>그룹: 강성 민원 대응팀</b><div style="color:var(--ink-3);font-size:11.5px">큐로 보내기 · 가능 인원 3명</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>이관 사유</label>
+                    <div class="opts">
+                      <span class="o on">전문 영역 (대형가구)</span>
+                      <span class="o">동시 응대 한도 초과</span>
+                      <span class="o">강성 민원 에스컬레이션</span>
+                      <span class="o">교대 / 이석</span>
+                      <span class="o">기타</span>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="field">
+                    <label>인계 메모 (받는 상담사에게 전달)</label>
+                    <textarea style="min-height:160px" placeholder="대화 컨텍스트 외에 받는 상담사가 알아야 할 내용을 작성하세요.">대형가구 배송 권역 확인 끝났고, 토요일 배차 가능 권역으로 확인됨. 다만 30분 전 연락 가능 여부에 민감 — SOP-LD-031 9번 항목 기준으로 안내 부탁. 강성은 아니지만 시간 압박 있는 상태.</textarea>
+                  </div>
+                  <div class="field">
+                    <label>옵션</label>
+                    <div style="display:flex;flex-direction:column;gap:6px">
+                      <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2)"><input type="checkbox" checked> AI 요약 카드 함께 전달</label>
+                      <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2)"><input type="checkbox" checked> 고객에게 "상담사 변경" 시스템 메시지 노출</label>
+                      <label style="display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2)"><input type="checkbox"> 종료 후 본인에게 결과 알림</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mf">
+              <button class="ghost">취소</button>
+              <button class="primary">이관 요청 보내기 → 이재훈</button>
+            </div>
+          </div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>수락 흐름</b>: 받는 상담사에게 인입 토스트(S01과 유사하지만 "이관" 라벨). 수락 시 본인 화면에 컨텍스트+인계 메모 표시.<br>
+      <b>그룹 이관</b>: 특정 상담사 대신 그룹/큐로 보낼 수 있음 (가장 빠른 가능 상담사가 받음)
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S12 종료 안내 ============ -->
+  <section class="screen" id="s12">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S12</span><span class="screen-grp">D · 종료/이관</span><h2>상담 종료 안내 자동 발송</h2></div>
+      <div class="desc">고객이 일정 시간 무응답일 때 자동 종료 안내 메시지를 보내고 N분 더 기다린 뒤 자동 종료. ECA의 "상담 종료 안내" 기능. 상담사 수동 트리거 또는 시스템 자동 둘 다 가능.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S12 · 종료 안내</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div><div class="body"></div><div data-tpl="COMPOSER_PLAIN"></div></div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+        <div class="scrim">
+          <div class="modal">
+            <div class="mh"><h3>상담 종료 안내 발송</h3><span class="x">✕</span></div>
+            <div class="mb">
+              <div style="font-size:12.5px;color:var(--ink-2);margin-bottom:10px">
+                고객이 <b>3분 12초</b> 동안 응답이 없습니다. 종료 안내 메시지를 발송하고, 추가 응답이 없으면 N분 뒤 자동 종료할까요?
+              </div>
+              <div class="field">
+                <label>발송 메시지</label>
+                <textarea style="min-height:120px">고객님, 상담에 응답이 없으셔서 잠시 후 상담이 종료됩니다. 추가 문의가 있으시면 5분 이내에 답장 부탁드려요. 종료 후에도 같은 채팅창에서 다시 문의 가능합니다.</textarea>
+              </div>
+              <div class="row2">
+                <div class="field">
+                  <label>자동 종료 대기 시간</label>
+                  <select><option>5분 (기본)</option><option>3분</option><option>10분</option></select>
+                </div>
+                <div class="field">
+                  <label>종료 후 처리</label>
+                  <select><option>티켓 작성 모달 자동 오픈</option><option>티켓 자동 저장 (AI 초안)</option></select>
+                </div>
+              </div>
+              <div class="opts">
+                <span class="o on">고객 응답 시 자동 취소</span>
+                <span class="o">강제 종료로 진행</span>
+              </div>
+            </div>
+            <div class="mf">
+              <button class="ghost">취소</button>
+              <button class="primary">발송 후 5분 대기</button>
+            </div>
+          </div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>자동 트리거</b>: 고객 무응답 3분(기본) → 안내 메시지 자동 발송 → 5분 더 무응답 → 자동 종료<br>
+      <b>고객 응답 시</b>: 카운트다운 자동 취소, 일반 응대 상태로 복귀
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S13 종료 후 티켓 ============ -->
+  <section class="screen" id="s13">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S13</span><span class="screen-grp">D · 종료/이관</span><h2>종료 후 티켓 작성 — AI 초안 + 상담사 확정</h2></div>
+      <div class="desc">상담 종료 직후 티켓 작성 모달이 자동 오픈. ECA의 "티켓 작성 필수" 규칙을 그대로 유지하되, 상담구분·유형·내용 초안을 AI가 미리 채워둠. 상담사는 확인·수정·저장만 하면 됨.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S13 · 티켓 작성</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv">
+            <div class="head"><div class="top"><h2 style="color:var(--ink-3)">김서연 — 상담 종료</h2></div></div>
+            <div class="body"></div>
+          </div>
+          <div data-tpl="RIGHT_LIVE"></div>
+        </div>
+        <div class="scrim">
+          <div class="modal xl">
+            <div class="mh"><h3>티켓 작성 — 김서연 (OH-20260513-1182) · 14:09~14:23 (14분)</h3><span class="x">✕</span></div>
+            <div class="mb">
+              <div class="ticket-form">
+                <div>
+                  <div class="row2">
+                    <div class="field">
+                      <label>상담구분 *</label>
+                      <select><option>커머스</option><option>O2O</option><option>백오피스</option></select>
+                    </div>
+                    <div class="field">
+                      <label>상담유형 *</label>
+                      <select><option>배송 &gt; 배송지연 &gt; 대형가구</option><option>배송 &gt; 배송지연 &gt; 일반</option><option>배송 &gt; 배송조회</option></select>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>연결 주문번호 *</label>
+                    <input type="text" value="OH-20260513-1182">
+                  </div>
+                  <div class="field">
+                    <label>처리 결과 *</label>
+                    <div class="opts">
+                      <span class="o on">해결</span>
+                      <span class="o">미해결 — 콜백 예정</span>
+                      <span class="o">파트너사 문의 송부</span>
+                      <span class="o">반복 발생</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>상담 내용 — AI 초안 <span style="color:#7A4A00;background:#FFF1D9;padding:1px 6px;border-radius:5px;font-size:11px">송출 전 검토 필요</span></label>
+                    <textarea style="min-height:160px">고객은 토요일 배송으로 안내받은 대형가구(아쿠아테스 3인 소파, OH-20260513-1182) 기사 연락이 오지 않아 문의. 물류센터 스캔 완료 / 기사 미배정 상태였으며, 토요일 배차 가능 권역(10~14시)으로 확인. 매니저(김민지) 지원상담 참여하여 오늘 18시 이내 콜백 약속. 강성 키워드 1회 감지되었으나 매니저 응대로 해소.</textarea>
+                  </div>
+                  <div class="field">
+                    <label>태그</label>
+                    <div class="opts">
+                      <span class="o on">#배송지연</span>
+                      <span class="o on">#대형가구</span>
+                      <span class="o on">#우선응대</span>
+                      <span class="o on">#매니저개입</span>
+                      <span class="o">+ 추가</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="preview">
+                  <h6>대화 미리보기 (자동 첨부)</h6>
+                  <div class="ln"><b>14:09</b> 챗봇: 안녕하세요...</div>
+                  <div class="ln"><b>14:10</b> 고객: 토요일 배송으로...</div>
+                  <div class="ln"><b>14:11</b> ⛓ 상담원 인계 (배송지연 0.86)</div>
+                  <div class="ln"><b>14:12</b> 박상담: 기사 배정 상태 확인 중</div>
+                  <div class="ln"><b>14:13</b> 고객: 진짜 너무 **** 답답해서요 <span style="color:#A8243E;font-weight:700">[금칙어]</span></div>
+                  <div class="ln"><b>14:13</b> 🙋 매니저 지원상담 시작</div>
+                  <div class="ln"><b>14:13</b> 김민지: 오늘 안으로 연락 가능...</div>
+                  <div class="ln"><b>14:14</b> 박상담: SOP-LD-031 첨부</div>
+                  <div class="ln" style="border-bottom:0"><b>14:23</b> 🚪 상담 종료</div>
+                  <h6 style="margin-top:10px">자동 마킹</h6>
+                  <div style="font-size:11.5px;color:var(--ink-2);line-height:1.6">
+                    · 강성 후보 (1회)<br>
+                    · 매니저 개입 (지원상담)<br>
+                    · SLA 한 차례 임박 (0:42)<br>
+                    · KMS 출처 1건 (LD-031)
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mf">
+              <button class="ghost">임시 저장</button>
+              <button class="ghost">cx_serious_voc 보고</button>
+              <button class="primary">티켓 저장 · 종료</button>
+            </div>
+          </div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>필수 항목</b>: 상담구분 / 상담유형 / 주문번호 / 처리결과 / 내용 — 미입력 시 저장 불가 (ECA 정책 유지)<br>
+      <b>AI 초안</b>: 대화 전체와 자동 마킹(강성·매니저개입·KMS 출처)을 기반으로 생성. 상담사 검토·수정 필수.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag">E · 사이드 패널 디테일</div><div class="gb-line"></div></div>
+
+  <!-- ============ S14 멀티 주문 ============ -->
+  <section class="screen" id="s14">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S14</span><span class="screen-grp">E · 사이드 패널</span><h2>멀티 주문 연결 — 한 상담에 여러 주문</h2></div>
+      <div class="desc">한 고객이 여러 주문에 대해 한 번에 문의하는 케이스 (이사 시즌 가구 다건 등). 우측 패널에서 주문 다건을 카드로 연결, 각각의 상태/배송/클레임 확인 및 클레임 접수 진입 가능.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S14 · 멀티 주문</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws wide-mid"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv">
+            <div class="head">
+              <div class="top"><h2>최예린</h2><span class="sub">오늘의집 앱 · 회원 · <b>주문 3건 연결</b></span></div>
+              <div class="meta-row">
+                <span class="kv">상태 <b>응대중</b></span>
+                <span class="kv">유형 <b>교환/반품</b></span>
+                <span class="tag">#멀티주문</span>
+                <span class="tag warn">#교환</span>
+                <span class="tag">#컬러문의</span>
+              </div>
+            </div>
+            <div class="body">
+              <div class="turn cust"><div class="av">최</div><div><div class="who">최예린 · 고객</div><div class="bub">소파랑 같이 산 러그가 컬러 매칭이 안 맞아서 둘 다 교환 가능한지 보고 싶고, 같이 보낸 조명은 그냥 환불할게요.</div><div class="ts">14:30</div></div></div>
+              <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">네 고객님, 세 주문 함께 보고 안내드릴게요. 잠시만요.</div><div class="ts">14:31</div></div></div>
+            </div>
+            <div data-tpl="COMPOSER_PLAIN"></div>
+          </div>
+          <aside class="panel">
+            <div class="tabs"><div class="t">고객</div><div class="t on">주문/티켓</div><div class="t">이관</div><div class="t">이전</div></div>
+            <div class="rpanel-body">
+              <div class="card">
+                <h5>연결된 주문 (3건)</h5>
+                <div class="order connected">
+                  <div class="ono">OH-20260512-0998 — 교환 검토</div>
+                  <div class="meta"><span>포레스트 아쿠아테스 3인 소파 · 카멜</span><span>349,000원</span></div>
+                  <div class="state"><span class="pill done">배송완료</span> <span class="pill" style="background:#FFF1D9;color:#7A4A00">교환 접수 가능</span></div>
+                  <div style="display:flex;gap:6px;margin-top:8px">
+                    <button class="chip-btn">상세</button>
+                    <button class="chip-btn">교환 접수</button>
+                  </div>
+                </div>
+                <div class="order connected" style="margin-top:8px">
+                  <div class="ono">OH-20260512-1004 — 교환 검토</div>
+                  <div class="meta"><span>플레인 러그 200x300 · 그레이</span><span>89,000원</span></div>
+                  <div class="state"><span class="pill done">배송완료</span> <span class="pill" style="background:#FFF1D9;color:#7A4A00">교환 접수 가능</span></div>
+                  <div style="display:flex;gap:6px;margin-top:8px">
+                    <button class="chip-btn">상세</button>
+                    <button class="chip-btn">교환 접수</button>
+                  </div>
+                </div>
+                <div class="order connected" style="margin-top:8px">
+                  <div class="ono">OH-20260512-1011 — 환불 진행</div>
+                  <div class="meta"><span>무드 펜던트 조명 · 블랙</span><span>129,000원</span></div>
+                  <div class="state"><span class="pill done">배송완료</span> <span class="pill" style="background:#FCE3E9;color:#A8243E">환불 접수 가능</span></div>
+                  <div style="display:flex;gap:6px;margin-top:8px">
+                    <button class="chip-btn">상세</button>
+                    <button class="chip-btn">환불 접수</button>
+                  </div>
+                </div>
+                <button class="chip-btn" style="margin-top:10px">+ 주문 추가 연결</button>
+              </div>
+              <div class="card">
+                <h5>일괄 액션</h5>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <button class="chip-btn">3건 일괄 클레임 접수</button>
+                  <button class="chip-btn">색상 매칭 가이드 발송</button>
+                  <button class="chip-btn">파트너사 문의 (소파·러그)</button>
+                </div>
+              </div>
+              <div class="card">
+                <h5>총 금액 / 영향</h5>
+                <div class="kvlist">
+                  <div class="k">교환 검토</div><div class="v">2건 · 438,000원</div>
+                  <div class="k">환불 진행</div><div class="v">1건 · 129,000원</div>
+                  <div class="k">합계</div><div class="v" style="font-weight:700">567,000원</div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>멀티 주문 동작</b>: 헤더 라벨에 "주문 3건 연결" 노출, 우측 패널에서 카드 단위로 각 주문 액션. 티켓 종료 시 주문번호 다건이 자동으로 티켓에 연결됨.<br>
+      <b>일괄 액션</b>: 같은 상태의 주문 일괄 클레임 접수, 파트너사 통합 문의 등.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S15 과거 대화 ============ -->
+  <section class="screen" id="s15">
+    <div class="screen-head">
+      <div class="row1"><span class="screen-num">S15</span><span class="screen-grp">E · 사이드 패널</span><h2>과거 대화 팝업 — 이전 이력 조회</h2></div>
+      <div class="desc">우측 패널 "이전 이력" 탭에서 과거 티켓 리스트를 보고, 항목을 더블클릭하면 팝업으로 과거 대화 원문 조회. 채널(전화/메일/채팅) 통합 표시. ECA의 티켓목록 더블클릭 → 상세 팝업 동선을 동일하게 유지.</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S15 · 과거 대화</div>
+      <div class="app"><div data-tpl="NAV"></div><section class="main"><div data-tpl="TOPBAR_BUSY"></div>
+        <div class="ws"><div data-tpl="LEFT_LIST_NORMAL"></div>
+          <div class="panel conv"><div data-tpl="CONV_HEAD_KIM"></div><div class="body"></div><div data-tpl="COMPOSER_PLAIN"></div></div>
+          <aside class="panel">
+            <div class="tabs"><div class="t">고객</div><div class="t">주문</div><div class="t">이관</div><div class="t on">이전 이력</div></div>
+            <div class="rpanel-body">
+              <div class="card">
+                <h5>최근 12개월 · 7건</h5>
+                <div class="search" style="margin:0 0 8px"><input placeholder="내용 / 주문번호 / 태그 검색"></div>
+                <div class="history-list">
+                  <div class="hi-row">
+                    <div class="l"><span class="tag">채팅</span><b>배송지연 · 대형가구</b></div>
+                    <div class="snippet">소파 배송 지연 관련 문의...</div>
+                    <div class="meta"><span>2025-12-04 · 박상담</span><span>해결</span></div>
+                  </div>
+                  <div class="hi-row">
+                    <div class="l"><span class="tag warn">전화</span><b>포인트 지급일 문의</b></div>
+                    <div class="snippet">구매 확정 후 포인트가 안 들어와서 문의...</div>
+                    <div class="meta"><span>2025-11-18 · 이수진</span><span>해결</span></div>
+                  </div>
+                  <div class="hi-row">
+                    <div class="l"><span class="tag violet">메일</span><b>리뷰 작성 오류</b></div>
+                    <div class="snippet">사진 업로드 안 됨...</div>
+                    <div class="meta"><span>2025-10-02 · 김지원</span><span>파트너사 송부</span></div>
+                  </div>
+                  <div class="hi-row">
+                    <div class="l"><span class="tag">채팅</span><b>맞춤제작 견적 문의</b></div>
+                    <div class="snippet">블라인드 사이즈 문의...</div>
+                    <div class="meta"><span>2025-08-21 · 박상담</span><span>해결</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+        <div class="scrim">
+          <div class="modal xl">
+            <div class="mh"><h3>과거 대화 — 2025-12-04 · 채팅 · 배송지연·대형가구 (해결)</h3><span class="x">✕</span></div>
+            <div class="mb">
+              <div style="display:grid;grid-template-columns:1fr 300px;gap:16px">
+                <div style="background:#FAFBFD;border:1px solid var(--line);border-radius:12px;padding:14px;max-height:460px;overflow:auto">
+                  <div class="sysline"><span class="pill">채팅 시작 · 11:20</span></div>
+                  <div class="turn cust"><div class="av">최</div><div><div class="who">최예린</div><div class="bub">소파가 배송 안 와요</div><div class="ts">11:20</div></div></div>
+                  <div class="turn agent"><div class="av">상</div><div><div class="who">박상담</div><div class="bub">고객님, 주문번호 확인 도와드릴게요.</div><div class="ts">11:21</div></div></div>
+                  <div class="turn cust"><div class="av">최</div><div><div class="who">최예린</div><div class="bub">OH-20251128-0421</div><div class="ts">11:22</div></div></div>
+                  <div class="turn agent"><div class="av">상</div><div><div class="who">박상담</div><div class="bub">확인했습니다. 배차 이슈로 1일 지연되었네요. 기사님이 내일 10~12시 사이에 방문하실 예정이에요.</div><div class="ts">11:24</div></div></div>
+                  <div class="sysline"><span class="pill">상담 종료 · 11:30</span></div>
+                </div>
+                <div>
+                  <div class="card">
+                    <h5>티켓 정보</h5>
+                    <div class="kvlist">
+                      <div class="k">티켓번호</div><div class="v">T-20251204-3829</div>
+                      <div class="k">상담구분</div><div class="v">커머스</div>
+                      <div class="k">상담유형</div><div class="v">배송지연·대형가구</div>
+                      <div class="k">주문번호</div><div class="v">OH-20251128-0421</div>
+                      <div class="k">상담사</div><div class="v">박상담</div>
+                      <div class="k">처리 결과</div><div class="v">해결</div>
+                      <div class="k">태그</div><div class="v">#배송지연 #대형가구</div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <h5>첨부</h5>
+                    <div style="font-size:12.5px;color:var(--ink-2)">없음</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mf">
+              <button class="ghost">현재 대화에 연결</button>
+              <button class="ghost">티켓 원본 열기 ↗</button>
+              <button class="primary">닫기</button>
+            </div>
+          </div>
+        </div>
+      </section></div>
+    </div>
+    <div class="notes">
+      <b>통합 표시</b>: 채팅·전화·메일 채널 통합. 채널 라벨로 구분.<br>
+      <b>현재 대화에 연결</b>: 과거 케이스 컨텍스트를 현재 응대에 인용하면 우측 패널에 핀으로 고정되어 끝까지 보임.
+    </div>
+  </section>
+
+</div>
+
+<!-- ====================== TEMPLATES ====================== -->
+<template id="tpl-nav">
+  <aside class="nav">
+    <div class="logo">A</div>
+    <button class="ico" title="대시보드">▦</button>
+    <button class="ico on" title="채팅 응대">💬</button>
+    <button class="ico" title="티켓">🎫</button>
+    <button class="ico" title="지식">📚</button>
+    <button class="ico" title="통계">📈</button>
+    <div class="spacer"></div>
+    <button class="ico" title="설정">⚙</button>
+    <div class="me" title="박상담">박</div>
+  </aside>
+</template>
+
+<template id="tpl-topbar-ready">
+  <header class="topbar">
+    <div class="crumbs">운영 ·<span class="here">채팅 응대</span></div>
+    <div class="title">실시간 상담</div>
+    <div class="spacer"></div>
+    <div class="cti"><span class="dot"></span><span class="lbl">대기</span><span class="meta">0 / 5 응대중</span></div>
+    <button class="chip-btn">알림</button>
+  </header>
+</template>
+
+<template id="tpl-topbar-busy">
+  <header class="topbar">
+    <div class="crumbs">운영 ·<span class="here">채팅 응대</span></div>
+    <div class="title">실시간 상담</div>
+    <div class="spacer"></div>
+    <div class="cti busy"><span class="dot"></span><span class="lbl">응대중</span><span class="meta">3 / 5 응대중</span></div>
+    <button class="chip-btn">매크로 <span style="color:#8A93A6">/</span></button>
+    <button class="chip-btn">알림 <span class="badge">3</span></button>
+  </header>
+</template>
+
+<template id="tpl-left-list-quiet">
+  <div class="panel">
+    <div class="ph"><h3>내 상담</h3><span style="margin-left:auto;color:#8A93A6;font-size:11px">0 / 5</span></div>
+    <div class="filterbar"><span class="f on">진행중 0</span><span class="f">대기 0</span><span class="f">종료 7</span></div>
+    <div class="search">🔍 <input placeholder="검색"></div>
+    <div class="list" style="display:flex;align-items:center;justify-content:center;color:#8A93A6;font-size:12px;padding:30px 10px;text-align:center">대기 상태 — 새 인입을 받을 수 있어요.</div>
+  </div>
+</template>
+
+<template id="tpl-left-list-new-accepted">
+  <div class="panel">
+    <div class="ph"><h3>내 상담</h3><span style="margin-left:auto;color:#8A93A6;font-size:11px">1 / 5</span></div>
+    <div class="filterbar"><span class="f on">진행중 1</span><span class="f">대기 0</span><span class="f">종료 7</span></div>
+    <div class="search">🔍 <input placeholder="검색"></div>
+    <div class="list">
+      <div class="row on">
+        <div class="l1"><span class="pulse"></span><span class="name">이도윤</span><span class="src web">웹</span><span class="badge live">신규</span></div>
+        <div class="msg">창 길이가 긴데 맞춤 제작도 가능한가요?</div>
+        <div class="meta"><span>맞춤제작 · 가구</span><span>방금</span></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-left-list-normal">
+  <div class="panel">
+    <div class="ph"><h3>내 상담</h3><span style="margin-left:auto;color:#8A93A6;font-size:11px">3 / 5</span></div>
+    <div class="filterbar"><span class="f on">진행중 3</span><span class="f">대기 1</span><span class="f">종료 7</span></div>
+    <div class="search">🔍 <input placeholder="검색"></div>
+    <div class="list">
+      <div class="row on">
+        <div class="l1"><span class="pulse"></span><span class="name">김서연</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+        <div class="msg">기사님이 오시기 30분 전에 연락 가능한가요?</div>
+        <div class="meta"><span>OH-20260513-1182</span><span>방금</span></div>
+      </div>
+      <div class="row">
+        <div class="l1"><span class="name">정하늘</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+        <div class="msg">시공 일정 변경 문의</div>
+        <div class="meta"><span>OH-20260510-0731</span><span>13분 전</span></div>
+      </div>
+      <div class="row">
+        <div class="l1"><span class="name">최예린</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+        <div class="msg">교환 받으려는 색상이 품절이면...</div>
+        <div class="meta"><span>OH-20260512-0998</span><span>22분 전</span></div>
+      </div>
+      <div class="row">
+        <div class="l1"><span class="name">이도윤</span><span class="src web">웹</span><span class="badge wait">대기</span></div>
+        <div class="msg">창 길이가 긴데 맞춤 제작도 가능한가요?</div>
+        <div class="meta"><span>맞춤제작 · 가구</span><span>6분 전</span></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-right-empty">
+  <aside class="panel">
+    <div class="tabs"><div class="t on">고객 정보</div><div class="t">주문/티켓</div><div class="t">이관</div><div class="t">이전</div></div>
+    <div class="rpanel-body" style="color:#8A93A6;font-size:12.5px;display:flex;align-items:center;justify-content:center;text-align:center"><div>상담을 선택하면<br>고객 정보가 표시돼요.</div></div>
+  </aside>
+</template>
+
+<template id="tpl-right-live">
+  <aside class="panel">
+    <div class="tabs"><div class="t on">고객</div><div class="t">주문</div><div class="t">이관</div><div class="t">이전</div></div>
+    <div class="rpanel-body">
+      <div class="card">
+        <div class="person"><div class="av">김</div><div><div class="nm">김서연</div><div class="meta">오늘의집 프라임 · 회원 2년차</div></div></div>
+        <div class="kvlist">
+          <div class="k">유저ID</div><div class="v">ohouse_23841</div>
+          <div class="k">휴대폰</div><div class="v">010-2314-8821</div>
+          <div class="k">채널</div><div class="v">앱 (iOS 26.11)</div>
+        </div>
+      </div>
+      <div class="card">
+        <h5>이번 상담</h5>
+        <div class="kvlist">
+          <div class="k">상태</div><div class="v">응대 중</div>
+          <div class="k">담당자</div><div class="v">박상담</div>
+          <div class="k">SLA</div><div class="v">잔여 1:42</div>
+        </div>
+      </div>
+      <div class="card">
+        <h5>연결된 주문</h5>
+        <div class="order"><div class="ono">OH-20260513-1182</div><div class="meta"><span>아쿠아테스 3인 소파</span><span>349,000원</span></div><div class="state"><span class="pill ship">배송준비</span> <span class="pill delay">기사 미배정</span></div></div>
+      </div>
+      <div class="card">
+        <h5>인계 / 이관 타임라인</h5>
+        <div class="timeline">
+          <div class="e bot"><b>챗봇 시작</b><div class="t">14:09</div></div>
+          <div class="e ho"><b>상담원 인계</b><div class="t">14:11 · 0.86</div></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</template>
+
+<template id="tpl-right-live-sla">
+  <aside class="panel">
+    <div class="tabs"><div class="t on">고객</div><div class="t">주문</div><div class="t">이관</div><div class="t">이전</div></div>
+    <div class="rpanel-body">
+      <div class="card hi">
+        <h5>⏱ SLA 임박</h5>
+        <div style="font-size:18px;font-weight:700;color:#A8243E">잔여 0:42</div>
+        <div style="font-size:12.5px;color:#7A4A00;margin-top:4px">상담사 무응답 1:08 — 응답이 필요해요.</div>
+        <div style="display:flex;gap:6px;margin-top:8px"><button class="chip-btn">매니저 호출</button><button class="chip-btn">이관</button></div>
+      </div>
+      <div class="card">
+        <div class="person"><div class="av">김</div><div><div class="nm">김서연</div><div class="meta">오늘의집 프라임</div></div></div>
+        <div class="kvlist"><div class="k">유저ID</div><div class="v">ohouse_23841</div></div>
+      </div>
+      <div class="card">
+        <h5>연결된 주문</h5>
+        <div class="order"><div class="ono">OH-20260513-1182</div><div class="meta"><span>아쿠아테스 3인 소파</span><span>349,000원</span></div><div class="state"><span class="pill ship">배송준비</span></div></div>
+      </div>
+    </div>
+  </aside>
+</template>
+
+<template id="tpl-conv-head-kim">
+  <div class="head">
+    <div class="top"><h2>김서연</h2><span class="sub">오늘의집 앱 · 주문번호 OH-20260513-1182</span></div>
+    <div class="meta-row">
+      <span class="kv">상태 <b>응대중</b></span>
+      <span class="kv">우선순위 <b style="color:#A8243E">긴급</b></span>
+      <span class="kv">유형 <b>실시간 채팅</b></span>
+      <span class="tag">#배송조회</span>
+      <span class="tag">#대형가구</span>
+      <span class="tag warn">#우선응대</span>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-conv-head-kim-crit">
+  <div class="head" style="background:#FEF6F8">
+    <div class="top"><h2>김서연</h2><span class="sub">오늘의집 앱 · OH-20260513-1182</span></div>
+    <div class="meta-row">
+      <span class="kv">상태 <b>응대중</b></span>
+      <span class="kv">SLA <b class="crit">잔여 0:42</b></span>
+      <span class="kv">상담사 무응답 <b class="crit">1:08</b></span>
+      <span class="tag danger">#SLA임박</span>
+      <span class="tag warn">#무응답</span>
+    </div>
+  </div>
+</template>
+
+<template id="tpl-ai-summary-kim">
+  <div class="ai-handover">
+    <h4>🧠 AI 핸드오버 요약</h4>
+    <div class="grid">
+      <div><div class="lbl">분류 인텐트</div><div class="val">배송지연 · 대형가구 · 토요일 배차</div></div>
+      <div><div class="lbl">감정</div><div class="val">불안 · 시간 압박</div></div>
+      <div><div class="lbl">신뢰도</div><div class="val"><span class="conf">0.86 <span class="bar"><i style="width:86%"></i></span></span></div></div>
+      <div><div class="lbl">사전 검증</div><div class="val">본인 인증 ✓ · 주문 일치 ✓</div></div>
+    </div>
+    <div class="summary">아쿠아테스 3인 소파 토요일 배송 약속. 물류센터 스캔 완료 / 기사 배정만 남은 상태. 토요일은 IB 없이 OB 콜백만 운영. <b>토요일 배차 가능 시간대 + 대안 일정</b> 안내 필요.</div>
+  </div>
+</template>
+
+<template id="tpl-composer-plain">
+  <div class="composer">
+    <div class="quick">
+      <button class="q">📚 KMS · 토요일 배송 운영</button>
+      <button class="q">✉ 배차지연 안내</button>
+      <button class="q muted">+ 추천 더보기</button>
+    </div>
+    <div class="input-wrap">
+      <div class="text"><span class="placeholder">메시지 입력 · / 매크로 · @ 매니저 호출</span></div>
+      <div class="toolbar">
+        <button class="tool">📎</button><button class="tool">🖼</button><button class="tool">🧩</button>
+        <button class="tool">🪪</button><button class="tool">🎫</button><button class="tool">🙋</button>
+        <span class="sep"></span><button class="tool">⏱</button><button class="tool danger">🚪</button>
+        <span class="spacer"></span><button class="tool">↪ 이관</button><button class="send">전송 ↵</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  // template inject — replace <div data-tpl="TOKEN"></div> placeholders with template content
+  function tplId(token){ return 'tpl-' + token.toLowerCase().replace(/_/g,'-'); }
+  (function inject(){
+    const placeholders = [...document.querySelectorAll('[data-tpl]')];
+    if (!placeholders.length) return;
+    placeholders.forEach(ph => {
+      const token = ph.getAttribute('data-tpl');
+      const tpl = document.getElementById(tplId(token));
+      if (!tpl) return;
+      const frag = tpl.content.cloneNode(true);
+      ph.parentNode.replaceChild(frag, ph);
+    });
+    if (document.querySelector('[data-tpl]')) inject();
+  })();
+</script>
+
+</body>
+</html>
