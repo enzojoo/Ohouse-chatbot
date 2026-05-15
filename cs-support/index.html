@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>오늘의집 고객지원실 · 인터랙티브 데모</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-weak:#f5f5f5;
+    --bg-inverse:#141414;
+    --bg-brand:#00a1ff;
+    --bg-brand-weak:#f0f8fc;
+    --bg-attention-weak:#fcf4dd;
+    --bg-dim:rgba(0,0,0,.45);
+    --border:#e0e0e0;
+    --border-strong:#141414;
+    --border-brand:#00a1ff;
+    --fg:#141414;
+    --fg-weak:#8c8c8c;
+    --fg-inverse:#ffffff;
+    --fg-brand:#00a1ff;
+    --fg-attention:#b27800;
+    --accent-red:#fd3d4a;
+    --positive:#22c55e;
+    --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-full:9999px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+    --shadow-md:0 4px 16px rgba(0,0,0,.06);
+    --shadow-lg:0 12px 32px rgba(0,0,0,.16);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{height:100%}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-0.3px;color:var(--fg);background:#f5f5f5;word-break:keep-all;}
+  button{font-family:inherit;letter-spacing:-0.3px}
+
+  /* ===== Top GNB ===== */
+  .gnb{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border);}
+  .gnb-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .gnb .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.4px;cursor:pointer;}
+  .gnb .logo .mark{width:28px;height:28px;border-radius:7px;background:var(--bg-brand);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;}
+  .gnb .logo .name{font-size:17px}
+  .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
+  .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
+  .gnb nav{display:flex;align-items:center;gap:4px}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;cursor:pointer;background:none;border:0;font-family:inherit;letter-spacing:-0.3px;}
+  .gnb nav a:hover{background:var(--bg-weak)}
+  .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
+
+  /* ===== Ribbon ===== */
+  .ribbon{background:#1f2937;color:#fff;font-size:13px;font-weight:500;display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 16px;}
+  .ribbon .dot{width:18px;height:18px;background:rgba(255,255,255,.16);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+
+  /* ===== Hero ===== */
+  .hero{position:relative;background:linear-gradient(180deg,#f0f8fc 0%,#e3f1fa 100%);padding:64px 24px 72px;text-align:center;overflow:hidden;}
+  .hero h2{font-size:24px;font-weight:700;letter-spacing:-0.5px;line-height:1.4;color:var(--fg);position:relative;z-index:2;}
+  .hero h2 .wave{display:inline-block;animation:wave 2.2s ease-in-out infinite;transform-origin:70% 70%}
+  @keyframes wave{0%,60%,100%{transform:rotate(0)}10%{transform:rotate(14deg)}20%{transform:rotate(-8deg)}30%{transform:rotate(14deg)}40%{transform:rotate(-4deg)}50%{transform:rotate(10deg)}}
+  .hero p{font-size:14px;color:var(--fg-weak);margin-top:8px;position:relative;z-index:2}
+  .hero .illu{position:absolute;inset:0;pointer-events:none}
+  .hero .illu span{position:absolute;font-size:48px;opacity:.85}
+  .hero .illu span.s1{top:30px;left:6%;font-size:56px}
+  .hero .illu span.s2{top:80px;left:18%;}
+  .hero .illu span.s3{top:24px;left:32%;}
+  .hero .illu span.s4{bottom:40px;left:46%;}
+  .hero .illu span.s5{top:42px;right:30%;font-size:54px}
+  .hero .illu span.s6{bottom:20px;right:18%;font-size:60px}
+  .hero .illu span.s7{top:60px;right:6%;font-size:52px}
+  .hero .illu span.s8{top:130px;right:38%;font-size:34px;opacity:.5}
+
+  /* ===== Main column ===== */
+  .mainCol{padding:32px 24px 80px;}
+  .col{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:24px;}
+  .group h3{font-size:16px;font-weight:700;color:var(--fg);margin-bottom:12px;letter-spacing:-0.3px}
+
+  /* chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{display:inline-flex;align-items:center;padding:8px 14px;border-radius:9999px;background:#fff;border:1px solid var(--border);font-size:13px;color:var(--fg);cursor:pointer;font-weight:500;font-family:inherit;letter-spacing:-0.3px;}
+  .chip:hover{border-color:var(--border-strong)}
+  .chip.solid{background:#141414;color:#fff;border-color:#141414;font-weight:600}
+
+  /* consult cards */
+  .consultGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .consultCard{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s;}
+  .consultCard:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm)}
+  .consultCard .icon{width:36px;height:36px;border-radius:10px;background:var(--bg-weak);display:inline-flex;align-items:center;justify-content:center;font-size:18px;}
+  .consultCard .icon.dark{background:#141414;color:#fff;}
+  .consultCard .txt{display:flex;flex-direction:column;gap:2px}
+  .consultCard .ttl{font-size:14px;font-weight:600;color:var(--fg)}
+  .consultCard .sub{font-size:12px;color:var(--fg-weak)}
+
+  /* history */
+  .historyCard{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+  .historyCard:hover{border-color:var(--border-strong)}
+  .historyCard .l .t{font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;}
+  .historyCard .l .meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--fg-weak)}
+  .historyCard .l .meta .pipe{width:1px;height:10px;background:var(--border)}
+  .badge{display:inline-flex;align-items:center;padding:4px 9px;border-radius:9999px;font-size:11px;font-weight:600;border:1px solid var(--border-brand);color:var(--fg-brand);background:transparent;}
+  .seeAll{display:flex;justify-content:center;align-items:center;background:#fff;border:1px solid var(--border);border-radius:12px;padding:15px;font-size:14px;font-weight:600;cursor:pointer;color:var(--fg);}
+  .seeAll:hover{background:var(--bg-weak)}
+
+  /* footer */
+  .ftr{background:#fafafa;border-top:1px solid var(--border);padding:32px 24px 40px;color:var(--fg-weak);font-size:11px;line-height:1.6;}
+  .ftr-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:200px 1fr;gap:32px;}
+  .ftr h4{font-size:13px;color:var(--fg);margin-bottom:8px;font-weight:600}
+  .ftr .links{display:flex;gap:18px;margin-bottom:12px;font-size:12px;color:var(--fg)}
+  .ftr .biz{font-size:11px;line-height:1.7;color:var(--fg-weak)}
+
+  /* ===== Generic overlay/modal ===== */
+  .overlay{position:fixed;inset:0;background:var(--bg-dim);z-index:80;display:none;align-items:center;justify-content:center;padding:24px;}
+  .overlay.show{display:flex}
+  .modal{background:#fff;border-radius:16px;width:100%;max-width:480px;box-shadow:var(--shadow-lg);overflow:hidden;}
+  .modal .head{display:flex;justify-content:space-between;align-items:center;padding:20px 24px 14px;}
+  .modal .head .t{font-size:16px;font-weight:700}
+  .modal .head .x{cursor:pointer;width:28px;height:28px;color:var(--fg);background:none;border:0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;border-radius:6px;}
+  .modal .head .x:hover{background:var(--bg-weak)}
+  .modal .body{padding:0 24px 24px}
+  .modal h5{font-size:16px;font-weight:700;margin-bottom:16px}
+  .modal .opt2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+  .modal .opt2 .o{padding:18px;border:1px solid var(--border);border-radius:10px;text-align:center;font-size:14px;cursor:pointer;font-weight:500;background:#fff;color:var(--fg);font-family:inherit;letter-spacing:-0.3px;}
+  .modal .opt2 .o:hover{border-color:var(--border-strong)}
+  .modal .opt2 .o.sel{border:2px solid #141414;font-weight:600;padding:17px;}
+  .modal .helper{font-size:12px;color:var(--fg-weak);line-height:1.7;margin-bottom:16px}
+  .modal .primary{width:100%;background:var(--bg-weak);color:#bbb;padding:14px;border-radius:10px;border:0;font-weight:600;font-size:15px;cursor:not-allowed;font-family:inherit;letter-spacing:-0.3px;}
+  .modal .primary.ok{background:#141414;color:#fff;cursor:pointer;}
+  .modal .primary.ok:hover{background:#2a2a2a}
+
+  /* reservation list modal */
+  .modal.lg{max-width:520px}
+  .tabs{display:flex;gap:24px;border-bottom:1px solid var(--border);margin-bottom:20px;}
+  .tabs button{all:unset;cursor:pointer;font-size:14px;font-weight:600;color:var(--fg-weak);padding:6px 0 12px;border-bottom:2px solid transparent;}
+  .tabs button.on{color:var(--fg);border-bottom-color:var(--fg);}
+  .resvList{display:flex;flex-direction:column;gap:10px;max-height:50vh;overflow-y:auto;padding-right:2px;}
+  .resvItem{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:12px;padding:14px;cursor:pointer;background:#fff;}
+  .resvItem:hover{border-color:var(--border-strong)}
+  .resvItem .thumb{width:48px;height:48px;border-radius:10px;background:var(--bg-weak);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .resvItem .info{flex:1;min-width:0}
+  .resvItem .info .stat{font-size:11px;font-weight:600;color:var(--fg-weak);margin-bottom:4px}
+  .resvItem .info .stat.cancel{color:var(--accent-red)}
+  .resvItem .info .stat.shipping{color:var(--fg-brand)}
+  .resvItem .info .title{font-size:14px;font-weight:600;color:var(--fg);margin-bottom:2px;letter-spacing:-0.3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .resvItem .info .order{font-size:12px;color:var(--fg-weak)}
+  .resvItem .chev{color:var(--fg-weak);font-size:18px}
+
+  /* ===== Chatbot ===== */
+  .chatModal{width:420px;height:660px;max-width:calc(100vw - 48px);max-height:calc(100vh - 48px);background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow-lg);display:flex;flex-direction:column;}
+  .chatHead{height:56px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 8px 0 12px;flex-shrink:0;gap:4px;}
+  .chatHead .hMini{display:flex;align-items:center;gap:10px;flex:1;padding-left:4px;min-width:0}
+  .chatHead .hAvatar{width:32px;height:32px;border-radius:50%;background:var(--bg-brand-weak);color:var(--fg-brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0}
+  .chatHead .hInfo{display:flex;flex-direction:column;min-width:0}
+  .chatHead .hName{font-size:15px;font-weight:700;color:var(--fg);line-height:1.2;}
+  .chatHead .hStatus{font-size:11px;color:var(--positive);display:flex;align-items:center;gap:4px;margin-top:2px;font-weight:500}
+  .chatHead .hStatus::before{content:'';width:6px;height:6px;background:var(--positive);border-radius:50%}
+  .chatHead .iconBtn{width:36px;height:36px;background:none;border:0;color:var(--fg);cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:18px;}
+  .chatHead .iconBtn:hover{background:var(--bg-weak)}
+
+  .ctxBanner{background:var(--bg-attention-weak);color:var(--fg-attention);padding:8px 16px;font-size:12px;font-weight:600;text-align:center;flex-shrink:0;border-bottom:1px solid #f0e3b8;}
+
+  .chatBody{flex:1;overflow-y:auto;padding:16px 12px 16px 16px;display:flex;flex-direction:column;gap:10px;background:#fff;}
+  .chatBody::-webkit-scrollbar{width:0}
+  .sysMsg{text-align:center;font-size:12px;color:var(--fg-weak);padding:4px 0;}
+
+  .start{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:36px 24px 16px;text-align:center;}
+  .startIcon{width:72px;height:72px;border-radius:50%;background:var(--bg-brand-weak);color:var(--fg-brand);display:flex;align-items:center;justify-content:center;margin-bottom:16px;font-size:32px;font-weight:800;}
+  .startTitle{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:-0.4px;color:var(--fg);}
+  .startDesc{font-size:14px;color:var(--fg-weak);margin-bottom:24px;line-height:1.55;}
+  .startChips{display:flex;flex-direction:column;gap:8px;width:100%;}
+  .startChips .startChip{width:100%;height:44px;background:#fff;border:1px solid var(--border);border-radius:8px;color:var(--fg);font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:inherit;letter-spacing:-0.3px;}
+  .startChips .startChip:hover{border-color:var(--border-brand);color:var(--fg-brand)}
+  .startChips .startChip.primary{background:var(--bg-brand);color:#fff;border-color:var(--bg-brand);font-weight:600;}
+  .startChips .startChip.primary:hover{color:#fff}
+
+  .botMsg{display:flex;gap:8px;align-items:flex-start;max-width:88%;}
+  .botMsg .avatar{width:32px;height:32px;border-radius:50%;background:var(--bg-brand-weak);color:var(--fg-brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0;}
+  .botMsg .bubble{background:var(--bg-weak);padding:10px 14px;border-radius:12px;border-top-left-radius:4px;font-size:14px;line-height:20px;color:var(--fg);white-space:pre-line;}
+  .botMsg .bubble b{font-weight:700}
+  .userMsg{display:flex;justify-content:flex-end;}
+  .userMsg .bubble{background:var(--bg-brand);color:#fff;padding:10px 14px;border-radius:12px;border-top-right-radius:4px;font-size:14px;line-height:20px;max-width:88%;white-space:pre-line;}
+
+  /* typing indicator */
+  .botMsg.typing .bubble{display:inline-flex;gap:4px;padding:14px 14px;}
+  .typing .dot{width:6px;height:6px;border-radius:50%;background:var(--fg-weak);animation:blink 1.4s infinite both;}
+  .typing .dot:nth-child(2){animation-delay:.2s}
+  .typing .dot:nth-child(3){animation-delay:.4s}
+  @keyframes blink{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-2px)}}
+
+  .botChips{display:flex;flex-wrap:wrap;gap:6px;margin-left:40px;margin-top:2px;}
+  .botChips .ch{height:32px;padding:0 14px;background:#fff;border:1px solid var(--border);border-radius:9999px;color:var(--fg);font-size:13px;font-weight:500;display:inline-flex;align-items:center;cursor:pointer;font-family:inherit;}
+  .botChips .ch:hover{border-color:var(--border-brand);color:var(--fg-brand);}
+  .botChips .ch.brand{background:var(--bg-brand-weak);border-color:#bce5ff;color:var(--fg-brand);}
+
+  .botCard{margin-left:40px;margin-top:4px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px;max-width:280px;}
+  .botCard .row{display:flex;gap:12px;align-items:flex-start;}
+  .botCard .thumb{width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,#f0e6d8,#c9b8a3);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+  .botCard .thumb.t2{background:linear-gradient(135deg,#d8e2f0,#8fa6c4);}
+  .botCard .thumb.t3{background:linear-gradient(135deg,#d6f0d4,#88c488);}
+  .botCard .thumb.t4{background:linear-gradient(135deg,#ffe5d4,#f7b888);}
+  .botCard .info{flex:1;min-width:0}
+  .botCard .stat{font-size:11px;color:var(--fg-brand);font-weight:700;margin-bottom:4px;}
+  .botCard .stat.cancel{color:var(--accent-red)}
+  .botCard .title{font-size:14px;color:var(--fg);font-weight:500;line-height:18px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .botCard .meta{font-size:12px;color:var(--fg-weak);margin-top:4px;}
+
+  .botStep{margin-left:40px;margin-top:4px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:14px 12px 12px;max-width:280px;}
+  .botStep .barRow{display:flex;align-items:flex-start;}
+  .botStep .stp{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;}
+  .botStep .stp::after{content:'';position:absolute;top:11px;left:calc(50% + 14px);width:calc(100% - 28px);height:2px;background:var(--border);}
+  .botStep .stp:last-child::after{display:none}
+  .botStep .stp.done::after,.botStep .stp.active::after{background:var(--bg-brand)}
+  .botStep .circ{width:24px;height:24px;border-radius:50%;background:var(--bg-weak);color:var(--fg-weak);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1;}
+  .botStep .stp.done .circ,.botStep .stp.active .circ{background:var(--bg-brand);color:#fff}
+  .botStep .lbl{font-size:11px;color:var(--fg-weak);font-weight:500;text-align:center;line-height:14px;}
+  .botStep .stp.active .lbl,.botStep .stp.done .lbl{color:var(--fg);font-weight:700;}
+
+  .inputBar{height:60px;border-top:1px solid var(--border);background:#fff;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;}
+  .inputBar .plus{width:36px;height:36px;border:0;background:none;color:var(--fg);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;border-radius:8px;}
+  .inputBar .plus:hover{background:var(--bg-weak)}
+  .inputBar input{flex:1;height:40px;background:var(--bg-weak);border:0;outline:none;border-radius:9999px;padding:0 16px;font-size:14px;color:var(--fg);font-family:inherit;letter-spacing:-0.3px;}
+  .inputBar input::placeholder{color:var(--fg-weak)}
+  .inputBar .send{width:40px;height:40px;border-radius:50%;background:var(--bg-brand);color:#fff;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .inputBar .send svg{width:18px;height:18px}
+  .inputBar .send:disabled{background:var(--bg-weak);color:var(--fg-weak);cursor:not-allowed;}
+
+  /* ===== Debug panel (toggle with `D` or button) ===== */
+  .dbg{position:fixed;right:20px;bottom:20px;z-index:120;background:#141414;color:#fff;font-size:12px;padding:10px 14px;border-radius:9999px;cursor:pointer;box-shadow:var(--shadow-lg);border:0;font-family:inherit;display:flex;align-items:center;gap:6px;}
+  .dbg:hover{background:#2a2a2a}
+  .dbg .led{width:6px;height:6px;border-radius:50%;background:var(--positive);}
+  .dbgPanel{position:fixed;right:20px;bottom:64px;z-index:115;background:#fff;border:1px solid var(--border);border-radius:12px;padding:14px;width:260px;box-shadow:var(--shadow-lg);display:none;}
+  .dbgPanel.show{display:block}
+  .dbgPanel h4{font-size:12px;font-weight:700;margin-bottom:8px;color:var(--fg);letter-spacing:0}
+  .dbgPanel .state{background:var(--bg-weak);padding:8px;border-radius:6px;font-size:11px;line-height:1.5;color:var(--fg);font-family:'SF Mono',ui-monospace,monospace;letter-spacing:0;margin-bottom:10px;}
+  .dbgPanel .jumps{display:flex;flex-direction:column;gap:4px;}
+  .dbgPanel .jumps button{all:unset;font-size:12px;color:var(--fg);background:var(--bg-weak);padding:6px 10px;border-radius:6px;cursor:pointer;}
+  .dbgPanel .jumps button:hover{background:var(--bg-brand-weak);color:var(--fg-brand)}
+
+  @media (max-width:560px){
+    .gnb-inner{padding:12px 16px}
+    .gnb nav a{padding:6px 8px;font-size:13px}
+    .mainCol{padding:24px 16px 60px}
+    .consultGrid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= GNB ============= -->
+<header class="gnb">
+  <div class="gnb-inner">
+    <div class="logo" onclick="App.goHome()">
+      <span class="mark">O</span>
+      <span class="name">오늘의집</span>
+      <span class="pipe"></span>
+      <span class="label">고객지원실</span>
+    </div>
+    <nav>
+      <a class="cta">고객지원실</a>
+      <a>공지사항</a>
+      <a>문의내역</a>
+      <a id="authLink" onclick="App.toggleAuth()" style="color:var(--fg-brand);font-weight:600">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============= Ribbon ============= -->
+<div class="ribbon"><span class="dot">!</span>[공지] 26.06.01부터 배송정책이 일부 변경됩니다. 자세히 보기</div>
+
+<!-- ============= Hero ============= -->
+<section class="hero">
+  <div class="illu">
+    <span class="s1">🛋️</span><span class="s2">📦</span><span class="s3">🛏️</span>
+    <span class="s4">💬</span><span class="s5">🪴</span><span class="s6">🏠</span>
+    <span class="s7">🎧</span><span class="s8">✨</span>
+  </div>
+  <h2 id="greet">안녕하세요!<span class="wave">👋</span><br/>오늘의집 고객지원실이에요.</h2>
+  <p>무엇을 도와드릴까요?</p>
+</section>
+
+<!-- ============= Main column ============= -->
+<div class="mainCol">
+  <div class="col">
+
+    <!-- 문의내역 (로그인 시만) -->
+    <div class="group" id="historyGroup" style="display:none">
+      <h3>문의내역</h3>
+      <div class="historyCard" onclick="alert('문의 상세 — mockup')">
+        <div class="l">
+          <div class="t">2026-05-14 14:32 문의</div>
+          <div class="meta">
+            <span>💬 AI 채팅상담</span>
+            <span class="pipe"></span>
+            <span>2026.05.14</span>
+          </div>
+        </div>
+        <span class="badge">답변완료</span>
+      </div>
+      <div style="height:8px"></div>
+      <div class="seeAll" onclick="alert('전체 문의 — mockup')">모든 문의 보기</div>
+    </div>
+
+    <div class="group">
+      <h3>오집사에게 물어보세요!</h3>
+      <div class="chips">
+        <span class="chip solid" onclick="App.startChat('intent:product')">문의할 상품 선택하기</span>
+        <span class="chip" onclick="App.startChat('intent:delivery')">배송 조회</span>
+        <span class="chip" onclick="App.startChat('intent:refund')">반품·교환 안내</span>
+        <span class="chip" onclick="App.startChat('intent:login')">계정에 로그인이 안 돼요</span>
+        <span class="chip" onclick="App.startChat('intent:order')">주문 내역을 못 찾아요</span>
+        <span class="chip" onclick="App.startChat('intent:payment')">결제가 안 돼요</span>
+        <span class="chip" onclick="App.startChat('intent:bug')">앱 오류 문의</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>상담하기</h3>
+      <div class="consultGrid">
+        <div class="consultCard" onclick="App.clickAIConsult()">
+          <div class="icon dark">💬</div>
+          <div class="txt"><span class="ttl">AI 채팅상담</span><span class="sub">24시간 운영</span></div>
+        </div>
+        <div class="consultCard" onclick="alert('전화상담 — mockup\\n1670-8208 (09:00 ~ 18:00)')">
+          <div class="icon">📞</div>
+          <div class="txt"><span class="ttl">전화상담</span><span class="sub">오전 9시 ~ 오후 6시</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= Footer ============= -->
+<footer class="ftr">
+  <div class="ftr-inner">
+    <div>
+      <h4>고객지원실 운영안내</h4>
+      <div class="biz">채팅상담 연중무휴 24시간<br/>유선상담 연중무휴 09:00–18:00<br/>대표번호 1670-8208</div>
+    </div>
+    <div>
+      <div class="links"><a>이용 약관</a><a>개인정보 처리방침</a><a>취소 및 환불 정책</a></div>
+      <div class="biz">상호명 (주)버킷플레이스 | 대표 이승재 | 사업자등록번호 119-86-91245 | 통신판매업신고번호 2018-서울서초-XXXX<br/>※ 이 페이지는 디자인 mockup이며 실제 운영 사이트가 아닙니다.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============= Modal: 예약(주문) 확인 ============= -->
+<div class="overlay" id="ovResvCheck">
+  <div class="modal">
+    <div class="head">
+      <div class="t">잠깐, 먼저 확인할게요!</div>
+      <button class="x" onclick="App.closeModal()">✕</button>
+    </div>
+    <div class="body">
+      <h5>주문하신 상품이 있나요?</h5>
+      <div class="opt2">
+        <div class="o" data-resv="no" onclick="App.pickResv('no', event)">주문 전이에요</div>
+        <div class="o" data-resv="yes" onclick="App.pickResv('yes', event)">주문했어요</div>
+      </div>
+      <div class="helper">
+        <p>※ [주문내역] 확인이 안되는 경우 주문 전을 선택 후 주문번호와 문의사항을 남겨주세요.</p>
+        <p>※ 배송완료되었거나 취소된 주문도 [주문했어요]를 선택해주세요.</p>
+      </div>
+      <button class="primary" id="resvStartBtn" onclick="App.confirmResv()">채팅 문의 시작</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============= Modal: 내 주문 리스트 ============= -->
+<div class="overlay" id="ovResvList">
+  <div class="modal lg">
+    <div class="head">
+      <div class="t">내 주문 정보</div>
+      <button class="x" onclick="App.closeModal()">✕</button>
+    </div>
+    <div class="body">
+      <div class="tabs">
+        <button class="on">진행중 주문</button>
+        <button>지난 주문</button>
+        <button>취소된 주문</button>
+        <button>스크랩</button>
+      </div>
+      <div class="resvList" id="orderList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============= Modal: 챗봇 ============= -->
+<div class="overlay" id="ovChat">
+  <div class="chatModal">
+    <div class="chatHead">
+      <div class="hMini">
+        <div class="hAvatar">오</div>
+        <div class="hInfo">
+          <div class="hName">오집사</div>
+          <div class="hStatus">상담 가능</div>
+        </div>
+      </div>
+      <button class="iconBtn" onclick="App.closeModal()">✕</button>
+    </div>
+    <div class="ctxBanner" id="ctxBanner" style="display:none"></div>
+    <div class="chatBody" id="chatBody"></div>
+    <div class="inputBar">
+      <button class="plus" title="첨부 (mockup)">+</button>
+      <input id="chatInput" placeholder="문의하고 싶은 내용을 입력해주세요" onkeydown="if(event.key==='Enter'){App.sendMsg()}" />
+      <button class="send" onclick="App.sendMsg()" aria-label="send">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 10l16-7-7 16-2-7-7-2z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============= Debug panel ============= -->
+<button class="dbg" onclick="App.toggleDbg()"><span class="led"></span>state</button>
+<div class="dbgPanel" id="dbgPanel">
+  <h4>State</h4>
+  <pre class="state" id="dbgState"></pre>
+  <h4>Quick jump</h4>
+  <div class="jumps">
+    <button onclick="App.reset()">⟲ 리셋 (비로그인 홈)</button>
+    <button onclick="App.toggleAuth(true)">→ 로그인 후 홈</button>
+    <button onclick="App.clickAIConsult()">→ AI 채팅상담 진입</button>
+    <button onclick="App.pickResv('no',null);App.confirmResv()">→ 채팅 (주문 전)</button>
+    <button onclick="App.pickResv('yes',null);App.confirmResv()">→ 주문 리스트</button>
+    <button onclick="App.selectOrder(0)">→ 채팅 (주문 연동)</button>
+    <button onclick="App.demoChat()">→ 대화 진행 데모</button>
+  </div>
+  <div style="font-size:11px;color:var(--fg-weak);margin-top:8px;line-height:1.5">단축키: D 패널, Esc 모달 닫기</div>
+</div>
+
+<script>
+const ORDERS = [
+  { id:'OH-202605-71238', status:'배송중', statusCls:'shipping', title:'[자체배송] 미드센추리 3인 패브릭 소파', thumb:'🛋️', tcls:'',  price:'1,290,000원', courier:'한진택배', track:'489210835471', eta:'2026-05-16 (토)', stepIdx:2, install:true },
+  { id:'OH-202604-58102', status:'취소완료', statusCls:'cancel',  title:'[빠른배송] 호텔식 모달 패브릭 침대 Q', thumb:'🛏️', tcls:'t2', price:'790,000원', stepIdx:-1 },
+  { id:'OH-202604-44781', status:'배송완료', statusCls:'',        title:'[자체배송] 산세베리아 화분 세트 (대형)', thumb:'🪴', tcls:'t3', price:'48,000원', stepIdx:3 },
+  { id:'OH-202603-22310', status:'배송완료', statusCls:'',        title:'[빠른배송] LED 무드 플로어 램프', thumb:'💡', tcls:'t4', price:'62,000원', stepIdx:3 },
+];
+
+const App = {
+  state: {
+    auth: false,
+    modal: null,        // null | 'resv-check' | 'resv-list' | 'chat'
+    resvPick: null,     // null | 'no' | 'yes'
+    order: null,        // 선택된 주문 객체
+    messages: [],       // [{who:'bot'|'user', text:'', attach:'card'|'step'|null, chips:[]}]
+  },
+
+  init(){
+    this.renderOrders();
+    this.renderDbg();
+  },
+
+  // ===== Top bar / hero =====
+  toggleAuth(force){
+    const next = (typeof force==='boolean') ? force : !this.state.auth;
+    this.state.auth = next;
+    document.getElementById('authLink').textContent = next ? '로그아웃' : '로그인';
+    document.getElementById('authLink').style.color = next ? 'var(--fg)' : 'var(--fg-brand)';
+    document.getElementById('historyGroup').style.display = next ? 'block' : 'none';
+    document.getElementById('greet').innerHTML = next
+      ? '안녕하세요, 엔조님!<span class="wave">👋</span><br/>오늘의집 고객지원실이에요.'
+      : '안녕하세요!<span class="wave">👋</span><br/>오늘의집 고객지원실이에요.';
+    this.renderDbg();
+  },
+  goHome(){
+    this.closeModal();
+    window.scrollTo({top:0,behavior:'smooth'});
+  },
+
+  // ===== Modal management =====
+  openModal(name){
+    ['ovResvCheck','ovResvList','ovChat'].forEach(id => document.getElementById(id).classList.remove('show'));
+    const map = {'resv-check':'ovResvCheck','resv-list':'ovResvList','chat':'ovChat'};
+    if(map[name]){
+      document.getElementById(map[name]).classList.add('show');
+      this.state.modal = name;
+    } else {
+      this.state.modal = null;
+    }
+    this.renderDbg();
+  },
+  closeModal(){
+    ['ovResvCheck','ovResvList','ovChat'].forEach(id => document.getElementById(id).classList.remove('show'));
+    this.state.modal = null;
+    this.renderDbg();
+  },
+
+  // ===== AI 채팅상담 클릭 =====
+  clickAIConsult(){
+    if(!this.state.auth){
+      // 비로그인이면 로그인부터
+      const ok = confirm('로그인 후 이용 가능해요. 로그인 시뮬레이션 할까요?');
+      if(ok){ this.toggleAuth(true); } else { return; }
+    }
+    this.state.resvPick = null;
+    document.querySelectorAll('#ovResvCheck .opt2 .o').forEach(o=>o.classList.remove('sel'));
+    document.getElementById('resvStartBtn').classList.remove('ok');
+    this.openModal('resv-check');
+  },
+
+  // 칩 클릭 시 (intent 선택 후 챗 진입)
+  startChat(intent){
+    this.clickAIConsult();
+    this._pendingIntent = intent;
+  },
+
+  // ===== 예약확인 모달 =====
+  pickResv(kind, ev){
+    this.state.resvPick = kind;
+    document.querySelectorAll('#ovResvCheck .opt2 .o').forEach(o=>o.classList.remove('sel'));
+    if(ev){ ev.currentTarget.classList.add('sel'); }
+    else { document.querySelector(`#ovResvCheck .opt2 .o[data-resv="${kind}"]`).classList.add('sel'); }
+    document.getElementById('resvStartBtn').classList.add('ok');
+    this.renderDbg();
+  },
+  confirmResv(){
+    if(!this.state.resvPick){ return; }
+    if(this.state.resvPick === 'no'){
+      this.state.order = null;
+      this.openChatStart();
+    } else {
+      this.openModal('resv-list');
+    }
+  },
+
+  // ===== 주문 리스트 =====
+  renderOrders(){
+    const list = document.getElementById('orderList');
+    list.innerHTML = ORDERS.map((o,i)=>`
+      <div class="resvItem" onclick="App.selectOrder(${i})">
+        <div class="thumb">${o.thumb}</div>
+        <div class="info">
+          <div class="stat ${o.statusCls}">${o.status}</div>
+          <div class="title">${o.title}</div>
+          <div class="order">주문번호 ${o.id}</div>
+        </div>
+        <span class="chev">›</span>
+      </div>`).join('');
+  },
+  selectOrder(idx){
+    this.state.order = ORDERS[idx];
+    this.openChatStart();
+  },
+
+  // ===== Chat =====
+  openChatStart(){
+    this.state.messages = [];
+    this.openModal('chat');
+    const ctx = document.getElementById('ctxBanner');
+    if(this.state.order){
+      ctx.style.display = 'block';
+      ctx.textContent = `선택하신 주문 ${this.state.order.id} 건으로 상담을 시작할게요`;
+    } else {
+      ctx.style.display = 'none';
+    }
+    this.renderChat(/*initial*/ true);
+    // pending intent가 있으면 자동 user 메시지로 입력
+    if(this._pendingIntent){
+      setTimeout(()=>{
+        const m = {
+          'intent:product':'상품에 대해 문의하고 싶어요',
+          'intent:delivery':'배송 조회하고 싶어요',
+          'intent:refund':'반품·교환 안내 부탁드려요',
+          'intent:login':'계정에 로그인이 안 돼요',
+          'intent:order':'주문 내역을 못 찾겠어요',
+          'intent:payment':'결제가 안 돼요',
+          'intent:bug':'앱 오류 신고하고 싶어요',
+        }[this._pendingIntent];
+        this._pendingIntent = null;
+        if(m){ this.sendUser(m); }
+      }, 400);
+    }
+  },
+
+  renderChat(initial){
+    const body = document.getElementById('chatBody');
+    let html = '<div class="sysMsg">2026년 5월 15일</div>';
+    if(initial){
+      if(this.state.order){
+        // start with greet + order card + chips
+        html += this._botBubble('고객님, 안녕하세요!\n오늘의집 AI 상담사 <b>오집사</b>예요.\n\n선택해주신 주문 내용을 확인했어요.\n어떤 점이 궁금하신가요?');
+        html += this._orderCard(this.state.order);
+        html += this._chips([
+          {t:'배송 어디까지 왔어요?', q:'배송 어디까지 왔어요?', brand:true},
+          {t:'설치도 해주나요?', q:'설치도 같이 해주시나요?'},
+          {t:'결제 금액 확인', q:'이 주문 얼마에 결제했나요?'},
+          {t:'반품하고 싶어요', q:'반품하고 싶어요'},
+        ]);
+      } else {
+        // start screen
+        html += `
+          <div class="start">
+            <div class="startIcon">오</div>
+            <div class="startTitle">안녕하세요${this.state.auth?', 엔조님':''}!</div>
+            <div class="startDesc">오집사에게 무엇을 도와드릴까요?<br/>아래 빠른 메뉴에서 골라보세요.</div>
+            <div class="startChips">
+              <button class="startChip primary" onclick="App.sendUser('주문/배송 조회')">주문/배송 조회</button>
+              <button class="startChip" onclick="App.sendUser('반품·교환 안내')">반품·교환</button>
+              <button class="startChip" onclick="App.sendUser('주문 취소')">주문 취소</button>
+              <button class="startChip" onclick="App.sendUser('포인트·쿠폰')">포인트·쿠폰</button>
+              <button class="startChip" onclick="App.sendUser('기타 문의')">기타 문의</button>
+            </div>
+          </div>`;
+      }
+    }
+    body.innerHTML = html;
+    // append stored messages
+    this.state.messages.forEach(m => this._appendMsg(m));
+    this._scrollChat();
+  },
+
+  _botBubble(text){
+    return `<div class="botMsg"><div class="avatar">오</div><div class="bubble">${text}</div></div>`;
+  },
+  _userBubble(text){
+    return `<div class="userMsg"><div class="bubble">${this._escape(text)}</div></div>`;
+  },
+  _orderCard(o){
+    return `<div class="botCard"><div class="row">
+      <div class="thumb ${o.tcls||''}">${o.thumb}</div>
+      <div class="info">
+        <div class="stat ${o.statusCls||''}">${o.status}</div>
+        <div class="title">${o.title}</div>
+        <div class="meta">주문번호 ${o.id}</div>
+      </div></div></div>`;
+  },
+  _stepBar(o){
+    const labels = ['결제완료','상품준비','배송중','배송완료'];
+    return `<div class="botStep"><div class="barRow">` +
+      labels.map((l,i)=>{
+        let cls='';
+        if(o.stepIdx>i) cls='done';
+        else if(o.stepIdx===i) cls='active';
+        const sym = o.stepIdx>i ? '✓' : (i+1);
+        return `<div class="stp ${cls}"><div class="circ">${sym}</div><div class="lbl">${l}</div></div>`;
+      }).join('') + `</div></div>`;
+  },
+  _chips(arr){
+    return `<div class="botChips">` + arr.map(c=>`<button class="ch ${c.brand?'brand':''}" onclick="App.sendUser('${c.q.replace(/'/g,"\\'")}')">${c.t}</button>`).join('') + `</div>`;
+  },
+  _appendMsg(m){
+    const body = document.getElementById('chatBody');
+    let html = '';
+    if(m.who==='user'){
+      html = this._userBubble(m.text);
+    } else if(m.who==='bot'){
+      html = this._botBubble(m.text);
+      if(m.attach==='card' && m.order) html += this._orderCard(m.order);
+      if(m.attach==='step' && m.order) html += this._stepBar(m.order);
+      if(m.chips && m.chips.length) html += this._chips(m.chips);
+    } else if(m.who==='typing'){
+      html = `<div class="botMsg typing" data-typing="1"><div class="avatar">오</div><div class="bubble"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>`;
+    }
+    body.insertAdjacentHTML('beforeend', html);
+    this._scrollChat();
+  },
+  _removeTyping(){
+    document.querySelectorAll('#chatBody [data-typing]').forEach(el=>el.remove());
+  },
+  _scrollChat(){
+    const body = document.getElementById('chatBody');
+    body.scrollTop = body.scrollHeight;
+  },
+  _escape(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')},
+
+  // ===== Send =====
+  sendMsg(){
+    const inp = document.getElementById('chatInput');
+    const v = inp.value.trim();
+    if(!v) return;
+    inp.value = '';
+    this.sendUser(v);
+  },
+  sendUser(text){
+    // remove start screen if exists
+    const start = document.querySelector('#chatBody .start');
+    if(start) start.remove();
+    // remove existing chips (last quick replies become stale)
+    document.querySelectorAll('#chatBody .botChips').forEach(c=>c.remove());
+
+    const msg = {who:'user', text};
+    this.state.messages.push(msg);
+    this._appendMsg(msg);
+    // bot typing then response
+    this._appendMsg({who:'typing'});
+    setTimeout(()=>{
+      this._removeTyping();
+      const reply = this.botReply(text);
+      reply.forEach(r => { this.state.messages.push(r); this._appendMsg(r); });
+    }, 700);
+    this.renderDbg();
+  },
+
+  // ===== Bot mock =====
+  botReply(text){
+    const t = text.toLowerCase();
+    const o = this.state.order;
+    // 배송 조회
+    if(/배송|어디|언제 도착|tracking|운송장/.test(t)){
+      if(o){
+        return [
+          {who:'bot', text:`엔조님 주문은 <b>현재 ${o.status}</b>이에요. 🚚\n예상 도착일: <b>${o.eta||'-'}</b>\n택배사: ${o.courier||'-'}\n운송장: ${o.track||'-'}`, attach:'card', order:o},
+          {who:'bot', text:'아래는 단계별 배송 현황이에요.', attach:'step', order:o, chips:[
+            {t:'설치도 해주나요?', q:'설치도 해주시나요?'},
+            {t:'반품하고 싶어요', q:'반품하고 싶어요'},
+            {t:'상담사 연결', q:'상담사 연결해주세요'},
+          ]},
+        ];
+      }
+      return [{who:'bot', text:'배송 조회는 주문 선택이 필요해요.\n채팅을 닫고 상단 메뉴에서 "주문했어요"를 눌러주세요.', chips:[
+        {t:'주문 다시 선택', q:'주문 다시 선택', brand:true},
+      ]}];
+    }
+    // 설치
+    if(/설치/.test(t)){
+      if(o && o.install){
+        return [{who:'bot', text:'네, 해당 상품은 <b>자체배송 + 무료 설치</b>가 포함돼 있어요.\n\n도착 1시간 전 SMS 안내드리고,\n현장에서 포장 해체 → 위치 배치 → 폐기물 회수까지 진행해드려요.\n\n더 궁금하신 점 있을까요?', chips:[
+          {t:'도움됐어요', q:'도움됐어요', brand:true},
+          {t:'설치 시간 변경', q:'설치 시간 변경하고 싶어요'},
+          {t:'상담사 연결', q:'상담사 연결'},
+        ]}];
+      }
+      return [{who:'bot', text:'해당 상품은 무료 설치가 포함되지 않았어요.\n별도 유료 설치를 원하시면 상담사 연결을 도와드릴게요.', chips:[
+        {t:'상담사 연결', q:'상담사 연결', brand:true},
+      ]}];
+    }
+    // 결제 금액
+    if(/얼마|금액|결제했|가격/.test(t)){
+      if(o){
+        return [{who:'bot', text:`엔조님, 주문번호 <b>${o.id}</b> 건의 결제 금액은 <b>${o.price||'-'}</b>이에요.\n\n더 궁금하신 점이 있을까요?`, chips:[
+          {t:'배송 조회', q:'배송 조회', brand:true},
+          {t:'반품 신청', q:'반품 신청할게요'},
+          {t:'영수증 발송', q:'영수증 다시 받고 싶어요'},
+        ]}];
+      }
+      return [{who:'bot', text:'결제 금액 확인은 주문 선택이 필요해요. 주문을 먼저 선택해주세요.'}];
+    }
+    // 반품/교환
+    if(/반품|교환|환불/.test(t)){
+      return [{who:'bot', text:'반품·교환은 <b>수령 후 7일 이내</b>에 신청 가능해요.\n사유에 따라 왕복 배송비가 발생할 수 있어요.\n어떤 사유로 신청하시겠어요?', chips:[
+        {t:'단순 변심', q:'단순 변심으로 반품할게요'},
+        {t:'상품 하자', q:'상품 하자로 반품할게요', brand:true},
+        {t:'오배송', q:'오배송으로 반품할게요'},
+      ]}];
+    }
+    // 취소
+    if(/취소/.test(t)){
+      return [{who:'bot', text:'주문 취소는 <b>출고 전</b>까지 가능해요.\n현재 상태가 "상품준비" 단계라면 마이페이지에서 바로 취소 가능합니다.\n출고 후라면 반품으로 진행해드려요.', chips:[
+        {t:'반품으로 진행', q:'반품으로 진행할게요'},
+        {t:'상담사 연결', q:'상담사 연결'},
+      ]}];
+    }
+    // 로그인 / 계정
+    if(/로그인|계정|비밀번호|패스워드/.test(t)){
+      return [{who:'bot', text:'계정 관련 문의시군요.\n어떤 상황인지 알려주시면 안내해드릴게요.', chips:[
+        {t:'비밀번호 찾기', q:'비밀번호를 잊어버렸어요'},
+        {t:'아이디 찾기', q:'아이디를 잊어버렸어요'},
+        {t:'간편로그인 오류', q:'간편로그인이 안 돼요'},
+      ]}];
+    }
+    // 도움됐어요
+    if(/도움됐|해결됐|감사|고마/.test(t)){
+      return [{who:'bot', text:'도움이 되었다니 다행이에요! 😊\n오늘의집을 이용해주셔서 감사합니다.\n언제든 다시 찾아주세요.'}];
+    }
+    // 상담사 연결
+    if(/상담사|상담원|사람|연결/.test(t)){
+      return [{who:'bot', text:'상담사 연결을 도와드릴게요.\n현재 대기 인원 약 3명, 예상 대기 시간 약 5분이에요.\n전화상담은 1670-8208 (09:00–18:00)도 가능해요.', chips:[
+        {t:'기다릴게요', q:'기다릴게요', brand:true},
+        {t:'전화상담 이용', q:'전화상담 이용할게요'},
+      ]}];
+    }
+    // 포인트 / 쿠폰
+    if(/포인트|쿠폰|적립/.test(t)){
+      return [{who:'bot', text:'엔조님의 보유 포인트는 <b>12,400P</b>예요.\n사용 가능한 쿠폰은 <b>3장</b> 보유 중이에요.', chips:[
+        {t:'쿠폰 보기', q:'쿠폰 자세히 보여줘'},
+        {t:'포인트 적립 내역', q:'포인트 적립 내역 보여줘'},
+      ]}];
+    }
+    // 기본 응답
+    return [{who:'bot', text:'네, 문의 잘 받았어요.\n조금 더 구체적으로 알려주시면 빠르게 안내해드릴게요.\n아래 주제 중 가까운 게 있을까요?', chips:[
+      {t:'배송 조회', q:'배송 조회', brand:true},
+      {t:'반품·교환', q:'반품·교환'},
+      {t:'주문 취소', q:'주문 취소'},
+      {t:'결제 금액', q:'결제 금액 확인'},
+      {t:'상담사 연결', q:'상담사 연결'},
+    ]}];
+  },
+
+  // ===== Demo helper =====
+  demoChat(){
+    if(this.state.modal !== 'chat'){
+      // 첫 주문으로 챗 진입
+      this.toggleAuth(true);
+      this.selectOrder(0);
+    }
+    const seq = ['배송 어디까지 왔어요?', '설치도 해주시나요?', '이 주문 얼마에 결제했나요?'];
+    let i = 0;
+    const tick = () => {
+      if(i>=seq.length) return;
+      this.sendUser(seq[i++]);
+      setTimeout(tick, 2200);
+    };
+    tick();
+  },
+
+  // ===== Debug =====
+  reset(){
+    this.closeModal();
+    this.state = { auth:false, modal:null, resvPick:null, order:null, messages:[] };
+    document.getElementById('authLink').textContent = '로그인';
+    document.getElementById('authLink').style.color = 'var(--fg-brand)';
+    document.getElementById('historyGroup').style.display = 'none';
+    document.getElementById('greet').innerHTML = '안녕하세요!<span class="wave">👋</span><br/>오늘의집 고객지원실이에요.';
+    this.renderDbg();
+  },
+  toggleDbg(){
+    document.getElementById('dbgPanel').classList.toggle('show');
+  },
+  renderDbg(){
+    const s = this.state;
+    const dbg = `auth:    ${s.auth}\nmodal:   ${s.modal||'—'}\nresvPick:${s.resvPick||'—'}\norder:   ${s.order?s.order.id:'—'}\nmsgs:    ${s.messages.length}`;
+    const el = document.getElementById('dbgState');
+    if(el) el.textContent = dbg;
+  },
+};
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') App.closeModal();
+  if((e.key==='d' || e.key==='D') && !e.target.matches('input,textarea')) App.toggleDbg();
+});
+
+App.init();
+</script>
+</body>
+</html>
