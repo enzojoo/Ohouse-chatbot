@@ -81,7 +81,7 @@
   .chip.solid{background:#141414;color:#fff;border-color:#141414;font-weight:600}
 
   /* consult cards */
-  .consultGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .consultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
   .consultCard{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s;}
   .consultCard:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm)}
   .consultCard .icon{width:36px;height:36px;border-radius:10px;background:var(--bg-weak);display:inline-flex;align-items:center;justify-content:center;font-size:18px;}
@@ -322,6 +322,10 @@
           <div class="icon">📞</div>
           <div class="txt"><span class="ttl">전화상담</span><span class="sub">오전 9시 ~ 오후 6시</span></div>
         </div>
+        <div class="consultCard" onclick="alert('이메일상담 — mockup\\nhelp@ohou.se')">
+          <div class="icon">✉️</div>
+          <div class="txt"><span class="ttl">이메일상담</span><span class="sub">24시간 접수</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -332,7 +336,7 @@
   <div class="ftr-inner">
     <div>
       <h4>고객지원실 운영안내</h4>
-      <div class="biz">채팅상담 연중무휴 24시간<br/>유선상담 연중무휴 09:00–18:00<br/>대표번호 1670-8208</div>
+      <div class="biz">채팅상담 연중무휴 24시간<br/>이메일상담 24시간 접수<br/>유선상담 연중무휴 09:00–18:00<br/>대표번호 1670-8208</div>
     </div>
     <div>
       <div class="links"><a>이용 약관</a><a>개인정보 처리방침</a><a>취소 및 환불 정책</a></div>
