@@ -2,6 +2,9 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>AICX 어드민 — 상담원 응대 화면별 디테일 목업</title>
 <style>
   :root{
@@ -119,7 +122,9 @@
   .row .meta{display:flex;justify-content:space-between;color:var(--ink-3);font-size:11px}
   .row .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(33,192,122,.5);animation:pulse 1.4s infinite}
   /* hard reset for chat list row to prevent flex stretch & vertical pill bug */
-  .row{align-items:stretch}
+  .panel .list .row{max-height:96px !important;overflow:hidden !important}
+  .panel .list .row.warn,.panel .list .row.danger{max-height:130px !important}
+  .row{align-items:stretch;flex:0 0 auto !important}
   .row > *{align-self:stretch}
   .row .l1{display:flex !important;flex-direction:row !important;align-items:center !important;flex-wrap:nowrap !important;gap:6px !important;min-width:0;width:100%;height:auto !important;min-height:0 !important;max-height:28px !important}
   .row .l1 > *{align-self:center !important;flex:0 0 auto !important;height:auto !important;min-height:0 !important}
