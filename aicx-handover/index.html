@@ -318,8 +318,8 @@
   .v2-changed b{color:#0E7F4F}
 
   /* 큐 보드 */
-  .queue-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-  .queue-col{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;min-height:340px}
+  .queue-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+  .queue-col{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:block;min-height:340px;align-self:start}
   .queue-col .qh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line-2)}
   .queue-col .qh .skill{font-weight:700;font-size:14px}
   .queue-col .qh .skill .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
@@ -328,7 +328,7 @@
   .queue-col[data-skill="commerce"] .skill .dot{background:#2F6BFF}
   .queue-col[data-skill="content"] .skill .dot{background:#7A5CFF}
   .queue-col[data-skill="o2o"] .skill .dot{background:#F0A52B}
-  .qitem{padding:10px;border-radius:10px;border:1px solid var(--line-2);background:#FAFBFD;margin-bottom:8px}
+  .qitem{padding:10px;border-radius:10px;border:1px solid var(--line-2);background:#FAFBFD;margin-bottom:8px;display:block;height:auto;align-self:flex-start;flex:0 0 auto;overflow:hidden}
   .qitem.priority{border-color:#F4D78A;background:#FFF7E5}
   .qitem.priority::before{content:"⚡ 우선응대"; display:block;font-size:10.5px;font-weight:700;color:#A8243E;letter-spacing:.04em;margin-bottom:4px}
   .qitem .qrow{display:flex;align-items:center;gap:6px;font-size:12.5px;min-height:22px}
@@ -343,7 +343,7 @@
   .qitem .qmeta{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
   .qitem .qmeta > *{flex:0 0 auto;max-height:22px;line-height:1.4}
   .qitem .qmeta .pill{font-size:10.5px;padding:2px 7px;display:inline-flex;align-items:center;height:18px;line-height:1}
-  .queue-col .empty{margin:auto 0;text-align:center;color:var(--ink-3);font-size:12px;padding:30px 10px}
+  .queue-col .empty{text-align:center;color:var(--ink-3);font-size:12px;padding:80px 10px 30px}
 
   /* 매니저 모니터링 */
   .mon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
