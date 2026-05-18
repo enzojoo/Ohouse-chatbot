@@ -331,13 +331,18 @@
   .qitem{padding:10px;border-radius:10px;border:1px solid var(--line-2);background:#FAFBFD;margin-bottom:8px}
   .qitem.priority{border-color:#F4D78A;background:#FFF7E5}
   .qitem.priority::before{content:"⚡ 우선응대"; display:block;font-size:10.5px;font-weight:700;color:#A8243E;letter-spacing:.04em;margin-bottom:4px}
-  .qitem .qrow{display:flex;align-items:center;gap:6px;font-size:12.5px}
-  .qitem .qrow .num{font-weight:700;color:var(--brand-deep);font-size:13px;background:var(--brand-soft);padding:1px 7px;border-radius:6px}
-  .qitem .qrow .nm{font-weight:600}
-  .qitem .qrow .wait{margin-left:auto;font-size:11px;color:var(--ink-3)}
-  .qitem .qmsg{margin-top:4px;color:var(--ink-2);font-size:12px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-  .qitem .qmeta{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
-  .qitem .qmeta .pill{font-size:10.5px;padding:2px 7px}
+  .qitem .qrow{display:flex;align-items:center;gap:6px;font-size:12.5px;min-height:22px}
+  .qitem .qrow > *{align-self:center;flex:0 0 auto;max-height:24px;line-height:1.4}
+  .qitem .qrow .num{font-weight:700;color:var(--brand-deep);font-size:13px;background:var(--brand-soft);padding:1px 7px;border-radius:6px;display:inline-flex;align-items:center;height:20px}
+  .qitem .qrow .nm{font-weight:600;flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .qitem .qrow .qsrc{display:inline-flex;align-items:center;height:18px;font-size:10.5px;padding:0 7px;border:1px solid var(--line);border-radius:999px;line-height:1}
+  .qitem .qrow .qsrc.app{color:#1B4FD6;border-color:#C7D8FF;background:#EEF3FF}
+  .qitem .qrow .qsrc.web{color:#5A3FCC;border-color:#D9CFFF;background:var(--violet-soft)}
+  .qitem .qrow .wait{margin-left:auto;font-size:11px;color:var(--ink-3);white-space:nowrap}
+  .qitem .qmsg{margin-top:4px;color:var(--ink-2);font-size:12px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4;max-height:1.4em}
+  .qitem .qmeta{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .qitem .qmeta > *{flex:0 0 auto;max-height:22px;line-height:1.4}
+  .qitem .qmeta .pill{font-size:10.5px;padding:2px 7px;display:inline-flex;align-items:center;height:18px;line-height:1}
   .queue-col .empty{margin:auto 0;text-align:center;color:var(--ink-3);font-size:12px;padding:30px 10px}
 
   /* 매니저 모니터링 */
@@ -1649,22 +1654,22 @@
             <div class="stat">대기 <b>4</b> · 대응 상담사 <b>7</b>명 (대기 2 / 응대중 5)</div>
           </div>
           <div class="qitem priority">
-            <div class="qrow"><span class="num">#1</span><span class="nm">박서영</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 4:21</span></div>
+            <div class="qrow"><span class="num">#1</span><span class="nm">박서영</span><span class="qsrc app">앱</span><span class="wait">대기 4:21</span></div>
             <div class="qmsg">환불 처리가 안 됐는데 소비자원에 신고하겠다고…</div>
             <div class="qmeta"><span class="pill" style="background:#FCE3E9;color:#A8243E">⚡ 강성 키워드</span><span class="pill" style="background:#FFF1D9;color:#7A4A00">프라임</span></div>
           </div>
           <div class="qitem">
-            <div class="qrow"><span class="num">#2</span><span class="nm">이도윤</span><span class="src web" style="font-size:10.5px;padding:1px 6px;border:1px solid #D9CFFF;border-radius:999px;color:#5A3FCC">웹</span><span class="wait">대기 2:08</span></div>
+            <div class="qrow"><span class="num">#2</span><span class="nm">이도윤</span><span class="qsrc web">웹</span><span class="wait">대기 2:08</span></div>
             <div class="qmsg">맞춤제작 가능한지 견적 받아볼 수 있을까요?</div>
             <div class="qmeta"><span class="pill" style="background:#E8F0FF;color:#1B4FD6">맞춤제작</span></div>
           </div>
           <div class="qitem">
-            <div class="qrow"><span class="num">#3</span><span class="nm">최예린</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 1:42</span></div>
+            <div class="qrow"><span class="num">#3</span><span class="nm">최예린</span><span class="qsrc app">앱</span><span class="wait">대기 1:42</span></div>
             <div class="qmsg">교환 받으려는 색상이 품절이면 다른 색상으로도…</div>
             <div class="qmeta"><span class="pill" style="background:#E8F0FF;color:#1B4FD6">교환</span></div>
           </div>
           <div class="qitem">
-            <div class="qrow"><span class="num">#4</span><span class="nm">정하늘</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 0:55</span></div>
+            <div class="qrow"><span class="num">#4</span><span class="nm">정하늘</span><span class="qsrc app">앱</span><span class="wait">대기 0:55</span></div>
             <div class="qmsg">시공일 변경 가능 여부 문의드립니다.</div>
             <div class="qmeta"><span class="pill" style="background:#E8F0FF;color:#1B4FD6">시공</span></div>
           </div>
@@ -1676,12 +1681,12 @@
             <div class="stat">대기 <b>2</b> · 대응 상담사 <b>3</b>명 (대기 0 / 응대중 3)</div>
           </div>
           <div class="qitem">
-            <div class="qrow"><span class="num">#1</span><span class="nm">한지우</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 8:12</span></div>
+            <div class="qrow"><span class="num">#1</span><span class="nm">한지우</span><span class="qsrc app">앱</span><span class="wait">대기 8:12</span></div>
             <div class="qmsg">집들이 콘텐츠 노출 기준이 어떻게 되나요?</div>
             <div class="qmeta"><span class="pill" style="background:#EFEAFF;color:#5A3FCC">집들이</span></div>
           </div>
           <div class="qitem">
-            <div class="qrow"><span class="num">#2</span><span class="nm">서지호</span><span class="src web" style="font-size:10.5px;padding:1px 6px;border:1px solid #D9CFFF;border-radius:999px;color:#5A3FCC">웹</span><span class="wait">대기 3:40</span></div>
+            <div class="qrow"><span class="num">#2</span><span class="nm">서지호</span><span class="qsrc web">웹</span><span class="wait">대기 3:40</span></div>
             <div class="qmsg">스크랩북 공개/비공개 설정 관련 문의</div>
             <div class="qmeta"><span class="pill" style="background:#EFEAFF;color:#5A3FCC">스크랩북</span></div>
           </div>
