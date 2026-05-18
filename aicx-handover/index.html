@@ -311,6 +311,151 @@
   .dotg{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px}
   .dota{background:var(--amber)} .dotr{background:var(--pink)}
   .label-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+
+  /* ============ v2 신규 컴포넌트 CSS ============ */
+  .v2-badge{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:6px;background:#DFF7EC;color:#0E7F4F;margin-left:6px;letter-spacing:.04em}
+  .v2-changed{margin:10px 0 0;padding:10px 12px;border-radius:10px;background:#F0FBF6;border:1px solid #B7E4CD;color:#0E5C3A;font-size:12.5px}
+  .v2-changed b{color:#0E7F4F}
+
+  /* 큐 보드 */
+  .queue-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .queue-col{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;min-height:340px}
+  .queue-col .qh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--line-2)}
+  .queue-col .qh .skill{font-weight:700;font-size:14px}
+  .queue-col .qh .skill .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .queue-col .qh .stat{font-size:11.5px;color:var(--ink-3)}
+  .queue-col .qh .stat b{color:var(--ink)}
+  .queue-col[data-skill="commerce"] .skill .dot{background:#2F6BFF}
+  .queue-col[data-skill="content"] .skill .dot{background:#7A5CFF}
+  .queue-col[data-skill="o2o"] .skill .dot{background:#F0A52B}
+  .qitem{padding:10px;border-radius:10px;border:1px solid var(--line-2);background:#FAFBFD;margin-bottom:8px}
+  .qitem.priority{border-color:#F4D78A;background:#FFF7E5}
+  .qitem.priority::before{content:"⚡ 우선응대"; display:block;font-size:10.5px;font-weight:700;color:#A8243E;letter-spacing:.04em;margin-bottom:4px}
+  .qitem .qrow{display:flex;align-items:center;gap:6px;font-size:12.5px}
+  .qitem .qrow .num{font-weight:700;color:var(--brand-deep);font-size:13px;background:var(--brand-soft);padding:1px 7px;border-radius:6px}
+  .qitem .qrow .nm{font-weight:600}
+  .qitem .qrow .wait{margin-left:auto;font-size:11px;color:var(--ink-3)}
+  .qitem .qmsg{margin-top:4px;color:var(--ink-2);font-size:12px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .qitem .qmeta{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+  .qitem .qmeta .pill{font-size:10.5px;padding:2px 7px}
+  .queue-col .empty{margin:auto 0;text-align:center;color:var(--ink-3);font-size:12px;padding:30px 10px}
+
+  /* 매니저 모니터링 */
+  .mon-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+  .stat-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .stat-card .label{color:var(--ink-3);font-size:11.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .stat-card .num{font-size:24px;font-weight:800;margin-top:4px;color:var(--ink)}
+  .stat-card .num.warn{color:#A8243E}
+  .stat-card .num.good{color:#0E7F4F}
+  .stat-card .delta{font-size:11px;color:var(--ink-3);margin-top:2px}
+
+  .agent-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px}
+  .agent-table th{text-align:left;padding:10px 12px;background:#F8FAFE;color:var(--ink-3);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+  .agent-table td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-align:middle}
+  .agent-table tr:hover td{background:#FAFBFD}
+  .status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .st-ready{background:#21C07A}
+  .st-busy{background:#2F6BFF}
+  .st-post{background:#F0A52B}
+  .st-post-over{background:#E94668;box-shadow:0 0 0 3px rgba(233,70,104,.15)}
+  .st-away{background:#8A93A6}
+  .st-meeting{background:#7A5CFF}
+  .slot-bar{display:inline-flex;gap:3px;margin-left:6px;vertical-align:middle}
+  .slot-bar i{width:14px;height:6px;border-radius:2px;background:#E5E8F0;display:inline-block}
+  .slot-bar i.on{background:#2F6BFF}
+  .slot-bar i.full{background:#A8243E}
+  .skill-chip{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:6px;margin-right:4px}
+  .sk-com{background:#E8F0FF;color:#1B4FD6}
+  .sk-con{background:#EFEAFF;color:#5A3FCC}
+  .sk-o2o{background:#FFF1D9;color:#7A4A00}
+  .post-cell{font-weight:700}
+  .post-cell.warn{color:#A8243E}
+
+  /* 통계 대시보드 */
+  .dash-tabs{display:flex;gap:6px;margin-bottom:14px}
+  .dash-tabs .t{padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--ink-2);background:#fff;border:1px solid var(--line)}
+  .dash-tabs .t.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .chart-row{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+  .chart-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .chart-card h5{margin:0 0 12px;font-size:13px}
+  .bars{display:flex;align-items:flex-end;gap:6px;height:160px;padding:0 4px}
+  .bars .b{flex:1;background:linear-gradient(180deg,#2F6BFF,#7A5CFF);border-radius:6px 6px 0 0;position:relative}
+  .bars .b::after{content:attr(data-v);position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10.5px;color:var(--ink-3);font-weight:600}
+  .bars .b .lbl{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:10.5px;color:var(--ink-3)}
+  .donut{position:relative;width:140px;height:140px;margin:0 auto;border-radius:50%;background:conic-gradient(#2F6BFF 0 62%,#21C07A 62% 78%,#F0A52B 78% 92%,#E94668 92% 100%)}
+  .donut::after{content:"";position:absolute;inset:18px;border-radius:50%;background:#fff}
+  .donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;color:var(--ink-3);z-index:1}
+  .donut .ctr b{font-size:20px;color:var(--ink)}
+  .legend{margin-top:10px;display:flex;flex-direction:column;gap:6px;font-size:12px}
+  .legend .li{display:flex;align-items:center;gap:6px}
+  .legend .sw{width:10px;height:10px;border-radius:3px}
+
+  /* 관리자 설정 */
+  .settings-shell{display:grid;grid-template-columns:200px 1fr;gap:16px;background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:460px}
+  .settings-nav{background:#FAFBFD;border-right:1px solid var(--line);padding:12px 0}
+  .settings-nav .nv{padding:10px 18px;font-size:13px;color:var(--ink-2);cursor:pointer;display:flex;align-items:center;gap:8px;border-left:3px solid transparent}
+  .settings-nav .nv.on{background:#fff;color:var(--ink);font-weight:700;border-left-color:var(--brand)}
+  .settings-body{padding:20px}
+  .settings-body h4{margin:0 0 6px;font-size:15px}
+  .settings-body .desc{color:var(--ink-3);font-size:12.5px;margin-bottom:14px}
+  .setting-row{padding:14px 0;border-bottom:1px solid var(--line-2);display:grid;grid-template-columns:200px 1fr 120px;gap:16px;align-items:center}
+  .setting-row:last-child{border-bottom:0}
+  .setting-row .lbl{font-weight:600;font-size:13px}
+  .setting-row .lbl small{display:block;font-weight:400;color:var(--ink-3);margin-top:2px;font-size:11.5px}
+  .input{height:34px;border:1px solid var(--line);border-radius:8px;padding:0 10px;font:inherit;color:var(--ink);width:100%;background:#fff}
+  .toggle{width:42px;height:22px;border-radius:12px;background:#21C07A;position:relative;display:inline-block}
+  .toggle::after{content:"";position:absolute;top:2px;left:22px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .toggle.off{background:#E5E8F0}
+  .toggle.off::after{left:2px}
+  .tag-input{display:flex;flex-wrap:wrap;gap:6px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;min-height:34px;align-items:center;background:#fff}
+  .tag-input .tg{font-size:11.5px;padding:3px 8px;border-radius:6px;background:#EEF3FF;color:var(--brand-deep);font-weight:600;display:inline-flex;gap:4px;align-items:center}
+  .tag-input .tg .x{cursor:pointer;color:#8A93A6}
+  .save-btn{height:34px;padding:0 16px;background:var(--brand);color:#fff;border-radius:8px;font-weight:700}
+
+  /* 상담사 상태 토글 */
+  .status-toggle{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;max-width:480px}
+  .status-toggle h4{margin:0 0 4px;font-size:15px}
+  .status-current{margin:12px 0;padding:12px;background:#F8FAFE;border-radius:10px;display:flex;align-items:center;gap:10px}
+  .status-current .ind{width:14px;height:14px;border-radius:50%;background:#21C07A;box-shadow:0 0 0 4px rgba(33,192,122,.15)}
+  .status-current .nm{font-weight:700;font-size:14px}
+  .status-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+  .status-options .opt{padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px}
+  .status-options .opt:hover{background:#F8FAFE}
+  .status-options .opt.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-deep);font-weight:700}
+  .status-options .opt .ind{width:10px;height:10px;border-radius:50%}
+  .slot-control{margin-top:14px;padding:12px;border:1px solid var(--line-2);border-radius:10px;background:#FAFBFD}
+  .slot-control .lbl{font-size:12px;color:var(--ink-3);margin-bottom:8px}
+  .slot-control .slots{display:flex;gap:6px;align-items:center}
+  .slot-control .slot{width:32px;height:32px;border-radius:6px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--ink-2)}
+  .slot-control .slot.on{background:var(--brand-soft);color:var(--brand-deep);border-color:#C7D8FF}
+  .slot-control .slot.full{background:#FCE3E9;color:#A8243E;border-color:#F4B6C2}
+
+  /* 영업시간 외 챗봇 응대 */
+  .offtime-mock{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;max-width:420px;margin:0 auto;font-size:13px}
+  .offtime-mock .head{display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:14px}
+  .offtime-mock .head .av{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#7A5CFF,#2F6BFF);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:11px}
+  .offtime-mock .head .nm{font-weight:700}
+  .offtime-mock .head .meta{font-size:11px;color:var(--ink-3)}
+  .offtime-mock .bub{padding:10px 12px;border-radius:12px;background:#EEF3FF;color:#0F2A6B;font-size:13px;line-height:1.6;margin-bottom:8px}
+  .offtime-mock .ts{font-size:10.5px;color:var(--ink-3);margin-bottom:14px;text-align:right}
+  .offtime-mock .notice{padding:10px 12px;border-radius:10px;background:#FFF7E5;border:1px solid #F4D78A;color:#7A4A00;font-size:12px}
+
+  /* 인앱 NPS */
+  .nps-mock{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0;max-width:380px;margin:0 auto;overflow:hidden;box-shadow:0 4px 16px rgba(20,30,60,.06)}
+  .nps-mock .phone-head{background:linear-gradient(135deg,#2F6BFF,#7A5CFF);padding:14px 16px;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .nps-mock .ended{padding:18px;background:#FAFBFD;color:var(--ink-2);text-align:center;font-size:13px;border-bottom:1px solid var(--line-2)}
+  .nps-mock .ended .check{font-size:32px;margin-bottom:6px}
+  .nps-card{padding:18px;text-align:center}
+  .nps-card .q{font-size:14px;color:var(--ink);font-weight:700;margin-bottom:14px}
+  .nps-card .reactions{display:flex;justify-content:center;gap:14px;margin-bottom:8px}
+  .nps-card .reactions .r{width:54px;height:54px;border-radius:14px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer}
+  .nps-card .reactions .r:hover{background:var(--brand-soft);border-color:#C7D8FF;transform:scale(1.05)}
+  .nps-card .reactions .r.selected{background:#DFF7EC;border-color:#21C07A;box-shadow:0 0 0 3px rgba(33,192,122,.15)}
+  .nps-card .hint{font-size:11.5px;color:var(--ink-3);margin-top:8px}
+  .nps-thumbs{display:flex;justify-content:center;gap:24px;margin:14px 0}
+  .nps-thumbs .t{width:48px;height:48px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer}
+  .nps-thumbs .t.up.on{background:#DFF7EC;border-color:#21C07A;color:#0E7F4F}
+  .nps-thumbs .t.down.on{background:#FCE3E9;border-color:#E94668;color:#A8243E}
 </style>
 </head>
 <body>
@@ -318,8 +463,8 @@
 <div class="doc">
 
   <div class="doc-head">
-    <h1>AICX 어드민 — 상담원 응대 화면별 디테일 목업 (v2)</h1>
-    <div class="sub">ECA 채팅상담 기능을 AICX 어드민에 이식하기 위한 화면 명세. 인앱/웹 챗봇 핸드오버 시나리오 기준. 15개 화면 · 2026.05.15</div>
+    <h1>AICX 어드민 — 상담원 응대 화면별 디테일 목업 (v2.1)</h1>
+    <div class="sub">ECA 채팅상담 기능을 AICX 어드민에 이식하기 위한 화면 명세. 인앱/웹 챗봇 핸드오버 시나리오 기준. <b>23개 화면 (v1 15 + v2 신규 8)</b> · 2026.05.18 업데이트<br><span style="color:#0E7F4F">v2.1 변경: Push 자동매칭 / 거절·수락 없음 / 스킬 라우팅(커머스·컨텐츠·O2O) / 인앱 NPS 단순화 / 카카오톡 채널 일몰 / 관리자 모니터링·통계·설정 화면 신규</span></div>
     <div class="meta">
       <a href="./requirements.md" target="_blank">📄 requirements.md — 기능/기술 요구사항</a>
       <a href="./index.html" target="_blank">🗂 v1 — 요약 목업</a>
@@ -359,6 +504,29 @@
         <a href="#s14"><span class="n">14</span>멀티 주문 연결</a>
         <a href="#s15"><span class="n">15</span>과거 대화 팝업</a>
       </div>
+      <div class="g" style="border-color:#21C07A">
+        <div class="gt" style="color:#0E7F4F">F · 큐 / 라우팅 (v2)</div>
+        <a href="#q1"><span class="n">16</span>스킬별 큐 보드</a>
+        <a href="#q2"><span class="n">17</span>자동 매칭 흐름</a>
+      </div>
+      <div class="g" style="border-color:#21C07A">
+        <div class="gt" style="color:#0E7F4F">G · 관리자 / 매니저 (v2)</div>
+        <a href="#m1"><span class="n">18</span>매니저 실시간 모니터링</a>
+        <a href="#m2"><span class="n">19</span>관리자 통계 대시보드</a>
+        <a href="#a1"><span class="n">20</span>관리자 설정</a>
+      </div>
+      <div class="g" style="border-color:#21C07A">
+        <div class="gt" style="color:#0E7F4F">H · 운영 / 상담원 (v2)</div>
+        <a href="#c1"><span class="n">21</span>상담사 상태 토글</a>
+        <a href="#f1"><span class="n">22</span>영업시간 외 챗봇 응대</a>
+      </div>
+      <div class="g" style="border-color:#21C07A">
+        <div class="gt" style="color:#0E7F4F">I · 인앱 NPS (v2)</div>
+        <a href="#n1"><span class="n">23</span>인앱 NPS — 스마일/엄지</a>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:10px 12px;border-radius:10px;background:#FFF7E5;border:1px solid #F4D78A;color:#7A4A00;font-size:12.5px">
+      <b>v2.1 정책 변경 요약</b> — 상담사는 "대기" 상태로 두면 큐의 매칭 고객과 <b>자동 연결</b>(거절/수락 X). 매칭은 <b>스킬(부서) 완전 일치 + FIFO</b>, 다중 스킬 보유자는 <b>가장 오래 대기한 큐 우선</b>. 강성/등급은 큐 내부에서 가중치로 순번 조정. 실시간 이관은 폐지 — 다른 영역은 <b>티켓 이관</b>으로 일원화. NPS 인앱은 스마일/엄지 단일 액션, 세부는 ECA에서 발송.
     </div>
   </div>
 
@@ -438,6 +606,7 @@
         <h2>수락 직후 — 핸드오버 컨텍스트 (응대 시작 전 필독)</h2>
       </div>
       <div class="desc">상담원이 토스트에서 수락한 직후 가장 먼저 보는 화면. 챗봇이 응답한 turn 히스토리·AI 요약·검증된 컨텍스트가 한 화면에 정리됨. 첫 메시지를 입력하기 전 상담원이 이 카드를 보고 응대 흐름을 잡음.</div>
+      <div class="v2-changed"><b>v2.1 변경</b> — "수락" 버튼 단계 제거. 상담사가 "대기"로 전환하면 시스템이 자동 매칭하여 본 화면을 띄움. 신규 화면 <a href="#q2" style="color:#0E7F4F"><b>Q2 자동 매칭 흐름</b></a> 참고.</div>
     </div>
     <div class="stage">
       <div class="stage-label">S02 · 수락 직후</div>
@@ -1044,6 +1213,7 @@
     <div class="screen-head">
       <div class="row1"><span class="screen-num">S11</span><span class="screen-grp">D · 종료/이관</span><h2>티켓 이관 모달 — 다른 상담사에게 호전환</h2></div>
       <div class="desc">ECA의 호전환 기능. 받는 상담사는 "대기" 상태일 때만 선택 가능. 이관 사유와 인계 메모를 작성하면 받는 상담사에게는 핸드오버 컨텍스트와 함께 메모가 전달됨.</div>
+      <div class="v2-changed"><b>v2.1 변경</b> — 실시간 이관 폐지, <b>티켓 이관 전용</b>으로 단순화. <b>다른 스킬 영역으로 이관 가능</b>(예: 커머스→컨텐츠). 받는 상담사에게는 <b>어드민 배지 알림</b>으로 통지(슬랙 알림은 별도 검토). 이관 사유 코드와 처리 SLA는 추후 정의 — 본 화면은 기능 슬롯만 제공.</div>
     </div>
     <div class="stage">
       <div class="stage-label">S11 · 티켓 이관</div>
@@ -1184,6 +1354,7 @@
     <div class="screen-head">
       <div class="row1"><span class="screen-num">S13</span><span class="screen-grp">D · 종료/이관</span><h2>종료 후 티켓 작성 — AI 초안 + 상담사 확정</h2></div>
       <div class="desc">상담 종료 직후 티켓 작성 모달이 자동 오픈. ECA의 "티켓 작성 필수" 규칙을 그대로 유지하되, 상담구분·유형·내용 초안을 AI가 미리 채워둠. 상담사는 확인·수정·저장만 하면 됨.</div>
+      <div class="v2-changed"><b>v2.1 변경</b> — 인앱 환경 기준으로 <b>주문 정보 자동 연동</b>(주문번호/옵션번호 ECA 티켓에 자동 매핑). 상담사가 수기 수정한 내용은 <b>AI 초안 학습 반영</b>(차기 응대의 초안 정확도 향상). 자동 채움 범위 및 ECA 필드 매핑 표준은 추후 정의 — 본 화면은 기능 슬롯만 제공.</div>
     </div>
     <div class="stage">
       <div class="stage-label">S13 · 티켓 작성</div>
@@ -1456,6 +1627,693 @@
     <div class="notes">
       <b>통합 표시</b>: 채팅·전화·메일 채널 통합. 채널 라벨로 구분.<br>
       <b>현재 대화에 연결</b>: 과거 케이스 컨텍스트를 현재 응대에 인용하면 우측 패널에 핀으로 고정되어 끝까지 보임.
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag" style="color:#0E7F4F;border-color:#21C07A">F · 큐 / 라우팅 <span class="v2-badge">v2 신규</span></div><div class="gb-line"></div></div>
+
+  <!-- ============ Q1 스킬별 큐 보드 ============ -->
+  <section class="screen" id="q1">
+    <div class="screen-head">
+      <div class="tag">Q1</div>
+      <h2>스킬별 큐 보드 — 대기 고객 FIFO + 우선응대 가중치</h2>
+      <div class="desc">고객이 챗봇과 상담 중 핸드오버 요청(또는 시스템 자동 인계)이 발생하면, 고객이 선택한 영역(커머스·컨텐츠·O2O)에 해당하는 스킬 큐로 적재된다. 매칭은 큐의 가장 오래 대기한 순서대로 진행되며, 다중 스킬 보유 상담사가 "대기"로 전환되면 보유한 스킬 큐 중 <b>가장 오래 대기한 큐</b>의 고객과 자동 연결된다. Critical keyword 감지(강성)나 회원 등급은 큐 내부 가중치로 순번을 앞당긴다. <b>거절·수락은 없음</b>.</div>
+    </div>
+
+    <div class="screen-body">
+      <div class="queue-grid">
+        <div class="queue-col" data-skill="commerce">
+          <div class="qh">
+            <div class="skill"><span class="dot"></span>커머스</div>
+            <div class="stat">대기 <b>4</b> · 대응 상담사 <b>7</b>명 (대기 2 / 응대중 5)</div>
+          </div>
+          <div class="qitem priority">
+            <div class="qrow"><span class="num">#1</span><span class="nm">박서영</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 4:21</span></div>
+            <div class="qmsg">환불 처리가 안 됐는데 소비자원에 신고하겠다고…</div>
+            <div class="qmeta"><span class="pill" style="background:#FCE3E9;color:#A8243E">⚡ 강성 키워드</span><span class="pill" style="background:#FFF1D9;color:#7A4A00">프라임</span></div>
+          </div>
+          <div class="qitem">
+            <div class="qrow"><span class="num">#2</span><span class="nm">이도윤</span><span class="src web" style="font-size:10.5px;padding:1px 6px;border:1px solid #D9CFFF;border-radius:999px;color:#5A3FCC">웹</span><span class="wait">대기 2:08</span></div>
+            <div class="qmsg">맞춤제작 가능한지 견적 받아볼 수 있을까요?</div>
+            <div class="qmeta"><span class="pill" style="background:#E8F0FF;color:#1B4FD6">맞춤제작</span></div>
+          </div>
+          <div class="qitem">
+            <div class="qrow"><span class="num">#3</span><span class="nm">최예린</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 1:42</span></div>
+            <div class="qmsg">교환 받으려는 색상이 품절이면 다른 색상으로도…</div>
+            <div class="qmeta"><span class="pill" style="background:#E8F0FF;color:#1B4FD6">교환</span></div>
+          </div>
+          <div class="qitem">
+            <div class="qrow"><span class="num">#4</span><span class="nm">정하늘</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 0:55</span></div>
+            <div class="qmsg">시공일 변경 가능 여부 문의드립니다.</div>
+            <div class="qmeta"><span class="pill" style="background:#E8F0FF;color:#1B4FD6">시공</span></div>
+          </div>
+        </div>
+
+        <div class="queue-col" data-skill="content">
+          <div class="qh">
+            <div class="skill"><span class="dot"></span>컨텐츠</div>
+            <div class="stat">대기 <b>2</b> · 대응 상담사 <b>3</b>명 (대기 0 / 응대중 3)</div>
+          </div>
+          <div class="qitem">
+            <div class="qrow"><span class="num">#1</span><span class="nm">한지우</span><span class="src app" style="font-size:10.5px;padding:1px 6px;border:1px solid #C7D8FF;border-radius:999px;color:#1B4FD6">앱</span><span class="wait">대기 8:12</span></div>
+            <div class="qmsg">집들이 콘텐츠 노출 기준이 어떻게 되나요?</div>
+            <div class="qmeta"><span class="pill" style="background:#EFEAFF;color:#5A3FCC">집들이</span></div>
+          </div>
+          <div class="qitem">
+            <div class="qrow"><span class="num">#2</span><span class="nm">서지호</span><span class="src web" style="font-size:10.5px;padding:1px 6px;border:1px solid #D9CFFF;border-radius:999px;color:#5A3FCC">웹</span><span class="wait">대기 3:40</span></div>
+            <div class="qmsg">스크랩북 공개/비공개 설정 관련 문의</div>
+            <div class="qmeta"><span class="pill" style="background:#EFEAFF;color:#5A3FCC">스크랩북</span></div>
+          </div>
+          <div style="margin-top:10px;padding:10px;border-radius:10px;background:#FFF7E5;border:1px solid #F4D78A;color:#7A4A00;font-size:11.5px">
+            ⚠ 컨텐츠 스킬 대기 상담사 <b>0명</b> — 모두 응대 중. 가장 먼저 후처리 완료 후 "대기" 전환 시 #1 한지우에게 자동 연결됩니다.
+          </div>
+        </div>
+
+        <div class="queue-col" data-skill="o2o">
+          <div class="qh">
+            <div class="skill"><span class="dot"></span>O2O</div>
+            <div class="stat">대기 <b>0</b> · 대응 상담사 <b>2</b>명 (대기 2 / 응대중 0)</div>
+          </div>
+          <div class="empty">대기 중인 고객이 없습니다.<br>O2O 스킬 상담사 2명이 대기 중입니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <b>매칭 규칙</b>: ① 스킬(부서) 완전 일치 + FIFO ② 다중 스킬 보유자는 가장 오래 대기한 큐 우선 ③ 강성(Critical Keyword)·회원 등급은 큐 내부 가중치로 순번 조정<br>
+      <b>거절 / 수락 없음</b>: 상담사가 "대기"로 전환하면 즉시 매칭 후 자동 연결. 의사결정 단계 제거로 평균 응답시간(FRT) 단축.<br>
+      <b>다른 스킬 영역으로의 이관</b>: 실시간 이관 폐지. 응대 중 다른 영역 판단 시 <b>티켓 이관</b>(S11)으로 처리. 받은 상담사는 자기 큐 또는 OB로 후속 처리.<br>
+      <b>업무시간 외 인입</b>: 챗봇 단독 응대로 분기 (화면 F1 참고)
+    </div>
+  </section>
+
+  <!-- ============ Q2 자동 매칭 흐름 ============ -->
+  <section class="screen" id="q2">
+    <div class="screen-head">
+      <div class="tag">Q2</div>
+      <h2>자동 매칭 흐름 — "대기" 전환 → 즉시 연결 (S2 대체)</h2>
+      <div class="desc">v1의 S2(수락 직후 컨텍스트)에서 사용했던 "수락" 버튼 클릭 단계를 제거. 상담사는 상태값을 "대기"로 전환하기만 하면, 시스템이 본인 스킬 큐 중 가장 오래 대기한 고객을 자동 매칭하여 화면에 띄운다. 화면 진입 즉시 AI 핸드오버 요약 카드가 채팅 영역 최상단에 박힌다.</div>
+    </div>
+
+    <div class="screen-body">
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:flex-start">
+
+        <div>
+          <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center">
+            <div style="font-size:11.5px;color:var(--ink-3);margin-bottom:6px">현재 내 상태</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:18px;font-weight:700;color:#0E7F4F">
+              <span style="width:14px;height:14px;border-radius:50%;background:#21C07A;box-shadow:0 0 0 4px rgba(33,192,122,.15)"></span>
+              대기
+            </div>
+            <div style="margin-top:6px;font-size:11px;color:var(--ink-3)">스킬: 커머스, 컨텐츠</div>
+            <div style="margin-top:14px;padding:10px;border-radius:8px;background:#F8FAFE;font-size:11.5px;color:var(--ink-2)">
+              자동 매칭 대기 중…<br>
+              <span style="color:#0E7F4F;font-weight:600">▸ 컨텐츠 큐 #1 한지우 (대기 8:12)</span><br>
+              <span style="color:var(--ink-3)">▸ 커머스 큐 #1 박서영 (대기 4:21·강성)</span>
+            </div>
+            <div style="margin-top:8px;font-size:11px;color:var(--ink-3)">컨텐츠 큐가 더 오래 대기 → 한지우와 매칭 예정</div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--line);border-radius:12px;padding:0;overflow:hidden">
+          <div style="padding:12px 14px;background:#F8FAFE;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px">
+            <span style="width:8px;height:8px;border-radius:50%;background:#21C07A"></span>
+            <b>한지우</b>
+            <span style="font-size:11px;color:var(--ink-3)">앱 · 회원 · 컨텐츠 스킬</span>
+            <span style="margin-left:auto;font-size:11px;color:#0E7F4F;font-weight:700;background:#DFF7EC;padding:2px 8px;border-radius:6px">자동 매칭됨 · 방금</span>
+          </div>
+          <div style="padding:14px">
+            <div class="ai-handover" style="margin:0">
+              <h4>🧠 AI 핸드오버 요약 — 응대 시작 전 필독</h4>
+              <div class="grid">
+                <div><div class="lbl">분류 인텐트 (Top 3)</div><div class="val">집들이 노출(0.71) · 노출 알고리즘(0.22) · 단순상담(0.07)</div></div>
+                <div><div class="lbl">감지된 감정</div><div class="val">중립 · 정보 탐색</div></div>
+                <div><div class="lbl">사전 검증</div><div class="val">본인 인증 ✓ · 집들이 게시 3건 · 회원 1년차</div></div>
+                <div><div class="lbl">인계 사유</div><div class="val">봇 응답 불가 영역 (콘텐츠 운영 정책)</div></div>
+              </div>
+              <div class="summary">
+                고객은 <b>집들이 콘텐츠 노출 기준</b>이 어떻게 결정되는지 문의 중입니다. 본인 게시물 3건 중 1건이 노출이 부족하다고 느끼는 상태이며, 챗봇 KMS에는 노출 알고리즘 상세가 없어 인계되었습니다. 운영 가이드라인을 기반으로 안내가 필요합니다.
+              </div>
+            </div>
+            <div style="margin-top:14px;display:flex;gap:8px;align-items:center;color:var(--ink-3);font-size:12px">
+              <span style="font-size:14px">⌨</span> 첫 메시지를 입력하면 응대 시작 — 매칭 후 자동으로 "응대중" 상태로 전환됩니다.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="notes">
+      <b>v1 → v2 변경</b>: 토스트 수락/거절 UI 제거. 상담사 의사결정 단계가 빠지면서 평균 응답 시간(FRT) 단축. 단, 매칭 직후 화면을 띄울 때 <b>알림음(차임) + 화면 자동 포커스</b>는 유지하여 인지 보호.<br>
+      <b>매칭 직후 상태</b>: 시스템이 자동으로 "응대중"으로 전환. 추가 슬롯 여유가 있는 경우 다음 큐 매칭을 계속 수신 가능.<br>
+      <b>슬롯 가득 시</b>: 모든 슬롯이 차면 자동으로 큐 매칭 대상에서 제외(상태값은 "응대중·수용불가"로 표시).
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag" style="color:#0E7F4F;border-color:#21C07A">G · 관리자 / 매니저 <span class="v2-badge">v2 신규</span></div><div class="gb-line"></div></div>
+
+  <!-- ============ M1 매니저 실시간 모니터링 ============ -->
+  <section class="screen" id="m1">
+    <div class="screen-head">
+      <div class="tag">M1</div>
+      <h2>매니저 실시간 모니터링 — 전체 상담사 + 큐 현황</h2>
+      <div class="desc">매니저/팀장 권한 화면. 전체 상담사의 실시간 상태, 스킬별 큐 적체 현황, FRT/AHT 등 임계치 지표를 한 화면에서 모니터링한다. 후처리 SLA 초과 시 상담사 행이 빨간색으로 강조되고, 매니저 호출(@) 발생 시 즉시 감청 가능한 진입점을 제공한다.</div>
+    </div>
+
+    <div class="screen-body">
+
+      <div class="mon-grid">
+        <div class="stat-card"><div class="label">전체 대기 고객</div><div class="num warn">6</div><div class="delta">▲ 2 (10분 전 대비)</div></div>
+        <div class="stat-card"><div class="label">평균 응답 시간 (FRT)</div><div class="num">42<span style="font-size:14px;color:var(--ink-3)">초</span></div><div class="delta">목표 60초 ↘</div></div>
+        <div class="stat-card"><div class="label">평균 처리 시간 (AHT)</div><div class="num">6:18</div><div class="delta">▲ 0:42</div></div>
+        <div class="stat-card"><div class="label">후처리 초과 상담사</div><div class="num warn">2<span style="font-size:14px;color:var(--ink-3)">명</span></div><div class="delta">즉시 알림 발송됨</div></div>
+      </div>
+
+      <div class="chart-card" style="padding:0;overflow:hidden">
+        <div style="padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:10px">
+          <h5 style="margin:0;font-size:14px">상담사 현황</h5>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <span class="f" style="padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--brand-soft);color:var(--brand-deep);font-size:11.5px;font-weight:700">전체 12</span>
+            <span class="f" style="padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink-2);font-size:11.5px">커머스 7</span>
+            <span class="f" style="padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink-2);font-size:11.5px">컨텐츠 3</span>
+            <span class="f" style="padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink-2);font-size:11.5px">O2O 2</span>
+          </div>
+        </div>
+        <table class="agent-table">
+          <thead><tr><th>상담사</th><th>스킬</th><th>상태</th><th>슬롯</th><th>응대중</th><th>후처리</th><th>FRT(평균)</th><th>NPS(주)</th><th>액션</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><b>박상담</b></td>
+              <td><span class="skill-chip sk-com">커머스</span></td>
+              <td><span class="status-dot st-busy"></span>응대중</td>
+              <td><span class="slot-bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3/5</td>
+              <td>3건</td>
+              <td>—</td>
+              <td>38초</td>
+              <td><b style="color:#0E7F4F">82%</b></td>
+              <td><button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">👀 감청</button></td>
+            </tr>
+            <tr>
+              <td><b>김매니저 ⭐</b></td>
+              <td><span class="skill-chip sk-com">커머스</span><span class="skill-chip sk-con">컨텐츠</span></td>
+              <td><span class="status-dot st-ready"></span>대기</td>
+              <td><span class="slot-bar"><i></i><i></i><i></i><i></i><i></i></span> 0/5</td>
+              <td>0건</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span style="color:var(--ink-3);font-size:11.5px">매니저</span></td>
+            </tr>
+            <tr style="background:#FCE3E9">
+              <td><b>이상담</b> <span style="font-size:10.5px;color:#A8243E;font-weight:700;background:#fff;padding:1px 6px;border-radius:5px;margin-left:4px;border:1px solid #F4B6C2">⚠ 후처리 초과</span></td>
+              <td><span class="skill-chip sk-com">커머스</span></td>
+              <td><span class="status-dot st-post-over"></span>후처리</td>
+              <td><span class="slot-bar"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span> 2/5</td>
+              <td>2건</td>
+              <td class="post-cell warn">12:38</td>
+              <td>51초</td>
+              <td>71%</td>
+              <td><button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">💬 DM</button></td>
+            </tr>
+            <tr>
+              <td><b>최상담</b></td>
+              <td><span class="skill-chip sk-con">컨텐츠</span></td>
+              <td><span class="status-dot st-busy"></span>응대중</td>
+              <td><span class="slot-bar full"><i class="full"></i><i class="full"></i><i class="full"></i></span> 3/3 (수용불가)</td>
+              <td>3건</td>
+              <td>—</td>
+              <td>45초</td>
+              <td>79%</td>
+              <td><button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">👀 감청</button></td>
+            </tr>
+            <tr>
+              <td><b>한상담</b></td>
+              <td><span class="skill-chip sk-o2o">O2O</span></td>
+              <td><span class="status-dot st-ready"></span>대기</td>
+              <td><span class="slot-bar"><i></i><i></i><i></i></span> 0/3</td>
+              <td>0건</td>
+              <td>—</td>
+              <td>33초</td>
+              <td>88%</td>
+              <td><span style="color:var(--ink-3);font-size:11.5px">—</span></td>
+            </tr>
+            <tr>
+              <td><b>윤상담</b></td>
+              <td><span class="skill-chip sk-com">커머스</span><span class="skill-chip sk-o2o">O2O</span></td>
+              <td><span class="status-dot st-away"></span>이석</td>
+              <td><span class="slot-bar"><i></i><i></i><i></i><i></i></span> 0/4</td>
+              <td>0건</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span style="color:var(--ink-3);font-size:11.5px">화장실</span></td>
+            </tr>
+            <tr style="background:#FCE3E9">
+              <td><b>오상담</b> <span style="font-size:10.5px;color:#A8243E;font-weight:700;background:#fff;padding:1px 6px;border-radius:5px;margin-left:4px;border:1px solid #F4B6C2">⚠ 후처리 초과</span></td>
+              <td><span class="skill-chip sk-com">커머스</span></td>
+              <td><span class="status-dot st-post-over"></span>후처리</td>
+              <td><span class="slot-bar"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span> 3/5</td>
+              <td>3건</td>
+              <td class="post-cell warn">8:54</td>
+              <td>47초</td>
+              <td>76%</td>
+              <td><button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">💬 DM</button></td>
+            </tr>
+            <tr>
+              <td><b>장상담</b></td>
+              <td><span class="skill-chip sk-con">컨텐츠</span></td>
+              <td><span class="status-dot st-meeting"></span>회의</td>
+              <td><span class="slot-bar"><i></i><i></i><i></i></span> 0/3</td>
+              <td>0건</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td><span style="color:var(--ink-3);font-size:11.5px">~17:00</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top:14px;padding:12px 14px;background:#FFF7E5;border:1px solid #F4D78A;border-radius:12px;color:#7A4A00;font-size:12.5px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:16px">🔔</span>
+        <div>
+          <b>매니저 호출 알림</b> · 박상담 → 김매니저 (지원상담 요청) · 1분 전
+          <button class="chip-btn" style="margin-left:10px;height:28px;padding:0 12px;font-size:12px;background:var(--brand);color:#fff;border-color:var(--brand);font-weight:700">즉시 감청 시작 →</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="notes">
+      <b>색상 정책</b>: 후처리 SLA 초과 시 행 전체가 핑크 배경 + 상담사 이름 옆 ⚠ 배지. 즉시 알림 발송(자동 복귀는 X).<br>
+      <b>감청 진입</b>: "감청" 버튼은 매니저/관리자 권한만 노출. 클릭 시 해당 상담사 채팅창 read-only 모드로 진입(S10 지원상담과 별개의 진입점).<br>
+      <b>임계치 알림 기준</b>: 후처리 X분 / 대기 N건 / FRT Y초 — 세부 수치는 관리자 설정(A1)에서 추후 정의.
+    </div>
+  </section>
+
+  <!-- ============ M2 관리자 통계 대시보드 ============ -->
+  <section class="screen" id="m2">
+    <div class="screen-head">
+      <div class="tag">M2</div>
+      <h2>관리자 통계 대시보드 — 실시간 / 일 / 주 / 월</h2>
+      <div class="desc">운영팀이 챗봇 자체해결율, 핸드오버율, 상담사별 KPI, NPS 분포를 추적하는 화면. 실시간/일/주/월 탭으로 단위 전환. 임계치 알림 룰은 관리자 설정에서 정의되고, 임계 초과 항목은 카드 색상으로 즉시 식별 가능.</div>
+    </div>
+
+    <div class="screen-body">
+      <div class="dash-tabs">
+        <button class="t on">실시간</button>
+        <button class="t">오늘</button>
+        <button class="t">이번 주</button>
+        <button class="t">이번 달</button>
+        <button class="t">기간 지정 ▾</button>
+      </div>
+
+      <div class="mon-grid">
+        <div class="stat-card"><div class="label">전체 인입건</div><div class="num">1,886</div><div class="delta">▲ 7.2% (전주 대비)</div></div>
+        <div class="stat-card"><div class="label">챗봇 자체해결율 (채팅 대비)</div><div class="num good">41.7<span style="font-size:14px;color:var(--ink-3)">%</span></div><div class="delta">▲ 17.5%p (전주 대비)</div></div>
+        <div class="stat-card"><div class="label">핸드오버율</div><div class="num">12.6<span style="font-size:14px;color:var(--ink-3)">%</span></div><div class="delta">▽ 4.3%p</div></div>
+        <div class="stat-card"><div class="label">평균 NPS (주간)</div><div class="num good">79.2<span style="font-size:14px;color:var(--ink-3)">%</span></div><div class="delta">목표 75% ↗</div></div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-card">
+          <h5>요일별 인입 및 자체해결 추이 (이번 주)</h5>
+          <div class="bars" style="margin-top:30px">
+            <div class="b" style="height:55%" data-v="2,668"><div class="lbl">월</div></div>
+            <div class="b" style="height:48%" data-v="2,214"><div class="lbl">화</div></div>
+            <div class="b" style="height:46%" data-v="2,106"><div class="lbl">수</div></div>
+            <div class="b" style="height:43%" data-v="1,963"><div class="lbl">목</div></div>
+            <div class="b" style="height:42%" data-v="1,886"><div class="lbl">금</div></div>
+            <div class="b" style="height:18%;background:linear-gradient(180deg,#21C07A,#0E7F4F)" data-v="953"><div class="lbl">자체해결</div></div>
+          </div>
+          <div style="margin-top:34px;font-size:11.5px;color:var(--ink-3);text-align:right">파란 막대: 전체 인입 / 초록 막대: 챗봇 자체해결 (주간 누적)</div>
+        </div>
+
+        <div class="chart-card">
+          <h5>NPS 분포 (이번 주)</h5>
+          <div class="donut">
+            <div class="ctr"><b>62.9%</b><span>챗봇 NPS</span></div>
+          </div>
+          <div class="legend">
+            <div class="li"><span class="sw" style="background:#2F6BFF"></span>추천 39건 (62.9%)</div>
+            <div class="li"><span class="sw" style="background:#21C07A"></span>모름 10건 (16.1%)</div>
+            <div class="li"><span class="sw" style="background:#F0A52B"></span>비추천 13건 (21.0%)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <h5>상담사별 주간 KPI (Top 6)</h5>
+        <table class="agent-table" style="margin-top:6px">
+          <thead><tr><th>상담사</th><th>처리건</th><th>평균 AHT</th><th>평균 FRT</th><th>후처리 평균</th><th>NPS</th><th>전환율(챗봇→자체해결 유도)</th></tr></thead>
+          <tbody>
+            <tr><td><b>박상담</b></td><td>187</td><td>5:48</td><td>38초</td><td>2:14</td><td><b style="color:#0E7F4F">88%</b></td><td>—</td></tr>
+            <tr><td><b>한상담</b></td><td>142</td><td>6:02</td><td>33초</td><td>1:58</td><td><b style="color:#0E7F4F">88%</b></td><td>—</td></tr>
+            <tr><td><b>최상담</b></td><td>156</td><td>7:11</td><td>45초</td><td>2:42</td><td>79%</td><td>—</td></tr>
+            <tr><td><b>윤상담</b></td><td>134</td><td>6:33</td><td>41초</td><td>3:08</td><td>78%</td><td>—</td></tr>
+            <tr><td><b>오상담</b></td><td>168</td><td>7:42</td><td>47초</td><td><b style="color:#A8243E">8:54</b></td><td>76%</td><td>—</td></tr>
+            <tr><td><b>이상담</b></td><td>121</td><td>8:14</td><td>51초</td><td><b style="color:#A8243E">12:38</b></td><td>71%</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="notes">
+      <b>실시간 vs 누적</b>: 실시간 탭은 1분 단위 자동 갱신, 일/주/월 탭은 정시 단위 집계.<br>
+      <b>임계치 색상</b>: 카드의 수치가 임계치 초과 시 자동으로 핑크/앰버로 변경 — 기준 수치는 관리자 설정(A1)에서 정의.<br>
+      <b>NPS 데이터 소스</b>: 인앱 스마일/엄지(N1)와 ECA 세부 NPS(typeform 일몰 후) 합산.
+    </div>
+  </section>
+
+  <!-- ============ A1 관리자 설정 ============ -->
+  <section class="screen" id="a1">
+    <div class="screen-head">
+      <div class="tag">A1</div>
+      <h2>관리자 설정 — 스킬·슬롯·우선순위·금칙어·마스킹</h2>
+      <div class="desc">관리자 전용 화면. 스킬 관리, 멀티채팅 슬롯 수, 우선순위 가중치, 금칙어 사전, 마스킹 규칙, 권한 등급, SLA·임계치 설정. 임계치/SLA 세부 수치는 본 메뉴에서 정의되며 M1·M2 화면에 즉시 반영.</div>
+    </div>
+
+    <div class="screen-body">
+      <div class="settings-shell">
+        <nav class="settings-nav">
+          <div class="nv on">🏷 스킬 관리</div>
+          <div class="nv">👥 멀티채팅 슬롯</div>
+          <div class="nv">⚡ 우선순위 가중치</div>
+          <div class="nv">🚫 금칙어 / 마스킹</div>
+          <div class="nv">🛡 권한 등급</div>
+          <div class="nv">⏱ SLA / 임계치</div>
+          <div class="nv">🤖 챗봇 학습 반영</div>
+        </nav>
+        <div class="settings-body">
+          <h4>🏷 스킬 관리</h4>
+          <div class="desc">상담사가 응대할 수 있는 영역 정의. 한 상담사에게 다중 스킬 부여 가능. 스킬 변경은 관리자만 수행 가능.</div>
+
+          <div class="setting-row">
+            <div class="lbl">활성 스킬<small>현재 운영 중</small></div>
+            <div class="tag-input">
+              <span class="tg">커머스 <span class="x">×</span></span>
+              <span class="tg">컨텐츠 <span class="x">×</span></span>
+              <span class="tg">O2O <span class="x">×</span></span>
+              <input class="input" style="border:0;flex:1;min-width:120px;height:auto;padding:0" placeholder="+ 스킬 추가">
+            </div>
+            <button class="save-btn">저장</button>
+          </div>
+
+          <div class="setting-row">
+            <div class="lbl">스킬 매칭 정책<small>다중 보유자 우선순위</small></div>
+            <select class="input" style="max-width:280px">
+              <option>가장 오래 대기한 큐 우선 (권장)</option>
+              <option>큐 길이가 가장 긴 쪽 우선</option>
+              <option>균등 라운드로빈</option>
+            </select>
+            <button class="save-btn">저장</button>
+          </div>
+
+          <div class="setting-row">
+            <div class="lbl">큐 거절/수락<small>v2.1 정책</small></div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="toggle off"></span>
+              <span style="color:var(--ink-3);font-size:12.5px">비활성 — 상담사가 "대기" 전환 시 자동 매칭 (거절 불가)</span>
+            </div>
+            <button class="save-btn">저장</button>
+          </div>
+
+          <h4 style="margin-top:24px">👥 멀티채팅 슬롯 (관리자 설정 가변)</h4>
+          <div class="desc">스킬별 또는 상담사별로 동시 응대 가능 건수 설정. 슬롯 가득 시 자동 "수용불가" 상태로 전환되어 큐 매칭 제외.</div>
+
+          <div class="setting-row">
+            <div class="lbl">커머스 기본 슬롯</div>
+            <div style="display:flex;align-items:center;gap:10px"><input type="number" value="5" class="input" style="max-width:80px"><span style="color:var(--ink-3);font-size:12.5px">건 / 상담사 1인</span></div>
+            <button class="save-btn">저장</button>
+          </div>
+          <div class="setting-row">
+            <div class="lbl">컨텐츠 기본 슬롯</div>
+            <div style="display:flex;align-items:center;gap:10px"><input type="number" value="3" class="input" style="max-width:80px"><span style="color:var(--ink-3);font-size:12.5px">건 / 상담사 1인</span></div>
+            <button class="save-btn">저장</button>
+          </div>
+          <div class="setting-row">
+            <div class="lbl">O2O 기본 슬롯</div>
+            <div style="display:flex;align-items:center;gap:10px"><input type="number" value="3" class="input" style="max-width:80px"><span style="color:var(--ink-3);font-size:12.5px">건 / 상담사 1인</span></div>
+            <button class="save-btn">저장</button>
+          </div>
+
+          <h4 style="margin-top:24px">⚡ 우선순위 가중치</h4>
+          <div class="desc">큐 내부에서 순번을 조정하는 가중치. 강성 키워드 감지 시 가장 강한 우선순위, 그 다음 회원 등급 순.</div>
+
+          <div class="setting-row">
+            <div class="lbl">Critical Keyword 감지<small>강성/감정 임계 초과</small></div>
+            <div style="display:flex;align-items:center;gap:10px"><span class="toggle"></span><span style="font-size:12.5px;color:var(--ink-2)">감지 시 최상단 순번으로 자동 조정</span></div>
+            <button class="save-btn">저장</button>
+          </div>
+          <div class="setting-row">
+            <div class="lbl">프라임 회원<small>유료 멤버십</small></div>
+            <div><select class="input" style="max-width:200px"><option>+3 순번 가중</option><option>+1 순번 가중</option><option>가중 없음</option></select></div>
+            <button class="save-btn">저장</button>
+          </div>
+          <div class="setting-row">
+            <div class="lbl">재문의 (동일 케이스 24h 내)</div>
+            <div><select class="input" style="max-width:200px"><option>+2 순번 가중</option><option>+1 순번 가중</option><option>가중 없음</option></select></div>
+            <button class="save-btn">저장</button>
+          </div>
+
+          <h4 style="margin-top:24px">🚫 금칙어 / 마스킹 (요약)</h4>
+          <div class="desc">금칙어 사전은 어드민 내 별도 탭에서 관리. 마스킹 규칙은 권한 등급별로 적용.</div>
+          <div class="setting-row">
+            <div class="lbl">개인정보 자동 마스킹</div>
+            <div class="tag-input">
+              <span class="tg">주민등록번호</span>
+              <span class="tg">신용카드번호</span>
+              <span class="tg">전화번호</span>
+              <span class="tg">계좌번호</span>
+              <span class="tg">이메일</span>
+              <span class="tg">생년월일</span>
+            </div>
+            <button class="save-btn">저장</button>
+          </div>
+          <div class="setting-row">
+            <div class="lbl">권한별 표시<small>5/13 합의 기준</small></div>
+            <div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">
+              · Leader / Manager: 마스킹 <b style="color:#0E7F4F">해제</b> (필요 시 풀)<br>
+              · Viewer: 마스킹 <b style="color:#A8243E">적용</b><br>
+              <span style="color:var(--ink-3);font-size:11.5px">※ 정보보안팀 최종 컨펌 후 확정</span>
+            </div>
+            <button class="save-btn">저장</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="notes">
+      <b>저장 즉시 반영</b>: 변경 사항은 별도 배포 없이 어드민에 즉시 반영. 단, 권한/마스킹 변경은 감사 로그에 기록.<br>
+      <b>이관 사유 코드 / 임계치 수치</b>: 추후 운영팀 협의로 정의. 본 메뉴의 해당 탭은 v2.1에서는 기능 슬롯만 제공.
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag" style="color:#0E7F4F;border-color:#21C07A">H · 운영 / 상담원 <span class="v2-badge">v2 신규</span></div><div class="gb-line"></div></div>
+
+  <!-- ============ C1 상담사 상태 토글 ============ -->
+  <section class="screen" id="c1">
+    <div class="screen-head">
+      <div class="tag">C1</div>
+      <h2>상담사 상태 토글 — 7개 상태 + 멀티채팅 슬롯</h2>
+      <div class="desc">상담사가 본인 상태값을 명시적으로 전환하는 패널. "대기"로 전환 시 즉시 큐 매칭 대상이 됨. 이석/회의/교육/점심 상태는 큐 제외. 후처리는 응대 종료 후 자동 진입하며, 수동으로 "대기" 전환 시 복귀(자동 복귀 없음).</div>
+    </div>
+
+    <div class="screen-body" style="display:flex;justify-content:center;padding:30px">
+
+      <div class="status-toggle">
+        <h4>박상담</h4>
+        <div style="color:var(--ink-3);font-size:12px">스킬: 커머스 · 컨텐츠 · 슬롯 5건</div>
+
+        <div class="status-current">
+          <span class="ind"></span>
+          <div>
+            <div class="nm">대기 (자동 매칭 활성)</div>
+            <div style="font-size:11.5px;color:var(--ink-3)">15분 12초째 대기 중</div>
+          </div>
+          <span style="margin-left:auto;font-size:11px;color:#0E7F4F;font-weight:700;background:#DFF7EC;padding:3px 8px;border-radius:6px">큐 매칭 중</span>
+        </div>
+
+        <div style="font-size:12px;color:var(--ink-3);margin-bottom:6px">상태 변경</div>
+        <div class="status-options">
+          <div class="opt on"><span class="ind" style="background:#21C07A"></span>대기 (Ready)</div>
+          <div class="opt"><span class="ind" style="background:#2F6BFF"></span>응대중 (자동)</div>
+          <div class="opt"><span class="ind" style="background:#F0A52B"></span>후처리 (자동)</div>
+          <div class="opt"><span class="ind" style="background:#8A93A6"></span>이석</div>
+          <div class="opt"><span class="ind" style="background:#7A5CFF"></span>회의</div>
+          <div class="opt"><span class="ind" style="background:#7A5CFF"></span>교육</div>
+          <div class="opt" style="grid-column:span 2"><span class="ind" style="background:#8A93A6"></span>점심 (큐 자동 제외)</div>
+        </div>
+
+        <div class="slot-control">
+          <div class="lbl">멀티채팅 슬롯 사용 현황</div>
+          <div class="slots">
+            <div class="slot on">1</div>
+            <div class="slot on">2</div>
+            <div class="slot on">3</div>
+            <div class="slot">4</div>
+            <div class="slot">5</div>
+            <span style="margin-left:8px;font-size:11.5px;color:var(--ink-3)">3 / 5건 응대 중 · 2건 추가 가능</span>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;padding:10px;border-radius:8px;background:#FFF7E5;border:1px solid #F4D78A;font-size:11.5px;color:#7A4A00">
+          ⚠ 후처리 상태에서 직접 "대기" 전환 시까지 자동 복귀 없음. <b>관리자 화면(M1)</b>에서 후처리 SLA 초과 시 매니저에게 알림 발송.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="notes">
+      <b>응대중·후처리는 자동 전환</b>: 매칭되면 자동 "응대중", 응대 종료(상담 종료 버튼) 클릭 시 자동 "후처리". 수동 전환은 대기/이석/회의/교육/점심만.<br>
+      <b>점심·이석</b>: 큐 매칭 자동 제외. 다만 자동 복귀 시간은 설정하지 않음(상담사가 수동 전환).<br>
+      <b>스킬은 본인 변경 불가</b>: 관리자 설정(A1)에서만 변경.
+    </div>
+  </section>
+
+  <!-- ============ F1 영업시간 외 챗봇 응대 ============ -->
+  <section class="screen" id="f1">
+    <div class="screen-head">
+      <div class="tag">F1</div>
+      <h2>영업시간 외 챗봇 응대 — 핸드오버 차단 + 챗봇 단독</h2>
+      <div class="desc">운영시간(월~금 09:00~18:00) 외 인입은 상담사 큐로 가지 않고 챗봇이 단독으로 응대한다. 처리 가능 범위 내에서 챗봇이 응대하고, 답변 불가 영역은 "영업시간 외" 안내와 함께 다음 영업일 OB 콜백 안내로 분기. NPS 미발송 케이스(Case 4)로 자동 분류.</div>
+    </div>
+
+    <div class="screen-body" style="padding:24px;background:#F8FAFE">
+
+      <div class="offtime-mock">
+        <div class="head">
+          <div class="av">AI</div>
+          <div>
+            <div class="nm">집들이봇 · AI</div>
+            <div class="meta">오집사 · 영업시간 외</div>
+          </div>
+          <span style="margin-left:auto;font-size:10.5px;color:#7A4A00;background:#FFF1D9;padding:2px 7px;border-radius:6px;font-weight:700">21:48 KST</span>
+        </div>
+
+        <div class="bub">
+          안녕하세요 고객님, 오늘의집 AI 상담원 오집사입니다.
+          현재는 영업시간(월~금 09:00~18:00) 외라 상담원 연결이 어려운 시간이에요. 제가 먼저 도와드릴 수 있는 부분이 있는지 확인해드릴게요. 주문/배송/이벤트/쿠폰 관련은 바로 확인 가능합니다.
+        </div>
+        <div class="ts">21:48</div>
+
+        <div style="padding:10px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:13px;line-height:1.6;margin-bottom:8px">
+          <b>고객</b>: 어제 주문한 거 언제 도착해요?
+        </div>
+        <div class="ts">21:49</div>
+
+        <div class="bub">
+          주문하신 <b>플로어 1인 소파</b>는 5/19(월) 도착 예정입니다. 송장번호는 12345678900이에요.
+          [버튼: 주문 내역 보기]
+        </div>
+        <div class="ts">21:49</div>
+
+        <div class="notice">
+          <b>💡 상담원 연결이 필요한 문의</b>는 평일 09:00~18:00에 다시 문의해주시거나, 아래 버튼으로 OB 콜백을 예약해주세요.<br>
+          <button class="chip-btn" style="margin-top:8px;height:28px;padding:0 12px;font-size:12px;background:#fff;border-color:var(--line)">📞 영업일 09시 콜백 예약</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="notes">
+      <b>운영시간 정의</b>: 월~금 09:00~18:00 (기존 정책 유지). 토/일 및 야간은 챗봇 단독 응대.<br>
+      <b>처리 분기</b>: 챗봇이 처리 가능한 범위(조회/안내)는 그대로 응대. 답변 불가 영역은 다음 영업일 OB 콜백 예약 안내 — 큐 적재 X.<br>
+      <b>NPS</b>: Case 4(연결 실패) 분류 — NPS 미발송. ECA 티켓에는 "영업시간 외" 사유 코드로 저장.<br>
+      <b>긴급 케이스(강성 키워드)</b>: 영업시간 외에도 Critical Keyword 감지 시 다음 영업일 최우선 OB 큐로 자동 적재(별도 검토 필요).
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag" style="color:#0E7F4F;border-color:#21C07A">I · 인앱 NPS <span class="v2-badge">v2 신규</span></div><div class="gb-line"></div></div>
+
+  <!-- ============ N1 인앱 NPS 스마일/엄지 ============ -->
+  <section class="screen" id="n1">
+    <div class="screen-head">
+      <div class="tag">N1</div>
+      <h2>인앱 NPS — 스마일 / 엄지 단일 액션</h2>
+      <div class="desc">상담 종료 직후 인앱 채팅창 하단에 즉시 노출되는 1-탭 NPS. 외부 URL(typeform) 클릭이 부담스럽고 보이스피싱 우려 해소를 위해 인앱에서 1초 안에 끝나는 단순 액션으로 운영. 세부 NPS 문항(Q1 추천/모름/비추천 + 비추천 사유 + 자유의견)은 ECA에서 티켓 생성 후 30분 뒤 발송(기존 정책 유지).</div>
+    </div>
+
+    <div class="screen-body" style="padding:30px;background:#F8FAFE;display:flex;gap:24px;justify-content:center;flex-wrap:wrap">
+
+      <!-- 옵션 A: 스마일 3단계 -->
+      <div>
+        <div style="font-size:12px;color:var(--ink-3);margin-bottom:10px;text-align:center;font-weight:600">옵션 A · 스마일 3단계</div>
+        <div class="nps-mock">
+          <div class="phone-head">💬 오늘의집 상담</div>
+          <div class="ended">
+            <div class="check">✅</div>
+            상담이 종료되었습니다.<br>
+            <span style="font-size:11.5px;color:var(--ink-3)">5월 18일 14:23 · 박상담</span>
+          </div>
+          <div class="nps-card">
+            <div class="q">오늘 상담은 어떠셨어요?</div>
+            <div class="reactions">
+              <div class="r">😞</div>
+              <div class="r">😐</div>
+              <div class="r selected">😊</div>
+            </div>
+            <div class="hint">자세한 의견은 잠시 후 메시지로 다시 여쭤볼게요</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 옵션 B: 엄지 -->
+      <div>
+        <div style="font-size:12px;color:var(--ink-3);margin-bottom:10px;text-align:center;font-weight:600">옵션 B · 엄지 업/다운</div>
+        <div class="nps-mock">
+          <div class="phone-head">💬 오늘의집 상담</div>
+          <div class="ended">
+            <div class="check">✅</div>
+            상담이 종료되었습니다.<br>
+            <span style="font-size:11.5px;color:var(--ink-3)">5월 18일 14:23 · 박상담</span>
+          </div>
+          <div class="nps-card">
+            <div class="q">상담에 도움이 되셨나요?</div>
+            <div class="nps-thumbs">
+              <div class="t up on">👍</div>
+              <div class="t down">👎</div>
+            </div>
+            <div class="hint">자세한 의견은 잠시 후 메시지로 다시 여쭤볼게요</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 옵션 C: 응답 후 상태 -->
+      <div>
+        <div style="font-size:12px;color:var(--ink-3);margin-bottom:10px;text-align:center;font-weight:600">옵션 C · 응답 완료 후</div>
+        <div class="nps-mock">
+          <div class="phone-head">💬 오늘의집 상담</div>
+          <div class="ended">
+            <div class="check">✅</div>
+            상담이 종료되었습니다.<br>
+            <span style="font-size:11.5px;color:var(--ink-3)">5월 18일 14:23 · 박상담</span>
+          </div>
+          <div class="nps-card" style="background:#F0FBF6">
+            <div style="font-size:32px;margin-bottom:8px">🙏</div>
+            <div class="q" style="margin-bottom:6px;color:#0E7F4F">의견 감사합니다!</div>
+            <div style="font-size:12.5px;color:var(--ink-2);line-height:1.5">
+              <b>30분 뒤</b> 자세한 의견을 묻는 메시지를 보내드릴게요.<br>
+              더 나은 상담을 위해 활용하겠습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="notes">
+      <b>발송 시점</b>: 상담 종료 직후 인앱 채팅창 자동 노출(1탭으로 끝). 외부 URL 발송 없음.<br>
+      <b>세부 NPS</b>: 인앱 응답값을 ECA 티켓에 즉시 저장 + 기존 ECA 30분 후 세부 NPS 흐름(Q1 추천/모름/비추천 + 비추천 사유 + 자유의견)은 유지.<br>
+      <b>Case별 발송</b>: Case 1(챗봇 종료) / Case 2(상담원 종료) / Case 3(상담원 직접 종료) — 발송. Case 4(영업시간 외) / Case 5(무응답 자동 종료) — 미발송.<br>
+      <b>옵션 선택 필요</b>: A/B/C 중 인앱 UX 결정 필요. 기본 권장은 A(스마일 3단계) — 기존 typeform Q1과 매핑 명확(😊=추천, 😐=모름, 😞=비추천).<br>
+      <b>카카오톡 채널 일몰 후</b>: 인앱 NPS로 단일화. 혼용 기간 별도 정책 없음.
     </div>
   </section>
 
