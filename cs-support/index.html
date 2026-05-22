@@ -465,7 +465,7 @@
         <div class="hAvatar">오</div>
         <div class="hInfo">
           <div class="hName">오집사</div>
-          <div class="hStatus">상담 가능</div>
+          <div class="hStatus">실시간 상담 가능</div>
         </div>
       </div>
       <button class="iconBtn" onclick="App.closeModal()">✕</button>
@@ -474,7 +474,7 @@
     <div class="chatBody" id="chatBody"></div>
     <div class="inputBar">
       <button class="plus" title="첨부 (mockup)">+</button>
-      <input id="chatInput" placeholder="문의하고 싶은 내용을 입력해주세요" onkeydown="if(event.key==='Enter'){App.sendMsg()}" />
+      <input id="chatInput" placeholder="메시지를 입력하세요" onkeydown="if(event.key==='Enter'){App.sendMsg()}" />
       <button class="send" onclick="App.sendMsg()" aria-label="send">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 10l16-7-7 16-2-7-7-2z"/></svg>
       </button>
@@ -659,20 +659,16 @@ const App = {
           {t:'반품하고 싶어요', q:'반품하고 싶어요'},
         ]);
       } else {
-        // start screen
-        html += `
-          <div class="start">
-            <div class="startIcon">오</div>
-            <div class="startTitle">안녕하세요${this.state.auth?', 엔조님':''}!</div>
-            <div class="startDesc">오집사에게 무엇을 도와드릴까요?<br/>아래 빠른 메뉴에서 골라보세요.</div>
-            <div class="startChips">
-              <button class="startChip primary" onclick="App.sendUser('주문/배송 조회')">주문/배송 조회</button>
-              <button class="startChip" onclick="App.sendUser('반품·교환 안내')">반품·교환</button>
-              <button class="startChip" onclick="App.sendUser('주문 취소')">주문 취소</button>
-              <button class="startChip" onclick="App.sendUser('포인트·쿠폰')">포인트·쿠폰</button>
-              <button class="startChip" onclick="App.sendUser('기타 문의')">기타 문의</button>
-            </div>
-          </div>`;
+        // 첫인사 + 빠른 메뉴 (챗봇 목업과 동일한 대화형 시작)
+        html += this._botBubble('고객님, 안녕하세요!\n오늘의집 AI 상담사 <b>오집사</b>예요.\n무엇을 도와드릴까요?');
+        html += this._botBubble('아래 빠른 메뉴를 선택하시거나\n문의 내용을 자유롭게 입력해주세요.');
+        html += this._chips([
+          {t:'주문/배송 조회', q:'주문/배송 조회'},
+          {t:'반품/교환', q:'반품/교환'},
+          {t:'주문 취소', q:'주문 취소'},
+          {t:'포인트/쿠폰', q:'포인트/쿠폰'},
+          {t:'기타 문의', q:'기타 문의'},
+        ]);
       }
     }
     body.innerHTML = html;

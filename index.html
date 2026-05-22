@@ -1228,7 +1228,7 @@ input.input-field::placeholder { color: var(--fg-weak); }
   <div class="doc-header">
     <h1>오집사 챗봇 내재화 — Web Mockups</h1>
     <p class="sub">Phase 4 인앱/웹 챗봇. 오늘의집 웹 우측 하단 floating 위젯 형태. OHOUSE-DESIGN.md v0.4.2 + ICONS.md sprite 적용.</p>
-    <p class="meta">총 38개 화면 · 인웹 진입(M00, M00a, M00b) + 챗봇 시퀀스(M01~M16) + 엣지(M17~M20) + Phase 3 클레임 케이스(M22~M37) · 다크 모드 지원</p>
+    <p class="meta">총 37개 화면 · 인웹 진입(M00, M00a, M00b) + 챗봇 시퀀스(M01~M15) + 엣지(M17~M20) + Phase 3 클레임 케이스(M22~M37) · 다크 모드 지원</p>
   </div>
 
   <div class="legend">
@@ -1313,10 +1313,9 @@ input.input-field::placeholder { color: var(--fg-weak); }
             <div class="start">
               <div class="start-icon"><svg><use href="#i-bubble"/></svg></div>
               <div class="start-title">오집사에 오신 것을 환영해요</div>
-              <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작하거나 이전 문의내역을 확인해보세요.</div>
+              <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작해보세요.</div>
               <div class="start-actions">
                 <button class="btn btn-primary btn-block" onclick="showScreen('greeting')">새로운 상담 진행하기</button>
-                <button class="btn btn-secondary btn-block" onclick="showScreen('tickets')">나의 문의내역 확인</button>
               </div>
             </div>
           </div>
@@ -1678,42 +1677,6 @@ input.input-field::placeholder { color: var(--fg-weak); }
             </div>
           </div>
 
-          <!-- ▼ S12 문의내역 -->
-          <div class="screen" data-screen="tickets">
-            <div class="cw-header">
-              <button class="icon-btn" onclick="showScreen('start')"><svg><use href="#i-arrow-left"/></svg></button>
-              <div style="flex:1; text-align:center; font-size:15px; font-weight:700">나의 문의내역</div>
-              <button class="icon-btn" onclick="closeWidget()"><svg><use href="#i-x"/></svg></button>
-            </div>
-            <div class="modal-tabs">
-              <div class="modal-tab active">진행 중<span class="badge">2</span></div>
-              <div class="modal-tab">종료</div>
-            </div>
-            <div class="chat" style="padding-top:12px">
-              <div class="list">
-                <div class="list-item">
-                  <div class="list-row"><span class="list-status brand">상담사 응대중</span><span class="list-meta">방금 전</span></div>
-                  <div class="list-title">반품 요청 - 모듈 패브릭 4인 소파</div>
-                  <div class="list-meta">상담사: 김지영</div>
-                </div>
-                <div class="list-item">
-                  <div class="list-row"><span class="list-status attention">답변 대기</span><span class="list-meta">2시간 전</span></div>
-                  <div class="list-title">배송지 변경 문의</div>
-                  <div class="list-meta">챗봇 응대 후 상담사 인계 완료</div>
-                </div>
-                <div class="list-item">
-                  <div class="list-row"><span class="list-status done">종료</span><span class="list-meta">어제</span></div>
-                  <div class="list-title">포인트 사용 방법 문의</div>
-                  <div class="list-meta">챗봇 자체 응대 종결</div>
-                </div>
-              </div>
-            </div>
-            <div class="input-bar">
-              <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
-              <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
-            </div>
-          </div>
-
           <!-- ▼ S13 상담사 연결 -->
           <div class="screen" data-screen="agent">
             <div class="cw-header">
@@ -1846,10 +1809,9 @@ input.input-field::placeholder { color: var(--fg-weak); }
           <div class="start" style="flex:1">
             <div class="start-icon"><svg><use href="#i-bubble"/></svg></div>
             <div class="start-title">오집사에 오신 것을 환영해요</div>
-            <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작하거나 이전 문의내역을 확인해보세요.</div>
+            <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작해보세요.</div>
             <div class="start-actions">
               <button class="btn btn-primary btn-block">새로운 상담 진행하기</button>
-              <button class="btn btn-secondary btn-block">나의 문의내역 확인</button>
             </div>
           </div>
         </div>
@@ -1977,7 +1939,7 @@ input.input-field::placeholder { color: var(--fg-weak); }
     <!-- ============= M01 시작 화면 ============= -->
     <div class="mockup">
       <div class="mockup-label">M01 — 챗봇 시작 화면</div>
-      <div class="mockup-desc">위젯 첫 진입. 새 상담 vs 기존 문의내역 확인 분기. (Hero에 같은 화면 노출)</div>
+      <div class="mockup-desc">위젯 첫 진입 화면. [새로운 상담 진행하기]로 첫인사(M02) 진입. (Hero에 같은 화면 노출)</div>
       <div class="cw">
         <div class="cw-header">
           <div class="cw-header-mini">
@@ -1989,17 +1951,16 @@ input.input-field::placeholder { color: var(--fg-weak); }
         <div class="start">
           <div class="start-icon"><svg><use href="#i-bubble"/></svg></div>
           <div class="start-title">오집사에 오신 것을 환영해요</div>
-          <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작하거나 이전 문의내역을 확인해보세요.</div>
+          <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.<br>새 상담을 시작해보세요.</div>
           <div class="start-actions">
             <button class="btn btn-primary btn-block">새로운 상담 진행하기</button>
-            <button class="btn btn-secondary btn-block">나의 문의내역 확인</button>
           </div>
         </div>
       </div>
       <div class="spec">
-        <strong>컴포넌트</strong> Header(Avatar+이름+status) · Welcome icon · Title + Desc · BoxButton brand-solid + outlined extra-large<br>
+        <strong>컴포넌트</strong> Header(Avatar+이름+status) · Welcome icon · Title + Desc · BoxButton brand-solid extra-large<br>
         <strong>아이콘</strong> i-bubble (welcome), i-x (닫기)<br>
-        <strong>분기</strong> 새 상담 → M02 / 문의내역 → M16
+        <strong>다음</strong> [새로운 상담 진행하기] → M02 · 이전 문의내역은 챗봇이 아닌 고객센터 페이지에서 확인
       </div>
     </div>
 
@@ -2688,68 +2649,6 @@ input.input-field::placeholder { color: var(--fg-weak); }
         <strong>컴포넌트</strong> AgentCard(bubble icon + meta + 2 actions) · System message<br>
         <strong>Variants</strong> 영업외: "익일 09시 자동 인계" / 대기다수: "대기 중인 분이 많아요"<br>
         <strong>Open</strong> O8 컨텍스트 전달 범위
-      </div>
-    </div>
-
-    <!-- ============= M16 나의 문의내역 ============= -->
-    <div class="mockup">
-      <div class="mockup-label">M16 — 나의 문의내역</div>
-      <div class="mockup-desc">M01의 [나의 문의내역 확인] 분기. 진행 중 + 종료된 티켓. 클릭 시 해당 상담 상세 또는 재진입.</div>
-      <div class="cw">
-        <div class="cw-header">
-          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
-          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">나의 문의내역</div>
-          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
-        </div>
-        <div class="modal-tabs">
-          <div class="modal-tab active">진행 중<span class="badge">2</span></div>
-          <div class="modal-tab">종료</div>
-        </div>
-        <div class="chat" style="padding-top:12px">
-          <div class="list">
-            <div class="list-item">
-              <div class="list-row">
-                <span class="list-status brand">상담사 응대중</span>
-                <span class="list-meta">방금 전</span>
-              </div>
-              <div class="list-title">반품 요청 - 모듈 패브릭 4인 소파</div>
-              <div class="list-meta">상담사: 김지영 · 마지막 메시지 "확인 후 안내드릴게요"</div>
-            </div>
-            <div class="list-item">
-              <div class="list-row">
-                <span class="list-status attention">답변 대기</span>
-                <span class="list-meta">2시간 전</span>
-              </div>
-              <div class="list-title">배송지 변경 문의</div>
-              <div class="list-meta">챗봇 응대 후 상담사 인계 완료</div>
-            </div>
-            <div class="list-item">
-              <div class="list-row">
-                <span class="list-status done">종료</span>
-                <span class="list-meta">어제</span>
-              </div>
-              <div class="list-title">포인트 사용 방법 문의</div>
-              <div class="list-meta">챗봇 자체 응대 종결</div>
-            </div>
-            <div class="list-item">
-              <div class="list-row">
-                <span class="list-status done">종료</span>
-                <span class="list-meta">3일 전</span>
-              </div>
-              <div class="list-title">반품 회수 일정 문의</div>
-              <div class="list-meta">상담사 응대 종결 (NPS 응답 완료)</div>
-            </div>
-          </div>
-        </div>
-        <div class="input-bar">
-          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
-          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
-        </div>
-      </div>
-      <div class="spec">
-        <strong>컴포넌트</strong> Modal Tabs (진행 중/종료) · ListItem ×N<br>
-        <strong>분기</strong> 진행 중 항목 클릭 → 해당 채팅 재진입 (E12) / 종료 항목 클릭 → 종료된 대화 조회<br>
-        <strong>Open</strong> O7 채팅 이력 보관·조회 위치 (위젯 vs 마이페이지 vs 둘 다)
       </div>
     </div>
 
@@ -3757,7 +3656,6 @@ input.input-field::placeholder { color: var(--fg-weak); }
               <div class="start-desc">AI 상담사가 빠르게 도와드릴게요.</div>
               <div class="start-actions" style="width:100%">
                 <button class="btn btn-primary btn-block">새로운 상담 진행하기</button>
-                <button class="btn btn-secondary btn-block">나의 문의내역 확인</button>
               </div>
             </div>
           </div>
