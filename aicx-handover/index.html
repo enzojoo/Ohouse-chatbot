@@ -529,6 +529,15 @@
         <div class="gt" style="color:#0E7F4F">I · 인앱 NPS (v2)</div>
         <a href="#n1"><span class="n">23</span>인앱 NPS — 스마일/엄지</a>
       </div>
+      <div class="g" style="border-color:#2F6BFF">
+        <div class="gt" style="color:#1B4FD6">J · 상담사 화면 보강</div>
+        <a href="#s24"><span class="n">24</span>응대 화면 디테일 보강</a>
+        <a href="#s25"><span class="n">25</span>고객 컨텍스트 패널 보강</a>
+        <a href="#s26"><span class="n">26</span>배정 · 세션 보강</a>
+        <a href="#s27"><span class="n">27</span>매니저 강제 운영</a>
+        <a href="#s28"><span class="n">28</span>상담 이력 · 감사 로그</a>
+        <a href="#s29"><span class="n">29</span>관리자 설정 보강</a>
+      </div>
     </div>
     <div style="margin-top:14px;padding:10px 12px;border-radius:10px;background:#FFF7E5;border:1px solid #F4D78A;color:#7A4A00;font-size:12.5px">
       <b>v2.1 정책 변경 요약</b> — 상담사는 "대기" 상태로 두면 큐의 매칭 고객과 <b>자동 연결</b>(거절/수락 X). 매칭은 <b>스킬(부서) 완전 일치 + FIFO</b>, 다중 스킬 보유자는 <b>가장 오래 대기한 큐 우선</b>. 강성/등급은 큐 내부에서 가중치로 순번 조정. 실시간 이관은 폐지 — 다른 영역은 <b>티켓 이관</b>으로 일원화. NPS 인앱은 스마일/엄지 단일 액션, 세부는 ECA에서 발송.
@@ -2319,6 +2328,705 @@
       <b>Case별 발송</b>: Case 1(챗봇 종료) / Case 2(상담원 종료) / Case 3(상담원 직접 종료) — 발송. Case 4(영업시간 외) / Case 5(무응답 자동 종료) — 미발송.<br>
       <b>옵션 선택 필요</b>: A/B/C 중 인앱 UX 결정 필요. 기본 권장은 A(스마일 3단계) — 기존 typeform Q1과 매핑 명확(😊=추천, 😐=모름, 😞=비추천).<br>
       <b>카카오톡 채널 일몰 후</b>: 인앱 NPS로 단일화. 혼용 기간 별도 정책 없음.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+  <!-- ============================================================ -->
+  <div class="group-banner"><div class="gb-line"></div><div class="gb-tag" style="color:#1B4FD6;border-color:#2F6BFF">J · 상담사 화면 보강</div><div class="gb-line"></div></div>
+
+  <!-- ============ S24 응대 화면 디테일 보강 ============ -->
+  <section class="screen" id="s24">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S24</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>응대 화면 디테일 보강 — 메시지 상태 · 편집 · 댓글 · 타이핑</h2>
+      </div>
+      <div class="desc">채팅 대화창(conv 패널)의 메시지 단위 디테일을 한 화면에 시각화. 전송 실패/재시도, 상담사 메시지 수정·삭제, 인용 댓글 스레드, 읽음 상태, 고객 타이핑 인디케이터, 입력 자동저장, 채팅 일시중지, 상담 리스트 팝업 열기를 모두 포함. (요건 NO: 37 · 39 · 40 · 41 · 49 · 50 · 53 · 81)</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S24 · 응대 디테일</div>
+      <div class="app">
+        <div data-tpl="NAV"></div>
+        <section class="main">
+          <div data-tpl="TOPBAR_BUSY"></div>
+          <div class="ws">
+            <!-- 좌측 리스트: 카드에 팝업 열기 버튼 (49) -->
+            <div class="panel">
+              <div class="ph"><h3>내 상담</h3><span style="margin-left:auto;color:#8A93A6;font-size:11px">3 / 5</span></div>
+              <div class="filterbar"><span class="f on">진행중 3</span><span class="f">대기 1</span><span class="f">종료 7</span></div>
+              <div class="search">🔍 <input placeholder="검색"></div>
+              <div class="list">
+                <div class="row on">
+                  <div class="l1"><span class="pulse"></span><span class="name">김서연</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+                  <div class="msg">기사님이 오시기 30분 전에 연락 가능한가요?</div>
+                  <div class="meta"><span>OH-20260513-1182</span><span>방금</span></div>
+                  <div style="margin-top:6px"><button class="chip-btn" style="height:26px;padding:0 10px;font-size:11px">↗ 팝업으로 열기</button></div>
+                </div>
+                <div class="row">
+                  <div class="l1"><span class="name">정하늘</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+                  <div class="msg">시공 일정 변경 문의</div>
+                  <div class="meta"><span>OH-20260510-0731</span><span>13분 전</span></div>
+                </div>
+                <div class="row">
+                  <div class="l1"><span class="name">최예린</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+                  <div class="msg">교환 받으려는 색상이 품절이면...</div>
+                  <div class="meta"><span>OH-20260512-0998</span><span>22분 전</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel conv">
+              <div data-tpl="CONV_HEAD_KIM"></div>
+              <div class="body">
+                <div class="day">2026.05.15 (목)</div>
+                <div class="sysline"><span class="pill">상담원 인계 · 14:11</span></div>
+
+                <!-- 정상 메시지 + 읽음 상태 (53) -->
+                <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">토요일 배송으로 안내받았는데 기사님 연락이 아직 없어요.</div><div class="ts">14:12</div></div></div>
+                <div class="turn agent" style="position:relative">
+                  <div class="av">상</div>
+                  <div>
+                    <div class="who">박상담 · 상담사</div>
+                    <div class="bub">기사 배정 상태 확인 중입니다. 잠시만 기다려 주세요.</div>
+                    <div class="ts">14:13 · <span style="color:#0E7F4F;font-weight:700">✓ 읽음</span></div>
+                    <!-- hover 메뉴: 수정/삭제 (40) -->
+                    <div style="position:absolute;top:-2px;left:-92px;display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:3px 4px">
+                      <button class="tool" style="height:24px;padding:0 8px;font-size:11px">✏ 수정</button>
+                      <button class="tool danger" style="height:24px;padding:0 8px;font-size:11px">🗑 삭제</button>
+                    </div>
+                    <div style="font-size:10.5px;color:var(--ink-3);margin-top:3px;text-align:right">고객이 이미 읽어 수정/삭제 불가</div>
+                  </div>
+                </div>
+
+                <!-- 인용 댓글 스레드 (41) -->
+                <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">주문번호는 OH-20260513-1182 입니다.</div><div class="ts">14:14</div>
+                  <div style="margin-top:6px;border-left:3px solid #C7D8FF;background:#F8FAFE;border-radius:0 8px 8px 0;padding:8px 10px;max-width:280px">
+                    <div style="font-size:10.5px;color:var(--ink-3);font-weight:700">💬 인용 답글 · 박상담</div>
+                    <div style="font-size:11.5px;color:var(--ink-3);margin-top:2px;border-left:2px solid var(--line);padding-left:6px">"주문번호는 OH-20260513-1182..."</div>
+                    <div style="font-size:12px;color:var(--ink);margin-top:4px">→ 해당 주문 우측 패널에 연결했습니다. 배차 상태 확인할게요.</div>
+                  </div>
+                </div></div>
+
+                <!-- 상담사가 보낸 메시지 수정 가능 (미읽음 상태, 40) -->
+                <div class="turn agent" style="position:relative">
+                  <div class="av">상</div>
+                  <div>
+                    <div class="who">박상담 · 상담사</div>
+                    <div class="bub">토요일 오전 10~14시 권역으로 분류되어 있어 기사님 연락이 오늘 안에 갈 예정입니다.</div>
+                    <div class="ts">14:15 · <span style="color:var(--ink-3)">안읽음</span></div>
+                    <div style="position:absolute;top:-2px;left:-92px;display:flex;gap:4px;background:#fff;border:1px solid #C7D8FF;border-radius:8px;box-shadow:var(--shadow);padding:3px 4px">
+                      <button class="tool" style="height:24px;padding:0 8px;font-size:11px;color:var(--brand-deep)">✏ 수정</button>
+                      <button class="tool danger" style="height:24px;padding:0 8px;font-size:11px">🗑 삭제</button>
+                    </div>
+                    <div style="font-size:10.5px;color:#0E7F4F;margin-top:3px;text-align:right;font-weight:600">고객 미읽음 — 수정/삭제 가능</div>
+                  </div>
+                </div>
+
+                <!-- 전송 실패 말풍선 + 재시도 (39) -->
+                <div class="turn agent">
+                  <div class="av">상</div>
+                  <div>
+                    <div class="who">박상담 · 상담사</div>
+                    <div class="bub" style="background:#FCE3E9;color:#A8243E;border:1px solid #F4B6C2">혹시 연락이 안 되시면 콜백으로 다시 안내드릴게요.</div>
+                    <div class="ts" style="color:#A8243E">⚠ 전송 실패 · 네트워크 오류
+                      <button class="chip-btn" style="height:22px;padding:0 8px;font-size:10.5px;margin-left:4px;border-color:#F4B6C2;color:#A8243E">↻ 재시도</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 타이핑 인디케이터 (50) -->
+                <div class="turn cust">
+                  <div class="av">고</div>
+                  <div>
+                    <div class="who">김서연 · 고객</div>
+                    <div class="bub" style="color:var(--ink-3)">고객님이 입력 중&nbsp;<span style="letter-spacing:1px">•••</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 컴포저: 자동저장 표시 + 일시중지 버튼 -->
+              <div class="composer">
+                <div class="quick">
+                  <button class="q">📚 KMS · 토요일 배송 운영</button>
+                  <button class="q muted">+ 추천 더보기</button>
+                </div>
+                <div class="input-wrap focus">
+                  <div class="text">기사님 도착 30분 전 연락 가능 여부는 기사님 재량이라…</div>
+                  <div class="toolbar">
+                    <button class="tool">📎</button><button class="tool">🖼</button><button class="tool">🧩</button>
+                    <span class="sep"></span>
+                    <button class="tool" style="border:1px solid #F4D78A;background:#FFF7E5;color:#7A4A00">⏸ 채팅 일시중지</button>
+                    <button class="tool danger">🚪</button>
+                    <span class="spacer"></span><button class="tool">↪ 이관</button><button class="send">전송 ↵</button>
+                  </div>
+                </div>
+                <!-- 자동저장 표시 (37) -->
+                <div style="margin-top:6px;font-size:11px;color:var(--ink-3);display:flex;align-items:center;gap:5px">
+                  <span style="color:#0E7F4F">💾</span> 작성 중 자동 저장됨 · 다른 상담으로 전환해도 입력 내용이 유지됩니다.
+                </div>
+              </div>
+            </div>
+            <div data-tpl="RIGHT_LIVE"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>37</b> 입력 중 임시저장 — 상담 전환·새로고침에도 컴포저 작성 내용 유지</li>
+        <li><b>39</b> 전송 실패 말풍선 핑크 강조 + "재시도" 버튼</li>
+        <li><b>40</b> 상담사 메시지 hover 시 [수정][삭제] — <b>고객 미읽음 시에만</b> 활성</li>
+        <li><b>41</b> 특정 메시지 인용 댓글(답글) 스레드</li>
+        <li><b>49</b> 좌측 상담 리스트 카드 "↗ 팝업으로 열기" — 별도 창 분리 응대</li>
+        <li><b>50</b> 대화창 하단 "고객님이 입력 중…" 타이핑 인디케이터</li>
+        <li><b>53</b> 말풍선 타임스탬프 옆 "✓ 읽음 / 안읽음" 마이크로 텍스트</li>
+        <li><b>81</b> 컴포저 툴바 "채팅 일시중지" 버튼</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S25 고객 컨텍스트 패널 보강 ============ -->
+  <section class="screen" id="s25">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S25</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>고객 컨텍스트 패널 보강 — CRM 메모 · 방문 이력</h2>
+      </div>
+      <div class="desc">우측 사이드 패널에 상담사가 작성·열람하는 CRM 메모 블록과, 고객이 상담 신청 전 거쳐온 방문 페이지/방문 경로 타임라인을 추가. 응대 맥락 파악과 인계 기록 누적을 지원. (요건 NO: 27 · 29)</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S25 · 컨텍스트 패널</div>
+      <div class="app">
+        <div data-tpl="NAV"></div>
+        <section class="main">
+          <div data-tpl="TOPBAR_BUSY"></div>
+          <div class="ws wide-mid">
+            <div data-tpl="LEFT_LIST_NORMAL"></div>
+            <div class="panel conv">
+              <div data-tpl="CONV_HEAD_KIM"></div>
+              <div class="body">
+                <div class="day">2026.05.15 (목)</div>
+                <div class="sysline"><span class="pill">상담원 인계 · 14:11</span></div>
+                <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">토요일 배송 기사님 연락이 아직 없어요.</div><div class="ts">14:12</div></div></div>
+                <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">기사 배정 상태 확인 후 바로 안내드릴게요.</div><div class="ts">14:13</div></div></div>
+                <div class="sysline"><span class="pill">우측 패널 → CRM 메모 · 방문 이력 확인</span></div>
+              </div>
+              <div data-tpl="COMPOSER_PLAIN"></div>
+            </div>
+            <!-- 우측 패널: CRM 메모 + 방문 이력 -->
+            <aside class="panel">
+              <div class="tabs"><div class="t">고객</div><div class="t on">CRM 메모</div><div class="t">방문</div><div class="t">이전</div></div>
+              <div class="rpanel-body">
+                <!-- CRM 메모 블록 (27) -->
+                <div class="card hi">
+                  <h5>📝 고객 특이사항 메모</h5>
+                  <div class="field" style="margin-bottom:8px">
+                    <textarea placeholder="이 고객의 특이사항을 입력하세요. (강성 이력, 선호 응대 방식, 주의점 등) 저장 시 다음 상담사에게도 표시됩니다." style="min-height:64px"></textarea>
+                  </div>
+                  <div style="display:flex;justify-content:flex-end"><button class="save-btn" style="height:30px;font-size:12px">메모 저장</button></div>
+                </div>
+                <div class="card">
+                  <h5>기존 메모 (3)</h5>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <div style="border:1px solid var(--line-2);border-radius:10px;padding:9px 10px;background:#FAFBFD">
+                      <div style="font-size:12.5px;color:var(--ink)">대형가구 배송은 항상 사전 콜 요청. 부재 시 경비실 수령 불가 — 본인 수령만 가능.</div>
+                      <div style="font-size:10.5px;color:var(--ink-3);margin-top:5px">박상담 · 2026.05.13 11:20</div>
+                    </div>
+                    <div style="border:1px solid var(--line-2);border-radius:10px;padding:9px 10px;background:#FAFBFD">
+                      <div style="font-size:12.5px;color:var(--ink)">지난 상담 시 응대 만족도 높음. 빠른 안내 선호.</div>
+                      <div style="font-size:10.5px;color:var(--ink-3);margin-top:5px">이상담 · 2026.04.28 16:42</div>
+                    </div>
+                    <div style="border:1px solid var(--line-2);border-radius:10px;padding:9px 10px;background:#FAFBFD">
+                      <div style="font-size:12.5px;color:var(--ink)">프라임 멤버 · 가입 후 누적 주문 14건.</div>
+                      <div style="font-size:10.5px;color:var(--ink-3);margin-top:5px">시스템 자동 · 2026.04.01</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 방문 페이지 / 방문 이력 (29) -->
+                <div class="card">
+                  <h5>🧭 상담 신청 페이지 · 방문 경로</h5>
+                  <div class="kvlist" style="margin-bottom:10px">
+                    <div class="k">신청 페이지</div><div class="v">주문상세 / 배송조회</div>
+                    <div class="k">진입 채널</div><div class="v">앱 푸시 → 주문내역</div>
+                    <div class="k">세션 시간</div><div class="v">8분 12초</div>
+                  </div>
+                  <div class="timeline">
+                    <div class="e bot"><b>홈 탭 진입</b><div class="t">14:00 · 앱</div></div>
+                    <div class="e bot"><b>주문내역 목록</b><div class="t">14:02</div></div>
+                    <div class="e ho"><b>주문상세 OH-…1182</b><div class="t">14:05</div></div>
+                    <div class="e ho"><b>배송조회 페이지</b><div class="t">14:07 · 3회 새로고침</div></div>
+                    <div class="e end"><b>채팅 상담 신청</b><div class="t">14:08</div></div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>27</b> CRM 메모 블록 — 특이사항 작성 textarea + 작성자·시각이 찍힌 기존 메모 리스트. 다음 상담사에게 인계</li>
+        <li><b>29</b> 방문 페이지 / 방문 이력 — 상담 신청 페이지 + 최근 방문 경로 타임라인(배송조회 3회 새로고침 등 행동 신호 포함)</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S26 배정 · 세션 보강 ============ -->
+  <section class="screen" id="s26">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S26</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>배정 · 세션 보강 — 재인입 · 이탈 · 세션 유지 · 재배정 한도</h2>
+      </div>
+      <div class="desc">큐/응대 화면에서 발생하는 배정·세션 상태를 보강. 재인입 시 기존 담당자 우선 배지, 고객 채팅 화면 이탈 표시, 진행하던 상담 이어받기 배너, 연결 끊김 복구 경고, 재배정 횟수 한도 표시를 포함. (요건 NO: 2 · 3 · 4 · 8 · 16 · 38)</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S26 · 배정 · 세션</div>
+      <div class="app">
+        <div data-tpl="NAV"></div>
+        <section class="main">
+          <div data-tpl="TOPBAR_BUSY"></div>
+          <!-- 전역 경고 배너: 연결 끊김 복구 (38) -->
+          <div style="padding:8px 22px;background:var(--pink-soft);border-bottom:1px solid #F4B6C2;color:#A8243E;font-size:12.5px;display:flex;align-items:center;gap:8px">
+            <span style="font-size:14px">🔌</span>
+            <b>연결이 끊겼습니다</b> — 재접속 중… 세션 복구를 시도하고 있습니다. 작성 중이던 메시지는 자동 저장되어 있습니다.
+            <span style="margin-left:auto;font-size:11px;color:#A8243E">재시도 2/5 · 4초 후</span>
+          </div>
+          <div class="ws">
+            <!-- 좌측 리스트: 재인입 배지 + 고객 이탈 배지 -->
+            <div class="panel">
+              <div class="ph"><h3>내 상담</h3><span style="margin-left:auto;color:#8A93A6;font-size:11px">3 / 5</span></div>
+              <div class="filterbar"><span class="f on">진행중 3</span><span class="f">대기 1</span><span class="f">종료 7</span></div>
+              <div class="search">🔍 <input placeholder="검색"></div>
+              <div class="list">
+                <div class="row on warn">
+                  <div class="l1"><span class="pulse amb"></span><span class="name">김서연</span><span class="src app">앱</span><span class="badge wait">재인입</span></div>
+                  <div class="msg">아까 상담하다 끊겼는데 이어서 봐주세요.</div>
+                  <div class="warn-line">🔁 재인입 · 기존 담당자(김상담) 우선 배정</div>
+                  <div class="meta"><span>OH-20260513-1182</span><span>방금</span></div>
+                </div>
+                <div class="row danger">
+                  <div class="l1"><span class="name">정하늘</span><span class="src app">앱</span><span class="badge alert">이탈</span></div>
+                  <div class="msg">시공 일정 변경 문의</div>
+                  <div class="warn-line">🚪 고객이 채팅 화면을 이탈함 · 2:14 경과</div>
+                  <div class="meta"><span>OH-20260510-0731</span><span>이탈 감지</span></div>
+                </div>
+                <div class="row">
+                  <div class="l1"><span class="name">최예린</span><span class="src app">앱</span><span class="badge live">응대중</span></div>
+                  <div class="msg">교환 받으려는 색상이 품절이면...</div>
+                  <div class="meta"><span>OH-20260512-0998</span><span>22분 전</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel conv">
+              <div class="head">
+                <div class="top"><h2>김서연</h2><span class="sub">오늘의집 앱 · OH-20260513-1182</span></div>
+                <div class="meta-row">
+                  <span class="kv">상태 <b>재인입 이어받기</b></span>
+                  <span class="kv">배정 <b>김상담 (기존 담당자)</b></span>
+                  <span class="kv">재배정 <b class="crit">2 / 3</b><span style="color:var(--ink-3);font-size:11px">초과 시 매니저 승인</span></span>
+                  <span class="tag warn">#재인입</span>
+                </div>
+              </div>
+              <div class="body">
+                <!-- 세션 유지 배너 (2) -->
+                <div class="sysline handover"><span class="pill">↩ 이전에 진행하던 상담입니다 — 이어서 응대하세요 (세션 유지 · 14:11~14:24 대화 복원됨)</span></div>
+                <div class="day">2026.05.15 (목)</div>
+                <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">토요일 배송 기사님 연락 건으로 상담했었어요.</div><div class="ts">14:12</div></div></div>
+                <div class="turn agent"><div class="av">상</div><div><div class="who">김상담 · 상담사</div><div class="bub">네, 배차 상태 확인 중이었습니다. 이어서 안내드릴게요.</div><div class="ts">14:13</div></div></div>
+                <!-- 고객 이탈 시스템 메시지 (4) -->
+                <div class="sysline"><span class="pill" style="border-color:#F4B6C2;background:#FCE3E9;color:#A8243E;font-weight:700">🚪 고객이 채팅 화면을 이탈했습니다 · 14:16 — 백그라운드 전환 감지</span></div>
+                <div class="sysline"><span class="pill" style="border-color:#B7E4CD;background:#F0FBF6;color:#0E7F4F;font-weight:700">↩ 고객이 채팅 화면으로 복귀했습니다 · 14:21</span></div>
+              </div>
+              <div data-tpl="COMPOSER_PLAIN"></div>
+            </div>
+
+            <!-- 우측: 배정 정보 + 재배정 한도 -->
+            <aside class="panel">
+              <div class="tabs"><div class="t on">배정</div><div class="t">고객</div><div class="t">주문</div><div class="t">이전</div></div>
+              <div class="rpanel-body">
+                <div class="card hi">
+                  <h5>🔁 재인입 배정</h5>
+                  <div class="kvlist">
+                    <div class="k">유형</div><div class="v">재인입 (24h 내)</div>
+                    <div class="k">기존 담당자</div><div class="v">김상담</div>
+                    <div class="k">배정 규칙</div><div class="v">기존 담당자 우선</div>
+                  </div>
+                  <div style="margin-top:8px;font-size:11.5px;color:#7A4A00">동일 케이스 재인입 시 직전 담당 상담사 큐로 우선 라우팅됩니다.</div>
+                </div>
+                <div class="card">
+                  <h5>재배정 한도</h5>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <div class="slot-bar"><i class="full"></i><i class="full"></i><i></i></div>
+                    <b style="color:#A8243E">2 / 3</b>
+                  </div>
+                  <div style="margin-top:6px;font-size:11.5px;color:var(--ink-2)">한도 초과(3회) 시 추가 재배정은 <b>매니저 승인</b>이 필요합니다.</div>
+                </div>
+                <div class="card">
+                  <h5>세션 상태</h5>
+                  <div class="kvlist">
+                    <div class="k">세션 ID</div><div class="v">sess_8a31f</div>
+                    <div class="k">복원 시점</div><div class="v">14:11~14:24</div>
+                    <div class="k">연결</div><div class="v" style="color:#A8243E">재접속 중</div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>2</b> 세션 유지 — "이전에 진행하던 상담입니다, 이어서 응대" 배너 + 대화 복원</li>
+        <li><b>3 · 8</b> 재인입 시 기존 담당자(김상담) 우선 배정 배지 — 큐/리스트/배정 패널에 표기</li>
+        <li><b>4</b> 고객 채팅 화면 이탈 — 리스트 카드 배지 + 대화창 시스템 메시지(이탈/복귀)</li>
+        <li><b>16</b> 재배정 횟수 "2/3 (초과 시 매니저 승인 필요)" 표시</li>
+        <li><b>38</b> 연결 끊김 전역 경고 배너 — "재접속 중 · 세션 복구 시도"</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S27 매니저 강제 운영 ============ -->
+  <section class="screen" id="s27">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S27</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>매니저 강제 운영 — 강제 종료 · 재배정 · 상태 변경 · 차단</h2>
+      </div>
+      <div class="desc">매니저/관리자 권한 화면. 진행 중 상담을 강제 종료·강제 재배정하고, 상담사 상태를 강제 변경하며, 블랙컨슈머를 차단한다. M1 모니터링 스타일의 테이블에 강제 운영 액션을 부가. (요건 NO: 78 · 79 · 80 · 82)</div>
+    </div>
+    <div class="stage">
+      <div class="screen-body" style="padding:20px">
+        <!-- 진행 중 상담 테이블: 강제 종료 / 강제 재배정 (78·79) -->
+        <div class="chart-card" style="padding:0;overflow:hidden;margin-bottom:14px">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:10px">
+            <h5 style="margin:0;font-size:14px">진행 중 상담 — 강제 운영</h5>
+            <span style="margin-left:auto;font-size:11.5px;color:var(--ink-3)">매니저 권한 · 강제 액션은 감사 로그에 기록됩니다</span>
+          </div>
+          <table class="agent-table">
+            <thead><tr><th>고객</th><th>담당 상담사</th><th>스킬</th><th>상태</th><th>경과</th><th>액션</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><b>김서연</b> <span style="font-size:10.5px;color:var(--ink-3)">OH-…1182</span></td>
+                <td>박상담</td>
+                <td><span class="skill-chip sk-com">커머스</span></td>
+                <td><span class="status-dot st-busy"></span>응대중</td>
+                <td>6:18</td>
+                <td>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px;border-color:#F4B6C2;color:#A8243E">⛔ 강제 종료</button>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">🔀 강제 재배정</button>
+                </td>
+              </tr>
+              <tr style="background:#FCE3E9">
+                <td><b>정하늘</b> <span style="font-size:10.5px;color:#A8243E;font-weight:700;background:#fff;padding:1px 6px;border-radius:5px;border:1px solid #F4B6C2">⚠ 강성</span></td>
+                <td>이상담</td>
+                <td><span class="skill-chip sk-com">커머스</span></td>
+                <td><span class="status-dot st-post-over"></span>무응답 4:02</td>
+                <td>14:51</td>
+                <td>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px;border-color:#F4B6C2;color:#A8243E">⛔ 강제 종료</button>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">🔀 강제 재배정</button>
+                </td>
+              </tr>
+              <tr>
+                <td><b>최예린</b> <span style="font-size:10.5px;color:var(--ink-3)">OH-…0998</span></td>
+                <td>최상담</td>
+                <td><span class="skill-chip sk-con">컨텐츠</span></td>
+                <td><span class="status-dot st-busy"></span>응대중</td>
+                <td>3:41</td>
+                <td>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px;border-color:#F4B6C2;color:#A8243E">⛔ 강제 종료</button>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">🔀 강제 재배정</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 상담사 테이블: 상태 강제 변경 (80) + 블랙컨슈머 차단 (82) -->
+        <div class="chart-card" style="padding:0;overflow:hidden">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--line-2)">
+            <h5 style="margin:0;font-size:14px">상담사 상태 강제 변경 · 고객 차단</h5>
+          </div>
+          <table class="agent-table">
+            <thead><tr><th>상담사 / 고객</th><th>현재 상태</th><th>슬롯</th><th>강제 액션</th></tr></thead>
+            <tbody>
+              <tr>
+                <td><b>박상담</b> <span class="skill-chip sk-com">커머스</span></td>
+                <td><span class="status-dot st-busy"></span>응대중</td>
+                <td>3/5</td>
+                <td>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">상태 강제 변경 ▾</button>
+                </td>
+              </tr>
+              <tr>
+                <td><b>이상담</b> <span class="skill-chip sk-com">커머스</span></td>
+                <td><span class="status-dot st-post-over"></span>후처리 초과</td>
+                <td>2/5</td>
+                <td>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px">상태 강제 변경 ▾</button>
+                </td>
+              </tr>
+              <tr style="background:#FCE3E9">
+                <td><b>정하늘 (고객)</b> <span style="font-size:10.5px;color:#A8243E;font-weight:700;background:#fff;padding:1px 6px;border-radius:5px;border:1px solid #F4B6C2">반복 악성 민원 3회</span></td>
+                <td><span class="status-dot st-post-over"></span>강성 응대 중</td>
+                <td>—</td>
+                <td>
+                  <button class="chip-btn" style="height:26px;padding:0 10px;font-size:11.5px;border-color:#F4B6C2;color:#A8243E;font-weight:700">🚫 블랙컨슈머 차단</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 강제 액션 드롭다운 (80) -->
+        <div style="position:relative;margin-top:10px">
+          <div style="position:absolute;left:0;top:0;width:240px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 28px rgba(20,30,60,.14);overflow:hidden;z-index:5">
+            <div style="padding:8px 12px;font-size:11px;color:var(--ink-3);background:#FAFBFD;border-bottom:1px solid var(--line-2)">박상담 — 상태 강제 변경</div>
+            <div style="padding:9px 12px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px"><span class="status-dot st-ready"></span>대기로 변경</div>
+            <div style="padding:9px 12px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px"><span class="status-dot st-away"></span>이석으로 변경</div>
+            <div style="padding:9px 12px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px"><span class="status-dot st-meeting"></span>회의로 변경</div>
+            <div style="padding:9px 12px;display:flex;align-items:center;gap:8px;color:#A8243E"><span class="status-dot st-post"></span>강제 후처리 종료</div>
+          </div>
+          <div style="height:188px"></div>
+        </div>
+      </div>
+
+      <!-- 블랙컨슈머 차단 확인 모달 (82) -->
+      <div class="scrim">
+        <div class="modal">
+          <div class="mh"><h3>🚫 블랙컨슈머 차단 확인</h3><span class="x">✕</span></div>
+          <div class="mb">
+            <div style="padding:12px 14px;background:#FCE3E9;border:1px solid #F4B6C2;border-radius:10px;color:#A8243E;font-size:12.5px;margin-bottom:14px">
+              <b>정하늘</b> 고객을 블랙컨슈머로 차단합니다. 차단 시 해당 고객의 신규 채팅 인입이 제한되며, 진행 중 상담은 강제 종료됩니다.
+            </div>
+            <div class="field">
+              <label>차단 사유 (필수)</label>
+              <select class="input"><option>반복 악성 민원 / 폭언</option><option>업무 방해 · 무한 반복 문의</option><option>허위 클레임</option><option>기타</option></select>
+            </div>
+            <div class="field">
+              <label>차단 기간</label>
+              <div class="opts"><span class="o">7일</span><span class="o on">30일</span><span class="o">영구</span></div>
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label>상세 메모</label>
+              <textarea placeholder="차단 근거가 되는 상담 내역·발화를 기록하세요. 감사 로그에 함께 저장됩니다." style="min-height:64px"></textarea>
+            </div>
+          </div>
+          <div class="mf">
+            <button class="ghost">취소</button>
+            <button class="danger">차단 실행</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>78</b> 진행 중 상담 행 [강제 종료] — 매니저가 응대를 즉시 종결</li>
+        <li><b>79</b> 진행 중 상담 행 [강제 재배정] — 다른 상담사/큐로 이동</li>
+        <li><b>80</b> 상담사 행 [상태 강제 변경 ▾] 드롭다운 — 대기/이석/회의/후처리 종료</li>
+        <li><b>82</b> 고객 [블랙컨슈머 차단] 액션 + 사유·기간·메모 입력 확인 모달</li>
+      </ul>
+      <b>정책</b>: 모든 강제 액션은 감사 로그(S28)에 작업자·시각·대상과 함께 기록.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S28 상담 이력 · 감사 로그 ============ -->
+  <section class="screen" id="s28">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S28</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>상담 이력 · 감사 로그 — 검색 · 변경 추적 · 근태 로그</h2>
+      </div>
+      <div class="desc">상담 이력을 기간·상담사·문의유형·인입경로로 검색하고 CSV로 내려받는 화면. 이력 행의 변경 추적 타임라인, 상담사 근태/작업 이력 로그, 고객 이탈률 지표를 포함. (요건 NO: 23 · 74 · 83 · 84 · 85)</div>
+    </div>
+    <div class="stage">
+      <div class="screen-body" style="padding:20px">
+        <!-- stat-card: 고객 이탈률 포함 (74) -->
+        <div class="mon-grid">
+          <div class="stat-card"><div class="label">기간 내 상담 건</div><div class="num">2,418</div><div class="delta">2026.05.01 ~ 05.22</div></div>
+          <div class="stat-card"><div class="label">고객 이탈률</div><div class="num warn">6.4<span style="font-size:14px;color:var(--ink-3)">%</span></div><div class="delta">▲ 1.2%p (전월 대비)</div></div>
+          <div class="stat-card"><div class="label">평균 처리 시간 (AHT)</div><div class="num">6:42</div><div class="delta">▽ 0:08</div></div>
+          <div class="stat-card"><div class="label">감사 로그 이벤트</div><div class="num">11,930</div><div class="delta">강제 액션 · 권한 변경 포함</div></div>
+        </div>
+
+        <!-- 상담 이력 검색 (83) -->
+        <div class="chart-card" style="padding:0;overflow:hidden;margin-bottom:14px">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--line-2);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <h5 style="margin:0;font-size:14px">상담 이력 검색</h5>
+            <span style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap">
+              <span class="input" style="display:inline-flex;align-items:center;width:auto;color:var(--ink-2)">📅 2026.05.01 ~ 05.22</span>
+              <select class="input" style="width:auto"><option>상담사 전체</option><option>박상담</option><option>이상담</option></select>
+              <select class="input" style="width:auto"><option>문의유형 전체</option><option>배송조회</option><option>교환/환불</option><option>맞춤제작</option></select>
+              <select class="input" style="width:auto"><option>인입경로 전체</option><option>앱</option><option>웹</option><option>챗봇 핸드오버</option></select>
+              <button class="save-btn" style="height:34px">🔍 검색</button>
+              <button class="chip-btn" style="height:34px;border-color:#B7E4CD;color:#0E7F4F;font-weight:700;background:#F0FBF6">⬇ CSV 다운로드</button>
+            </span>
+          </div>
+          <table class="agent-table">
+            <thead><tr><th>상담 ID</th><th>고객</th><th>상담사</th><th>문의유형</th><th>인입경로</th><th>일시</th><th>결과</th></tr></thead>
+            <tbody>
+              <tr style="cursor:pointer"><td><b>CHT-260522-0418</b></td><td>김서연</td><td>박상담</td><td>배송조회</td><td>앱 · 챗봇 핸드오버</td><td>05.22 14:24</td><td><span class="pill done">해결</span></td></tr>
+              <tr style="cursor:pointer;background:#EEF3FF"><td><b>CHT-260522-0391</b> <span style="font-size:10.5px;color:var(--brand-deep);font-weight:700">▾ 변경 추적 펼침</span></td><td>정하늘</td><td>이상담</td><td>교환/환불</td><td>웹</td><td>05.22 13:02</td><td><span class="pill delay">티켓 이관</span></td></tr>
+              <!-- 변경 추적 타임라인 (23) -->
+              <tr style="background:#F8FAFE"><td colspan="7" style="padding:14px 18px">
+                <div style="font-size:12px;font-weight:700;color:var(--ink);margin-bottom:8px">🕓 이력 변경 추적 — CHT-260522-0391</div>
+                <div class="timeline">
+                  <div class="e bot"><b>상담 생성</b> · 챗봇 핸드오버로 큐 적재<div class="t">이상담 큐 매칭 · 05.22 12:48</div></div>
+                  <div class="e"><b>문의유형 수정</b> · "배송조회" → "교환/환불"<div class="t">이상담 · 05.22 12:55</div></div>
+                  <div class="e mg"><b>강제 재배정</b> · 이상담 → 최상담<div class="t">김매니저 (강제 액션) · 05.22 13:00</div></div>
+                  <div class="e ho"><b>티켓 이관</b> · 교환팀으로 이관, 사유 [부분환불 검토]<div class="t">최상담 · 05.22 13:02</div></div>
+                  <div class="e end"><b>상담 종료</b><div class="t">시스템 · 05.22 13:03</div></div>
+                </div>
+              </td></tr>
+              <tr style="cursor:pointer"><td><b>CHT-260522-0377</b></td><td>최예린</td><td>최상담</td><td>맞춤제작</td><td>웹</td><td>05.22 11:40</td><td><span class="pill done">해결</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 근태 / 작업 이력 로그 (84·85) -->
+        <div class="chart-card" style="padding:0;overflow:hidden">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--line-2)">
+            <h5 style="margin:0;font-size:14px">상담사 근태 · 작업 이력 로그</h5>
+          </div>
+          <table class="agent-table">
+            <thead><tr><th>시각</th><th>상담사</th><th>구분</th><th>이벤트</th><th>비고</th></tr></thead>
+            <tbody>
+              <tr><td>05.22 09:01</td><td>박상담</td><td><span class="skill-chip sk-com">근태</span></td><td>로그인 · 업무 시작</td><td>IP 10.20.x.x</td></tr>
+              <tr><td>05.22 09:02</td><td>박상담</td><td><span class="skill-chip sk-con">상태변경</span></td><td>이석 → 대기</td><td>—</td></tr>
+              <tr><td>05.22 11:18</td><td>이상담</td><td><span class="skill-chip sk-o2o">작업</span></td><td>매크로 신규 등록 "환불지연안내"</td><td>—</td></tr>
+              <tr><td>05.22 13:00</td><td>김매니저</td><td><span class="skill-chip sk-o2o">작업</span></td><td>강제 재배정 실행 · CHT-260522-0391</td><td style="color:#A8243E">강제 액션</td></tr>
+              <tr><td>05.22 13:24</td><td>이상담</td><td><span class="skill-chip sk-con">상태변경</span></td><td>응대중 → 후처리 (12:38 초과)</td><td style="color:#A8243E">SLA 초과</td></tr>
+              <tr><td>05.22 18:02</td><td>박상담</td><td><span class="skill-chip sk-com">근태</span></td><td>로그아웃 · 업무 종료</td><td>근무 9:01</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>23</b> 상담 이력 행 클릭 시 "이력 변경 추적" — 작성/수정/강제액션/이관/종료를 누가·언제·무엇 단위로 타임라인 표시</li>
+        <li><b>74</b> 상단 stat-card에 "고객 이탈률" 지표</li>
+        <li><b>83</b> 상담 이력 검색 — 기간·상담사·문의유형·인입경로 필터 + 결과 테이블 + CSV 다운로드</li>
+        <li><b>84</b> 상담사 근태 로그 — 로그인/로그아웃/근무시간</li>
+        <li><b>85</b> 작업 이력 로그 — 상태 변경·매크로 등록·강제 액션 등 작업 단위 기록</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S29 관리자 설정 보강 ============ -->
+  <section class="screen" id="s29">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S29</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>관리자 설정 보강 — 자동 멘트 · 알림 · 보안</h2>
+      </div>
+      <div class="desc">A1 관리자 설정 스타일의 보강 화면. 상담 시작/무응답/종료 자동 멘트 편집, 브라우저 데스크톱 알림 토글, 동일 계정 중복 로그인 차단 토글을 포함. (요건 NO: 57 · 91 · 93)</div>
+    </div>
+    <div class="stage">
+      <div class="screen-body" style="padding:20px">
+        <div class="settings-shell">
+          <nav class="settings-nav">
+            <div class="nv on">💬 자동 멘트</div>
+            <div class="nv">🔔 알림 설정</div>
+            <div class="nv">🔒 보안 설정</div>
+          </nav>
+          <div class="settings-body">
+            <!-- 자동 멘트 설정 (91) -->
+            <h4>💬 자동 멘트 설정</h4>
+            <div class="desc">상담 단계별로 시스템이 자동 발송하는 멘트를 편집합니다. 저장 시 모든 상담사 채팅창에 즉시 반영됩니다.</div>
+
+            <div class="setting-row" style="grid-template-columns:160px 1fr 120px">
+              <div class="lbl">상담 시작 멘트<small>핸드오버 직후 발송</small></div>
+              <div class="field" style="margin-bottom:0">
+                <textarea style="min-height:56px">안녕하세요, 오늘의집 상담사 {상담사명}입니다. 문의 주신 내용 확인 후 빠르게 도와드리겠습니다.</textarea>
+              </div>
+              <button class="save-btn">저장</button>
+            </div>
+            <div class="setting-row" style="grid-template-columns:160px 1fr 120px">
+              <div class="lbl">무응답 안내 멘트<small>고객 무응답 N분 경과 시</small></div>
+              <div class="field" style="margin-bottom:0">
+                <textarea style="min-height:56px">고객님, 아직 계신가요? 5분간 응답이 없으시면 상담이 자동 종료될 수 있습니다.</textarea>
+              </div>
+              <button class="save-btn">저장</button>
+            </div>
+            <div class="setting-row" style="grid-template-columns:160px 1fr 120px">
+              <div class="lbl">상담 종료 멘트<small>상담 종료 시</small></div>
+              <div class="field" style="margin-bottom:0">
+                <textarea style="min-height:56px">상담이 종료되었습니다. 이용해 주셔서 감사합니다. 추가 문의는 언제든 다시 연결해 주세요.</textarea>
+              </div>
+              <button class="save-btn">저장</button>
+            </div>
+
+            <!-- 알림 설정 (57) -->
+            <h4 style="margin-top:24px">🔔 알림 설정</h4>
+            <div class="desc">상담사 클라이언트의 알림 동작을 정의합니다.</div>
+            <div class="setting-row">
+              <div class="lbl">브라우저 데스크톱 알림<small>새 인입 · 매니저 호출 시</small></div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="toggle"></span>
+                <span style="font-size:12.5px;color:var(--ink-2)">허용 — 브라우저가 비활성 탭이어도 데스크톱 알림으로 표시</span>
+              </div>
+              <button class="save-btn">저장</button>
+            </div>
+            <div class="setting-row">
+              <div class="lbl">알림음<small>인입 차임</small></div>
+              <div style="display:flex;align-items:center;gap:10px"><span class="toggle"></span><span style="font-size:12.5px;color:var(--ink-2)">새 인입 시 차임 1회 재생</span></div>
+              <button class="save-btn">저장</button>
+            </div>
+
+            <!-- 보안 설정 (93) -->
+            <h4 style="margin-top:24px">🔒 보안 설정</h4>
+            <div class="desc">계정 보안 정책. 변경 사항은 감사 로그에 기록됩니다.</div>
+            <div class="setting-row">
+              <div class="lbl">동일 계정 중복 로그인 차단<small>다중 기기 동시 접속 방지</small></div>
+              <div style="display:flex;align-items:center;gap:10px">
+                <span class="toggle"></span>
+                <span style="font-size:12.5px;color:var(--ink-2)">차단 — 신규 로그인 시 기존 세션을 자동 종료</span>
+              </div>
+              <button class="save-btn">저장</button>
+            </div>
+            <div class="setting-row">
+              <div class="lbl">자동 로그아웃<small>유휴 시간 경과</small></div>
+              <div style="display:flex;align-items:center;gap:10px"><input type="number" value="30" class="input" style="max-width:80px"><span style="color:var(--ink-3);font-size:12.5px">분 무활동 시 자동 로그아웃</span></div>
+              <button class="save-btn">저장</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>57</b> 알림 설정 — "브라우저 데스크톱 알림 허용" 토글</li>
+        <li><b>91</b> 자동 멘트 설정 — 상담 시작 / 무응답 / 상담 종료 멘트를 각각 편집하는 폼</li>
+        <li><b>93</b> 보안 설정 — "동일 계정 중복 로그인 차단" 토글</li>
+      </ul>
     </div>
   </section>
 
