@@ -537,6 +537,8 @@
         <a href="#s27"><span class="n">27</span>매니저 강제 운영</a>
         <a href="#s28"><span class="n">28</span>상담 이력 · 감사 로그</a>
         <a href="#s29"><span class="n">29</span>관리자 설정 보강</a>
+        <a href="#s30"><span class="n">30</span>관리자 설정 보강 2</a>
+        <a href="#s31"><span class="n">31</span>매니저 개입 · 상태 보강</a>
       </div>
     </div>
     <div style="margin-top:14px;padding:10px 12px;border-radius:10px;background:#FFF7E5;border:1px solid #F4D78A;color:#7A4A00;font-size:12.5px">
@@ -3027,6 +3029,362 @@
         <li><b>91</b> 자동 멘트 설정 — 상담 시작 / 무응답 / 상담 종료 멘트를 각각 편집하는 폼</li>
         <li><b>93</b> 보안 설정 — "동일 계정 중복 로그인 차단" 토글</li>
       </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S30 관리자 설정 보강 2 ============ -->
+  <section class="screen" id="s30">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S30</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>관리자 설정 보강 2 — 문의유형 · 템플릿 · 권한 · 감사 로그</h2>
+      </div>
+      <div class="desc">A1 관리자 설정 스타일의 보강 화면. 문의유형 트리 관리, 공용/개인 템플릿·매크로 관리, 역할별 권한 등급 매트릭스와 이력 접근 범위, Admin 설정 변경 감사 로그를 한 화면에 노출. (요건 NO: 86 · 89 · 90 · 92 · 94)</div>
+    </div>
+    <div class="stage">
+      <div class="screen-body" style="padding:20px">
+        <div class="settings-shell">
+          <nav class="settings-nav">
+            <div class="nv on">🗂 문의유형 관리</div>
+            <div class="nv">📝 템플릿 · 매크로</div>
+            <div class="nv">🛡 권한 등급</div>
+            <div class="nv">📜 감사 로그</div>
+          </nav>
+          <div class="settings-body">
+            <!-- 문의유형 관리 (89) -->
+            <h4>🗂 문의유형 관리</h4>
+            <div class="desc">대분류 · 중분류 · 소분류 3단계 트리로 문의유형 체계를 관리합니다. 변경 사항은 상담사 티켓 작성 화면에 즉시 반영됩니다.</div>
+            <div style="border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:6px">
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:#F8FAFE;border-bottom:1px solid var(--line-2);font-size:13px;font-weight:700">
+                <span>📁 배송</span>
+                <span style="font-size:11px;color:var(--ink-3);font-weight:400">대분류</span>
+                <span style="margin-left:auto;display:flex;gap:6px">
+                  <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px">수정</button>
+                  <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                </span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 12px 8px 28px;border-bottom:1px solid var(--line-2);font-size:12.5px;font-weight:600">
+                <span>📂 배송조회</span><span style="font-size:11px;color:var(--ink-3);font-weight:400">중분류</span>
+                <span style="margin-left:auto;display:flex;gap:6px">
+                  <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px">수정</button>
+                  <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                </span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 48px;border-bottom:1px solid var(--line-2);font-size:12px;color:var(--ink-2)">
+                <span>· 송장번호 안내</span><span style="font-size:11px;color:var(--ink-3)">소분류</span>
+                <span style="margin-left:auto;display:flex;gap:6px">
+                  <button class="chip-btn" style="height:22px;padding:0 8px;font-size:10.5px">수정</button>
+                  <button class="chip-btn" style="height:22px;padding:0 8px;font-size:10.5px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                </span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 48px;border-bottom:1px solid var(--line-2);font-size:12px;color:var(--ink-2)">
+                <span>· 미배송 / 분실</span><span style="font-size:11px;color:var(--ink-3)">소분류</span>
+                <span style="margin-left:auto;display:flex;gap:6px">
+                  <button class="chip-btn" style="height:22px;padding:0 8px;font-size:10.5px">수정</button>
+                  <button class="chip-btn" style="height:22px;padding:0 8px;font-size:10.5px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                </span>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:8px 12px 8px 28px;border-bottom:1px solid var(--line-2);font-size:12.5px;font-weight:600">
+                <span>📂 배송지연</span><span style="font-size:11px;color:var(--ink-3);font-weight:400">중분류</span>
+                <span style="margin-left:auto;display:flex;gap:6px">
+                  <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px">수정</button>
+                  <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                </span>
+              </div>
+              <div style="padding:8px 12px 8px 28px;font-size:12px;color:var(--ink-3)">＋ 중분류 추가</div>
+            </div>
+            <button class="chip-btn" style="margin-bottom:4px">＋ 대분류 추가</button>
+
+            <!-- 템플릿 · 매크로 관리 (90) -->
+            <h4 style="margin-top:24px">📝 템플릿 · 매크로 관리</h4>
+            <div class="desc">자주 쓰는 응대 문구를 단축키와 함께 등록합니다. 공용 템플릿은 관리자만, 개인 템플릿은 상담사 본인만 편집할 수 있습니다.</div>
+            <div style="display:flex;gap:6px;margin-bottom:10px">
+              <span class="o on" style="padding:6px 12px;border:1px solid var(--brand);border-radius:8px;font-size:12px;font-weight:700;background:var(--brand-soft);color:var(--brand-deep)">공용 템플릿 (관리자)</span>
+              <span class="o" style="padding:6px 12px;border:1px solid var(--line);border-radius:8px;font-size:12px;color:var(--ink-2);background:#fff">개인 템플릿 (상담사)</span>
+            </div>
+            <div class="chart-card" style="padding:0;overflow:hidden">
+              <table class="agent-table">
+                <thead><tr><th>템플릿명</th><th>단축키</th><th>내용 미리보기</th><th>편집 권한</th><th>액션</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><b>배송 지연 안내</b></td>
+                    <td><span style="font-family:ui-monospace,Menlo,monospace;background:#F1F4FA;padding:1px 6px;border-radius:5px;font-size:11px">/배송지연</span></td>
+                    <td style="color:var(--ink-2)">고객님, 배송이 지연되어 불편을 드려 죄송합니다…</td>
+                    <td><span style="font-size:11px;color:#1B4FD6;font-weight:700">관리자</span></td>
+                    <td>
+                      <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px">수정</button>
+                      <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>환불 처리 완료</b></td>
+                    <td><span style="font-family:ui-monospace,Menlo,monospace;background:#F1F4FA;padding:1px 6px;border-radius:5px;font-size:11px">/환불완료</span></td>
+                    <td style="color:var(--ink-2)">요청하신 환불이 정상 처리되었습니다. 영업일 기준…</td>
+                    <td><span style="font-size:11px;color:#1B4FD6;font-weight:700">관리자</span></td>
+                    <td>
+                      <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px">수정</button>
+                      <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><b>인사 · 첫 응대</b></td>
+                    <td><span style="font-family:ui-monospace,Menlo,monospace;background:#F1F4FA;padding:1px 6px;border-radius:5px;font-size:11px">/인사</span></td>
+                    <td style="color:var(--ink-2)">안녕하세요, 오늘의집 상담사 OOO입니다…</td>
+                    <td><span style="font-size:11px;color:#1B4FD6;font-weight:700">관리자</span></td>
+                    <td>
+                      <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px">수정</button>
+                      <button class="chip-btn" style="height:24px;padding:0 9px;font-size:11px;border-color:#F4B6C2;color:#A8243E">삭제</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <button class="chip-btn" style="margin-top:8px">＋ 공용 템플릿 추가</button>
+            <div style="margin-top:8px;padding:9px 11px;border-radius:8px;background:#FFF7E5;border:1px solid #F4D78A;font-size:11.5px;color:#7A4A00">
+              개인 템플릿 탭에서는 상담사 본인이 등록한 매크로만 표시되며, 본인만 수정·삭제할 수 있습니다.
+            </div>
+
+            <!-- 권한 등급 설정 (92 · 94) -->
+            <h4 style="margin-top:24px">🛡 권한 등급 설정</h4>
+            <div class="desc">역할별로 메뉴 접근 권한을 정의합니다. 셀 값은 보기 / 편집 / 없음 중 하나입니다.</div>
+            <div class="chart-card" style="padding:0;overflow:hidden">
+              <table class="agent-table">
+                <thead><tr><th>메뉴 / 기능</th><th>상담사</th><th>리더</th><th>매니저</th><th>관리자</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td><b>상담 응대 화면</b></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>실시간 모니터링 · 강제 운영</b></td>
+                    <td><span style="color:var(--ink-3)">없음</span></td>
+                    <td><span style="color:#1B4FD6;font-weight:700">보기</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>통계 대시보드</b></td>
+                    <td><span style="color:#1B4FD6;font-weight:700">보기</span></td>
+                    <td><span style="color:#1B4FD6;font-weight:700">보기</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>관리자 설정 (문의유형 · 템플릿 · 권한)</b></td>
+                    <td><span style="color:var(--ink-3)">없음</span></td>
+                    <td><span style="color:var(--ink-3)">없음</span></td>
+                    <td><span style="color:#1B4FD6;font-weight:700">보기</span></td>
+                    <td><span style="color:#0E7F4F;font-weight:700">편집</span></td>
+                  </tr>
+                  <tr>
+                    <td><b>감사 로그</b></td>
+                    <td><span style="color:var(--ink-3)">없음</span></td>
+                    <td><span style="color:var(--ink-3)">없음</span></td>
+                    <td><span style="color:#1B4FD6;font-weight:700">보기</span></td>
+                    <td><span style="color:#1B4FD6;font-weight:700">보기</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- 권한 기반 이력 접근 (94) -->
+            <div class="setting-row" style="grid-template-columns:200px 1fr;margin-top:6px">
+              <div class="lbl">상담 이력 조회 범위<small>역할별 접근 가능 이력</small></div>
+              <div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--ink-2)">
+                <div>· <b>상담사</b> — 본인이 응대한 상담 이력만</div>
+                <div>· <b>리더</b> — 소속 팀 전체 상담 이력</div>
+                <div>· <b>매니저 / 관리자</b> — 전체 상담 이력</div>
+              </div>
+            </div>
+
+            <!-- 감사 로그 (86) -->
+            <h4 style="margin-top:24px">📜 감사 로그</h4>
+            <div class="desc">문의유형 · 스킬 · 권한 등급 · 마스킹 정책 등 Admin 설정 변경 이벤트를 추적합니다.</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+              <input type="date" class="input" style="max-width:150px" value="2026-05-01">
+              <span style="color:var(--ink-3)">~</span>
+              <input type="date" class="input" style="max-width:150px" value="2026-05-22">
+              <select class="input" style="max-width:150px"><option>전체 대상</option><option>문의유형</option><option>스킬</option><option>권한 등급</option><option>마스킹 정책</option></select>
+              <button class="chip-btn" style="margin-left:auto">⬇ CSV 다운로드</button>
+            </div>
+            <div class="chart-card" style="padding:0;overflow:hidden">
+              <table class="agent-table">
+                <thead><tr><th>변경 시각</th><th>작업자</th><th>대상</th><th>변경 전</th><th>변경 후</th></tr></thead>
+                <tbody>
+                  <tr>
+                    <td>2026-05-22 14:08</td>
+                    <td>김관리 (관리자)</td>
+                    <td>권한 등급 — 리더</td>
+                    <td>통계 대시보드: 없음</td>
+                    <td>통계 대시보드: 보기</td>
+                  </tr>
+                  <tr>
+                    <td>2026-05-21 17:32</td>
+                    <td>이관리 (관리자)</td>
+                    <td>문의유형 — 배송 &gt; 배송지연</td>
+                    <td>(없음)</td>
+                    <td>소분류 "기상악화 지연" 추가</td>
+                  </tr>
+                  <tr>
+                    <td>2026-05-20 10:14</td>
+                    <td>김관리 (관리자)</td>
+                    <td>마스킹 정책 — 전화번호</td>
+                    <td>마스킹 OFF</td>
+                    <td>마스킹 ON</td>
+                  </tr>
+                  <tr>
+                    <td>2026-05-19 09:47</td>
+                    <td>박매니저 (매니저)</td>
+                    <td>공용 템플릿 — 환불 처리 완료</td>
+                    <td>내용 v1</td>
+                    <td>내용 v2 (영업일 문구 수정)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>86</b> 감사 로그 — 문의유형 · 스킬 · 권한 · 마스킹 등 Admin 설정 변경 이벤트 조회(시각 · 작업자 · 대상 · 변경 전후) + 기간 필터 + CSV 다운로드</li>
+        <li><b>89</b> 문의유형 관리 — 대/중/소 3단계 트리, 항목별 [수정][삭제], [＋ 추가] 버튼</li>
+        <li><b>90</b> 템플릿 · 매크로 관리 — "공용 템플릿(관리자)" / "개인 템플릿(상담사)" 탭, 이름 · 단축키 · 미리보기 리스트</li>
+        <li><b>92</b> 권한 등급 설정 — 역할(상담사/리더/매니저/관리자) × 메뉴 권한 매트릭스(보기/편집/없음)</li>
+        <li><b>94</b> 권한 기반 이력 접근 — 역할별 상담 이력 조회 범위(본인만/팀/전체) 설정 행</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ============ S31 매니저 개입 · 상담사 상태 보강 ============ -->
+  <section class="screen" id="s31">
+    <div class="screen-head">
+      <div class="row1">
+        <span class="screen-num">S31</span>
+        <span class="screen-grp">J · 화면 보강</span>
+        <h2>매니저 개입 · 상담사 상태 보강 — 위스퍼 · 감청/Barge-in · 상태값</h2>
+      </div>
+      <div class="desc">매니저 시점 화면. 진행 중 상담을 보며 고객 미노출 위스퍼(코칭)를 입력하고, 감청(읽기 전용)과 Barge-in(3자 개입)을 구분해 실행. 상담사 상태값 8종 범례, 크리티컬 키워드 슬랙 자동 이관, 장기 대기 임계 강조를 포함. (요건 NO: 17 · 61 · 69 · 76 · 77)</div>
+    </div>
+    <div class="stage">
+      <div class="stage-label">S31 · 매니저 개입</div>
+      <div class="app">
+        <div data-tpl="NAV"></div>
+        <section class="main">
+          <div data-tpl="TOPBAR_BUSY"></div>
+          <div class="ws">
+            <div data-tpl="LEFT_LIST_NORMAL"></div>
+            <div class="panel conv">
+              <div class="head">
+                <div class="top">
+                  <h2>김서연</h2>
+                  <span class="sub">매니저 모니터링 중 · 담당 박상담</span>
+                </div>
+              </div>
+              <!-- 감청 vs Barge-in (76) -->
+              <div style="margin:10px 22px 0;padding:10px 12px;border-radius:10px;background:#F1F4FA;border:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <span style="font-size:12px;font-weight:700;color:var(--ink-2)">매니저 액션</span>
+                <button class="chip-btn on" style="height:28px;padding:0 11px;font-size:11.5px;background:var(--brand-soft);border-color:#C7D8FF;color:var(--brand-deep)">👁 감청 (읽기 전용)</button>
+                <button class="chip-btn" style="height:28px;padding:0 11px;font-size:11.5px;border-color:#F4D78A;background:#FFF7E5;color:#7A4A00">💬 Barge-in (3자 개입 — 고객 노출)</button>
+                <span style="margin-left:auto;font-size:11px;color:var(--ink-3)">감청 중 — 메시지 미발송. 위스퍼는 상담사에게만 전달</span>
+              </div>
+              <div class="body">
+                <div class="sysline"><span class="pill">상담원 인계 · 14:11 · 박상담</span></div>
+                <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">토요일에 배송 받을 수 있나요? 이번 주 안에 꼭 필요해서요.</div><div class="ts">14:12</div></div></div>
+                <div class="turn agent"><div class="av">상</div><div><div class="who">박상담 · 상담사</div><div class="bub">고객님, 확인해 보겠습니다. 잠시만 기다려 주세요.</div><div class="ts">14:12</div></div></div>
+                <!-- 위스퍼/코칭 (77) -->
+                <div class="sysline"><span class="pill" style="border-color:#D6C7FF;background:#EFEAFF;color:#5A3FCC;font-weight:700">🤫 위스퍼 — 매니저 → 상담사 · 고객 미노출</span></div>
+                <div class="turn super"><div class="av">매</div><div><div class="who">김민지 · 매니저 (위스퍼)</div><div class="bub" style="background:#EFEAFF;border-color:#D6C7FF;color:#5A3FCC">박상담님, 해당 권역은 토요일 배송 가능 권역입니다. 송장 발급 후 토요일 도착으로 안내해 주세요. <span style="display:inline-block;margin-top:4px;font-size:10px;font-weight:700;background:#fff;border:1px solid #D6C7FF;border-radius:5px;padding:1px 6px">🔒 고객 미노출</span></div><div class="ts">14:13</div></div></div>
+                <div class="turn cust"><div class="av">고</div><div><div class="who">김서연 · 고객</div><div class="bub">혹시 환불도 같이 알아봐 주실 수 있나요? 진짜 너무하네요 이거.</div><div class="ts">14:14</div></div></div>
+              </div>
+              <!-- 위스퍼 입력 컴포저 (77) -->
+              <div class="composer">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+                  <span style="font-size:11px;font-weight:700;background:#EFEAFF;color:#5A3FCC;border:1px solid #D6C7FF;border-radius:6px;padding:2px 8px">🤫 위스퍼 모드</span>
+                  <span style="font-size:11px;color:var(--ink-3)">이 메시지는 상담사에게만 보이며 고객에게는 노출되지 않습니다</span>
+                </div>
+                <div class="input-wrap">
+                  <div class="text"><span class="placeholder">박상담 상담사에게 코칭 메시지 입력…</span></div>
+                  <div style="display:flex;align-items:center;gap:8px">
+                    <span style="font-size:11px;color:var(--ink-3)">⌘+Enter 전송</span>
+                    <button class="chip-btn" style="margin-left:auto;height:28px;padding:0 12px;font-size:11.5px;background:#EFEAFF;border-color:#D6C7FF;color:#5A3FCC;font-weight:700">위스퍼 전송</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <aside class="panel">
+              <div class="tabs"><div class="t on">상태 · 알림</div><div class="t">대기 큐</div></div>
+              <div class="rpanel-body">
+                <!-- 크리티컬 키워드 → 슬랙 자동 이관 (61) -->
+                <div class="card" style="border-color:#F4B6C2;background:#FCE3E9">
+                  <h5 style="color:#A8243E">⚠ 크리티컬 키워드 감지</h5>
+                  <div style="font-size:12px;color:#A8243E;line-height:1.6">
+                    "<b>환불</b>", "<b>너무하네요</b>" 강성 키워드 감지 →
+                    <b>#cx_serious_voc</b> 슬랙 채널로 자동 이관 알림 발송됨.
+                  </div>
+                  <div style="margin-top:8px;padding:7px 9px;background:#fff;border:1px solid #F4B6C2;border-radius:8px;font-size:11px;color:var(--ink-2)">
+                    🔗 슬랙 #cx_serious_voc · 14:14 자동 전송<br>
+                    <span style="color:var(--ink-3)">대외기관 언급 · 강성 민원 사전 공유 템플릿 적용</span>
+                  </div>
+                </div>
+                <!-- 장기 대기 임계 강조 (69) -->
+                <div class="card">
+                  <h5>대기 큐 — 장기 대기 강조</h5>
+                  <div style="display:flex;flex-direction:column;gap:6px;font-size:12px">
+                    <div style="display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid var(--line-2);border-radius:8px">
+                      <span class="status-dot" style="background:#21C07A"></span><b>이도윤</b>
+                      <span style="margin-left:auto;color:var(--ink-3)">대기 1:12</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid var(--line-2);border-radius:8px">
+                      <span class="status-dot" style="background:#F0A52B"></span><b>최예린</b>
+                      <span style="margin-left:auto;color:#7A4A00">대기 3:48</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:8px;padding:7px 9px;border:1.5px solid #E94668;background:#FCE3E9;border-radius:8px">
+                      <span class="status-dot st-post-over"></span><b style="color:#A8243E">정하늘</b>
+                      <span style="margin-left:auto;color:#A8243E;font-weight:700">⚠ 대기 6:31 · 임계 초과</span>
+                    </div>
+                  </div>
+                  <div style="margin-top:8px;font-size:11px;color:var(--ink-3)">대기 5분 초과 시 빨강 강조 + 매니저 알림</div>
+                </div>
+                <!-- 상담사 상태값 8종 (17) -->
+                <div class="card">
+                  <h5>상담사 상태값 (8종)</h5>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#21C07A"></span>대기</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#2F6BFF"></span>상담중</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#F0A52B"></span>후처리</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>휴식</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>식사</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#7A5CFF"></span>교육</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#7A5CFF"></span>기타작업</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#C9D2E5"></span>오프라인</div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="notes">
+      <b>커버 요건</b>
+      <ul>
+        <li><b>17</b> 상담사 상태값 8종 — 대기 / 상담중 / 후처리 / 휴식 / 식사 / 교육 / 기타작업 / 오프라인 (우측 패널 범례)</li>
+        <li><b>61</b> 크리티컬 키워드 → 슬랙 자동 이관 — 강성 키워드 감지 시 #cx_serious_voc 채널로 자동 이관 알림</li>
+        <li><b>69</b> 장기 대기 임계 강조 — 대기 5분 초과 항목을 빨강으로 강조</li>
+        <li><b>76</b> 감청 vs Barge-in — [👁 감청(읽기 전용)] / [💬 Barge-in(3자 개입 — 고객 노출)] 액션 구분</li>
+        <li><b>77</b> 위스퍼 / 코칭 — 고객 미노출, 상담사에게만 보이는 위스퍼 메시지 + 전용 입력 컴포저</li>
+      </ul>
+      <b>구분</b>: 위스퍼(고객 미노출, 코칭) ↔ 지원상담/Barge-in(고객 노출, 3자 참여 — S10 참조).
     </div>
   </section>
 
