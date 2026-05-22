@@ -1249,49 +1249,8 @@ input.input-field::placeholder { color: var(--fg-weak); }
     <div class="hero-label">M00 — 인웹 진입 (PC 고객센터 → 중앙 채팅 팝업) <span class="live-badge">LIVE 데모</span></div>
     <div class="hero-desc">PC 웹 고객센터 페이지에서 [채팅 상담하기] 클릭 → 화면 중앙에 채팅 팝업이 떠요. 위젯의 chip/카드/버튼은 클릭 가능. (LLM·API는 미연동, UI 분기만 동작)</div>
     <div class="web-mockup">
-      <!-- 오늘의집 GNB -->
-      <div class="web-gnb">
-        <div class="web-logo"><div class="web-logo-mark"></div>오늘의집</div>
-        <nav class="web-gnb-menu"><a>집구경</a><a>쇼핑</a><a>인테리어/생활</a></nav>
-        <div class="web-gnb-search"><svg><use href="#i-magnifying-glass"/></svg>통합검색</div>
-        <div class="web-gnb-actions">
-          <button class="web-gnb-cart" aria-label="장바구니"><svg><use href="#i-cart"/></svg></button>
-          <span>로그인</span><span>회원가입</span><span>고객센터</span>
-          <button class="web-gnb-write">글쓰기 <svg style="width:10px;height:10px;fill:currentColor"><use href="#i-chevron-down"/></svg></button>
-        </div>
-      </div>
-      <!-- 고객센터 페이지 -->
-      <div class="web-content" style="padding:36px 24px 70px; background:var(--bg-weak)">
-        <div style="max-width:720px; margin:0 auto">
-          <div style="font-size:24px; font-weight:800; letter-spacing:-0.4px">고객센터</div>
-          <div style="font-size:14px; color:var(--fg-weak); margin:6px 0 24px">무엇을 도와드릴까요?</div>
-          <div style="font-size:13px; font-weight:700; color:var(--fg-weak); margin-bottom:8px">자주 묻는 질문</div>
-          <div style="background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:28px">
-            <div style="padding:14px 16px; border-bottom:1px solid var(--border); font-size:14px">배송은 얼마나 걸리나요?</div>
-            <div style="padding:14px 16px; border-bottom:1px solid var(--border); font-size:14px">주문 취소는 어떻게 하나요?</div>
-            <div style="padding:14px 16px; border-bottom:1px solid var(--border); font-size:14px">반품·교환을 신청하고 싶어요.</div>
-            <div style="padding:14px 16px; font-size:14px">환불은 언제 받을 수 있나요?</div>
-          </div>
-          <div style="font-size:13px; font-weight:700; color:var(--fg-weak); margin-bottom:8px">상담 연결</div>
-          <div style="display:flex; gap:12px">
-            <div onclick="openWidget()" style="flex:1; background:var(--bg-brand); color:#fff; border-radius:12px; padding:22px 16px; text-align:center; cursor:pointer; box-shadow:var(--shadow-thick)">
-              <div style="font-size:26px; margin-bottom:6px">💬</div>
-              <div style="font-size:15px; font-weight:700">채팅 상담하기</div>
-              <div style="font-size:12px; opacity:.85; margin-top:3px">AI 오집사 · 24시간</div>
-            </div>
-            <div style="flex:1; background:#fff; border:1px solid var(--border); border-radius:12px; padding:22px 16px; text-align:center">
-              <div style="font-size:26px; margin-bottom:6px">📞</div>
-              <div style="font-size:15px; font-weight:700; color:var(--fg)">전화 상담</div>
-              <div style="font-size:12px; color:var(--fg-weak); margin-top:3px">09:00 ~ 18:00</div>
-            </div>
-            <div style="flex:1; background:#fff; border:1px solid var(--border); border-radius:12px; padding:22px 16px; text-align:center">
-              <div style="font-size:26px; margin-bottom:6px">✉️</div>
-              <div style="font-size:15px; font-weight:700; color:var(--fg)">이메일 문의</div>
-              <div style="font-size:12px; color:var(--fg-weak); margin-top:3px">24시간 접수</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!-- 고객센터 페이지 (cs-support 페이지 임베드 — 실제 챗봇 진입 화면) -->
+      <iframe src="cs-support/index.html" title="오늘의집 고객센터" scrolling="no" style="width:100%; height:760px; border:0; display:block; background:#fff"></iframe>
 
       <!-- 페이지 딤 + 챗봇 위젯 (라이브 데모) -->
       <div class="hero-dim" id="liveDim"></div>
