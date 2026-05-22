@@ -3619,5 +3619,73 @@
   })();
 </script>
 
+  <!-- ============ 플로팅 화면 목차 (항상 노출) ============ -->
+  <style>
+    .nav-toggle{position:fixed;right:20px;bottom:20px;z-index:9000;background:#141E3C;color:#fff;border:0;border-radius:999px;padding:11px 18px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(20,30,60,.30);display:flex;align-items:center;gap:7px;font-family:inherit}
+    .nav-toggle:hover{background:#2A3A66}
+    .nav-panel{position:fixed;right:20px;bottom:70px;z-index:9000;width:308px;max-height:78vh;overflow-y:auto;background:#fff;border:1px solid #C9D2E5;border-radius:14px;box-shadow:0 14px 44px rgba(20,30,60,.26);padding:12px;display:none}
+    .nav-panel.open{display:block}
+    .nav-panel .np-head{display:flex;align-items:center;justify-content:space-between;padding:2px 6px 9px;border-bottom:1px solid #E8ECF4;margin-bottom:5px}
+    .nav-panel .np-head b{font-size:13px;color:#141E3C}
+    .nav-panel .np-head .x{cursor:pointer;color:#8A93A6;font-size:15px;line-height:1}
+    .nav-panel h4{margin:11px 6px 4px;font-size:10.5px;font-weight:700;color:#0E7F4F;letter-spacing:.02em}
+    .nav-panel h4:first-of-type{margin-top:2px}
+    .nav-panel a{display:flex;align-items:center;gap:9px;padding:6px 8px;border-radius:7px;text-decoration:none;color:#141E3C;font-size:12.5px}
+    .nav-panel a:hover{background:#EEF3FF}
+    .nav-panel a .id{flex-shrink:0;width:38px;text-align:center;font-weight:800;font-size:10.5px;padding:3px 0;border-radius:5px;background:#141E3C;color:#fff}
+    .nav-panel a .id.v2{background:#0E7F4F}
+    .nav-panel a .id.bo{background:#1B4FD6}
+  </style>
+  <button class="nav-toggle" onclick="document.getElementById('navPanel').classList.toggle('open')">🧭 화면 목차</button>
+  <nav class="nav-panel" id="navPanel">
+    <div class="np-head"><b>화면 목차 · 31</b><span class="x" onclick="document.getElementById('navPanel').classList.remove('open')">✕</span></div>
+    <h4>A · 인입 / 수락</h4>
+    <a href="#s1"><span class="id">S01</span>인입 알림 토스트</a>
+    <a href="#s2"><span class="id">S02</span>수락 직후 컨텍스트</a>
+    <h4>B · 응대 메인</h4>
+    <a href="#s3"><span class="id">S03</span>일반 응대 진행 중</a>
+    <a href="#s4"><span class="id">S04</span>무응답 + SLA 임박</a>
+    <a href="#s5"><span class="id">S05</span>매크로 / 자동완성</a>
+    <a href="#s6"><span class="id">S06</span>매니저 @ 자동완성</a>
+    <a href="#s7"><span class="id">S07</span>추천 답변 패널</a>
+    <h4>C · 특수 상태</h4>
+    <a href="#s8"><span class="id">S08</span>금칙어 마스킹</a>
+    <a href="#s9"><span class="id">S09</span>첨부 업로드</a>
+    <a href="#s10"><span class="id">S10</span>지원상담 (매니저 참여)</a>
+    <h4>D · 종료 / 이관</h4>
+    <a href="#s11"><span class="id">S11</span>티켓 이관 모달</a>
+    <a href="#s12"><span class="id">S12</span>상담 종료 안내</a>
+    <a href="#s13"><span class="id">S13</span>종료 후 티켓 작성</a>
+    <h4>E · 사이드 패널</h4>
+    <a href="#s14"><span class="id">S14</span>멀티 주문 연결</a>
+    <a href="#s15"><span class="id">S15</span>과거 대화 팝업</a>
+    <h4>F · 큐 / 라우팅</h4>
+    <a href="#q1"><span class="id v2">Q1</span>스킬별 큐 보드</a>
+    <a href="#q2"><span class="id v2">Q2</span>자동 매칭 흐름</a>
+    <h4>G · 관리자 / 매니저</h4>
+    <a href="#m1"><span class="id v2">M1</span>매니저 실시간 모니터링</a>
+    <a href="#m2"><span class="id v2">M2</span>관리자 통계 대시보드</a>
+    <a href="#a1"><span class="id v2">A1</span>관리자 설정</a>
+    <h4>H · 운영 / 상담원</h4>
+    <a href="#c1"><span class="id v2">C1</span>상담사 상태 토글</a>
+    <a href="#f1"><span class="id v2">F1</span>영업시간 외 챗봇 응대</a>
+    <h4>I · 인앱 NPS</h4>
+    <a href="#n1"><span class="id v2">N1</span>인앱 NPS</a>
+    <h4>J · 상담사 화면 보강</h4>
+    <a href="#s24"><span class="id bo">S24</span>응대 화면 디테일</a>
+    <a href="#s25"><span class="id bo">S25</span>고객 컨텍스트 패널</a>
+    <a href="#s26"><span class="id bo">S26</span>배정 · 세션</a>
+    <a href="#s27"><span class="id bo">S27</span>매니저 강제 운영</a>
+    <a href="#s28"><span class="id bo">S28</span>상담 이력 · 감사 로그</a>
+    <a href="#s29"><span class="id bo">S29</span>관리자 설정 보강</a>
+    <a href="#s30"><span class="id bo">S30</span>관리자 설정 2</a>
+    <a href="#s31"><span class="id bo">S31</span>매니저 개입 · 상태</a>
+  </nav>
+  <script>
+    document.querySelectorAll('#navPanel a').forEach(function(a){
+      a.addEventListener('click', function(){ document.getElementById('navPanel').classList.remove('open'); });
+    });
+  </script>
+
 </body>
 </html>
