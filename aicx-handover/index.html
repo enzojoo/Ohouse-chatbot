@@ -3273,7 +3273,7 @@
         <span class="screen-grp">J · 화면 보강</span>
         <h2>매니저 개입 · 상담사 상태 보강 — 위스퍼 · 감청/Barge-in · 상태값</h2>
       </div>
-      <div class="desc">매니저 시점 화면. 진행 중 상담을 보며 고객 미노출 위스퍼(코칭)를 입력하고, 감청(읽기 전용)과 Barge-in(3자 개입)을 구분해 실행. 상담사 상태값 8종 범례, 크리티컬 키워드 슬랙 자동 이관, 장기 대기 임계 강조를 포함. (요건 NO: 17 · 61 · 69 · 76 · 77)</div>
+      <div class="desc">매니저 시점 화면. 진행 중 상담을 보며 고객 미노출 위스퍼(코칭)를 입력하고, 감청(읽기 전용)과 Barge-in(3자 개입)을 구분해 실행. 상담사 상태값 7종 범례, 크리티컬 키워드 슬랙 자동 이관, 장기 대기 임계 강조를 포함. (요건 NO: 17 · 61 · 69 · 76 · 77)</div>
     </div>
     <div class="stage">
       <div class="stage-label">S31 · 매니저 개입</div>
@@ -3355,18 +3355,17 @@
                   </div>
                   <div style="margin-top:8px;font-size:11px;color:var(--ink-3)">대기 5분 초과 시 빨강 강조 + 매니저 알림</div>
                 </div>
-                <!-- 상담사 상태값 8종 (17) -->
+                <!-- 상담사 상태값 7종 (17) -->
                 <div class="card">
-                  <h5>상담사 상태값 (8종)</h5>
+                  <h5>상담사 상태값 (7종)</h5>
                   <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
                     <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#21C07A"></span>대기</div>
-                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#2F6BFF"></span>상담중</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#2F6BFF"></span>응대중</div>
                     <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#F0A52B"></span>후처리</div>
-                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>휴식</div>
-                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>식사</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>이석</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>회의</div>
                     <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#7A5CFF"></span>교육</div>
-                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#7A5CFF"></span>기타작업</div>
-                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#C9D2E5"></span>오프라인</div>
+                    <div style="display:flex;align-items:center;gap:7px"><span class="status-dot" style="background:#8A93A6"></span>점심</div>
                   </div>
                 </div>
               </div>
@@ -3378,7 +3377,7 @@
     <div class="notes">
       <b>커버 요건</b>
       <ul>
-        <li><b>17</b> 상담사 상태값 8종 — 대기 / 상담중 / 후처리 / 휴식 / 식사 / 교육 / 기타작업 / 오프라인 (우측 패널 범례)</li>
+        <li><b>17</b> 상담사 상태값 7종 — 대기 / 응대중 / 후처리 / 이석 / 회의 / 교육 / 점심 (우측 패널 범례, §6 v2.1 정책 기준)</li>
         <li><b>61</b> 크리티컬 키워드 → 슬랙 자동 이관 — 강성 키워드 감지 시 #cx_serious_voc 채널로 자동 이관 알림</li>
         <li><b>69</b> 장기 대기 임계 강조 — 대기 5분 초과 항목을 빨강으로 강조</li>
         <li><b>76</b> 감청 vs Barge-in — [👁 감청(읽기 전용)] / [💬 Barge-in(3자 개입 — 고객 노출)] 액션 구분</li>
