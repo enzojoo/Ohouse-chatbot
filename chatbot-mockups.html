@@ -1228,7 +1228,7 @@ input.input-field::placeholder { color: var(--fg-weak); }
   <div class="doc-header">
     <h1>오집사 챗봇 내재화 — Web Mockups</h1>
     <p class="sub">Phase 4 인앱/웹 챗봇. 오늘의집 웹 우측 하단 floating 위젯 형태. OHOUSE-DESIGN.md v0.4.2 + ICONS.md sprite 적용.</p>
-    <p class="meta">총 37개 화면 · 인웹 진입(M00, M00a, M00b) + 챗봇 시퀀스(M01~M15) + 엣지(M17~M20) + Phase 3 클레임 케이스(M22~M37) · 다크 모드 지원</p>
+    <p class="meta">총 44개 화면 · 인웹 진입(M00, M00a, M00b) + 챗봇 시퀀스(M01~M15) + 엣지(M17~M20) + Phase 3 클레임 케이스(M22~M37) + 클레임 보강(M38~M44) · 다크 모드 지원</p>
   </div>
 
   <div class="legend">
@@ -3286,13 +3286,13 @@ input.input-field::placeholder { color: var(--fg-weak); }
     <!-- ============================================ -->
     <div class="case-section-header">
       <h3>🔄 교환 케이스 <span class="case-count">5종</span></h3>
-      <p>반품과 골격 동일하지만 옵션 재선택 + 교환 비용 결제 + 재배송 단계가 추가. 재고 부족 시 반품으로 전환 안내.</p>
+      <p>반품과 골격 동일하지만 교환 비용 결제 + 재배송 단계가 추가. 교환 옵션은 고객이 고르지 않고 동일 옵션 재발송(사이즈 변경 등은 반품 후 재주문). 재고 부족 시 반품으로 전환 안내.</p>
     </div>
 
     <!-- ============= M32 교환 Case 1: 접수 + 비용 결제 ============= -->
     <div class="mockup">
-      <div class="mockup-label">M32 — 교환 Case 1: 접수 전 (옵션 재선택 + 비용 결제)</div>
-      <div class="mockup-desc">반품과 다른 점 — 옵션 재선택(재고 확인) + 교환 배송비 결제 단계. 구매자 귀책 시 환불 차감 불가, 따로 결제만.</div>
+      <div class="mockup-label">M32 — 교환 Case 1: 접수 전 (비용 결제)</div>
+      <div class="mockup-desc">반품과 다른 점 — 교환은 동일 옵션 재발송(고객이 옵션을 다시 고르지 않음). 구매자 귀책 시 교환 배송비 결제 단계 추가, 환불 차감 불가하여 따로 결제만.</div>
       <div class="cw">
         <div class="cw-header">
           <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
@@ -3305,9 +3305,8 @@ input.input-field::placeholder { color: var(--fg-weak); }
               <div class="stepbar-row">
                 <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">상품</div></div>
                 <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">사유</div></div>
-                <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">옵션</div></div>
                 <div class="step done"><div class="step-circle">✓</div><div class="step-label" style="font-size:10px">회수</div></div>
-                <div class="step active"><div class="step-circle">5</div><div class="step-label" style="font-size:10px">비용 결제</div></div>
+                <div class="step active"><div class="step-circle">4</div><div class="step-label" style="font-size:10px">비용 결제</div></div>
               </div>
             </div>
           </div>
@@ -3319,8 +3318,8 @@ input.input-field::placeholder { color: var(--fg-weak); }
             </div>
             <div class="info-card">
               <h4>교환 비용</h4>
-              <div class="info-row"><span class="info-label">왕복 배송비</span><span class="info-val">8,000원</span></div>
-              <div class="info-row"><span class="info-label">변경 옵션 추가금</span><span class="info-val">0원</span></div>
+              <div class="info-row"><span class="info-label">교환 배송비</span><span class="info-val">6,000원</span></div>
+              <div class="info-row"><span class="info-label">제주/도서산간 추가</span><span class="info-val">2,000원</span></div>
               <div class="info-row total"><span>결제 금액</span><span class="info-val">8,000원</span></div>
             </div>
             <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">⚠️ 교환 배송비는 환불 차감이 불가해요. 따로 결제만 가능합니다.</div>
@@ -3596,6 +3595,318 @@ input.input-field::placeholder { color: var(--fg-weak); }
         <strong>API</strong> GET /v1/orders/{id} + 판매자 주문문의 딥링크<br>
         <strong>자동화</strong> ⚠️ 경로 안내만 자체 종결 가능. 소요·비용·지연 → 모두 Handover<br>
         <strong>Phase 3 범위 외</strong> 부록 A-1 표 참조 (AS 소요/비용/지연 ❌)
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============================================ -->
+  <!-- 🆕 클레임 위저드 보강 (실앱 정합) -->
+  <!-- ============================================ -->
+  <h2 class="series-title" style="margin-top:60px">🆕 클레임 위저드 보강 — 실앱 정합 추가 화면</h2>
+  <p class="series-sub">실제 오늘의집 앱 취소/반품/교환 플로우(Figma) 대조 후 보강한 화면. M22·M24·M26·M32의 누락 단계를 채움.</p>
+
+  <div class="grid">
+
+    <!-- ============= M38 취소 사유 선택 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M38 — 취소 사유 선택 (실앱 정합)</div>
+      <div class="mockup-desc">기존 M22는 1탭 접수로 사유 단계 생략. 실앱은 취소도 사유 선택 필수 — 주문취소 7종 / 취소요청 9종. "더 저렴한 곳" 선택 시 경쟁 플랫폼 하위 선택.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">취소 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step active"><div class="step-circle">2</div><div class="step-label">사유</div></div>
+                <div class="step"><div class="step-circle">3</div><div class="step-label">환불 확인</div></div>
+              </div>
+            </div>
+          </div>
+          <button class="back-step" style="margin-left:0; margin-top:4px"><svg><use href="#i-arrow-left"/></svg>1단계로 돌아가기</button>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">취소하는 이유를 알려주세요.</div></div>
+          <div class="bot-attached">
+            <div class="form-options">
+              <div class="option"><div class="option-radio"></div>상품이 필요하지 않아요</div>
+              <div class="option"><div class="option-radio"></div>색상, 사이즈를 바꾸고 싶어요</div>
+              <div class="option"><div class="option-radio"></div>다른 상품을 주문하고 싶어요</div>
+              <div class="option"><div class="option-radio"></div>결제수단을 바꾸고 싶어요</div>
+              <div class="option"><div class="option-radio"></div>상품 정보가 정확하지 않아요</div>
+              <div class="option selected"><div class="option-radio"></div>더 저렴한 곳이 있어요</div>
+              <div class="option"><div class="option-radio"></div>다른 이유가 있어요</div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">어디에서 더 저렴한가요?</div></div>
+          <div class="chips">
+            <button class="chip">쿠팡</button>
+            <button class="chip">네이버</button>
+            <button class="chip">G마켓</button>
+            <button class="chip">11번가</button>
+            <button class="chip">SSG닷컴</button>
+            <button class="chip">그 외</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>요건</strong> 취소 사유 단일 선택 — 주문취소 7종 / 취소요청 9종(+"발송 지연" "판매자 요청")<br>
+        <strong>분기</strong> "더 저렴한 곳" → 경쟁 플랫폼 하위 선택 (쿠팡·네이버·G마켓·11번가·SSG닷컴·그 외)<br>
+        <strong>정합</strong> 실앱 claim_cancle_reason · 요건시트 row 42·43 — M22 1탭 접수 보강
+      </div>
+    </div>
+
+    <!-- ============= M39 반품 회수 방법 (3종) ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M39 — 반품 회수 방법 (3종, 실앱 정합)</div>
+      <div class="mockup-desc">기존 M26은 택배 회수/직접 발송 2종. 실앱은 "배송이 지연돼 반품할 상품이 없어요"(미수령) 포함 3종. 직접 수거 선택 시 수거 주소 확인·변경.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                <div class="step active"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-label">환불 확인</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품 상품을 어떻게 보낼까요?</div></div>
+          <div class="bot-attached">
+            <div class="form-options">
+              <div class="option selected"><div class="option-radio"></div>택배사가 방문 수거해 주세요</div>
+              <div class="option"><div class="option-radio"></div>이미 판매자에게 택배로 보냈어요</div>
+              <div class="option"><div class="option-radio"></div>배송이 지연돼 반품할 상품이 없어요</div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">이 주소로 수거할게요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card">
+              <h4>수거 주소</h4>
+              <div class="info-row"><span class="info-label">받는 분</span><span class="info-val">엔조</span></div>
+              <div class="info-row"><span class="info-label">주소</span><span class="info-val">서울 서초구 서초대로74길 4</span></div>
+            </div>
+            <button class="btn btn-secondary btn-block" style="max-width:280px">수거 주소 변경</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>회수 방법 3종</strong> 택배사 방문 수거 / 이미 판매자에게 보냄(택배사+송장 입력) / 배송 지연 미수령<br>
+        <strong>분기</strong> 방문 수거 → 수거 주소 확인·변경 / 미수령 → 회수 단계 생략 후 환불 확인 직행<br>
+        <strong>정합</strong> 실앱 claim_return_method · 요건시트 row 50·63 — M26 보강
+      </div>
+    </div>
+
+    <!-- ============= M40 환불계좌 등록 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M40 — 환불계좌 등록 (반품)</div>
+      <div class="mockup-desc">무통장 입금·휴대폰 결제 등 기존 결제수단으로 환불이 어려운 경우, 환불 단계에서 계좌 등록 bottom sheet 노출. 계좌 미등록 시 필수.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">기존 결제수단으로 환불이 어려워요.
+환불 받으실 계좌를 등록해주세요.</div></div>
+        </div>
+        <div class="dim"></div>
+        <div class="bottom-sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-title">환불 계좌 등록</div>
+          <div class="sheet-desc">무통장 입금·휴대폰 결제 환불, 기존 수단으로 취소가 어려운 경우 등록한 계좌로 환불돼요.</div>
+          <div class="login-fields">
+            <div class="login-field">은행 선택 ▾</div>
+            <div class="login-field" style="display:flex; justify-content:space-between; align-items:center">계좌번호 입력 <span style="font-size:12px; color:var(--fg-brand); font-weight:600">인증</span></div>
+            <div class="login-field" style="color:var(--fg-weak)">예금주 (계좌 인증 시 자동 입력)</div>
+          </div>
+          <div class="option" style="margin:8px 0"><div class="option-radio"></div>이 계좌를 환불계좌로 저장</div>
+          <div class="sheet-actions">
+            <button class="btn btn-primary btn-block">계좌 등록</button>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>입력</strong> 은행 선택 · 계좌번호 + 인증 · 예금주(인증 시 자동) · 환불계좌 저장 체크<br>
+        <strong>노출 조건</strong> 무통장/휴대폰 결제 환불 · 기존 결제수단 취소 불가 · 계좌 미등록<br>
+        <strong>정합</strong> 실앱 claim_account_registration · 요건시트 row 55 — 신규
+      </div>
+    </div>
+
+    <!-- ============= M41 클레임 비용 결제수단 선택 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M41 — 클레임 비용 결제수단 선택</div>
+      <div class="mockup-desc">교환 비용·반품 비용을 챗봇 안에서 결제. 결제수단 bottom sheet — 간편결제 4종 + 카드. 반품비는 환불액 차감 또는 따로 결제 선택 가능.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">교환 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 비용 8,000원을 결제하면
+교환 요청이 완료돼요.</div></div>
+        </div>
+        <div class="dim"></div>
+        <div class="bottom-sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-title">결제수단 선택 · 8,000원</div>
+          <div class="form-options">
+            <div class="option selected"><div class="option-radio"></div>카카오페이</div>
+            <div class="option"><div class="option-radio"></div>네이버페이</div>
+            <div class="option"><div class="option-radio"></div>토스페이</div>
+            <div class="option"><div class="option-radio"></div>페이코</div>
+            <div class="option"><div class="option-radio"></div>카드 결제</div>
+          </div>
+          <div class="sheet-actions">
+            <button class="btn btn-primary btn-block">8,000원 결제하기</button>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>결제수단</strong> 카카오페이 · 네이버페이 · 토스페이 · 페이코 · 카드<br>
+        <strong>반품비 분기</strong> 환불 예정 금액에서 차감 / 따로 결제 선택 → "따로 결제" 시 본 결제수단 화면 노출<br>
+        <strong>정합</strong> 실앱 claim_exchange_fee_pay · 요건시트 row 54·65 — M32 비용 결제 보강
+      </div>
+    </div>
+
+    <!-- ============= M42 환불 예정금액 상세 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M42 — 환불 예정금액 상세 (차감·환금)</div>
+      <div class="mockup-desc">취소·반품 환불 확인 화면. 주문금액·차감금액 항목별 분해. 부분 취소 시 할인/선불배송비 재계산으로 차감(−) 또는 환금(+) 발생.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">취소 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                <div class="step active"><div class="step-circle">3</div><div class="step-label">환불 확인</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">환불 예정 금액을 확인해주세요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card">
+              <h4>환불 예정 금액</h4>
+              <div class="info-row"><span class="info-label">주문금액</span><span class="info-val">29,300원</span></div>
+              <div class="info-row"><span class="info-label" style="padding-left:8px; color:var(--fg-weak)">· 상품금액</span><span class="info-val">27,800원</span></div>
+              <div class="info-row"><span class="info-label" style="padding-left:8px; color:var(--fg-weak)">· 배송비 / 조립비</span><span class="info-val">2,500 / 3,000원</span></div>
+              <div class="info-row"><span class="info-label" style="padding-left:8px; color:var(--fg-weak)">· 할인 (쿠폰·카드사)</span><span class="info-val">-4,000원</span></div>
+              <div class="info-row"><span class="info-label">차감금액 ⓘ</span><span class="info-val">-1,000원</span></div>
+              <div class="info-row"><span class="info-label" style="padding-left:8px; color:var(--fg-weak)">· 할인 재계산</span><span class="info-val">-500원</span></div>
+              <div class="info-row"><span class="info-label" style="padding-left:8px; color:var(--fg-weak)">· 선불배송비 재계산</span><span class="info-val">-500원</span></div>
+              <div class="info-row total"><span>환불예정금액</span><span class="info-val">25,300원</span></div>
+              <div class="info-row"><span class="info-label" style="color:var(--fg-weak)">카드(현대/3개월)</span><span class="info-val">24,300원</span></div>
+              <div class="info-row"><span class="info-label" style="color:var(--fg-weak)">오늘의집 포인트</span><span class="info-val">1,000P</span></div>
+            </div>
+            <div style="font-size:12px; color:var(--fg-weak); max-width:280px; line-height:18px">· 환불 승인 후 최대 7영업일 이내<br>· 일부 상품만 취소해 남은 결제금액이 3만원 미만이면 포인트가 먼저 환불돼요.</div>
+            <button class="btn btn-primary btn-block" style="max-width:280px">취소 접수하기</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>구성</strong> 주문금액·차감금액 항목별 분해 · 결제수단별 환불 금액 분리(카드 할부/포인트)<br>
+        <strong>부분취소 재계산</strong> 할인 재계산 + 선불배송비 재계산 → 차감(−) 또는 환금(+)<br>
+        <strong>정합</strong> 실앱 claim_cancle_refund · 요건시트 row 44~47 — M24 보강
+      </div>
+    </div>
+
+    <!-- ============= M43 클레임 작성 중단 모달 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M43 — 클레임 작성 중단 모달</div>
+      <div class="mockup-desc">취소·반품·교환 작성 중 X 또는 뒤로가기 시 인터셉트. 진행 내용 미저장 안내. 공통 컴포넌트.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">반품 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">반품하는 이유를 알려주세요.</div></div>
+        </div>
+        <div class="dim"></div>
+        <div class="bottom-sheet">
+          <div class="sheet-handle"></div>
+          <div class="sheet-title">반품 요청을 그만할까요?</div>
+          <div class="sheet-desc">지금 나가면 입력하신 내용은 저장되지 않아요.</div>
+          <div class="sheet-actions">
+            <button class="btn btn-primary btn-block">계속 작성하기</button>
+            <button class="btn btn-secondary btn-block">그만하기</button>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>트리거</strong> 클레임 작성 중 X / 뒤로가기 / 위젯 닫기<br>
+        <strong>동작</strong> 계속 작성 → 모달 닫고 복귀 / 그만하기 → 이전 화면, 진행 내용 미저장<br>
+        <strong>정합</strong> 실앱 claim_*_pause · 요건시트 row 38 — 취소·반품·교환 공통
+      </div>
+    </div>
+
+    <!-- ============= M44 판매자 클레임 보류 ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M44 — 판매자 클레임 보류 (추가비용 청구)</div>
+      <div class="mockup-desc">판매자가 반품·교환을 보류하고 추가 비용을 청구한 상태. 고객은 추가비용 결제 / 판매자 문의 / 상담사 연결 중 선택.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <div class="cw-header-mini"><div class="cw-header-avatar">오</div><div class="cw-header-info"><div class="cw-header-name">오집사</div><div class="cw-header-status">실시간 상담 가능</div></div></div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="user-msg"><div class="bubble">반품 처리가 왜 멈췄나요?</div></div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">판매자가 반품을 보류했어요.
+추가 비용 안내를 확인해주세요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card">
+              <h4>판매자 청구 내역</h4>
+              <div class="info-row"><span class="info-label">보류 사유</span><span class="info-val">포장 훼손</span></div>
+              <div class="info-row"><span class="info-label">반품배송비</span><span class="info-val">2,500원</span></div>
+              <div class="info-row"><span class="info-label">기타 반품비용</span><span class="info-val">500원</span></div>
+              <div class="info-row total"><span>추가 청구 금액</span><span class="info-val">3,000원</span></div>
+            </div>
+            <button class="btn btn-primary btn-block" style="max-width:280px">반품비용 결제하기</button>
+          </div>
+          <div class="chips">
+            <button class="chip">판매자에게 문의</button>
+            <button class="chip">상담사 연결</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>상태</strong> 판매자가 반품·교환 보류 + 추가 비용 청구<br>
+        <strong>고객 액션</strong> 추가비용 결제 / 판매자 문의 / 상담사 연결<br>
+        <strong>정합</strong> 실앱 return_detail_error · 요건시트 row 59 — 신규 예외 케이스
       </div>
     </div>
 
@@ -6532,7 +6843,7 @@ input.input-field::placeholder { color: var(--fg-weak); }
             </div>
             <div class="input-bar"><input class="input-field" type="text" placeholder="메시지 입력" /><button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button></div>
           </div>
-          <div class="scenario-step-note">→ 시나리오 #4 교환 접수 풀 흐름 점프 (Part C 옵션 재선택부터)</div>
+          <div class="scenario-step-note">→ 시나리오 #4 교환 접수 풀 흐름 점프 (Part C 사유·회수 방법부터)</div>
         </div>
       </div>
     </div>
