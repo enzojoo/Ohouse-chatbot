@@ -145,9 +145,14 @@ body { padding: 48px 24px 96px; }
 
 /* === Chatbot floating widget on hero === */
 .chatbot-floating {
-  position: absolute; bottom: 24px; right: 24px;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 380px; height: 580px;
   z-index: 10;
+}
+.hero-dim {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.42);
+  z-index: 8;
 }
 
 /* Chatbot launcher (collapsed) — for showing closed state if needed */
@@ -1228,7 +1233,7 @@ input.input-field::placeholder { color: var(--fg-weak); }
   <div class="doc-header">
     <h1>오집사 챗봇 내재화 — Web Mockups</h1>
     <p class="sub">Phase 4 인앱/웹 챗봇. 오늘의집 웹 우측 하단 floating 위젯 형태. OHOUSE-DESIGN.md v0.4.2 + ICONS.md sprite 적용.</p>
-    <p class="meta">총 44개 화면 · 인웹 진입(M00, M00a, M00b) + 챗봇 시퀀스(M01~M15) + 엣지(M17~M20) + Phase 3 클레임 케이스(M22~M37) + 클레임 보강(M38~M44) · 다크 모드 지원</p>
+    <p class="meta">총 45개 화면 · 인웹 진입(M00, M00a, M00b) + 챗봇 시퀀스(M01~M15) + 엣지(M17~M20) + Phase 3 클레임 케이스(M22~M37) + 클레임 보강(M38~M45) · 다크 모드 지원</p>
   </div>
 
   <div class="legend">
@@ -1241,8 +1246,8 @@ input.input-field::placeholder { color: var(--fg-weak); }
   <!-- M00 — 인웹 진입 (웹 메인 + 챗봇 위젯) -->
   <!-- ============================================ -->
   <section class="hero-stage">
-    <div class="hero-label">M00 — 인웹 진입 <span class="live-badge">LIVE 데모</span></div>
-    <div class="hero-desc">우하단 위젯의 모든 chip/카드/버튼이 클릭 가능합니다. 실제 흐름을 따라가보세요. (LLM·API는 미연동, UI 분기만 동작)</div>
+    <div class="hero-label">M00 — 인웹 진입 (PC 고객센터 → 중앙 채팅 팝업) <span class="live-badge">LIVE 데모</span></div>
+    <div class="hero-desc">PC 웹 고객센터 페이지에서 [채팅 상담하기] 클릭 → 화면 중앙에 채팅 팝업이 떠요. 위젯의 chip/카드/버튼은 클릭 가능. (LLM·API는 미연동, UI 분기만 동작)</div>
     <div class="web-mockup">
       <!-- 오늘의집 GNB -->
       <div class="web-gnb">
@@ -1255,47 +1260,41 @@ input.input-field::placeholder { color: var(--fg-weak); }
           <button class="web-gnb-write">글쓰기 <svg style="width:10px;height:10px;fill:currentColor"><use href="#i-chevron-down"/></svg></button>
         </div>
       </div>
-      <!-- 카테고리 탭 -->
-      <div class="web-tabs">
-        <span class="tab active">홈</span><span class="tab">추천</span><span class="tab">집들이</span>
-        <span class="tab">집사진</span><span class="tab">인기</span><span class="tab">쇼핑수다</span>
-        <span class="tab">집꾸미기</span><span class="tab">오집소식</span><span class="tab">취미/일상</span>
-        <span class="tab">3D인테리어</span>
-      </div>
-      <!-- 콘텐츠 -->
-      <div class="web-content">
-        <div class="web-hero-row">
-          <div class="web-hero-img">
-            <div class="web-hero-img-text">넓어진 거실에 가족 공간을 만든, 54평 럭셔리 하우스</div>
+      <!-- 고객센터 페이지 -->
+      <div class="web-content" style="padding:36px 24px 70px; background:var(--bg-weak)">
+        <div style="max-width:720px; margin:0 auto">
+          <div style="font-size:24px; font-weight:800; letter-spacing:-0.4px">고객센터</div>
+          <div style="font-size:14px; color:var(--fg-weak); margin:6px 0 24px">무엇을 도와드릴까요?</div>
+          <div style="font-size:13px; font-weight:700; color:var(--fg-weak); margin-bottom:8px">자주 묻는 질문</div>
+          <div style="background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:28px">
+            <div style="padding:14px 16px; border-bottom:1px solid var(--border); font-size:14px">배송은 얼마나 걸리나요?</div>
+            <div style="padding:14px 16px; border-bottom:1px solid var(--border); font-size:14px">주문 취소는 어떻게 하나요?</div>
+            <div style="padding:14px 16px; border-bottom:1px solid var(--border); font-size:14px">반품·교환을 신청하고 싶어요.</div>
+            <div style="padding:14px 16px; font-size:14px">환불은 언제 받을 수 있나요?</div>
           </div>
-          <div class="web-hero-img ad">
-            <div class="ad-tag">AD</div>
-            <div class="ad-text">강력건조분쇄<br>쿠쿠<br>음식물처리기</div>
-            <div class="ad-counter">2/17 +</div>
+          <div style="font-size:13px; font-weight:700; color:var(--fg-weak); margin-bottom:8px">상담 연결</div>
+          <div style="display:flex; gap:12px">
+            <div onclick="openWidget()" style="flex:1; background:var(--bg-brand); color:#fff; border-radius:12px; padding:22px 16px; text-align:center; cursor:pointer; box-shadow:var(--shadow-thick)">
+              <div style="font-size:26px; margin-bottom:6px">💬</div>
+              <div style="font-size:15px; font-weight:700">채팅 상담하기</div>
+              <div style="font-size:12px; opacity:.85; margin-top:3px">AI 오집사 · 24시간</div>
+            </div>
+            <div style="flex:1; background:#fff; border:1px solid var(--border); border-radius:12px; padding:22px 16px; text-align:center">
+              <div style="font-size:26px; margin-bottom:6px">📞</div>
+              <div style="font-size:15px; font-weight:700; color:var(--fg)">전화 상담</div>
+              <div style="font-size:12px; color:var(--fg-weak); margin-top:3px">09:00 ~ 18:00</div>
+            </div>
+            <div style="flex:1; background:#fff; border:1px solid var(--border); border-radius:12px; padding:22px 16px; text-align:center">
+              <div style="font-size:26px; margin-bottom:6px">✉️</div>
+              <div style="font-size:15px; font-weight:700; color:var(--fg)">이메일 문의</div>
+              <div style="font-size:12px; color:var(--fg-weak); margin-top:3px">24시간 접수</div>
+            </div>
           </div>
-        </div>
-        <div class="web-categories">
-          <div class="cat-item"><div class="cat-icon purple">~90%</div><div class="cat-label">오세일</div></div>
-          <div class="cat-item"><div class="cat-icon red">⚡</div><div class="cat-label">오늘의딜</div></div>
-          <div class="cat-item"><div class="cat-icon blue"><svg><use href="#i-magnifying-glass"/></svg></div><div class="cat-label">집들이</div></div>
-          <div class="cat-item"><div class="cat-icon green">🍀</div><div class="cat-label">행운출첵</div></div>
-          <div class="cat-item"><div class="cat-icon red"><svg><use href="#i-cube"/></svg></div><div class="cat-label">패키지할인</div></div>
-          <div class="cat-item"><div class="cat-icon gray"><svg><use href="#i-photo"/></svg></div><div class="cat-label">챌린지참여</div></div>
-          <div class="cat-item"><div class="cat-icon orange"><svg><use href="#i-cart"/></svg></div><div class="cat-label">오마트</div></div>
-          <div class="cat-item"><div class="cat-icon blue"><svg><use href="#i-truck"/></svg></div><div class="cat-label">원하는날도착</div></div>
-          <div class="cat-item"><div class="cat-icon gray"><svg><use href="#i-place-house"/></svg></div><div class="cat-label">이사·청소</div></div>
-        </div>
-        <div class="web-recom">
-          <div class="web-recom-card"></div>
-          <div class="web-recom-card"></div>
-          <div class="web-recom-card"></div>
-          <div class="web-recom-card"></div>
-          <div class="web-recom-card"></div>
-          <div class="web-recom-card"></div>
         </div>
       </div>
 
-      <!-- 챗봇 위젯 (라이브 데모) -->
+      <!-- 페이지 딤 + 챗봇 위젯 (라이브 데모) -->
+      <div class="hero-dim" id="liveDim"></div>
       <div class="chatbot-floating">
         <div class="live-launcher-floating" id="liveLauncher" hidden>
           <button class="cb-launcher" onclick="openWidget()" aria-label="채팅 열기">
@@ -1731,9 +1730,9 @@ input.input-field::placeholder { color: var(--fg-weak); }
       </div>
     </div>
     <div class="spec" style="width:auto; max-width:none; margin-top:16px">
-      <strong>🎬 라이브 데모 활성화</strong> · 위 위젯의 모든 chip/카드/버튼이 실제 클릭 가능. 실제 챗봇 흐름을 따라가보세요.<br>
-      <strong>흐름</strong> 시작 → [새 상담] → 첫인사 → chip 선택 → 인증 모달 → 로그인(시뮬레이션) → 시나리오 → 완료/NPS<br>
-      <strong>제한</strong> LLM·실제 API는 미연동(AICX/ENG 작업). UI 분기 시연용. 우상단 X로 닫고 launcher로 다시 열기 가능
+      <strong>🎬 라이브 데모 활성화</strong> · PC 고객센터 페이지 [채팅 상담하기] 클릭 → 중앙 채팅 팝업. 위젯의 모든 chip/카드/버튼이 실제 클릭 가능.<br>
+      <strong>진입</strong> 고객센터 페이지(웹) → [채팅 상담하기] → 화면 중앙 채팅 팝업 (우하단 플로팅 아님). 모바일 앱 진입은 M00a 참조<br>
+      <strong>제한</strong> LLM·실제 API는 미연동(AICX/ENG 작업). UI 분기 시연용. 우상단 X로 닫고 [채팅 상담하기]로 다시 열기 가능
     </div>
   </section>
 
@@ -3907,6 +3906,57 @@ input.input-field::placeholder { color: var(--fg-weak); }
         <strong>상태</strong> 판매자가 반품·교환 보류 + 추가 비용 청구<br>
         <strong>고객 액션</strong> 추가비용 결제 / 판매자 문의 / 상담사 연결<br>
         <strong>정합</strong> 실앱 return_detail_error · 요건시트 row 59 — 신규 예외 케이스
+      </div>
+    </div>
+
+    <!-- ============= M45 교환 회수 방법 (3종) ============= -->
+    <div class="mockup">
+      <div class="mockup-label">M45 — 교환 회수 방법 (3종, 실앱 정합)</div>
+      <div class="mockup-desc">교환도 회수 방법 선택 단계 필요. 반품(M39)과 유사하나 3번째 옵션이 "빠른 시일 내 보낼게요"(송장 없이 우선 접수). 직접 수거 시 수거 주소 확인·변경.</div>
+      <div class="cw">
+        <div class="cw-header">
+          <button class="icon-btn"><svg><use href="#i-arrow-left"/></svg></button>
+          <div style="flex:1; text-align:center; font-size:15px; font-weight:700">교환 접수</div>
+          <button class="icon-btn"><svg><use href="#i-x"/></svg></button>
+        </div>
+        <div class="chat">
+          <div class="bot-attached" style="margin-left:0">
+            <div class="stepbar" style="max-width:none">
+              <div class="stepbar-row">
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">상품</div></div>
+                <div class="step done"><div class="step-circle">✓</div><div class="step-label">사유</div></div>
+                <div class="step active"><div class="step-circle">3</div><div class="step-label">회수</div></div>
+                <div class="step"><div class="step-circle">4</div><div class="step-label">비용 결제</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar">오</div><div class="bubble">교환 상품을 어떻게 보낼까요?</div></div>
+          <div class="bot-attached">
+            <div class="form-options">
+              <div class="option selected"><div class="option-radio"></div>택배사가 방문 수거해 주세요</div>
+              <div class="option"><div class="option-radio"></div>이미 판매자에게 택배로 보냈어요</div>
+              <div class="option"><div class="option-radio"></div>상품을 빠른 시일 내 보낼게요</div>
+            </div>
+          </div>
+          <div class="bot-msg"><div class="avatar" style="visibility:hidden"></div><div class="bubble">이 주소로 수거할게요.</div></div>
+          <div class="bot-attached">
+            <div class="info-card">
+              <h4>수거 주소</h4>
+              <div class="info-row"><span class="info-label">받는 분</span><span class="info-val">엔조</span></div>
+              <div class="info-row"><span class="info-label">주소</span><span class="info-val">서울 서초구 서초대로74길 4</span></div>
+            </div>
+            <button class="btn btn-secondary btn-block" style="max-width:280px">수거 주소 변경</button>
+          </div>
+        </div>
+        <div class="input-bar">
+          <input class="input-field" type="text" placeholder="메시지를 입력하세요" />
+          <button class="send-btn"><svg><use href="#i-arrow-up"/></svg></button>
+        </div>
+      </div>
+      <div class="spec">
+        <strong>회수 방법 3종</strong> 택배사 방문 수거 / 이미 판매자에게 보냄(택배사+송장 입력) / 빠른 시일 내 보낼게요(송장 없이 우선 접수)<br>
+        <strong>분기</strong> 방문 수거 → 수거 주소 확인·변경 / 직접 보냄 → 택배사+송장 입력 / 빠른 시일 내 → 송장 후속 입력<br>
+        <strong>정합</strong> 실앱 claim_exchange_method · 요건시트 row 63 — 신규 (반품 M39의 교환 버전)
       </div>
     </div>
 
@@ -8040,12 +8090,14 @@ function showScreen(screen) {
 function openWidget() {
   document.getElementById('liveLauncher').hidden = true;
   document.getElementById('liveCw').hidden = false;
+  document.getElementById('liveDim').hidden = false;
   showScreen('start');
 }
 
 function closeWidget() {
   document.getElementById('liveLauncher').hidden = false;
   document.getElementById('liveCw').hidden = true;
+  document.getElementById('liveDim').hidden = true;
 }
 
 function selectIntent(intent) {
