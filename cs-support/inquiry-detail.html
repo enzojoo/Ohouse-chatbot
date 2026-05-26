@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>문의 상세 · 오늘의집 고객센터</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --bg:#ffffff; --bg-weak:#f5f5f5; --bg-brand:#00a1ff; --bg-brand-weak:#f0f8fc;
+    --bg-attention-weak:#fcf4dd;
+    --border:#e0e0e0; --border-strong:#141414; --border-brand:#00a1ff;
+    --fg:#141414; --fg-weak:#8c8c8c; --fg-mid:#525252; --fg-brand:#00a1ff; --fg-attention:#b27800;
+    --positive:#22c55e;
+    --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+    --shadow-md:0 4px 16px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{height:100%}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-0.3px;color:var(--fg);background:#f5f5f5;word-break:keep-all;}
+  button{font-family:inherit;letter-spacing:-0.3px;cursor:pointer;}
+
+  /* GNB */
+  .gnb{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border);}
+  .gnb-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .gnb .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.4px;cursor:pointer;text-decoration:none;color:var(--fg);}
+  .gnb .logo .mark{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;}
+  .gnb .logo .mark svg{width:100%;height:100%;display:block;}
+  .gnb .logo .name{font-size:17px}
+  .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
+  .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
+  .gnb nav{display:flex;align-items:center;gap:4px}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none}
+  .gnb nav a:hover{background:var(--bg-weak)}
+  .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
+
+  /* Page header */
+  .pageHd{background:#fff;border-bottom:1px solid var(--border);padding:24px 24px;}
+  .pageHd .inner{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
+  .pageHd .crumb{font-size:12px;color:var(--fg-weak);}
+  .pageHd .crumb a{color:var(--fg-weak);text-decoration:none;}
+  .pageHd .crumb a:hover{color:var(--fg);}
+
+  /* Wrap */
+  .wrap{max-width:880px;margin:0 auto;padding:24px 24px 80px;display:flex;flex-direction:column;gap:14px;}
+
+  /* Inquiry header card */
+  .infoCard{background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);padding:24px 28px;box-shadow:var(--shadow-sm);}
+  .infoCard .topRow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .infoCard h2{font-size:18px;font-weight:800;color:var(--fg);letter-spacing:-0.4px;line-height:1.4;}
+  .infoCard .stBadge{flex-shrink:0;padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:0;}
+  .stBadge.done{background:rgba(34,197,94,.12);color:var(--positive);}
+  .stBadge.wait{background:var(--bg-attention-weak);color:var(--fg-attention);}
+  .infoCard .metaRow{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12.5px;color:var(--fg-mid);}
+  .infoCard .metaRow b{color:var(--fg);font-weight:600;}
+  .infoCard .metaRow .tagPill{background:var(--bg-brand-weak);color:var(--fg-brand);padding:2px 10px;border-radius:9999px;font-weight:600;font-size:11.5px;}
+
+  /* Thread */
+  .thread{background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);padding:24px 28px;box-shadow:var(--shadow-sm);}
+  .thread h3{font-size:13px;color:var(--fg-weak);font-weight:700;letter-spacing:0;margin-bottom:18px;display:flex;align-items:center;gap:6px;}
+  .thread h3::before{content:'';width:3px;height:13px;background:var(--bg-brand);border-radius:2px;}
+
+  .msg{display:flex;gap:12px;margin-bottom:22px;align-items:flex-start;}
+  .msg:last-child{margin-bottom:0;}
+  .msg .av{flex-shrink:0;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;}
+  .msg .body{flex:1;min-width:0;}
+  .msg .name{font-size:13px;font-weight:700;color:var(--fg);}
+  .msg .time{font-size:11.5px;color:var(--fg-weak);margin-left:6px;font-weight:500;}
+  .msg .bubble{
+    margin-top:6px;padding:14px 16px;border-radius:12px;font-size:14px;line-height:1.65;letter-spacing:-0.3px;
+    white-space:pre-line;
+  }
+
+  .msg.cust .av{background:var(--bg-weak);color:var(--fg-mid);}
+  .msg.cust .bubble{background:var(--bg-weak);color:var(--fg);border-top-left-radius:4px;}
+
+  .msg.agent .av{background:var(--bg-brand-weak);color:var(--fg-brand);}
+  .msg.agent .bubble{background:var(--bg-brand-weak);color:var(--fg);border-top-left-radius:4px;}
+  .msg.agent .name::after{content:'상담사';margin-left:5px;font-size:10px;font-weight:700;background:var(--bg-brand);color:#fff;padding:1px 6px;border-radius:9999px;letter-spacing:0;}
+
+  /* Reply input */
+  .replyArea{background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);padding:18px 20px;box-shadow:var(--shadow-sm);}
+  .replyArea h3{font-size:13px;color:var(--fg);font-weight:700;margin-bottom:10px;}
+  .replyArea textarea{
+    width:100%;min-height:90px;border:1px solid var(--border);border-radius:8px;
+    padding:12px 14px;font-family:inherit;font-size:14px;color:var(--fg);
+    letter-spacing:-0.3px;line-height:1.6;resize:vertical;outline:none;
+    transition:border-color .12s ease, box-shadow .12s ease;
+  }
+  .replyArea textarea:focus{border-color:var(--border-brand);box-shadow:0 0 0 3px rgba(0,161,255,.12);}
+  .replyArea .replyRow{display:flex;justify-content:space-between;align-items:center;margin-top:10px;}
+  .replyArea .hint{font-size:11.5px;color:var(--fg-weak);}
+  .btn{height:38px;padding:0 18px;border-radius:8px;font-size:13.5px;font-weight:600;letter-spacing:-0.3px;border:0;}
+  .btn.primary{background:var(--bg-brand);color:#fff;}
+  .btn.primary:hover{filter:brightness(.92);}
+  .btn.ghost{background:#fff;border:1px solid var(--border);color:var(--fg);}
+  .btn.ghost:hover{background:var(--bg-weak);}
+
+  /* Closing actions */
+  .closing{display:flex;justify-content:space-between;gap:10px;padding:0 4px;}
+  .closing .left{display:flex;gap:8px;}
+
+  /* Footer */
+  .footer{max-width:880px;margin:40px auto 0;padding:24px;border-top:1px solid var(--border);text-align:center;color:var(--fg-weak);font-size:12px;}
+  .footer a{color:var(--fg-brand);text-decoration:none;}
+  .footer a:hover{text-decoration:underline;}
+
+  /* Rating modal */
+  .modalDim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:100;align-items:center;justify-content:center;padding:24px;}
+  .modalDim.show{display:flex;}
+  .modal{background:#fff;border-radius:16px;padding:28px 28px 22px;width:100%;max-width:380px;text-align:center;}
+  .modal h4{font-size:17px;font-weight:800;margin-bottom:6px;}
+  .modal p{font-size:13px;color:var(--fg-weak);margin-bottom:18px;}
+  .stars{display:flex;justify-content:center;gap:8px;margin-bottom:18px;}
+  .stars button{width:38px;height:38px;border:0;background:none;font-size:28px;color:#e0e0e0;cursor:pointer;line-height:1;padding:0;}
+  .stars button.on{color:#ffc107;}
+  .modal .actions{display:flex;gap:8px;}
+  .modal .actions .btn{flex:1;}
+
+  /* Responsive */
+  @media (max-width:560px){
+    .gnb-inner{padding:12px 16px;}
+    .gnb nav a{padding:6px 8px;font-size:13px;}
+    .wrap{padding:16px 16px 60px;}
+    .infoCard, .thread, .replyArea{padding:18px 18px;}
+    .closing{flex-direction:column;}
+    .closing .left{flex-direction:column;}
+    .closing .btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= GNB ============= -->
+<header class="gnb">
+  <div class="gnb-inner">
+    <a class="logo" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 1600 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M841.62 407.32C814.516 397.56 785.484 397.56 758.38 407.32C707.797 425.532 545.118 532.195 458.043 622C411.078 670.434 400 703.937 400 762.001C400 771.684 400 781.687 400 791.902C400.74 884.018 405.381 993.684 421.64 1047C449.746 1139.16 491.996 1200 759.001 1200H840.999C1108 1200 1150.25 1139.16 1178.36 1047C1194.62 993.684 1199.26 884.018 1200 791.897C1200 781.682 1200 771.684 1200 761.996C1200 703.932 1188.92 670.428 1141.96 621.995C1054.88 532.2 892.213 425.532 841.62 407.32Z" fill="#00A1FF"/>
+        </svg>
+      </span>
+      <span class="name">오늘의집</span>
+      <span class="pipe"></span>
+      <span class="label">고객센터</span>
+    </a>
+    <nav>
+      <a href="index.html">고객센터</a>
+      <a href="faq.html">FAQ</a>
+      <a class="cta" href="index.html">문의내역</a>
+      <a href="index.html" style="color:var(--fg-brand);font-weight:600">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============= Page header ============= -->
+<section class="pageHd">
+  <div class="inner">
+    <div class="crumb"><a href="index.html">고객센터</a> &nbsp;›&nbsp; <a href="index.html">문의내역</a> &nbsp;›&nbsp; 문의 상세</div>
+  </div>
+</section>
+
+<!-- ============= Body ============= -->
+<div class="wrap">
+
+  <!-- Inquiry header -->
+  <div class="infoCard">
+    <div class="topRow">
+      <h2>주문한 상품 취소가 가능한가요?</h2>
+      <span class="stBadge done">답변완료</span>
+    </div>
+    <div class="metaRow">
+      <span class="tagPill">취소·교환·반품</span>
+      <span>주문번호 <b>#20260521-01</b></span>
+      <span>접수일 <b>2026-05-26 10:32</b></span>
+      <span>답변일 <b>2026-05-26 14:18</b></span>
+    </div>
+  </div>
+
+  <!-- Thread -->
+  <div class="thread">
+    <h3>대화 내역</h3>
+
+    <!-- 고객 메시지 -->
+    <div class="msg cust">
+      <div class="av">고객</div>
+      <div class="body">
+        <div><span class="name">홍길동</span><span class="time">2026-05-26 10:32</span></div>
+        <div class="bubble">어제 키친아트 식기세트를 주문했는데, 아직 배송 전이라 취소하고 싶어요.
+
+배송 상태를 보니 '배송준비중'으로 되어 있던데, 직접 취소가 안 되네요. 도와주세요!</div>
+      </div>
+    </div>
+
+    <!-- 상담사 답변 -->
+    <div class="msg agent">
+      <div class="av">오</div>
+      <div class="body">
+        <div><span class="name">박지원</span><span class="time">2026-05-26 14:18</span></div>
+        <div class="bubble">안녕하세요, 고객님. 오늘의집 박지원 상담사입니다. 😊
+
+주문번호 <b>#20260521-01</b> 확인했습니다. 현재 '배송준비중' 상태로 판매자(키친아트)에서 출고 전이라 취소가 가능한 상태입니다.
+
+판매자측으로 취소 요청을 전달드렸고, 출고 전 확인되면 자동으로 취소·환불이 진행됩니다.
+
+<b>예상 처리 일정</b>
+· 판매자 확인: 영업일 기준 1일 이내
+· 환불 (카드 결제): 승인 취소 후 영업일 기준 3~7일
+
+추가로 궁금하신 점 있으면 언제든 답글 남겨주세요. 감사합니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reply -->
+  <div class="replyArea">
+    <h3>추가로 문의하기</h3>
+    <textarea id="replyText" placeholder="답변을 받고 추가로 궁금하신 점이 있으면 작성해주세요."></textarea>
+    <div class="replyRow">
+      <div class="hint">개인정보(주민번호·카드번호 등)는 입력하지 마세요.</div>
+      <button class="btn primary" onclick="sendReply()">답글 전송</button>
+    </div>
+  </div>
+
+  <!-- Closing actions -->
+  <div class="closing">
+    <div class="left">
+      <button class="btn ghost" onclick="alert('해당 문의 목록으로 돌아갑니다.');location.href='index.html'">← 문의내역으로</button>
+    </div>
+    <button class="btn primary" onclick="openRating()">만족도 평가하기</button>
+  </div>
+
+</div>
+
+<footer class="footer">
+  ⓒ Bucketplace, Co., Ltd. · 이 페이지는 데모입니다. <a href="index.html">← 고객센터로 돌아가기</a>
+</footer>
+
+<!-- Rating modal -->
+<div class="modalDim" id="rateModal">
+  <div class="modal">
+    <h4>답변에 만족하셨나요?</h4>
+    <p>고객님의 평가는 더 나은 서비스를 만드는 데 큰 도움이 돼요.</p>
+    <div class="stars" id="stars">
+      <button data-v="1">★</button>
+      <button data-v="2">★</button>
+      <button data-v="3">★</button>
+      <button data-v="4">★</button>
+      <button data-v="5">★</button>
+    </div>
+    <div class="actions">
+      <button class="btn ghost" onclick="closeRating()">취소</button>
+      <button class="btn primary" onclick="submitRating()">평가 완료</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function sendReply(){
+    const txt = document.getElementById('replyText').value.trim();
+    if (txt.length < 5){ alert('답글 내용을 5자 이상 입력해주세요.'); return; }
+    alert('답글이 전송되었어요. ✅\n상담사가 확인 후 영업시간 내 답변드릴게요.');
+    document.getElementById('replyText').value = '';
+  }
+
+  // Rating
+  let rating = 0;
+  const $modal = document.getElementById('rateModal');
+  const stars = document.querySelectorAll('#stars button');
+  stars.forEach(btn => btn.addEventListener('click', () => {
+    rating = +btn.dataset.v;
+    stars.forEach(b => b.classList.toggle('on', +b.dataset.v <= rating));
+  }));
+  function openRating(){ $modal.classList.add('show'); }
+  function closeRating(){ $modal.classList.remove('show'); }
+  function submitRating(){
+    if (!rating){ alert('별점을 선택해주세요.'); return; }
+    closeRating();
+    alert(`만족도 ${rating}점 평가가 완료되었어요. 감사합니다! 💙`);
+  }
+  $modal.addEventListener('click', e => { if (e.target === $modal) closeRating(); });
+</script>
+
+</body>
+</html>
