@@ -400,9 +400,9 @@
           <div class="icon">📞</div>
           <div class="txt"><span class="ttl">전화상담</span><span class="sub">오전 9시 ~ 오후 6시</span></div>
         </div>
-        <div class="consultCard" onclick="location.href='inquiry-write.html'">
+        <div class="consultCard" onclick="App.clickInquiry()">
           <div class="icon">✉️</div>
-          <div class="txt"><span class="ttl">문의하기</span><span class="sub">로그인 후 1:1 문의</span></div>
+          <div class="txt"><span class="ttl">문의하기</span><span class="sub">24시간 접수</span></div>
         </div>
       </div>
     </div>
@@ -575,6 +575,15 @@ const App = {
     document.querySelectorAll('#ovResvCheck .opt2 .o').forEach(o=>o.classList.remove('sel'));
     document.getElementById('resvStartBtn').classList.remove('ok');
     this.openModal('resv-check');
+  },
+
+  // ===== 1:1 문의하기 클릭 =====
+  clickInquiry(){
+    if(!this.state.auth){
+      const ok = confirm('로그인 후 이용 가능해요. 로그인 시뮬레이션 할까요?');
+      if(ok){ this.toggleAuth(true); } else { return; }
+    }
+    window.location.href = 'inquiry-write.html';
   },
 
   // 칩 클릭 시 (intent 선택 후 챗 진입)

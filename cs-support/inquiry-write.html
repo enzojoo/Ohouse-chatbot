@@ -245,7 +245,7 @@
     <!-- Submit -->
     <div class="submitRow">
       <button type="button" class="btn ghost" onclick="history.back()">취소</button>
-      <button type="submit" class="btn primary" id="submitBtn" disabled>문의 제출하기</button>
+      <button type="submit" class="btn primary" id="submitBtn">문의 제출하기</button>
     </div>
   </form>
 
@@ -286,16 +286,11 @@
   const content = document.getElementById('content');
   const titleCnt = document.getElementById('titleCnt');
   const contentCnt = document.getElementById('contentCnt');
-  const submitBtn = document.getElementById('submitBtn');
   const category = document.getElementById('category');
 
-  function updateValid(){
-    const ok = category.value && title.value.trim().length >= 4 && content.value.trim().length >= 10;
-    submitBtn.disabled = !ok;
-  }
-  title.addEventListener('input', () => { titleCnt.textContent = title.value.length; updateValid(); });
-  content.addEventListener('input', () => { contentCnt.textContent = content.value.length; updateValid(); });
-  category.addEventListener('change', () => { updateValid(); updateRecommend(category.value); });
+  title.addEventListener('input', () => { titleCnt.textContent = title.value.length; });
+  content.addEventListener('input', () => { contentCnt.textContent = content.value.length; });
+  category.addEventListener('change', () => { updateRecommend(category.value); });
 
   // FAQ recommendations per category
   const FAQ_BY_CAT = {
@@ -316,9 +311,15 @@
     el.innerHTML = list.map(([_, q]) => `<a href="faq.html"><span class="qBadge">Q</span><span>${q}</span></a>`).join('');
   }
 
-  // Submit
+  // Submit (검증 + 부족하면 안내 + focus)
   document.getElementById('inquiryForm').addEventListener('submit', e => {
     e.preventDefault();
+    const cat = category.value;
+    const t = title.value.trim();
+    const c = content.value.trim();
+    if (!cat)            { alert('문의 유형을 선택해주세요.'); category.focus(); return; }
+    if (t.length < 4)    { alert('제목을 4자 이상 입력해주세요.'); title.focus(); return; }
+    if (c.length < 10)   { alert('내용을 10자 이상 입력해주세요.'); content.focus(); return; }
     alert('문의가 정상적으로 접수되었어요. ✅\n\n답변까지 평균 6시간(영업시간 기준) 내로 안내드릴게요.\n답변은 [고객센터 > 문의내역]에서 확인 가능합니다.');
     window.location.href = 'index.html';
   });
