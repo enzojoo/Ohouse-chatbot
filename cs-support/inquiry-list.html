@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>문의내역 · 오늘의집 고객센터</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --bg:#ffffff; --bg-weak:#f5f5f5; --bg-brand:#00a1ff; --bg-brand-weak:#f0f8fc;
+    --bg-attention-weak:#fcf4dd;
+    --border:#e0e0e0; --border-strong:#141414; --border-brand:#00a1ff;
+    --fg:#141414; --fg-weak:#8c8c8c; --fg-mid:#525252; --fg-brand:#00a1ff; --fg-attention:#b27800;
+    --positive:#22c55e;
+    --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{height:100%}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-0.3px;color:var(--fg);background:#f5f5f5;word-break:keep-all;}
+  button{font-family:inherit;letter-spacing:-0.3px;cursor:pointer;}
+
+  /* GNB */
+  .gnb{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border);}
+  .gnb-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .gnb .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.4px;cursor:pointer;text-decoration:none;color:var(--fg);}
+  .gnb .logo .mark{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;}
+  .gnb .logo .mark svg{width:100%;height:100%;display:block;}
+  .gnb .logo .name{font-size:17px}
+  .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
+  .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
+  .gnb nav{display:flex;align-items:center;gap:4px}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none}
+  .gnb nav a:hover{background:var(--bg-weak)}
+  .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
+
+  /* Page header */
+  .pageHd{background:#fff;border-bottom:1px solid var(--border);padding:24px 24px;}
+  .pageHd .inner{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:8px;}
+  .pageHd .crumb{font-size:12px;color:var(--fg-weak);}
+  .pageHd .crumb a{color:var(--fg-weak);text-decoration:none;}
+  .pageHd .crumb a:hover{color:var(--fg);}
+  .pageHd .titleRow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  .pageHd h1{font-size:22px;font-weight:800;letter-spacing:-0.5px;color:var(--fg);}
+  .pageHd .newBtn{height:38px;padding:0 16px;background:var(--bg-brand);color:#fff;border-radius:8px;font-size:13.5px;font-weight:600;border:0;display:inline-flex;align-items:center;gap:6px;}
+  .pageHd .newBtn:hover{filter:brightness(.92);}
+
+  /* Wrap */
+  .wrap{max-width:880px;margin:0 auto;padding:20px 24px 80px;}
+
+  /* Tabs */
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--border);margin-bottom:18px;background:#fff;border-radius:12px 12px 0 0;padding:8px 8px 0;}
+  .tabs button{
+    border:0;background:none;color:var(--fg-weak);font-size:14px;font-weight:600;
+    padding:12px 16px;cursor:pointer;letter-spacing:-0.3px;position:relative;
+    transition:color .12s ease;
+  }
+  .tabs button:hover{color:var(--fg);}
+  .tabs button.on{color:var(--fg-brand);}
+  .tabs button.on::after{content:'';position:absolute;bottom:-1px;left:8px;right:8px;height:2px;background:var(--fg-brand);border-radius:2px;}
+  .tabs button .cnt{font-weight:700;margin-left:4px;color:var(--fg-weak);font-size:12.5px;}
+  .tabs button.on .cnt{color:var(--fg-brand);}
+
+  /* List */
+  .list{display:flex;flex-direction:column;gap:10px;}
+  .item{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+    background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
+    padding:18px 22px;cursor:pointer;transition:border-color .12s ease, box-shadow .12s ease;
+  }
+  .item:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm);}
+  .item .l{flex:1;min-width:0;}
+  .item .t{font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px;letter-spacing:-0.3px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .item .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;color:var(--fg-weak);}
+  .item .meta .tag{background:var(--bg-brand-weak);color:var(--fg-brand);padding:2px 8px;border-radius:9999px;font-weight:600;font-size:11px;letter-spacing:0;}
+  .item .meta .pipe{width:1px;height:10px;background:var(--border);}
+  .item .badge{flex-shrink:0;padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:0;}
+  .badge.done{background:rgba(34,197,94,.12);color:var(--positive);}
+  .badge.wait{background:var(--bg-attention-weak);color:var(--fg-attention);}
+
+  /* Empty */
+  .empty{
+    display:none;background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);
+    padding:64px 24px;text-align:center;color:var(--fg-weak);
+  }
+  .empty.show{display:block;}
+  .empty .em{font-size:42px;display:block;margin-bottom:12px;}
+  .empty h3{font-size:16px;color:var(--fg);font-weight:700;margin-bottom:6px;}
+  .empty p{font-size:13px;line-height:1.6;margin-bottom:18px;}
+  .empty .cta{
+    display:inline-flex;align-items:center;gap:6px;
+    height:40px;padding:0 20px;background:var(--bg-brand);color:#fff;
+    border-radius:8px;text-decoration:none;font-size:13.5px;font-weight:600;
+  }
+  .empty .cta:hover{filter:brightness(.92);}
+
+  /* Footer */
+  .footer{max-width:880px;margin:40px auto 0;padding:24px;border-top:1px solid var(--border);text-align:center;color:var(--fg-weak);font-size:12px;}
+  .footer a{color:var(--fg-brand);text-decoration:none;}
+  .footer a:hover{text-decoration:underline;}
+
+  /* Responsive */
+  @media (max-width:560px){
+    .gnb-inner{padding:12px 16px;}
+    .gnb nav a{padding:6px 8px;font-size:13px;}
+    .pageHd{padding:20px 16px;}
+    .pageHd h1{font-size:19px;}
+    .wrap{padding:16px 16px 60px;}
+    .item{padding:16px 18px;}
+    .item .t{font-size:14px;white-space:normal;}
+    .tabs button{padding:10px 12px;font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= GNB ============= -->
+<header class="gnb">
+  <div class="gnb-inner">
+    <a class="logo" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 1600 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M841.62 407.32C814.516 397.56 785.484 397.56 758.38 407.32C707.797 425.532 545.118 532.195 458.043 622C411.078 670.434 400 703.937 400 762.001C400 771.684 400 781.687 400 791.902C400.74 884.018 405.381 993.684 421.64 1047C449.746 1139.16 491.996 1200 759.001 1200H840.999C1108 1200 1150.25 1139.16 1178.36 1047C1194.62 993.684 1199.26 884.018 1200 791.897C1200 781.682 1200 771.684 1200 761.996C1200 703.932 1188.92 670.428 1141.96 621.995C1054.88 532.2 892.213 425.532 841.62 407.32Z" fill="#00A1FF"/>
+        </svg>
+      </span>
+      <span class="name">오늘의집</span>
+      <span class="pipe"></span>
+      <span class="label">고객센터</span>
+    </a>
+    <nav>
+      <a href="index.html">고객센터</a>
+      <a href="faq.html">FAQ</a>
+      <a class="cta" href="inquiry-list.html">문의내역</a>
+      <a href="index.html" style="color:var(--fg-brand);font-weight:600">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============= Page header ============= -->
+<section class="pageHd">
+  <div class="inner">
+    <div class="crumb"><a href="index.html">고객센터</a> &nbsp;›&nbsp; 문의내역</div>
+    <div class="titleRow">
+      <h1>1:1 문의내역</h1>
+      <button class="newBtn" onclick="location.href='inquiry-write.html'">+ 새 문의하기</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============= Body ============= -->
+<div class="wrap">
+
+  <!-- 탭 -->
+  <div class="tabs" role="tablist">
+    <button class="on" data-filter="all">전체<span class="cnt" id="cntAll">0</span></button>
+    <button data-filter="wait">답변대기<span class="cnt" id="cntWait">0</span></button>
+    <button data-filter="done">답변완료<span class="cnt" id="cntDone">0</span></button>
+  </div>
+
+  <!-- 리스트 -->
+  <div class="list" id="list"></div>
+
+  <!-- 빈 상태 -->
+  <div class="empty" id="empty">
+    <span class="em">📭</span>
+    <h3>해당하는 문의가 없어요</h3>
+    <p>아직 문의 내역이 없거나, 선택하신 상태에 해당하는 문의가 없어요.<br/>궁금한 점이 있으시면 1:1 문의를 남겨주세요.</p>
+    <a class="cta" href="inquiry-write.html">+ 새 문의하기</a>
+  </div>
+
+</div>
+
+<footer class="footer">
+  ⓒ Bucketplace, Co., Ltd. · 이 페이지는 데모입니다. <a href="index.html">← 고객센터로 돌아가기</a>
+</footer>
+
+<script>
+  // ===== Mockup 데이터 =====
+  const ITEMS = [
+    {id:1, title:'주문한 상품 취소가 가능한가요?', cat:'취소·교환·반품', order:'#20260521-01', date:'2026-05-26', status:'done', link:'inquiry-detail.html'},
+    {id:2, title:'환불 처리가 아직 안 됐어요',     cat:'주문·결제',     order:'#20260514-08', date:'2026-05-19', status:'wait', link:null},
+    {id:3, title:'리뷰가 블라인드 처리되었어요',   cat:'콘텐츠·커뮤니티',order:null,           date:'2026-04-30', status:'done', link:null},
+    {id:4, title:'배송이 너무 늦어요',             cat:'배송',          order:'#20260502-03', date:'2026-04-15', status:'done', link:null},
+    {id:5, title:'카카오 로그인이 안 됩니다',      cat:'회원·로그인',    order:null,           date:'2026-03-22', status:'done', link:null},
+  ];
+
+  const $list  = document.getElementById('list');
+  const $empty = document.getElementById('empty');
+  const $tabs  = document.querySelectorAll('.tabs button');
+
+  function renderCounts(){
+    document.getElementById('cntAll').textContent  = ITEMS.length;
+    document.getElementById('cntWait').textContent = ITEMS.filter(i=>i.status==='wait').length;
+    document.getElementById('cntDone').textContent = ITEMS.filter(i=>i.status==='done').length;
+  }
+
+  function renderList(filter){
+    const items = filter==='all' ? ITEMS : ITEMS.filter(i=>i.status===filter);
+    if (!items.length){
+      $list.innerHTML = '';
+      $empty.classList.add('show');
+      return;
+    }
+    $empty.classList.remove('show');
+    $list.innerHTML = items.map(i => `
+      <div class="item" data-id="${i.id}" data-link="${i.link || ''}">
+        <div class="l">
+          <div class="t">${i.title}</div>
+          <div class="meta">
+            <span class="tag">${i.cat}</span>
+            ${i.order ? `<span class="pipe"></span><span>주문 ${i.order}</span>` : ''}
+            <span class="pipe"></span><span>${i.date}</span>
+          </div>
+        </div>
+        <span class="badge ${i.status}">${i.status==='done' ? '답변완료' : '답변대기'}</span>
+      </div>
+    `).join('');
+
+    // 클릭 핸들러
+    $list.querySelectorAll('.item').forEach(el => {
+      el.addEventListener('click', () => {
+        const link = el.dataset.link;
+        if (link) location.href = link;
+        else      alert('문의 상세 — mockup\n이 항목은 데모 데이터라 상세 페이지가 연결되어 있지 않아요.\n예시 상세 화면은 첫 번째 항목(답변완료)을 확인해보세요.');
+      });
+    });
+  }
+
+  // 탭 전환
+  $tabs.forEach(btn => btn.addEventListener('click', () => {
+    $tabs.forEach(b => b.classList.toggle('on', b===btn));
+    renderList(btn.dataset.filter);
+  }));
+
+  // 초기 렌더
+  renderCounts();
+  renderList('all');
+</script>
+
+</body>
+</html>
