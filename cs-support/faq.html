@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>자주 묻는 질문(FAQ) · 오늘의집 고객센터</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --bg:#ffffff;
+    --bg-weak:#f5f5f5;
+    --bg-brand:#00a1ff;
+    --bg-brand-weak:#f0f8fc;
+    --bg-attention-weak:#fcf4dd;
+    --border:#e0e0e0;
+    --border-strong:#141414;
+    --border-brand:#00a1ff;
+    --fg:#141414;
+    --fg-weak:#8c8c8c;
+    --fg-mid:#525252;
+    --fg-brand:#00a1ff;
+    --fg-attention:#b27800;
+    --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+    --shadow-md:0 4px 16px rgba(0,0,0,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{height:100%}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-0.3px;color:var(--fg);background:#f5f5f5;word-break:keep-all;}
+
+  /* ===== GNB ===== */
+  .gnb{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border);}
+  .gnb-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .gnb .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.4px;cursor:pointer;}
+  .gnb .logo .mark{width:28px;height:28px;border-radius:7px;background:var(--bg-brand);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;}
+  .gnb .logo .name{font-size:17px}
+  .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
+  .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
+  .gnb nav{display:flex;align-items:center;gap:4px}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;cursor:pointer;text-decoration:none}
+  .gnb nav a:hover{background:var(--bg-weak)}
+  .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
+
+  /* ===== Page hero ===== */
+  .pageHero{background:linear-gradient(135deg,#00A1FF 0%,#1AB1FF 45%,#35C5F0 100%);padding:48px 24px;text-align:center;color:#fff;}
+  .pageHero h1{font-size:26px;font-weight:800;letter-spacing:-0.6px;margin-bottom:8px;}
+  .pageHero p{font-size:14px;opacity:.92;}
+
+  /* ===== Layout ===== */
+  .wrap{max-width:1080px;margin:0 auto;padding:36px 24px 80px;display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:start;}
+
+  /* ===== Side nav ===== */
+  .sideNav{position:sticky;top:88px;background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 8px;}
+  .sideNav h3{font-size:12px;color:var(--fg-weak);font-weight:700;padding:4px 12px 10px;letter-spacing:0;}
+  .sideNav a{display:block;padding:9px 12px;font-size:13.5px;color:var(--fg-mid);font-weight:500;text-decoration:none;border-radius:8px;line-height:1.4;letter-spacing:-0.3px;}
+  .sideNav a:hover{background:var(--bg-weak);color:var(--fg)}
+  .sideNav a.active{background:var(--bg-brand-weak);color:var(--fg-brand);font-weight:700;}
+
+  /* ===== Content ===== */
+  .content{display:flex;flex-direction:column;gap:24px;}
+  .meta{font-size:12px;color:var(--fg-weak);}
+
+  .cat{background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);padding:28px 32px;box-shadow:var(--shadow-sm);}
+  .cat .catTitle{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .cat .catNum{font-size:12px;font-weight:800;color:#fff;background:var(--bg-brand);padding:4px 10px;border-radius:9999px;letter-spacing:0;}
+  .cat h2{font-size:20px;font-weight:800;letter-spacing:-0.5px;color:var(--fg);}
+  .cat .catDesc{color:var(--fg-weak);font-size:13px;margin-bottom:18px;}
+  .cat .catDivider{height:1px;background:var(--border);margin:0 0 20px;}
+
+  .qa{padding:20px 0;border-top:1px solid #f0f0f0;}
+  .qa:first-of-type{border-top:0;padding-top:8px}
+  .q{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;}
+  .q .badge{flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--bg-brand-weak);color:var(--fg-brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;margin-top:1px;}
+  .q .qText{font-size:15.5px;font-weight:700;color:var(--fg);line-height:1.5;letter-spacing:-0.4px;}
+  .a{padding-left:36px;font-size:14px;color:var(--fg-mid);line-height:1.7;}
+  .a p{margin-bottom:8px;}
+  .a p:last-child{margin-bottom:0;}
+  .a ul{margin:8px 0 12px;padding-left:18px;}
+  .a li{margin-bottom:5px;line-height:1.7;}
+  .a li ul{margin-top:4px;margin-bottom:4px;}
+  .a ol{margin:8px 0 12px;padding-left:22px;}
+  .a ol li{margin-bottom:4px;}
+  .a b,.a strong{font-weight:700;color:var(--fg);}
+  .a code{font-family:'SF Mono',ui-monospace,monospace;background:var(--bg-weak);padding:2px 6px;border-radius:4px;font-size:13px;}
+  .a a{color:var(--fg-brand);text-decoration:none;border-bottom:1px solid #cce8fa;}
+  .a a:hover{border-bottom-color:var(--fg-brand);}
+
+  table{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:13.5px;}
+  table th,table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+  table th{background:var(--bg-weak);font-weight:700;color:var(--fg);}
+  table td{color:var(--fg-mid);}
+  table tr:last-child td{border-bottom:0;}
+
+  .pathBox{background:var(--bg-weak);border-radius:var(--r-md);padding:10px 14px;margin:8px 0;font-size:13.5px;color:var(--fg-mid);}
+  .pathBox b{color:var(--fg);}
+  .noteBox{background:var(--bg-attention-weak);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--fg-attention);margin:10px 0;border-left:3px solid #e6c54a;}
+
+  /* ===== Footer ===== */
+  .footer{max-width:1080px;margin:40px auto 0;padding:24px;border-top:1px solid var(--border);text-align:center;color:var(--fg-weak);font-size:12px;}
+  .footer a{color:var(--fg-brand);text-decoration:none;}
+  .footer a:hover{text-decoration:underline;}
+
+  /* ===== Responsive ===== */
+  @media (max-width:860px){
+    .wrap{grid-template-columns:1fr;padding:20px 16px 60px;}
+    .sideNav{position:static;display:none;}
+    .cat{padding:22px 20px;}
+    .a{padding-left:0;}
+    .q .badge{display:none;}
+  }
+  @media (max-width:560px){
+    .gnb-inner{padding:12px 16px;}
+    .gnb nav a{padding:6px 8px;font-size:13px;}
+    .pageHero{padding:36px 20px;}
+    .pageHero h1{font-size:22px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= GNB ============= -->
+<header class="gnb">
+  <div class="gnb-inner">
+    <a class="logo" href="index.html">
+      <span class="mark">O</span>
+      <span class="name">오늘의집</span>
+      <span class="pipe"></span>
+      <span class="label">고객센터</span>
+    </a>
+    <nav>
+      <a href="index.html">고객센터</a>
+      <a class="cta" href="faq.html">FAQ</a>
+      <a href="index.html">문의내역</a>
+      <a href="index.html" style="color:var(--fg-brand);font-weight:600">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============= Hero ============= -->
+<section class="pageHero">
+  <h1>자주 묻는 질문 (FAQ)</h1>
+  <p>고객님이 자주 문의하시는 내용을 모았어요.</p>
+</section>
+
+<!-- ============= Body ============= -->
+<div class="wrap">
+
+  <aside class="sideNav">
+    <h3>카테고리</h3>
+    <a href="#cat1">1. 주문·결제</a>
+    <a href="#cat2">2. 배송</a>
+    <a href="#cat3">3. 취소·교환·반품</a>
+    <a href="#cat4">4. 영수증·증빙</a>
+    <a href="#cat5">5. 회원·로그인</a>
+    <a href="#cat6">6. 적립금·쿠폰</a>
+    <a href="#cat7">7. 오늘의집페이</a>
+    <a href="#cat8">8. 콘텐츠·커뮤니티</a>
+    <a href="#cat9">9. 인테리어 시공·쇼룸</a>
+    <a href="#cat10">10. 앱·웹 이용</a>
+    <a href="#cat11">11. 입점·제휴·채용</a>
+  </aside>
+
+  <main class="content">
+
+    <!-- ===== 1. 주문·결제 ===== -->
+    <section class="cat" id="cat1">
+      <div class="catTitle"><span class="catNum">01</span><h2>주문·결제</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">어떤 결제 수단을 이용할 수 있나요?</span></div>
+        <div class="a">
+          <p>오늘의집은 다음 결제 수단을 제공합니다.</p>
+          <p>오늘의집페이(계좌 간편결제) / 카드 / 무통장입금 / 퀵계좌이체 / 카카오페이 / 토스페이 / 네이버페이 / 페이코 / 휴대폰 결제</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">비회원으로 주문할 수 있나요?</span></div>
+        <div class="a">
+          <p>iOS 앱과 PC에서는 비회원 구매가 가능하지만, 안드로이드 환경에서는 회원가입 후 이용 가능합니다.</p>
+          <p>비회원 주문 시 쿠폰·포인트 적용은 불가하며, 주문 취소/교환/반품은 고객센터를 통해서만 처리됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">신용카드 무이자 할부가 되나요?</span></div>
+        <div class="a">
+          <p>각 카드사 정책에 따라 상이하며, 카드사를 통해 확인 가능합니다. 무이자 혜택은 결제 진행 시 확인할 수도 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">무통장입금은 언제까지 입금해야 하나요?</span></div>
+        <div class="a">
+          <p>주문 완료일 +3일 이내 입금해 주셔야 합니다. 단, 원하는날배송 상품의 희망배송일이 입금 기한보다 빠른 경우 희망배송일과 물류 배송 마감 시간에 맞춰 입금 기한이 변경됩니다.</p>
+          <p>입금 내역은 입금 후 24시간 이내 자동 확인됩니다. 24시간이 지나도 확인이 되지 않는 경우 입금 금액과 계좌가 정확한지 확인 후 고객센터로 문의해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">가상계좌 입금자명을 다르게 적었어요.</span></div>
+        <div class="a">
+          <p>입금자명이 다르더라도 가상계좌번호가 일치하면 정상적으로 입금 확인됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">결제 후 결제 방법을 변경할 수 있나요?</span></div>
+        <div class="a">
+          <p>결제 완료 후 결제 정보 변경은 불가능합니다. 단, 입금대기 및 결제완료 단계에서는 취소 후 재주문을 통해 변경 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">다른 사람의 카드로 결제할 수 있나요?</span></div>
+        <div class="a">
+          <p>카드 소유주의 동의가 있다면 가능합니다. 단, 카드 결제 시 <b>[다른결제 &gt; 일반 결제]</b>로 진행해야 하며, 최초 시도 시 카드 소유주의 휴대폰/공동인증서 인증이 필요할 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">결제 시 에러 메시지가 나옵니다.</span></div>
+        <div class="a">
+          <p><b>[마이페이지 &gt; 나의쇼핑 &gt; 고객센터]</b>를 통해 문의 부탁드립니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">주문 후 배송지나 수령인 정보를 변경할 수 있나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>결제완료 단계</b>: 배송지·수령인 정보를 [마이페이지 &gt; 나의쇼핑 &gt; 주문상세]에서 직접 변경 가능</li>
+            <li><b>배송준비중 단계 이후</b>: 직접 변경 불가. 판매자 확인 필요</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">한 번에 몇 개까지 주문할 수 있나요?</span></div>
+        <div class="a">
+          <p>선택하신 옵션 기준으로 한 번에 30개까지만 주문 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">해외직구 상품 주문 시 개인통관고유부호가 오류 납니다.</span></div>
+        <div class="a">
+          <p>개인통관고유부호는 <b>배송지 수령인의 [성함, 연락처, 개인통관고유부호] 3가지가 모두 일치</b>해야 정상 진행됩니다.</p>
+          <ul>
+            <li>주문자가 아닌 <b>수령인 정보 기준</b>입니다.</li>
+            <li>영문 P + 숫자 12자리 (총 13자) 정확히 입력해 주세요.</li>
+            <li>시작·끝 공백·특수문자가 없도록 확인 부탁드립니다.</li>
+          </ul>
+          <p>정보가 일치하는데도 오류가 발생하면 관세청 유니패스(<a href="https://unipass.customs.go.kr" target="_blank" rel="noopener">unipass.customs.go.kr</a>)에서 사용 상태를 확인해 주세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 2. 배송 ===== -->
+    <section class="cat" id="cat2">
+      <div class="catTitle"><span class="catNum">02</span><h2>배송</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송 유형은 어떤 것이 있나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>일반 택배</b> (CJ대한통운, 롯데택배, 우체국택배 등): 운송장 부여 후 배송추적 가능</li>
+            <li><b>화물 택배</b> (경동택배, 대신택배 등): 일반 택배로 어려운 대형 물품</li>
+            <li><b>업체 직접 배송</b>: 가구류 등, 배송기사 해피콜 후 배송. 배송 흐름 조회 불가</li>
+            <li><b>해외배송 (해외직구)</b>: 개인통관고유부호 필수</li>
+            <li><b>원하는날 도착</b>: 오늘의집이 직접 가구 전문 배송·설치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송비는 얼마인가요?</span></div>
+        <div class="a">
+          <p>상품 및 판매자별로 배송비 정책이 상이합니다. 각 상품 상세 페이지에서 정확한 배송비를 확인하실 수 있습니다. 특히 가구 상품의 경우 배송 지역이나 엘리베이터 유무, 사다리차 사용 등 배송 환경에 따라 배송비가 달라질 수 있으니 상세 페이지의 배송비 정보를 정확하게 확인해 주세요.</p>
+          <ul>
+            <li><b>지역별 차등 배송비</b>: 도서산간 등 일부 지역은 추가 배송비 발생</li>
+            <li><b>묶음 배송</b>: 같은 파트너사 상품이더라도 물류 사정에 따라 묶음 배송이 어려울 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송은 얼마나 걸리나요?</span></div>
+        <div class="a">
+          <p>배송 유형에 따라 상이하며, 상품 상세 페이지에서 정확한 배송 일정을 확인하실 수 있습니다.</p>
+          <ul>
+            <li><b>일반/화물 택배</b>: 결제 후 영업일 기준 출고</li>
+            <li><b>오늘출발 상품</b>: 평일 마감 시간 이전 주문 시 당일 출고</li>
+            <li><b>업체 직접 배송</b>: 배송 지역에 따라 일정 상이</li>
+            <li><b>원하는날 도착</b>: 오전 11시 이전 결제 시 내일 도착 (일부 지역 제외, 일요일·공휴일 제외). 최대 4개월(120일) 이내 원하는 날짜 지정 가능</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송 시작 알림을 받았는데 배송 추적이 안 됩니다.</span></div>
+        <div class="a">
+          <p>송장번호 등록 후 1영업일 이내 또는 실제 상품 배송이 진행되면서 추적이 가능합니다. 배송처에 따라 운송장만 먼저 등록되는 경우가 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송완료로 표시되는데 상품을 받지 못했습니다.</span></div>
+        <div class="a">
+          <p>경비실 또는 무인택배함을 먼저 확인해 주세요. 별도의 위탁 장소가 없는 경우 배송기사가 임의 장소에 보관하셨을 수 있으니 운송장의 기사 연락처로 먼저 문의 부탁드립니다. 분실 의심 시 고객센터로 문의해 주시면 판매자·택배사를 통해 확인을 도와드립니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">원하는 날짜에 배송받을 수 있나요?</span></div>
+        <div class="a">
+          <p>'원하는날 도착'·'빠른가전배송' 뱃지가 있는 상품은 주문 시 직접 배송일 지정이 가능합니다. 그 외 상품은 상품 페이지 또는 파트너사 정책에 따라 가능 여부가 다릅니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">해외배송이 가능한가요?</span></div>
+        <div class="a">
+          <p>오늘의집 상품은 국내 배송만 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송기사 연락처를 알 수 있나요?</span></div>
+        <div class="a">
+          <p>운송장 조회가 되는 상품은 송장에서 배송기사 연락처를 확인할 수 있습니다. 업체 직접 배송 상품은 배송 전 또는 배송 당일 기사님의 해피콜이 진행되며, 별도 연락처는 파트너사로 문의해 주세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3. 취소·교환·반품 ===== -->
+    <section class="cat" id="cat3">
+      <div class="catTitle"><span class="catNum">03</span><h2>취소·교환·반품</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">배송 상태별로 취소 가능 여부가 다른가요?</span></div>
+        <div class="a">
+          <p>결제완료 상태일 경우 즉시 취소가 가능하며, 배송준비중 상태의 경우 판매자 확인 후 취소 처리가 진행됩니다. 판매자 확인 결과 이미 상품이 출고된 상태라면 수령 후 반품으로 진행됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">교환·반품 신청 기간이 정해져 있나요?</span></div>
+        <div class="a">
+          <p>상품 수령일로부터 <b>7일 이내 (구매확정 이전)</b>에 교환·반품 신청이 가능합니다. 단, 아래의 경우 교환·반품이 제한됩니다.</p>
+          <ul>
+            <li>고객의 책임 사유로 상품이 멸실·훼손된 경우</li>
+            <li>개봉·포장 훼손으로 상품 가치가 현저히 상실된 경우</li>
+            <li>시간 경과로 재판매가 어려울 정도로 상품 가치가 저하된 경우</li>
+            <li>주문 후 제작에 들어간 주문 제작 상품</li>
+            <li>직접 조립(DIY) 상품을 조립한 경우</li>
+            <li>매트리스 등 비닐 포장 제거 시 위생 문제로 재판매 불가한 상품</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">교환·반품은 어떻게 신청하나요?</span></div>
+        <div class="a">
+          <ol>
+            <li>마이페이지 → 나의쇼핑 → 주문배송목록 → 해당 주문 <b>[교환요청]</b> 또는 <b>[반품요청]</b></li>
+            <li>사유 입력 (구매자 귀책 / 판매자 귀책)</li>
+            <li>판매자 귀책(불량·오배송)인 경우 사진 첨부 권장</li>
+            <li>회수 방법 선택 ('직접 수거해주세요' 또는 '이미 택배로 보냈어요')</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">교환·반품 배송비는 어떻게 되나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>단순변심 (고객 귀책)</b>: 반품·교환 배송비를 고객이 부담
+              <ul>
+                <li>무료배송 상품 전체 반품 시: 최초배송비 + 반품배송비 (왕복) 발생</li>
+                <li>부분 반품 시: 반품 회수비용만 발생</li>
+              </ul>
+            </li>
+            <li><b>불량·오배송 (판매자 귀책)</b>: 배송비 판매자 부담</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">환불은 언제 받을 수 있나요?</span></div>
+        <div class="a">
+          <table>
+            <thead>
+              <tr><th>결제수단</th><th>환불 소요 (영업일)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>무통장입금 (가상계좌)</td><td>3~5일</td></tr>
+              <tr><td>휴대폰 결제 (당월 취소)</td><td>1~3일</td></tr>
+              <tr><td>휴대폰 결제 (익월 취소)</td><td>3~7일</td></tr>
+              <tr><td>카드 결제</td><td>3~7일</td></tr>
+              <tr><td>카카오페이 (카드)</td><td>3~7일</td></tr>
+              <tr><td>카카오페이 (머니)</td><td>1~3일</td></tr>
+              <tr><td>네이버페이 (신용카드)</td><td>3~7일</td></tr>
+              <tr><td>네이버페이 (포인트)</td><td>1~3일</td></tr>
+              <tr><td>페이코 (신용카드)</td><td>3~7일</td></tr>
+              <tr><td>페이코 (포인트)</td><td>1~3일</td></tr>
+              <tr><td>토스페이 (카드)</td><td>3~7일</td></tr>
+              <tr><td>토스페이 (머니)</td><td>1~3일</td></tr>
+              <tr><td>오늘의집페이 (계좌)</td><td>1~2일</td></tr>
+              <tr><td>퀵계좌이체</td><td>즉시</td></tr>
+            </tbody>
+          </table>
+          <p>환불 기간이 지났는데도 환불 확인이 되지 않으면 결제수단의 영수증·증빙 자료와 함께 고객센터로 문의해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">사은품도 함께 반품해야 하나요?</span></div>
+        <div class="a">
+          <p>사은품도 함께 동봉해 주셔야 반품 처리가 완료됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">일부 수량만 반품·교환할 수 있나요?</span></div>
+        <div class="a">
+          <p>동일 옵션 상품을 여러 개 주문하신 경우, 부분 취소·반품·교환은 마이페이지에서 직접 접수가 불가합니다. 고객센터를 통해 처리 가능하며, 단순변심의 경우 전체 반품 후 필요 수량 재주문으로 안내될 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">'원하는날 도착' 상품도 반품할 수 있나요?</span></div>
+        <div class="a">
+          <ul>
+            <li>조립·설치·포장 개봉 후 사용으로 재판매가 어려운 경우, 전자상거래법에 따라 교환·반품이 제한될 수 있습니다.</li>
+            <li>제품이 표시·광고 내용과 다른 경우: 공급일로부터 3개월 이내 또는 사실을 안 날로부터 30일 이내 무상 교환·반품 가능</li>
+            <li>제품 하자: 상품 자체의 하자로 인해 사용이 불가능한 경우 사유 확인 후 반품 가능</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">반품 접수했는데 그냥 사용하고 싶어요. 철회가 되나요?</span></div>
+        <div class="a">
+          <p>상품이 회수되기 전인 '반품요청·교환요청' 상태라면 직접 철회가 가능합니다. 단, 택배사로 회수 데이터가 이관된 이후에는 철회가 불가하므로 회수 기사님의 연락에 "수거할 상품이 없다"고 안내 부탁드립니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. 영수증·증빙 ===== -->
+    <section class="cat" id="cat4">
+      <div class="catTitle"><span class="catNum">04</span><h2>영수증·증빙</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">세금계산서를 받을 수 있나요?</span></div>
+        <div class="a">
+          <p>오늘의집은 세금계산서를 발급하지 않습니다. 동일한 효력을 가진 <b>'지출증빙용' 현금영수증</b>을 신청해 주세요. 현금영수증을 원치 않을 경우 법인카드 결제를 권장 드립니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">현금영수증을 발급받으려면 어떻게 해야 하나요?</span></div>
+        <div class="a">
+          <p>무통장입금 결제 시 주문서에서 직접 입력해야 합니다.</p>
+          <ul>
+            <li><b>소득공제용</b>: 휴대폰 번호 또는 주민등록번호</li>
+            <li><b>지출증빙용</b>: 사업자번호</li>
+          </ul>
+          <p>별도로 입력하지 않으셔도 10만원 이상 결제 시 국세청 지정 코드(<code>010-***-1234</code>)로 자진발급됩니다.</p>
+          <p><b>발급 정보 변경</b></p>
+          <ul>
+            <li>자진발급의 경우: 국세청 홈택스에서 '자진발급분 소비자등록'으로 직접 등록</li>
+            <li>정보 오입력으로 발행이 실패한 경우: 홈택스에서 직접 수정</li>
+            <li>그 외 정정이 어려운 경우: 고객센터로 문의</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">결제 영수증은 어디서 확인할 수 있나요?</span></div>
+        <div class="a">
+          <div class="pathBox">마이페이지 → 나의쇼핑 → 주문배송내역조회 → 주문상세 → 결제정보 옆 <b>[영수증]</b> 클릭</div>
+          <p>네이버페이/토스페이 결제 영수증은 해당 결제사 서비스에서 확인 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">견적서를 발급받을 수 있나요?</span></div>
+        <div class="a">
+          <p>가능합니다. 고객센터로 아래 정보와 함께 요청해 주세요: 상품명·옵션명·수량·상품 URL·요청사항·이메일 주소·발행 사유. 견적서는 이메일로 발송되며, 유효기간은 1개월이나 그 사이 가격이 변동될 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">거래명세서를 받을 수 있나요?</span></div>
+        <div class="a">
+          <p>주문 상태가 <b>[배송완료]</b> 또는 <b>[구매확정]</b>인 경우에만 발급 가능합니다. 주문번호 전체 발급만 가능하며, 일부 옵션만 발행은 어렵습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. 회원·로그인 ===== -->
+    <section class="cat" id="cat5">
+      <div class="catTitle"><span class="catNum">05</span><h2>회원·로그인</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">회원가입은 어떻게 하나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>PC/웹</b>: 오늘의집 → 회원가입 → 이메일 일반가입 또는 간편가입(카카오톡/네이버/페이스북)</li>
+            <li><b>모바일/앱</b>: 마이페이지 → 회원가입 → 이메일 일반가입 또는 간편가입(카카오톡/네이버/페이스북/애플)
+              <ul>
+                <li>iOS에서는 애플 로그인 가능</li>
+                <li>Android는 회원가입 후에만 앱 이용 가능</li>
+              </ul>
+            </li>
+          </ul>
+          <p>이메일 가입 시 입력한 이메일로 인증이 필요하며, '개인정보 마케팅 활용 동의' 및 '이벤트/쿠폰/특가 알림' 수신은 선택 사항입니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">회원정보(이메일·닉네임)는 어떻게 변경하나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>이메일 변경</b>: 마이페이지 → 설정 → 회원정보수정 → 새 이메일 입력 → 이메일 인증
+              <ul><li>일반(이메일) 가입 계정에서만 직접 변경 가능. 간편가입 계정은 고객센터로 문의해 주세요.</li></ul>
+            </li>
+            <li><b>닉네임 변경</b>: 마이페이지 → 설정 → 회원정보수정 → 새 닉네임 입력
+              <ul><li>2~20자, 한글·영어·숫자·한문 가능</li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">비밀번호를 잊어버렸어요.</span></div>
+        <div class="a">
+          <div class="pathBox">로그인 화면 → '비밀번호 재설정' → 가입 이메일 입력 → 이메일로 받은 인증코드 입력 → 새 비밀번호 설정</div>
+          <p>일반(이메일) 가입 계정에서만 가능합니다. 간편가입 계정은 가입하신 SNS에서 비밀번호 확인이 필요합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">간편 로그인(카카오/네이버/페이스북/애플)으로 로그인이 안 됩니다.</span></div>
+        <div class="a">
+          <p>상황별로 안내드립니다.</p>
+          <ul>
+            <li><b>휴대폰 번호 변경 / SNS 계정 탈퇴·재가입</b>: 새 정보 반영을 위해 고객센터(1670-0876)로 문의해 주세요. 가입 정보 매칭 또는 이메일 계정으로 전환을 도와드립니다.</li>
+            <li><b>카카오톡 간편가입 후 '이미 가입된 이메일' 알림</b>: 카카오톡 [설정 → 카카오계정 → 연결된 서비스관리 → 외부서비스 → 오늘의집]에서 회원번호 확인 후 고객센터로 알려주세요.</li>
+            <li><b>애플 로그인</b>: 웹사이트에서는 애플 로그인이 불가하며, 모바일 앱에서만 가능합니다.</li>
+            <li><b>간편가입 후 SNS 계정을 더 이상 사용하지 않는 경우</b>: 고객센터를 통해 이메일 계정으로 전환이 가능합니다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">회원탈퇴는 어떻게 하나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>PC</b>: 마이페이지 → 설정 → 회원정보수정 → 탈퇴하기</li>
+            <li><b>모바일 앱</b>: 마이페이지 → 설정 → 내 정보 수정 → 탈퇴하기</li>
+            <li><b>전문가 회원</b>: <a href="mailto:pro@bucketplace.net">pro@bucketplace.net</a>으로 문의</li>
+          </ul>
+          <p><b>탈퇴 시 안내사항</b></p>
+          <ul>
+            <li>오늘의집 포인트·쿠폰은 모두 소멸되며 환불되지 않습니다.</li>
+            <li>진행 중인 주문건은 비회원 주문으로 전환되어 [비회원 주문조회]로 확인 가능합니다.</li>
+            <li>작성하신 게시물·댓글은 자동 삭제되지 않으므로, 삭제를 원하시는 경우 탈퇴 전 직접 삭제 부탁드립니다.</li>
+            <li>관련 법령에 따라 거래 기록은 5년, 분쟁 처리 기록은 3년간 보관됩니다.</li>
+            <li>재가입은 즉시 가능하나 기존 포인트·구매 정보는 연동되지 않습니다.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">회원등급은 어떻게 결정되나요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>WELCOME</b>: 회원가입 시 즉시 적용. 적립률은 매월 상이 (자세한 사항은 이벤트 페이지 확인)</li>
+            <li><b>VIP</b>: 최근 3개월 동안 구매확정 6회 이상 + 실 결제금액 50만원 이상. 실 결제금액의 3% 적립
+              <ul><li>매주 토요일 자정 집계, 일요일 오전 10시 등급 변경</li></ul>
+            </li>
+          </ul>
+          <p>확인 경로: 마이페이지 → 나의쇼핑 → 구매등급</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. 적립금·쿠폰 ===== -->
+    <section class="cat" id="cat6">
+      <div class="catTitle"><span class="catNum">06</span><h2>적립금·쿠폰</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집 포인트는 어떻게 적립되나요?</span></div>
+        <div class="a">
+          <table>
+            <thead><tr><th>항목</th><th>적립</th></tr></thead>
+            <tbody>
+              <tr><td>WELCOME 등급 구매</td><td>실 결제금액의 0.1% (구매확정 즉시, 유효기간 365일)</td></tr>
+              <tr><td>VIP 등급 구매</td><td>실 결제금액의 3% (구매확정 즉시, 유효기간 365일)</td></tr>
+              <tr><td>리뷰 (사진만)</td><td>300P (작성 직후, 유효기간 365일)</td></tr>
+              <tr><td>리뷰 (글 20자 이상)</td><td>100P</td></tr>
+              <tr><td>리뷰 (사진 + 20자 이상)</td><td>400P</td></tr>
+              <tr><td>리뷰 (사진 + 80자 이상)</td><td>600P</td></tr>
+              <tr><td>첫리뷰</td><td>일반 리뷰 적립의 2배</td></tr>
+              <tr><td>친구초대 (초대받은 친구의 첫구매 구매확정 시)</td><td>5,000P (인당 최대 100만P)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">포인트는 언제 사용할 수 있나요?</span></div>
+        <div class="a">
+          <ul>
+            <li>회원만 사용 가능 (비회원 불가)</li>
+            <li>일부 상품은 최소 주문 금액이 있을 수 있음 (주문/결제 페이지에서 확인)</li>
+            <li>카드사 즉시 할인과 중복 사용 불가</li>
+            <li>교환·취소·반품 시 발생하는 클레임 비용은 포인트 결제 불가</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">사용한 포인트는 환불 시 어떻게 되나요?</span></div>
+        <div class="a">
+          <p>주문 취소·반품 시 사용한 포인트는 기존 유효기간으로 자동 복원됩니다.</p>
+          <ul>
+            <li><b>구매자 귀책 취소</b>: 기존 유효기간이 이미 경과된 포인트는 미복구</li>
+            <li><b>판매자 귀책 취소</b>: 유효기간이 3일 미만 남은 경우, 취소시점(환불승인일) + 3일로 연장</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">포인트 소멸 알림을 받을 수 있나요?</span></div>
+        <div class="a">
+          <p>소멸 30일 전·7일 전 2회 앱푸시 알림이 발송됩니다. 단, 소멸 예정 포인트 1,000점 이상인 회원에게만 발송됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. 오늘의집페이 ===== -->
+    <section class="cat" id="cat7">
+      <div class="catTitle"><span class="catNum">07</span><h2>오늘의집페이 (간편결제)</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이는 무엇인가요?</span></div>
+        <div class="a">
+          <p>오늘의집페이는 오늘의집 자체 간편결제 서비스로, 계좌 간편결제 방식으로 운영되며 보유한 예금 계좌를 연결해 공인인증서나 카드 번호 등록 없이 간단히 결제할 수 있습니다.</p>
+          <ul>
+            <li>14세 미만 가입 불가, 법인폰 사용 불가</li>
+            <li>본인 명의 계좌만 등록 가능 (최대 10개)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이 가입은 어떻게 하나요?</span></div>
+        <div class="a">
+          <p>오늘의집 계정이 있더라도 오늘의집페이는 별도 회원가입이 필요합니다.</p>
+          <ol>
+            <li>필수 약관 동의</li>
+            <li>본인 인증 / 휴대전화번호 인증</li>
+            <li>결제 비밀번호 등록</li>
+            <li>계좌 등록 (은행 선택 → 약관 동의 → ARS 인증)</li>
+          </ol>
+          <p>ARS 안내 멘트가 종료된 후 인증번호 2자리를 입력해야 합니다. 휴대폰 명의와 계좌 명의가 동일해야 합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이 결제 한도는 얼마인가요?</span></div>
+        <div class="a">
+          <ul>
+            <li>1회 1,000만원 / 1일 누적 2,000만원 / 월 누적 2,000만원</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이 결제 혜택은 무엇인가요?</span></div>
+        <div class="a">
+          <ul>
+            <li><b>일반 결제 적립</b>: 결제 금액의 2%를 오늘의집 포인트로 적립 (구매확정 시점에 지급, 유효기간 365일)</li>
+            <li>회원등급별 기본 적립과 별도 지급</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이에서 현금영수증을 발급받을 수 있나요?</span></div>
+        <div class="a">
+          <p>가능합니다. 마이페이지 → 쇼핑 → 결제수단 → 현금영수증 설정에서 용도와 정보 입력이 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이를 해지하고 싶어요.</span></div>
+        <div class="a">
+          <div class="pathBox">마이페이지 → 쇼핑 → 결제수단 → 서비스 해지</div>
+          <p>서비스를 해지하더라도 오늘의집 계정은 유지됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">등록이 불가한 계좌가 있나요?</span></div>
+        <div class="a">
+          <p>다음 계좌는 등록이 불가합니다.</p>
+          <ul>
+            <li>본인 명의가 아닌 계좌</li>
+            <li>법인 사업자 계좌</li>
+            <li>휴대폰 번호 등 평생 계좌번호</li>
+            <li>가상 계좌번호</li>
+            <li>펀드/적금/정기예금/외화 등의 계좌</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집페이 환불은 언제 되나요?</span></div>
+        <div class="a">
+          <p>결제 시 사용한 계좌로 1~2영업일 이내 환불됩니다. 계좌 상태에 따라 자동 환불이 어려운 경우 다른 계좌로 수기 환불이 진행됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. 콘텐츠·커뮤니티 ===== -->
+    <section class="cat" id="cat8">
+      <div class="catTitle"><span class="catNum">08</span><h2>콘텐츠·커뮤니티</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">'좋아요'를 누른 콘텐츠는 어디서 볼 수 있나요?</span></div>
+        <div class="a">
+          <p>마이페이지 → 좋아요 페이지에서 확인 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">인기 게시글·인기 유저는 어떻게 선정되나요?</span></div>
+        <div class="a">
+          <p>오늘의집 추천 알고리즘에 따라 선정되어 노출됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">불쾌한 댓글을 받았어요.</span></div>
+        <div class="a">
+          <p>댓글 아래의 <b>[신고]</b> 버튼을 통해 신고하실 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">작성한 리뷰가 블라인드 처리되었어요. 기준이 무엇인가요?</span></div>
+        <div class="a">
+          <p>오늘의집 서비스 이용 약관 제31조에 따라 다음 금지행위에 해당하는 리뷰는 통보 없이 삭제 또는 블라인드 처리될 수 있습니다.</p>
+          <ol>
+            <li>특정 업체·개인의 영리적 목적을 위한 리뷰 (판매자 본인·이해관계인 게시, 경쟁사 비방, 대가성 리뷰의 미고지 등)</li>
+            <li>허위·과장된 내용 또는 직접 작성하지 않은 내용·사진 (상품 페이지 캡쳐, 타·유사상품 리뷰 등)</li>
+            <li>타인의 권리 침해 (개인정보·사생활 노출, 지식재산권·명예·신용 등)</li>
+            <li>욕설·폭언·비방, 음란물·청소년 유해 매체, 범죄 조장 등 반사회적 내용</li>
+            <li>악성코드·피싱·사기성 사이트 링크 등 부적절 내용</li>
+            <li>기타 관련 법령·이용약관·운영정책에 위배되는 경우</li>
+          </ol>
+          <p>자세한 사항은 고객센터로 문의 부탁드립니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. 인테리어 시공·쇼룸 ===== -->
+    <section class="cat" id="cat9">
+      <div class="catTitle"><span class="catNum">09</span><h2>인테리어 시공·쇼룸</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">인테리어 상담·시공을 오늘의집이 직접 하나요?</span></div>
+        <div class="a">
+          <p>오늘의집 시공 상담은 사용자와 인테리어 전문가를 중개하는 서비스입니다. 이 중 주방, 도배, 마루, 장판 등 일부 부분 시공 품목의 경우 오늘의집이 직접 상담 및 시공을 진행하고 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">전문가 회원으로 가입하려면?</span></div>
+        <div class="a">
+          <p>오늘의집 PC 또는 앱을 통해 가입 가능합니다.</p>
+          <ul>
+            <li><b>전용 페이지</b>: <a href="https://pro.ohou.se" target="_blank" rel="noopener">pro.ohou.se</a></li>
+            <li><b>가입 경로</b>: 오늘의집 홈페이지 하단 → 시공 파트너 안내 → 시공파트너 → 무료가입신청</li>
+            <li><b>문의</b>: 카카오톡 채널 '오늘의집 전문가' 또는 고객센터 1670-0876 (2번)</li>
+          </ul>
+          <p>가입 시 오늘의집 PC·앱 내 '우리동네 인테리어 찾기'에 노출되며, 시공 상담 신청 시 1~2영업일 이내 해피콜을 통해 진행됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오프라인 쇼룸이 있나요?</span></div>
+        <div class="a">
+          <p><b>오늘의집 판교라운지</b></p>
+          <ul>
+            <li><b>주소</b>: 경기 성남시 분당구 운중로 172 트윈플라자-1 101호·102호</li>
+            <li><b>운영시간</b>: 화~일 11:00~19:00 (매주 월요일 휴무)</li>
+            <li>인기 자재 비교, 오늘의집 키친 실물 체험, 전문 디자이너 1:1 상담</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10. 앱·웹 이용 ===== -->
+    <section class="cat" id="cat10">
+      <div class="catTitle"><span class="catNum">10</span><h2>앱·웹 서비스 이용</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집을 PC에서도 이용할 수 있나요?</span></div>
+        <div class="a">
+          <p>가능합니다. <a href="https://ohou.se" target="_blank" rel="noopener">https://ohou.se</a> 로 접속해 주세요.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">모바일 앱은 어디서 받나요?</span></div>
+        <div class="a">
+          <p>App Store 또는 Google Play에서 '오늘의집'을 검색해 다운로드 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">앱이 정상 작동하지 않습니다.</span></div>
+        <div class="a">
+          <p>먼저 앱 버전이 최신인지 확인 부탁드립니다. 최신 버전에서도 문제가 계속되면 고객센터를 통해 신고해 주세요. 신고 시 사용 플랫폼(Android/iOS), 앱 버전, 장애 내용·재현 과정, 스크린샷을 함께 보내주시면 빠른 처리에 도움이 됩니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">푸시 알림 설정은 어떻게 하나요?</span></div>
+        <div class="a">
+          <p>모바일 앱: 마이페이지 → 설정 → 알림 설정에서 다음을 개별 설정 가능합니다.</p>
+          <ul>
+            <li>이벤트 및 혜택 알림 (광고성: 특가, 쿠폰 등)</li>
+            <li>서비스 알림 (콘텐츠·커뮤니티 관련)</li>
+            <li>쇼핑 알림 (주문·배송 관련)</li>
+            <li>관심 상품 알림 (재입고·할인)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">카카오톡 알림을 받지 않고 싶어요.</span></div>
+        <div class="a">
+          <ul>
+            <li><b>광고성 알림(앱푸시·이메일·문자)</b>: 오늘의집 [마이페이지 &gt; 설정 &gt; 알림 설정]에서 [이벤트 및 혜택 알림] 토글 끄기</li>
+            <li><b>카카오톡 채널 알림</b>: 카카오톡 채널은 카카오에서 관리하므로 오늘의집에서 차단할 수 없습니다. 카카오톡 1:1 채팅방 → 채널 차단으로 직접 설정해 주세요.</li>
+            <li>광고성 수신 거부 처리는 실시간 반영되지 않으며, 최대 2일까지 알림이 발송될 수 있습니다.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 11. 입점·제휴·채용 ===== -->
+    <section class="cat" id="cat11">
+      <div class="catTitle"><span class="catNum">11</span><h2>입점·제휴·채용</h2></div>
+      <div class="catDivider"></div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">입점 신청은 어떻게 하나요?</span></div>
+        <div class="a">
+          <p>오늘의집 파트너센터 (<a href="https://www.partnerbucketplace.com/" target="_blank" rel="noopener">partnerbucketplace.com</a>) 또는 오늘의집 홈페이지 하단 [입점하기]에서 신청 가능합니다. 심사에는 7~14일이 소요되며, 입점이 가능한 경우 담당 MD가 개별 연락드립니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">제휴·광고 문의는?</span></div>
+        <div class="a">
+          <p><a href="https://ohou.se/contacts/new?type=request" target="_blank" rel="noopener">ohou.se/contacts/new?type=request</a> 페이지에서 신청 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="qa">
+        <div class="q"><span class="badge">Q</span><span class="qText">오늘의집 채용은?</span></div>
+        <div class="a">
+          <p><a href="https://bucketplace.com/recruit" target="_blank" rel="noopener">bucketplace.com/recruit</a> 에서 확인 가능합니다.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  ⓒ Bucketplace, Co., Ltd. · 이 페이지는 데모입니다. <a href="index.html">← 고객센터로 돌아가기</a>
+</footer>
+
+<script>
+  // Scroll-spy for side nav
+  const links = document.querySelectorAll('.sideNav a');
+  const sections = document.querySelectorAll('.cat');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-30% 0px -65% 0px', threshold: 0 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
