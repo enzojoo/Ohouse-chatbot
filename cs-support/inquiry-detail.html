@@ -32,7 +32,9 @@
   .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
   .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
   .gnb nav{display:flex;align-items:center;gap:4px}
-  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none;position:relative;}
+  
+  .gnb nav a[data-unread]::after{content:attr(data-unread);position:absolute;top:4px;right:4px;min-width:16px;height:16px;padding:0 4px;border-radius:9999px;background:#fd3d4a;color:#fff;font-size:10px;font-weight:800;letter-spacing:0;display:inline-flex;align-items:center;justify-content:center;line-height:1;}
   .gnb nav a:hover{background:var(--bg-weak)}
   .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
 
@@ -149,7 +151,7 @@
     <nav>
       <a href="index.html">고객센터</a>
       <a href="faq.html">FAQ</a>
-      <a class="cta" href="inquiry-list.html">문의내역</a>
+      <a class="cta" href="inquiry-list.html" data-unread="1">문의내역</a>
       <a href="index.html" style="color:var(--fg-brand);font-weight:600">로그인</a>
     </nav>
   </div>

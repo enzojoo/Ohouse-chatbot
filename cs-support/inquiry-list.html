@@ -31,7 +31,9 @@
   .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
   .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
   .gnb nav{display:flex;align-items:center;gap:4px}
-  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none;position:relative;}
+  
+  .gnb nav a[data-unread]::after{content:attr(data-unread);position:absolute;top:4px;right:4px;min-width:16px;height:16px;padding:0 4px;border-radius:9999px;background:#fd3d4a;color:#fff;font-size:10px;font-weight:800;letter-spacing:0;display:inline-flex;align-items:center;justify-content:center;line-height:1;}
   .gnb nav a:hover{background:var(--bg-weak)}
   .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
 
@@ -145,7 +147,7 @@
     <nav>
       <a href="index.html">고객센터</a>
       <a href="faq.html">FAQ</a>
-      <a class="cta" href="inquiry-list.html">문의내역</a>
+      <a class="cta" href="inquiry-list.html" data-unread="1">문의내역</a>
       <a href="index.html" style="color:var(--fg-brand);font-weight:600">로그인</a>
     </nav>
   </div>
@@ -195,7 +197,7 @@
   const ITEMS = [
     {id:1, channel:'inquiry', title:'주문한 상품 취소가 가능한가요?', cat:'취소·교환·반품', order:'#20260521-01', date:'2026-05-26', status:'done', link:'inquiry-detail.html'},
     {id:2, channel:'inquiry', title:'환불 처리가 아직 안 됐어요',     cat:'주문·결제',     order:'#20260514-08', date:'2026-05-19', status:'wait', link:null},
-    {id:3, channel:'chat',    title:'배송 추적이 안 됩니다',          cat:'배송',          order:'#20260514-08', date:'2026-05-14', status:'done', link:null},
+    {id:3, channel:'chat',    title:'배송 추적이 안 됩니다',          cat:'배송',          order:'#20260514-08', date:'2026-05-14', status:'done', link:'chat-history.html'},
     {id:4, channel:'inquiry', title:'리뷰가 블라인드 처리되었어요',   cat:'콘텐츠·커뮤니티',order:null,           date:'2026-04-30', status:'done', link:null},
     {id:5, channel:'chat',    title:'카카오 로그인 오류',             cat:'회원·로그인',    order:null,           date:'2026-03-22', status:'done', link:null},
   ];

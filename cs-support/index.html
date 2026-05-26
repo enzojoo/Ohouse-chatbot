@@ -45,7 +45,9 @@
   .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
   .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
   .gnb nav{display:flex;align-items:center;gap:4px}
-  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;cursor:pointer;background:none;border:0;font-family:inherit;letter-spacing:-0.3px;}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;cursor:pointer;background:none;border:0;font-family:inherit;letter-spacing:-0.3px;;position:relative;}
+  
+  .gnb nav a[data-unread]::after{content:attr(data-unread);position:absolute;top:4px;right:4px;min-width:16px;height:16px;padding:0 4px;border-radius:9999px;background:#fd3d4a;color:#fff;font-size:10px;font-weight:800;letter-spacing:0;display:inline-flex;align-items:center;justify-content:center;line-height:1;}
   .gnb nav a:hover{background:var(--bg-weak)}
   .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
 
@@ -277,6 +279,21 @@
   .botStep .lbl{font-size:11px;color:var(--fg-weak);font-weight:500;text-align:center;line-height:14px;}
   .botStep .stp.active .lbl,.botStep .stp.done .lbl{color:var(--fg);font-weight:700;}
 
+  /* 챗봇 → 1:1 문의 transfer 바 */
+  .escalate{
+    flex-shrink:0;border-top:1px solid var(--border);background:var(--bg-weak);
+    padding:9px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px;
+    font-size:12px;color:var(--fg-mid);letter-spacing:-0.3px;
+  }
+  .escalate b{color:var(--fg);font-weight:700;}
+  .escalate button{
+    border:0;background:#fff;color:var(--fg-brand);font-weight:700;cursor:pointer;
+    font-size:12px;letter-spacing:-0.3px;font-family:inherit;
+    padding:6px 12px;border-radius:9999px;border:1px solid #cce8fa;
+    display:inline-flex;align-items:center;gap:3px;flex-shrink:0;
+  }
+  .escalate button:hover{background:var(--bg-brand-weak);border-color:var(--border-brand);}
+
   .inputBar{height:60px;border-top:1px solid var(--border);background:#fff;display:flex;align-items:center;padding:0 12px;gap:8px;flex-shrink:0;}
   .inputBar .plus{width:36px;height:36px;border:0;background:none;color:var(--fg);cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center;border-radius:8px;}
   .inputBar .plus:hover{background:var(--bg-weak)}
@@ -479,6 +496,10 @@
     </div>
     <div class="ctxBanner" id="ctxBanner" style="display:none"></div>
     <div class="chatBody" id="chatBody"></div>
+    <div class="escalate">
+      <span>💡 <b>해결이 안 됐나요?</b> 상담사에게 직접 문의해보세요.</span>
+      <button onclick="App.escalateToInquiry()">1:1 문의 남기기 →</button>
+    </div>
     <div class="inputBar">
       <button class="plus" title="첨부 (mockup)">+</button>
       <input id="chatInput" placeholder="메시지를 입력하세요" onkeydown="if(event.key==='Enter'){App.sendMsg()}" />
@@ -539,6 +560,12 @@ const App = {
     document.getElementById('greet').innerHTML = next
       ? '안녕하세요, 엔조님!<span class="wave">👋</span><br/>오늘의집 <span class="accent">고객센터</span>예요.'
       : '안녕하세요!<span class="wave">👋</span><br/>오늘의집 <span class="accent">고객센터</span>예요.';
+    // GNB 답변 알림 뱃지 (로그인 상태일 때만)
+    const inqLink = document.querySelector('.gnb nav a[href="inquiry-list.html"]');
+    if (inqLink) {
+      if (next) inqLink.setAttribute('data-unread','1');
+      else      inqLink.removeAttribute('data-unread');
+    }
     this.renderDbg();
   },
   goHome(){
@@ -583,6 +610,18 @@ const App = {
       const ok = confirm('로그인 후 이용 가능해요. 로그인 시뮬레이션 할까요?');
       if(ok){ this.toggleAuth(true); } else { return; }
     }
+    window.location.href = 'inquiry-write.html';
+  },
+
+  // ===== 챗봇 → 1:1 문의 transfer =====
+  escalateToInquiry(){
+    // 현재 챗봇 컨텍스트(주문)를 sessionStorage에 저장 → write 페이지에서 자동 채움
+    const ctx = {
+      orderId: this.state.order?.id || '',
+      from:    'chat',
+    };
+    try { sessionStorage.setItem('inquiryFromChat', JSON.stringify(ctx)); } catch(_){}
+    this.closeModal();
     window.location.href = 'inquiry-write.html';
   },
 

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AI 채팅상담 이력 · 오늘의집 고객센터</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+<style>
+  :root{
+    --bg:#ffffff; --bg-weak:#f5f5f5; --bg-brand:#00a1ff; --bg-brand-weak:#f0f8fc;
+    --bg-attention-weak:#fcf4dd;
+    --border:#e0e0e0; --border-strong:#141414; --border-brand:#00a1ff;
+    --fg:#141414; --fg-weak:#8c8c8c; --fg-mid:#525252; --fg-brand:#00a1ff; --fg-attention:#b27800;
+    --positive:#22c55e;
+    --r-sm:4px; --r-md:8px; --r-lg:12px; --r-xl:16px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.04);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+  html,body{height:100%}
+  body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:-0.3px;color:var(--fg);background:#f5f5f5;word-break:keep-all;}
+  button{font-family:inherit;letter-spacing:-0.3px;cursor:pointer;}
+
+  /* GNB */
+  .gnb{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--border);}
+  .gnb-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+  .gnb .logo{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-0.4px;cursor:pointer;text-decoration:none;color:var(--fg);}
+  .gnb .logo .mark{width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;}
+  .gnb .logo .mark svg{width:100%;height:100%;display:block;}
+  .gnb .logo .name{font-size:17px}
+  .gnb .logo .pipe{width:1px;height:14px;background:var(--border);margin:0 4px;}
+  .gnb .logo .label{font-size:14px;color:var(--fg-weak);font-weight:500}
+  .gnb nav{display:flex;align-items:center;gap:4px}
+  .gnb nav a{font-size:14px;color:var(--fg);padding:8px 14px;border-radius:6px;font-weight:500;text-decoration:none;position:relative;}
+  .gnb nav a:hover{background:var(--bg-weak)}
+  .gnb nav a.cta{color:var(--fg-brand);font-weight:600}
+  /* 답변 알림 뱃지 (data-unread) */
+  .gnb nav a[data-unread]::after{
+    content:attr(data-unread);position:absolute;top:4px;right:4px;
+    min-width:16px;height:16px;padding:0 4px;border-radius:9999px;
+    background:#fd3d4a;color:#fff;font-size:10px;font-weight:800;letter-spacing:0;
+    display:inline-flex;align-items:center;justify-content:center;line-height:1;
+  }
+
+  /* Page header */
+  .pageHd{background:#fff;border-bottom:1px solid var(--border);padding:24px 24px;}
+  .pageHd .inner{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:6px;}
+  .pageHd .crumb{font-size:12px;color:var(--fg-weak);}
+  .pageHd .crumb a{color:var(--fg-weak);text-decoration:none;}
+  .pageHd .crumb a:hover{color:var(--fg);}
+
+  /* Wrap */
+  .wrap{max-width:880px;margin:0 auto;padding:24px 24px 80px;display:flex;flex-direction:column;gap:14px;}
+
+  /* Info card */
+  .infoCard{background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);padding:24px 28px;box-shadow:var(--shadow-sm);}
+  .infoCard .topRow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  .infoCard h2{font-size:18px;font-weight:800;color:var(--fg);letter-spacing:-0.4px;line-height:1.4;}
+  .infoCard .stBadge{flex-shrink:0;padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:0;}
+  .stBadge.done{background:rgba(34,197,94,.12);color:var(--positive);}
+  .infoCard .metaRow{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12.5px;color:var(--fg-mid);}
+  .infoCard .metaRow b{color:var(--fg);font-weight:600;}
+  .infoCard .metaRow .tagPill{background:#141414;color:#fff;padding:2px 10px;border-radius:9999px;font-weight:600;font-size:11.5px;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;}
+  .infoCard .metaRow .tagPill::before{content:'💬';font-size:11px;}
+
+  /* Thread */
+  .thread{background:#fff;border:1px solid var(--border);border-radius:var(--r-xl);padding:24px 28px;box-shadow:var(--shadow-sm);}
+  .thread h3{font-size:13px;color:var(--fg-weak);font-weight:700;letter-spacing:0;margin-bottom:18px;display:flex;align-items:center;gap:6px;}
+  .thread h3::before{content:'';width:3px;height:13px;background:#141414;border-radius:2px;}
+
+  .sysMsg{text-align:center;font-size:11.5px;color:var(--fg-weak);padding:8px 0 14px;font-weight:500;letter-spacing:-0.3px;}
+  .sysMsg.end{padding-top:14px;}
+
+  .msg{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start;}
+  .msg:last-child{margin-bottom:0;}
+
+  .msg.bot{justify-content:flex-start;}
+  .msg.bot .av{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--bg-brand-weak);color:var(--fg-brand);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;}
+  .msg.bot .body{max-width:78%;}
+  .msg.bot .name{font-size:11.5px;font-weight:700;color:var(--fg-mid);margin-bottom:4px;}
+  .msg.bot .bubble{
+    background:var(--bg-weak);padding:11px 14px;border-radius:12px;border-top-left-radius:4px;
+    font-size:13.5px;line-height:1.6;color:var(--fg);letter-spacing:-0.3px;white-space:pre-line;
+  }
+
+  .msg.user{justify-content:flex-end;}
+  .msg.user .body{max-width:78%;}
+  .msg.user .bubble{
+    background:var(--bg-brand);color:#fff;padding:11px 14px;border-radius:12px;border-top-right-radius:4px;
+    font-size:13.5px;line-height:1.6;letter-spacing:-0.3px;white-space:pre-line;
+  }
+  .msg.user .time{font-size:10.5px;color:var(--fg-weak);margin-top:4px;text-align:right;}
+
+  .msg.bot .time{font-size:10.5px;color:var(--fg-weak);margin-top:4px;}
+
+  /* Bot card (주문 정보) */
+  .botCard{
+    margin-top:6px;background:#fff;border:1px solid var(--border);border-radius:10px;
+    padding:12px 14px;display:flex;gap:10px;align-items:flex-start;
+  }
+  .botCard .thumb{width:44px;height:44px;border-radius:6px;background:linear-gradient(135deg,#f0e6d8,#c9b8a3);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .botCard .info .stat{font-size:11px;font-weight:700;color:var(--fg-brand);margin-bottom:3px;}
+  .botCard .info .title{font-size:13px;color:var(--fg);font-weight:600;line-height:1.4;}
+  .botCard .info .meta{font-size:11.5px;color:var(--fg-weak);margin-top:2px;}
+
+  /* Bot step (배송단계) */
+  .botStep{
+    margin-top:6px;background:#fff;border:1px solid var(--border);border-radius:10px;
+    padding:12px 12px 14px;
+  }
+  .botStep .row{display:flex;align-items:flex-start;}
+  .botStep .stp{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;}
+  .botStep .stp::after{content:'';position:absolute;top:11px;left:calc(50% + 14px);width:calc(100% - 28px);height:2px;background:var(--border);}
+  .botStep .stp:last-child::after{display:none;}
+  .botStep .stp.done::after,.botStep .stp.active::after{background:var(--bg-brand);}
+  .botStep .circ{width:24px;height:24px;border-radius:50%;background:var(--bg-weak);color:var(--fg-weak);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1;}
+  .botStep .stp.done .circ,.botStep .stp.active .circ{background:var(--bg-brand);color:#fff;}
+  .botStep .lbl{font-size:11px;color:var(--fg-weak);font-weight:500;text-align:center;line-height:1.3;}
+  .botStep .stp.active .lbl,.botStep .stp.done .lbl{color:var(--fg);font-weight:700;}
+
+  /* Closing actions */
+  .closing{display:flex;justify-content:space-between;gap:10px;padding:0 4px;flex-wrap:wrap;}
+  .closing .left{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn{height:38px;padding:0 18px;border-radius:8px;font-size:13.5px;font-weight:600;letter-spacing:-0.3px;border:0;}
+  .btn.primary{background:var(--bg-brand);color:#fff;}
+  .btn.primary:hover{filter:brightness(.92);}
+  .btn.ghost{background:#fff;border:1px solid var(--border);color:var(--fg);}
+  .btn.ghost:hover{background:var(--bg-weak);}
+  .btn.dark{background:#141414;color:#fff;}
+  .btn.dark:hover{filter:brightness(1.15);}
+
+  /* Footer */
+  .footer{max-width:880px;margin:40px auto 0;padding:24px;border-top:1px solid var(--border);text-align:center;color:var(--fg-weak);font-size:12px;}
+  .footer a{color:var(--fg-brand);text-decoration:none;}
+  .footer a:hover{text-decoration:underline;}
+
+  @media (max-width:560px){
+    .gnb-inner{padding:12px 16px;}
+    .gnb nav a{padding:6px 8px;font-size:13px;}
+    .wrap{padding:16px 16px 60px;}
+    .infoCard, .thread{padding:18px 18px;}
+    .closing{flex-direction:column;}
+    .closing .left{flex-direction:column;}
+    .closing .btn{width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============= GNB ============= -->
+<header class="gnb">
+  <div class="gnb-inner">
+    <a class="logo" href="index.html">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 1600 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M841.62 407.32C814.516 397.56 785.484 397.56 758.38 407.32C707.797 425.532 545.118 532.195 458.043 622C411.078 670.434 400 703.937 400 762.001C400 771.684 400 781.687 400 791.902C400.74 884.018 405.381 993.684 421.64 1047C449.746 1139.16 491.996 1200 759.001 1200H840.999C1108 1200 1150.25 1139.16 1178.36 1047C1194.62 993.684 1199.26 884.018 1200 791.897C1200 781.682 1200 771.684 1200 761.996C1200 703.932 1188.92 670.428 1141.96 621.995C1054.88 532.2 892.213 425.532 841.62 407.32Z" fill="#00A1FF"/>
+        </svg>
+      </span>
+      <span class="name">오늘의집</span>
+      <span class="pipe"></span>
+      <span class="label">고객센터</span>
+    </a>
+    <nav>
+      <a href="index.html">고객센터</a>
+      <a href="faq.html">FAQ</a>
+      <a class="cta" href="inquiry-list.html" data-unread="1">문의내역</a>
+      <a href="index.html" style="color:var(--fg-brand);font-weight:600">로그인</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============= Page header ============= -->
+<section class="pageHd">
+  <div class="inner">
+    <div class="crumb"><a href="index.html">고객센터</a> &nbsp;›&nbsp; <a href="inquiry-list.html">문의내역</a> &nbsp;›&nbsp; AI 채팅상담 이력</div>
+  </div>
+</section>
+
+<!-- ============= Body ============= -->
+<div class="wrap">
+
+  <!-- 상담 정보 -->
+  <div class="infoCard">
+    <div class="topRow">
+      <h2>배송 추적이 안 됩니다</h2>
+      <span class="stBadge done">상담완료</span>
+    </div>
+    <div class="metaRow">
+      <span class="tagPill">AI 채팅상담</span>
+      <span>주문번호 <b>#20260514-08</b></span>
+      <span>상담일시 <b>2026-05-14 14:32 ~ 14:38</b> (소요 6분)</span>
+    </div>
+  </div>
+
+  <!-- Thread -->
+  <div class="thread">
+    <h3>대화 내역</h3>
+
+    <div class="sysMsg">— AI 채팅상담 시작 · 2026-05-14 14:32 —</div>
+
+    <!-- 봇 인사 -->
+    <div class="msg bot">
+      <div class="av">오</div>
+      <div class="body">
+        <div class="name">오집사</div>
+        <div class="bubble">안녕하세요, 엔조님! 😊
+오집사예요. 어떤 도움이 필요하신가요?</div>
+        <div class="time">14:32</div>
+      </div>
+    </div>
+
+    <!-- 사용자 -->
+    <div class="msg user">
+      <div class="body">
+        <div class="bubble">배송 추적이 안 돼요</div>
+        <div class="time">14:33</div>
+      </div>
+    </div>
+
+    <!-- 봇 질문 -->
+    <div class="msg bot">
+      <div class="av">오</div>
+      <div class="body">
+        <div class="name">오집사</div>
+        <div class="bubble">불편을 드려 죄송합니다. 어떤 주문 건인지 확인해드릴게요.
+어제 주문하신 [모던하우스 무드등 #20260514-08] 건이 맞으실까요?</div>
+        <div class="botCard">
+          <div class="thumb">💡</div>
+          <div class="info">
+            <div class="stat">배송중 · CJ대한통운</div>
+            <div class="title">모던하우스 무드등 화이트</div>
+            <div class="meta">#20260514-08 · 2026-05-13 결제완료</div>
+          </div>
+        </div>
+        <div class="time">14:33</div>
+      </div>
+    </div>
+
+    <!-- 사용자 -->
+    <div class="msg user">
+      <div class="body">
+        <div class="bubble">네 맞아요</div>
+        <div class="time">14:34</div>
+      </div>
+    </div>
+
+    <!-- 봇 결과 -->
+    <div class="msg bot">
+      <div class="av">오</div>
+      <div class="body">
+        <div class="name">오집사</div>
+        <div class="bubble">확인해드렸습니다. 송장번호는 발급되었으나 아직 택배사 스캐닝 전 상태로 추적이 잠시 지연되고 있어요.
+보통 송장 등록 후 <b>1영업일 이내</b> 추적이 시작됩니다.</div>
+        <div class="botStep">
+          <div class="row">
+            <div class="stp done"><div class="circ">✓</div><div class="lbl">결제완료</div></div>
+            <div class="stp done"><div class="circ">✓</div><div class="lbl">배송준비</div></div>
+            <div class="stp active"><div class="circ">3</div><div class="lbl">배송중</div></div>
+            <div class="stp"><div class="circ">4</div><div class="lbl">배송완료</div></div>
+          </div>
+        </div>
+        <div class="time">14:35</div>
+      </div>
+    </div>
+
+    <!-- 사용자 -->
+    <div class="msg user">
+      <div class="body">
+        <div class="bubble">오늘 도착할 수 있을까요?</div>
+        <div class="time">14:36</div>
+      </div>
+    </div>
+
+    <!-- 봇 답변 -->
+    <div class="msg bot">
+      <div class="av">오</div>
+      <div class="body">
+        <div class="name">오집사</div>
+        <div class="bubble">택배사 일반 배송 기준 출고일 +1~3영업일 이내 도착해요.
+오늘(5/14) 출고가 시작되었으니 <b>5/15 ~ 5/16 사이</b> 도착이 예상됩니다.
+정확한 도착일은 송장 추적이 시작되면 카카오 알림톡으로 안내드릴게요. 📦</div>
+        <div class="time">14:37</div>
+      </div>
+    </div>
+
+    <!-- 사용자 종료 -->
+    <div class="msg user">
+      <div class="body">
+        <div class="bubble">알겠습니다. 감사합니다!</div>
+        <div class="time">14:38</div>
+      </div>
+    </div>
+
+    <!-- 봇 마무리 -->
+    <div class="msg bot">
+      <div class="av">오</div>
+      <div class="body">
+        <div class="name">오집사</div>
+        <div class="bubble">해결되셨다니 다행이에요! 🙌
+추가 문의가 있으시면 언제든 다시 찾아주세요.</div>
+        <div class="time">14:38</div>
+      </div>
+    </div>
+
+    <div class="sysMsg end">— 상담 종료 · 2026-05-14 14:38 —</div>
+  </div>
+
+  <!-- Closing -->
+  <div class="closing">
+    <div class="left">
+      <button class="btn ghost" onclick="location.href='inquiry-list.html'">← 문의내역으로</button>
+      <button class="btn dark" onclick="location.href='index.html'">같은 주제로 다시 상담</button>
+    </div>
+    <button class="btn primary" onclick="goInquiry()">1:1 문의로 남기기 →</button>
+  </div>
+
+</div>
+
+<footer class="footer">
+  ⓒ Bucketplace, Co., Ltd. · 이 페이지는 데모입니다. <a href="index.html">← 고객센터로 돌아가기</a>
+</footer>
+
+<script>
+  function goInquiry(){
+    try {
+      sessionStorage.setItem('inquiryFromChat', JSON.stringify({
+        from: 'chat',
+        orderId: '#20260514-08',
+      }));
+    } catch(_){}
+    location.href = 'inquiry-write.html';
+  }
+</script>
+
+</body>
+</html>
