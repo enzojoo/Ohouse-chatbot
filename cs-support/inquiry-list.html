@@ -65,15 +65,29 @@
   /* List */
   .list{display:flex;flex-direction:column;gap:10px;}
   .item{
+    position:relative;
     display:flex;justify-content:space-between;align-items:center;gap:12px;
     background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);
     padding:18px 22px;cursor:pointer;transition:border-color .12s ease, box-shadow .12s ease;
   }
+  .item::before{
+    content:'';position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 3px 3px 0;
+  }
+  .item[data-channel="chat"]::before{background:#141414;}
+  .item[data-channel="inquiry"]::before{background:var(--fg-brand);}
   .item:hover{border-color:var(--border-strong);box-shadow:var(--shadow-sm);}
   .item .l{flex:1;min-width:0;}
+  .item .ch{
+    display:inline-flex;align-items:center;gap:5px;
+    font-size:11.5px;font-weight:700;letter-spacing:0;margin-bottom:6px;
+  }
+  .item .ch.chat{color:#141414;}
+  .item .ch.chat::before{content:'💬';font-size:13px;}
+  .item .ch.inquiry{color:var(--fg-brand);}
+  .item .ch.inquiry::before{content:'✉️';font-size:13px;}
   .item .t{font-size:15px;font-weight:700;color:var(--fg);margin-bottom:6px;letter-spacing:-0.3px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .item .meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:12px;color:var(--fg-weak);}
-  .item .meta .tag{background:var(--bg-brand-weak);color:var(--fg-brand);padding:2px 8px;border-radius:9999px;font-weight:600;font-size:11px;letter-spacing:0;}
+  .item .meta .tag{background:var(--bg-weak);color:var(--fg-mid);padding:2px 8px;border-radius:9999px;font-weight:600;font-size:11px;letter-spacing:0;}
   .item .meta .pipe{width:1px;height:10px;background:var(--border);}
   .item .badge{flex-shrink:0;padding:5px 12px;border-radius:9999px;font-size:12px;font-weight:700;letter-spacing:0;}
   .badge.done{background:rgba(34,197,94,.12);color:var(--positive);}
@@ -151,11 +165,11 @@
 <!-- ============= Body ============= -->
 <div class="wrap">
 
-  <!-- 탭 -->
+  <!-- 탭 (채널별) -->
   <div class="tabs" role="tablist">
     <button class="on" data-filter="all">전체<span class="cnt" id="cntAll">0</span></button>
-    <button data-filter="wait">답변대기<span class="cnt" id="cntWait">0</span></button>
-    <button data-filter="done">답변완료<span class="cnt" id="cntDone">0</span></button>
+    <button data-filter="chat">AI 채팅상담<span class="cnt" id="cntChat">0</span></button>
+    <button data-filter="inquiry">1:1 문의<span class="cnt" id="cntInquiry">0</span></button>
   </div>
 
   <!-- 리스트 -->
@@ -177,26 +191,28 @@
 
 <script>
   // ===== Mockup 데이터 =====
+  // channel: 'chat' (AI 채팅상담) | 'inquiry' (1:1 문의)
   const ITEMS = [
-    {id:1, title:'주문한 상품 취소가 가능한가요?', cat:'취소·교환·반품', order:'#20260521-01', date:'2026-05-26', status:'done', link:'inquiry-detail.html'},
-    {id:2, title:'환불 처리가 아직 안 됐어요',     cat:'주문·결제',     order:'#20260514-08', date:'2026-05-19', status:'wait', link:null},
-    {id:3, title:'리뷰가 블라인드 처리되었어요',   cat:'콘텐츠·커뮤니티',order:null,           date:'2026-04-30', status:'done', link:null},
-    {id:4, title:'배송이 너무 늦어요',             cat:'배송',          order:'#20260502-03', date:'2026-04-15', status:'done', link:null},
-    {id:5, title:'카카오 로그인이 안 됩니다',      cat:'회원·로그인',    order:null,           date:'2026-03-22', status:'done', link:null},
+    {id:1, channel:'inquiry', title:'주문한 상품 취소가 가능한가요?', cat:'취소·교환·반품', order:'#20260521-01', date:'2026-05-26', status:'done', link:'inquiry-detail.html'},
+    {id:2, channel:'inquiry', title:'환불 처리가 아직 안 됐어요',     cat:'주문·결제',     order:'#20260514-08', date:'2026-05-19', status:'wait', link:null},
+    {id:3, channel:'chat',    title:'배송 추적이 안 됩니다',          cat:'배송',          order:'#20260514-08', date:'2026-05-14', status:'done', link:null},
+    {id:4, channel:'inquiry', title:'리뷰가 블라인드 처리되었어요',   cat:'콘텐츠·커뮤니티',order:null,           date:'2026-04-30', status:'done', link:null},
+    {id:5, channel:'chat',    title:'카카오 로그인 오류',             cat:'회원·로그인',    order:null,           date:'2026-03-22', status:'done', link:null},
   ];
+  const CH_LABEL = { chat:'AI 채팅상담', inquiry:'1:1 문의' };
 
   const $list  = document.getElementById('list');
   const $empty = document.getElementById('empty');
   const $tabs  = document.querySelectorAll('.tabs button');
 
   function renderCounts(){
-    document.getElementById('cntAll').textContent  = ITEMS.length;
-    document.getElementById('cntWait').textContent = ITEMS.filter(i=>i.status==='wait').length;
-    document.getElementById('cntDone').textContent = ITEMS.filter(i=>i.status==='done').length;
+    document.getElementById('cntAll').textContent     = ITEMS.length;
+    document.getElementById('cntChat').textContent    = ITEMS.filter(i=>i.channel==='chat').length;
+    document.getElementById('cntInquiry').textContent = ITEMS.filter(i=>i.channel==='inquiry').length;
   }
 
   function renderList(filter){
-    const items = filter==='all' ? ITEMS : ITEMS.filter(i=>i.status===filter);
+    const items = filter==='all' ? ITEMS : ITEMS.filter(i=>i.channel===filter);
     if (!items.length){
       $list.innerHTML = '';
       $empty.classList.add('show');
@@ -204,8 +220,9 @@
     }
     $empty.classList.remove('show');
     $list.innerHTML = items.map(i => `
-      <div class="item" data-id="${i.id}" data-link="${i.link || ''}">
+      <div class="item" data-id="${i.id}" data-link="${i.link || ''}" data-channel="${i.channel}">
         <div class="l">
+          <div class="ch ${i.channel}">${CH_LABEL[i.channel]}</div>
           <div class="t">${i.title}</div>
           <div class="meta">
             <span class="tag">${i.cat}</span>
@@ -221,8 +238,13 @@
     $list.querySelectorAll('.item').forEach(el => {
       el.addEventListener('click', () => {
         const link = el.dataset.link;
-        if (link) location.href = link;
-        else      alert('문의 상세 — mockup\n이 항목은 데모 데이터라 상세 페이지가 연결되어 있지 않아요.\n예시 상세 화면은 첫 번째 항목(답변완료)을 확인해보세요.');
+        const ch   = el.dataset.channel;
+        if (link) { location.href = link; return; }
+        if (ch === 'chat') {
+          alert('AI 채팅상담 이력 — mockup\n채팅상담 대화 내역 보기 화면이 연결될 예정이에요.');
+        } else {
+          alert('1:1 문의 상세 — mockup\n이 항목은 데모 데이터라 상세 페이지가 연결되어 있지 않아요.\n예시 상세 화면은 1:1 문의 첫 번째 항목(답변완료)을 확인해보세요.');
+        }
       });
     });
   }
