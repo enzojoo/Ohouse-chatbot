@@ -239,6 +239,54 @@
     </div>
   </div>
 
+  <!-- 논의사항 ② 운영시간 -->
+  <div class="delta" style="background:linear-gradient(120deg,#f7f3ff,#fff);border-color:#e3cffb">
+    <h3>🕘 논의사항 ② — 챗봇 도입 후 상담 운영시간 조정</h3>
+    <p style="margin:-6px 0 18px;font-size:13.5px;color:#374151">
+      현재는 <b>평일 09:00~18:00</b>만 상담 운영 중. 인서비스 챗봇이 들어오면 운영시간을 <b>24시간 대응으로 확대할지</b>, 아니면 <b>클레임 API 연동 완료 후 24시간 대응</b>으로 갈지 결정이 필요합니다. 아래 2개 시나리오로 검토합니다.
+    </p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <!-- 시나리오 A -->
+      <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
+          <span style="flex:0 0 30px;height:30px;border-radius:8px;background:#eef1f4;color:#374151;font-weight:800;display:flex;align-items:center;justify-content:center">A</span>
+          <div>
+            <div style="font-weight:800;font-size:15px">기존(09~18) 유지</div>
+            <div style="font-size:12px;color:var(--green);font-weight:700">▸ 단기 / 리스크 낮음</div>
+          </div>
+        </div>
+        <ul style="margin:0;padding-left:18px;font-size:13.5px;color:#374151;line-height:1.8">
+          <li>운영 정책 변경 없음 — <b>특이사항 없음</b></li>
+          <li>야간/주말은 챗봇 자동응대 + <b>운영시간 외 안내</b>로 처리 (상담원 인계는 운영시간 재문의 유도)</li>
+          <li>이후 <b>클레임 API 오픈 시점</b>에 24시간 운영 재검토 진행</li>
+        </ul>
+      </div>
+
+      <!-- 시나리오 B -->
+      <div style="background:#fff;border:1px solid #e3cffb;border-radius:14px;padding:18px 20px;box-shadow:0 4px 16px rgba(124,58,237,.08)">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
+          <span style="flex:0 0 30px;height:30px;border-radius:8px;background:#f3e8ff;color:#7c3aed;font-weight:800;display:flex;align-items:center;justify-content:center">B</span>
+          <div>
+            <div style="font-weight:800;font-size:15px">24시간 운영으로 변경</div>
+            <div style="font-size:12px;color:var(--orange);font-weight:700">▸ 확대 / 사전 준비 필요</div>
+          </div>
+        </div>
+        <ul style="margin:0;padding-left:18px;font-size:13.5px;color:#374151;line-height:1.8">
+          <li>업무시간 외 <b>상담원 처리 필요건</b> 발생 시, <b>1:1 게시판 작성</b> 등으로 유도할 수 있는 제반 기능 확보 필요</li>
+          <li>야간 발생 문의의 <b>순차 처리</b>를 위해 <b>상담원 추가 투입</b> 필요 가능성 존재</li>
+        </ul>
+        <div style="margin-top:12px;padding-top:11px;border-top:1px dashed var(--line);font-size:12px;color:var(--sub)">
+          ⚠️ 인력·기능 준비가 선행되어야 함 (단순 시간 확대 아님)
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-size:13px;color:#374151">
+      <b style="color:#7c3aed">결정 포인트</b> — ①번 챗봇이 24시간 자동응대를 하더라도, <b>"상담원이 필요한 건"을 야간에 어떻게 처리할지</b>가 핵심. 챗봇 자동응대 범위만 24시간 열고 <b>상담원 인계는 운영시간 유지(A)</b>로 시작 → 클레임 API·인력 확보 후 <b>전면 24시간(B)</b>으로 단계 전환하는 안도 가능.
+    </div>
+  </div>
+
   <footer>오늘의집 서비스운영팀 · CS 채널 전환 시나리오 목업 · 2026-06</footer>
 </div>
 
