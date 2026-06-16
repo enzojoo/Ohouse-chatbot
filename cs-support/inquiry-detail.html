@@ -216,20 +216,11 @@
     </div>
   </div>
 
-  <!-- Reply -->
-  <div class="replyArea">
-    <h3>추가로 문의하기</h3>
-    <textarea id="replyText" placeholder="답변을 받고 추가로 궁금하신 점이 있으면 작성해주세요."></textarea>
-    <div class="replyRow">
-      <div class="hint">개인정보(주민번호·카드번호 등)는 입력하지 마세요.</div>
-      <button class="btn primary" onclick="sendReply()">답글 전송</button>
-    </div>
-  </div>
-
   <!-- Closing actions -->
   <div class="closing">
     <div class="left">
       <button class="btn ghost" onclick="location.href='inquiry-list.html'">← 문의내역으로</button>
+      <button class="btn ghost" onclick="deleteInquiry()">삭제하기</button>
     </div>
     <button class="btn primary" onclick="openRating()">만족도 평가하기</button>
   </div>
@@ -260,11 +251,10 @@
 </div>
 
 <script>
-  function sendReply(){
-    const txt = document.getElementById('replyText').value.trim();
-    if (txt.length < 5){ alert('답글 내용을 5자 이상 입력해주세요.'); return; }
-    alert('답글이 전송되었어요. ✅\n상담사가 확인 후 평일 영업시간 내 24시간 이내 답변드릴게요.');
-    document.getElementById('replyText').value = '';
+  function deleteInquiry(){
+    if (!confirm('이 문의 내역을 삭제하시겠어요?\n삭제 후에는 복구할 수 없어요.')) return;
+    alert('문의 내역이 삭제되었어요. ✅');
+    location.href = 'inquiry-list.html';
   }
 
   // Rating
