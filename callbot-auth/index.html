@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>콜봇 인증 구조와 본인확인 방식</title>
+<style>
+  :root{
+    --bg:#EEF1F7; --card:#FFFFFF;
+    --ink:#1E2330; --ink-2:#4B5468; --ink-3:#8A93A6;
+    --line:#E5E8F0; --line-2:#EEF1F7;
+    --brand:#2F6BFF; --brand-soft:#E8F0FF; --brand-deep:#1B4FD6;
+    --green:#21C07A; --green-soft:#DFF7EC;
+    --amber:#F0A52B; --amber-soft:#FFF1D9;
+    --pink:#E94668; --pink-soft:#FCE3E9;
+    --violet:#7A5CFF; --violet-soft:#EFEAFF;
+    --shadow:0 1px 2px rgba(20,30,60,.04), 0 4px 12px rgba(20,30,60,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1424; --card:#171E31;
+      --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+      --line:#28304A; --line-2:#1F2740;
+      --brand:#6E9BFF; --brand-soft:#1C2848; --brand-deep:#9DBBFF;
+      --green:#3ED79A; --green-soft:#16351F;
+      --amber:#F2B857; --amber-soft:#3A2C13;
+      --pink:#FF7793; --pink-soft:#3A1B24;
+      --violet:#A48CFF; --violet-soft:#241E42;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1424; --card:#171E31;
+    --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+    --line:#28304A; --line-2:#1F2740;
+    --brand:#6E9BFF; --brand-soft:#1C2848; --brand-deep:#9DBBFF;
+    --green:#3ED79A; --green-soft:#16351F;
+    --amber:#F2B857; --amber-soft:#3A2C13;
+    --pink:#FF7793; --pink-soft:#3A1B24;
+    --violet:#A48CFF; --violet-soft:#241E42;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:14px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  .doc{max-width:1080px;margin:0 auto;padding:36px 20px 96px}
+
+  .doc-head{margin-bottom:24px}
+  .doc-head h1{margin:0;font-size:26px;line-height:1.35;letter-spacing:-.01em}
+  .doc-head .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;font-size:12px}
+  .doc-head .meta span{background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:4px 11px;color:var(--ink-2)}
+
+  .notice{background:var(--amber-soft);border:1px solid var(--amber);
+    border-radius:12px;padding:13px 16px;margin:20px 0 28px;font-size:13px;color:var(--ink)}
+  .notice b{font-weight:700}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin-bottom:32px;box-shadow:var(--shadow)}
+  .toc h3{margin:0 0 10px;font-size:11px;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .toc ol{margin:0;padding-left:18px;columns:2;column-gap:28px}
+  @media(max-width:640px){.toc ol{columns:1}}
+  .toc li{margin:3px 0}
+  .toc a{color:var(--ink-2);text-decoration:none}
+  .toc a:hover{color:var(--brand-deep);text-decoration:underline}
+
+  h2{margin:44px 0 14px;font-size:20px;letter-spacing:-.01em;
+    padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{margin:30px 0 10px;font-size:16px;letter-spacing:-.01em}
+  h2:first-of-type{margin-top:8px}
+
+  p{margin:10px 0}
+  ul{margin:10px 0;padding-left:20px}
+  li{margin:5px 0}
+  li > ul{margin:5px 0}
+  b,strong{font-weight:700}
+  code{background:var(--line-2);border:1px solid var(--line);border-radius:5px;
+    padding:1px 5px;font-size:.9em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  a{color:var(--brand-deep)}
+
+  .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow);margin:16px 0}
+  .scroll-x table{margin:0;border:0;box-shadow:none;border-radius:0}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+  th,td{border-bottom:1px solid var(--line);padding:10px 13px;
+    text-align:left;vertical-align:top}
+  th{background:var(--line-2);font-weight:700;color:var(--ink);
+    white-space:nowrap;position:sticky;top:0}
+  tr:last-child td{border-bottom:0}
+
+  .mermaid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 18px;margin:16px 0;box-shadow:var(--shadow)}
+  .mermaid-wrap .mermaid{min-width:min-content;text-align:center}
+  .mermaid-wrap svg{max-width:none !important;height:auto}
+  .hint{font-size:11.5px;color:var(--ink-3);margin:-6px 0 16px;padding-left:2px}
+
+  .callout{border-radius:12px;padding:14px 16px;margin:16px 0;font-size:13.5px;
+    border:1px solid var(--line);background:var(--card)}
+  .callout.violet{background:var(--violet-soft);border-color:var(--violet)}
+  .callout.pink{background:var(--pink-soft);border-color:var(--pink)}
+  .callout.brand{background:var(--brand-soft);border-color:var(--brand)}
+
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;
+    padding:2px 9px;white-space:nowrap}
+  .tag.keep{background:var(--green-soft);color:var(--green)}
+  .tag.sms{background:var(--amber-soft);color:var(--amber)}
+
+  .foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--ink-3);font-size:12px}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="doc-head">
+    <h1>콜봇 인증 구조와 본인확인 방식</h1>
+    <div class="meta">
+      <span>오늘의집 서비스운영팀</span>
+      <span>최종 수정 2026-08-11</span>
+      <span>AI 콜봇 오픈 8/19(화)</span>
+    </div>
+  </div>
+
+  <div class="notice">
+    <b>원본은 노션 문서이며 이 페이지는 AICX 공유용 사본입니다.</b>
+    내용이 갱신되면 이 페이지도 함께 갱신됩니다. 다이어그램과 표는 좌우로 스크롤됩니다.
+  </div>
+
+  <div class="toc">
+    <h3>목차</h3>
+    <ol>
+      <li><a href="#s1">개요</a></li>
+      <li><a href="#s2">전체 응대 흐름</a></li>
+      <li><a href="#s3">현황</a></li>
+      <li><a href="#s4">케이스별 시나리오</a></li>
+      <li><a href="#s5">처리 방식 비교 — 원안 대비 변경</a></li>
+    </ol>
+  </div>
+
+  <h2 id="s1">개요</h2>
+  <ul>
+    <li>AI 콜봇은 <b>8/19(화) 운영 배포</b>를 목표로 하며, QA는 8/3~8/14 진행 중</li>
+    <li>인입 경로는 대표번호 IVR 기준 <b>1번(상품 및 주문 관련 문의)만 콜봇 선응대</b>이며, 2번(시공/이사/제품설치/서비스)과 3번(기타)은 상담원으로 바로 연결됨</li>
+    <li>콜봇은 전화 채널이라 <b>고객 로그인 절차가 없어</b>, 인앱 채팅(오늘의집 로그인 세션)과 인증 구조가 다름
+      <ul>
+        <li>구) 채팅 채널인 카카오톡 챗봇(SMS 점유인증)과 유사한 편</li>
+        <li>고객의 발신번호로 회원(<code>userId</code>)을 식별하고, <b>개인정보 조회가 필요한 시점에만</b> 고객이 말한 성함을 대조하는 방식으로 확인하는 형태</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2 id="s2">전체 응대 흐름</h2>
+  <div class="mermaid-wrap">
+    <pre class="mermaid">
+flowchart TD
+    A(["대표번호 인입"]) --> IVR{"IVR 선택"}
+    HO(["상담원 연결 · Handover"])
+
+    IVR -->|"2번 시공·이사·설치<br/>3번 기타"| HO
+    IVR -->|"1번 상품·주문 문의"| B["콜봇 응대 시작"]
+
+    B --> C["일반 문의 응대<br/>KMS·FAQ 기반 · 본인확인 불필요"]
+    C --> D{"개인정보 조회가<br/>필요한 문의인가"}
+    D -->|"아니오"| C
+    D -->|"예"| E["발신번호로 회원 조회"]
+
+    E --> F{"연결된 회원번호(userId) 수"}
+    F -->|"0개 · 비회원"| G["API 조회 불가<br/>일반 안내만 가능"]
+    F -->|"2개 이상 · 다계정"| G
+    F -->|"1개 · 단일 계정"| I["성함 요청"]
+    G --> HO
+
+    I --> J{"발신번호 회원정보와<br/>성함 일치"}
+    J -->|"불일치"| K{"불일치 횟수"}
+    K -->|"1회"| I
+    K -->|"2회"| HO
+    J -->|"일치"| T["대상 주문·상품 조회"]
+    L{"요청 유형"}
+    T --> U{"단일 주문·옵션<br/>특정"}
+    U -->|"성공"| L
+    U -->|"복수 후보"| V["상품명·주문일·브랜드로<br/>추가 질문"]
+    V --> W{"재특정 성공"}
+    W -->|"성공"| L
+    W -->|"실패"| HO
+
+    L -->|"조회성<br/>주문·배송·포인트·쿠폰"| M["콜봇이 음성으로 안내"]
+    L -->|"처리성<br/>배송지·배송일·취소·확정<br/>반품·교환·문의"| N["LMS 딥링크 문자 발송"]
+
+    N --> Q{"문자 수신"}
+    Q -->|"수신"| P["고객이 앱에서 로그인 후<br/>본인 주문에 한해 처리"]
+    Q -->|"미수신"| S["추가 전송 안내<br/>최대 2회"]
+    S -->|"재전송"| N
+    S -->|"수신 실패"| HO
+
+    M --> Z(["상담 종료"])
+    P --> Z
+
+    C -.->|"고객이 상담원 연결 요청"| HO
+    M -.->|"고객이 상담원 연결 요청"| HO
+    P -.->|"고객이 상담원 연결 요청"| HO
+    </pre>
+  </div>
+
+  <ul>
+    <li>상담원 연결(Handover)이 발생하는 지점은 아래 6가지 케이스
+      <ul>
+        <li>IVR 2번·3번 선택 — 콜봇 응대 범위 외</li>
+        <li>조회 요청했으나 비회원(<code>userId</code> 없음) 또는 다계정(<code>userId</code>가 2개 이상 존재)인 경우 — 개인정보 조회 자체가 불가</li>
+        <li>성함 2회 불일치 — 본인확인 실패</li>
+        <li>대상 주문·상품 특정 실패 — 추가 질문 후에도 단일 주문·옵션을 특정하지 못한 경우</li>
+        <li>문자 추가 전송 후에도 미수신(최대 2회까지 전송 처리) — 딥링크 전달 불가</li>
+        <li>고객의 상담원 연결 요청 — 본인확인 전후 무관하게 언제든 가능</li>
+      </ul>
+    </li>
+  </ul>
+  <div class="callout brand">
+    본인확인은 플로우 진입 시점이 아니라 <b>개인정보 조회가 필요해진 지점에서만</b> 걸리므로,
+    일반 문의 구간은 비회원·다계정 고객도 동일하게 응대
+  </div>
+
+  <h2 id="s3">현황</h2>
+
+  <h3>1. 시스템 인증 구조의 한계</h3>
+  <ul>
+    <li>전화 채널이라 사용자 고유의 인증 토큰을 확보할 수 없음
+      <ul><li>인앱/웹 채팅의 경우 로그인을 통해 고유의 회원정보와 인증을 확보하는 구조임</li></ul>
+    </li>
+    <li>따라서 <b>발신번호로 회원을 조회해 <code>userId</code>를 확보</b>한 뒤, AICX 서버가 오늘의집 조회 API를 호출하는 형태로 운영됨
+      <ul>
+        <li>인증 방식은 기존 챗봇 API 인증 경로를 그대로 재사용, 전화번호를 바탕으로 <code>userId</code>를 확보하는 개념</li>
+        <li>완벽한 1:1 인증 방식이 아니기 때문에 이번 배포는 <b>조회용 API만 사용</b>함</li>
+        <li>쓰기(주문 취소, 클레임 접수 등) API는 허용되지 않아 고객 문자 발송으로 대체함</li>
+        <li>현 인증 경로는 임시 적용이며, 콜봇 기능 확대를 위한 장기 인증 구조는 별도 논의 중</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>2. 채널별 인증 방식 비교</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>구분</th><th>카카오톡 챗봇</th><th>인앱/웹 채팅</th><th>콜봇</th></tr></thead>
+      <tbody>
+        <tr><td>인증 방식</td><td>웹 기반 SMS 점유인증</td><td>오늘의집 로그인 세션 기반</td><td>발신번호 조회 + 성함 대조</td></tr>
+        <tr><td>고객 행동</td><td>링크 클릭, 번호 입력, 인증번호 입력</td><td>없음(로그인 상태면 통과)</td><td>성함 발화 1회</td></tr>
+        <tr><td>식별자 확보</td><td>연락처에서 <code>userId</code> 역방향 조회</td><td><code>userId</code> 직접 확보</td><td>발신번호에서 <code>userId</code> 역방향 조회</td></tr>
+        <tr><td>인증 시점</td><td>조회가 필요한 시점</td><td>진입 시 자동</td><td>조회가 필요한 시점</td></tr>
+        <tr><td>권한 범위</td><td>조회 + 딥링크</td><td>조회 + 딥링크</td><td><b>조회만</b>, 쓰기는 전부 딥링크</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>3. 본인확인 방식</h3>
+  <ul>
+    <li>기본적인 정보(FAQ 또는 KMS 정보 기반)의 상담은 별도의 본인 확인 절차 없이 콜봇과 상담이 가능함</li>
+    <li>다만 <b>조회가 필요한 경우 발신번호의 <code>userId</code>에 등록된 이름에 대해 정보 확인</b> 절차를 가져감
+      <ul>
+        <li><b>콜봇이 이름을 먼저 말하지 않고, 고객이 말한 성함을 발신번호 기준 회원정보와 대조</b>하는 방식으로 정보 확인</li>
+        <li>콜봇이 조회된 이름을 먼저 부르는 방식은 번호 변경·양도·가족 발신 시 성명이 선노출되고, 세부 상담 없이 번호에 매핑된 이름만 취득하는 악용이 가능해 제외 처리</li>
+        <li><b>콜봇 최초 연결 시 일괄 확인이 아니라 개인정보 조회가 필요한 시점에만</b> 확인</li>
+      </ul>
+    </li>
+  </ul>
+  <div class="callout violet">
+    <b>※ 전화번호에 등록된 <code>userId</code>가 1개인 경우(1:1 매칭)에만 본인 확인 후 상담을 진행 / 비회원 또는 다계정인 경우 상담원 연결 처리</b>
+  </div>
+
+  <h3>4. 응대 멘트 초안</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>상황</th><th>멘트</th></tr></thead>
+      <tbody>
+        <tr><td>성함 요청</td><td>정확한 정보 확인을 위해, 연락 주신 고객님의 성함 확인 부탁드립니다</td></tr>
+        <tr><td>일치</td><td>확인 감사드립니다. 무엇을 도와드릴까요?</td></tr>
+        <tr><td>1회 불일치</td><td>정확한 확인을 위해 성함을 한번 더 말씀해주세요.</td></tr>
+        <tr><td>2회 불일치</td><td>죄송합니다. 정확한 확인이 어려워, 상담원을 연결해드리겠습니다. 잠시만 기다려주세요</td></tr>
+        <tr><td>비회원 / 다계정</td><td>정확한 확인을 위해 상담원을 연결해드리겠습니다. 잠시만 기다려주세요.</td></tr>
+        <tr><td>조회 시도</td><td>확인해보겠습니다. 잠시만 기다려주세요.</td></tr>
+        <tr><td>문자 미수신 · 추가 전송 1회차</td><td>문자가 도착하지 않으셨나요? 다시 보내드릴게요. 잠시만 기다려주세요</td></tr>
+        <tr><td>문자 미수신 · 추가 전송 2회차</td><td>한 번 더 보내드릴게요. 혹시 스팸함에도 있는지 함께 확인 부탁드려요</td></tr>
+        <tr><td>추가 전송 후에도 미수신</td><td>문자 수신이 계속 어려우신 것 같아, 상담원을 연결해드리겠습니다. 잠시만 기다려주세요</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">※ 음성인식 오류로 인한 이탈을 막기 위해 1회 재확인 절차를 둠</p>
+
+  <h3>5. 본인확인 대상 구분</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>구분</th><th>해당 문의</th><th>대상 고객</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>본인확인 필요</b></td>
+          <td>주문 내역 조회, 주문 상태 및 배송 정보 안내, 보유 포인트 조회, 보유 쿠폰 조회, 배송지 변경, 배송일 변경, 주문 취소, 구매 확정, 반품·교환 접수, 주문문의 등</td>
+          <td>발신번호에 연결된 회원번호가 1개이고 성함이 일치하는 고객</td>
+        </tr>
+        <tr>
+          <td><b>본인확인 불필요</b></td>
+          <td>KMS 지식 및 FAQ 기반 일반 안내(배송·반품·교환 정책, 운영시간, 이벤트, 무이자 할부 카드 행사 등), 상품문의 등</td>
+          <td>비회원·다계정 포함 전체 고객</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>6. 대응 불가 조건</h3>
+  <ul>
+    <li>성함 <b>2회 불일치</b> 시 상담원 연결</li>
+    <li><b>비회원 / 다계정 조회 기능 요청 시 상담원 연결</b></li>
+  </ul>
+  <div class="callout pink">
+    <b>쓰기 작업(주문 취소, 클레임 접수 등)은 콜봇이 직접 처리할 수 없어 고객에게 링크가 포함된 문자를 발송하고,
+    앱에서 고객이 로그인한 뒤 본인 주문에 한해 처리하는 구조임</b>
+  </div>
+
+  <h3>7. 딥링크 문자 발송</h3>
+  <ul>
+    <li>본인확인 후 처리가 필요한 건은 LMS 템플릿으로 발송함 / 최대 2회까지 재전송 가능</li>
+    <li>배송지 변경, 반품 신청, 교환 신청, 판매자 문의, 쿠폰함 확인, 포인트 조회, 주문내역 조회, 주문 취소, 구매 확정, 배송일 변경 등</li>
+  </ul>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>안내 유형</th><th>콜봇 안내 멘트</th><th>문자 제목</th><th>딥링크</th></tr></thead>
+      <tbody>
+        <tr><td>배송지 변경</td><td>배송지 변경 링크를 문자로 보내드렸어요. 링크를 누르신 뒤 주문상세에서 배송지 변경 버튼을 눌러주세요</td><td>[오늘의집] 배송지 변경 안내</td><td><a href="https://link.ohou.se/2jpjkq">link.ohou.se/2jpjkq</a></td></tr>
+        <tr><td>반품 신청</td><td>반품 신청 링크를 문자로 보내드렸어요. 링크를 누르시면 바로 신청 화면으로 이동해요</td><td>[오늘의집] 반품 신청 안내</td><td><a href="https://link.ohou.se/32m8i3">link.ohou.se/32m8i3</a></td></tr>
+        <tr><td>교환 신청</td><td>교환 신청 링크를 문자로 보내드렸어요. 링크를 누르시면 바로 신청 화면으로 이동해요</td><td>[오늘의집] 교환 신청 안내</td><td><a href="https://link.ohou.se/7y4opb3">link.ohou.se/7y4opb3</a></td></tr>
+        <tr><td>주문 문의</td><td>판매자에게 문의하실 수 있는 링크를 문자로 보내드렸어요. 링크를 눌러 문의를 남겨주세요</td><td>[오늘의집] 판매자 문의 안내</td><td><a href="https://link.ohou.se/xmdqsv">link.ohou.se/xmdqsv</a></td></tr>
+        <tr><td>쿠폰함 확인</td><td>보유하신 쿠폰을 확인하실 수 있는 링크를 문자로 보내드렸어요</td><td>[오늘의집] 쿠폰 확인 안내</td><td><a href="https://link.ohou.se/b01jpq">link.ohou.se/b01jpq</a></td></tr>
+        <tr><td>포인트 조회</td><td>보유하신 포인트를 확인하실 수 있는 링크를 문자로 보내드렸어요</td><td>[오늘의집] 포인트 안내</td><td><a href="https://link.ohou.se/9pfvsy">link.ohou.se/9pfvsy</a></td></tr>
+        <tr><td>주문내역 조회</td><td>주문 내역을 확인하실 수 있는 링크를 문자로 보내드렸어요</td><td>[오늘의집] 주문내역 안내</td><td><a href="https://link.ohou.se/98sor3">link.ohou.se/98sor3</a></td></tr>
+        <tr><td>주문 취소 요청</td><td>주문 취소 링크를 문자로 보내드렸어요. 링크를 누르시면 바로 취소 화면으로 이동해요. 취소 후에는 되돌릴 수 없으니 확인 후 진행해주세요</td><td>[오늘의집] 주문 취소 안내</td><td><a href="https://link.ohou.se/n0wecta">link.ohou.se/n0wecta</a></td></tr>
+        <tr><td>구매 확정</td><td>구매 확정 링크를 문자로 보내드렸어요. 링크를 누르신 뒤 목록에서 해당 주문의 구매 확정 버튼을 눌러주세요. 확정 후에는 반품·교환 신청이 어려워요</td><td>[오늘의집] 구매확정 안내</td><td><a href="https://link.ohou.se/00jfjzy">link.ohou.se/00jfjzy</a></td></tr>
+        <tr><td>배송일 변경</td><td>배송일 변경 링크를 문자로 보내드렸어요. 링크를 누르신 뒤 주문상세에서 배송일 변경 버튼을 눌러주세요</td><td>[오늘의집] 배송일 변경 안내</td><td><a href="https://link.ohou.se/3zkvzhf">link.ohou.se/3zkvzhf</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s4">케이스별 시나리오</h2>
+
+  <div class="callout brand">
+    <b>아래 시나리오는 API로 콜봇 자동화 처리가 가능하다는 전제로 작성되었으며,
+    인증에 따른 보안 검토 후 처리 방식은 변경될 수 있음</b>
+  </div>
+
+  <p><b>변경된 부분</b></p>
+  <ul>
+    <li>콜봇은 발신번호를 통해 회원번호(<code>userId</code>)를 조회하고, 이름 확인 후 주문 조회·포인트·쿠폰 목록 확인 등 <b>Read 액션</b>을 수행함</li>
+    <li>이외 <b>Write가 필요한 주문취소·클레임 접수 등은 LMS 문자 전송을 통해 고객 셀프 서비스로 처리</b>함
+      <ul>
+        <li>인앱·웹처럼 회원 본인인증을 거치는 구조가 아니라 연락처 기반 점유인증 개념이므로, 회원번호가 1개로 특정되더라도 <b>통화를 건 사람이 해당 계정의 소유주임을 보증할 수 없음</b></li>
+        <li>따라서 Write 액션은 고객이 앱에서 로그인한 뒤 직접 처리하도록 문자 발송 방식으로 구현하기로 결정함</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>공통 처리 원칙</h3>
+  <ul>
+    <li>주문 관련 업무는 고객 및 대상 주문·상품을 확인한 후 진행함</li>
+    <li>처리 전 대상 상품, 요청 내용, 주요 유의사항을 고객에게 다시 확인함</li>
+    <li>주문 변경·취소처럼 상태를 바꾸는 업무는 <b>번호 선택(DTMF) 최종 확인으로 고객의 명시적 동의를 받은 뒤</b> 실행함</li>
+    <li>API 응답 또는 후속 상태 재조회로 결과가 확인된 경우에만 완료로 안내함</li>
+    <li>확인 수단이 없거나 완료 상태가 확인되지 않으면 <b>완료로 단정하지 않고</b> 후속 절차를 안내함</li>
+    <li>음성으로 처리하기 어렵거나 별도 화면이 필요한 업무는 SMS 링크로 안내함</li>
+  </ul>
+
+  <h3>1. 주문 및 배송 조회</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["고객 및 주문 목록 조회"] --> B{"조회 가능한 주문이 있는가"}
+    B -->|"없음"| C["주문 내역 없음 또는 조회 불가 안내"]
+    B -->|"있음"| D["고객 발화 기준 대상 주문 특정"]
+    D --> E{"대상 주문 특정 성공"}
+    E -->|"실패"| F["최근 주문 후보를 줄여 재질문"]
+    F --> G{"재시도 후 특정 성공"}
+    G -->|"아니오"| H["상담원 인계 또는<br/>주문내역 확인 안내"]
+    G -->|"예"| I["주문 상세 및 배송 정보 조회"]
+    E -->|"성공"| I
+    I --> J["주문 상태(orderStatus) 확인"]
+    J --> K["배송사 유형(deliveryCarrierType) 확인"]
+    K --> L{"배송 추적 가능 여부<br/>(trackable)"}
+    L -->|"true"| M["송장·배송 기본 상태·택배 이동 흐름 안내"]
+    L -->|"false"| N["택배 추적 불가 유형 안내"]
+    M --> O{"희망 배송일(preferredDate)<br/>필요 유형"}
+    N --> O
+    O -->|"예"| P["희망일·오늘의집배송 기준 안내"]
+    O -->|"아니오"| Q["배송 예정일 또는<br/>현재 배송 단계 안내"]
+    P --> R["추가 문의 확인"]
+    Q --> R
+  </pre></div>
+  <p class="hint">상담원 연결 — 조회 가능한 주문 없음 / 재질문 후에도 대상 주문 특정 실패</p>
+
+  <h3>2. 구매확정</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["구매확정 요청"] --> B["대상 주문·상품 특정"]
+    B --> C{"주문 상태가 구매확정 후보인가"}
+    C -->|"아니오"| D["구매확정 불가 사유 안내"]
+    C -->|"예"| E["구매확정 가능 여부 API 확인"]
+    E --> F{"구매확정 가능"}
+    F -->|"불가"| G["불가 사유 안내 또는 상담원 인계"]
+    F -->|"가능"| H["대상 상품과 적립·혜택 영향 안내"]
+    H --> I{"고객이 명시적으로 동의"}
+    I -->|"아니오"| J["구매확정하지 않고 종료"]
+    I -->|"예"| K["구매확정 API 실행"]
+    K --> L{"API 실행 성공"}
+    L -->|"실패"| M["실패 사유 안내<br/>필요 시 상담원 인계"]
+    L -->|"성공"| N["주문 상태 재조회"]
+    N --> O{"구매확정 상태 확인"}
+    O -->|"확인"| P["구매확정 완료 안내"]
+    O -->|"미확인"| Q["완료 단정 금지, 확인 필요 안내"]
+  </pre></div>
+  <p class="hint">상담원 연결 — 구매확정 불가 / API 실행 실패</p>
+
+  <h3>3. 배송지 변경</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["대상 주문·상품 확인"] --> B["현재 주문·배송 상태 확인"]
+    B --> C{"배송지 변경 가능한가"}
+    C -->|"아니오"| D["변경 불가 사유 안내<br/>또는 상담원 연결"]
+    C -->|"예"| E["고객에게 변경할 새 주소 요청"]
+    E --> F["고객이 말한 주소 확인"]
+    F --> G["변경할 주소를 고객에게 다시 읽어 안내"]
+    G --> H{"고객이 주소가 맞다고 확인했는가"}
+    H -->|"아니오"| I["변경할 주소 재확인"]
+    I --> J{"주소 확인 실패가 2회인가"}
+    J -->|"아니오"| E
+    J -->|"예"| K["주소 직접 입력용 SMS 링크 발송"]
+    K --> L["고객이 화면에서 새 주소 입력"]
+    H -->|"예"| M["번호 선택(DTMF) 최종 확인<br/>1번 변경 진행 · 2번 취소"]
+    M -->|"1번"| N["배송지 변경 실행"]
+    M -->|"2번"| O["변경하지 않고 종료"]
+    M -->|"무응답·오입력"| P["한 번 더 확인 후<br/>필요 시 상담원 연결"]
+    N --> Q["배송지 정보 재조회"]
+    Q --> R{"변경 결과가 확인됐는가"}
+    R -->|"예"| S["배송지 변경 완료 안내"]
+    R -->|"아니오"| T["완료로 단정하지 않고<br/>확인 필요 안내"]
+  </pre></div>
+  <p class="hint">상담원 연결 — 변경 불가 / 주소 확인 2회 실패 후에도 진행 불가</p>
+
+  <h3>4. 배송일 변경</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["배송일 변경 요청"] --> B["대상 주문·상품 확인"]
+    B --> C{"배송일 변경 대상인가<br/>원하는날도착 상품 +<br/>결제완료 또는 배송준비중"}
+    C -->|"아니오"| D["변경 불가 사유 안내<br/>또는 상담원 연결"]
+    C -->|"예"| E["변경 가능 날짜 조회"]
+    E --> F{"선택 가능한 날짜가 있는가"}
+    F -->|"없음"| D
+    F -->|"있음"| G["선택 가능한 날짜 안내"]
+    G --> H["고객 희망일 청취"]
+    H --> I["희망일을 고객에게 다시 읽어 안내"]
+    I --> J{"고객이 희망일이 맞다고 확인했는가"}
+    J -->|"아니오"| K["희망일 재확인"]
+    K --> L{"희망일 확인 실패가 2회인가"}
+    L -->|"아니오"| G
+    L -->|"예"| M["배송일 변경용 SMS 링크 발송"]
+    M --> N["고객이 화면에서 배송일 선택"]
+    J -->|"예"| O["번호 선택(DTMF) 최종 확인<br/>1번 변경 진행 · 2번 취소"]
+    O -->|"1번"| P["배송일 변경 실행"]
+    O -->|"2번"| Q["변경하지 않고 종료"]
+    O -->|"무응답·오입력"| R["한 번 더 확인 후<br/>필요 시 상담원 연결"]
+    P --> S["배송 정보 재조회"]
+    S --> T{"변경 결과가 확인됐는가"}
+    T -->|"예"| U["배송일 변경 완료 안내"]
+    T -->|"아니오"| V["완료로 단정하지 않고<br/>확인 필요 안내"]
+  </pre></div>
+
+  <h3>5. 주문취소</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["주문취소 요청"] --> B["대상 주문·상품 특정"]
+    B --> C{"단일 주문옵션 특정"}
+    C -->|"아니오"| D["추가 질문으로 대상 특정"]
+    D --> E{"특정 성공"}
+    E -->|"아니오"| F["상담원 인계"]
+    E -->|"예"| G["주문 상태 확인"]
+    C -->|"예"| G
+    G --> H{"주문 상태"}
+    H -->|"입금 대기 · 결제 완료"| I["취소 가능 판정 API 호출"]
+    H -->|"배송 준비중 · 배송중 · 배송완료"| J["배송 상태 안내 후<br/>반품·교환 또는 파트너사 문의 분기"]
+    H -->|"기타 · 확인 불가"| M["불가 사유 확인 또는 상담원 인계"]
+    I --> N{"취소 가능"}
+    N -->|"불가"| O["불가 사유 안내 후<br/>파트너사 문의 또는 상담원 인계"]
+    N -->|"가능"| P["취소 대상·유의사항·환불 영향 안내"]
+    P --> Q["번호 선택(DTMF) 최종 확인<br/>1번 취소 진행 · 2번 취소 안 함"]
+    Q -->|"1번"| R["취소 API 실행"]
+    Q -->|"2번"| S["취소하지 않고 종료"]
+    Q -->|"무응답·오입력"| T["1회 재요청 후 실패 시<br/>일반 대화 또는 인계"]
+    R --> U["주문·클레임 상태 재조회"]
+    U --> V{"취소 완료 확인"}
+    V -->|"확인"| W["취소 완료 안내"]
+    V -->|"미확인"| X["완료 단정 금지, 확인 필요 안내"]
+  </pre></div>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>주문 상태</th><th>처리</th></tr></thead>
+      <tbody>
+        <tr><td>입금 대기 · 결제 완료</td><td>취소 가능 판정 API 호출</td></tr>
+        <tr><td>배송 준비중 · 배송중 · 배송완료</td><td>배송 상태 안내 후 반품·교환 또는 파트너사 문의로 분기</td></tr>
+        <tr><td>기타 · 확인 불가</td><td>불가 사유 확인 또는 상담원 연결</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">상담원 연결 — 대상 특정 실패 / 취소 불가 / 번호 선택 무응답·오입력 1회 재요청 후에도 실패</p>
+
+  <h3>6. 반품·교환</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["요청 유형 확인: 반품 또는 교환"] --> B["대상 주문·상품 특정"]
+    B --> C{"단일 주문번호(orderId) +<br/>주문옵션번호(orderOptionId) 특정"}
+    C -->|"아니오"| D["추가 질문으로 상품 특정"]
+    D --> E{"특정 성공"}
+    E -->|"아니오"| F["링크 생성 금지<br/>상담원 인계 또는 주문내역 확인 안내"]
+    E -->|"예"| G["주문 상태 및 정책상 링크 유형 판단"]
+    C -->|"예"| G
+    G --> H{"연결 유형"}
+    H -->|"직접 반품·교환"| I["반품 신청(return-request) 또는<br/>교환 신청(exchange-request)<br/>딥링크 생성"]
+    H -->|"파트너사 확인 필요"| J["파트너사 문의 딥링크 생성"]
+    H -->|"불가 · 확인 필요"| K["불가 사유 안내 또는 상담원 인계"]
+    I --> L["SMS 발송"]
+    J --> L
+    L --> M["SMS 발송 후 공통 흐름으로 이동"]
+  </pre></div>
+  <ul>
+    <li>상품 특정에 실패하면 <b>링크 생성을 금지</b>하고 상담원 연결 또는 주문내역 확인 안내로 빠짐</li>
+    <li>사진 등 증빙이 필요한 경우에도 연결된 화면에서 계속 진행함</li>
+  </ul>
+
+  <h3>7. 파손·오배송·누락</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["대상 주문·상품 특정"] --> B{"단일 주문옵션 특정"}
+    B -->|"아니오"| C["추가 질문으로 대상 상품 특정"]
+    C --> D{"특정 성공"}
+    D -->|"아니오"| E["상담원 인계"]
+    D -->|"예"| F["증상 유형 확인"]
+    B -->|"예"| F
+    F --> G{"증상 유형"}
+    G -->|"파손"| H["사진 증빙 필요 안내"]
+    G -->|"오배송"| I["오배송 사유·상품 확인 필요 안내"]
+    G -->|"누락"| J["구성품·수량 확인 필요 안내"]
+    G -->|"기타 · 불명확"| K["추가 질문 또는 상담원 인계"]
+    H --> L["반품·교환 딥링크 또는<br/>파트너사 문의 링크 판단"]
+    I --> L
+    J --> L
+    L --> M{"링크 유형"}
+    M -->|"반품·교환"| N["반품 신청(return-request) 또는<br/>교환 신청(exchange-request)<br/>딥링크 생성"]
+    M -->|"파트너사 문의"| O["파트너사 문의 딥링크 생성"]
+    M -->|"확인 필요"| P["상담원 인계"]
+    N --> Q["SMS 발송"]
+    O --> Q
+    Q --> R["SMS 발송 후 공통 흐름으로 이동"]
+  </pre></div>
+
+  <h3>8. 포인트 · 쿠폰</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["포인트·쿠폰 문의"] --> B{"문의 유형"}
+    B -->|"전체 목록을 보고 싶음"| C["쿠폰함·포인트 화면 딥링크 안내"]
+    C --> D["SMS 딥링크 발송"]
+    D --> E["SMS 발송 후 공통 흐름으로 이동"]
+    B -->|"보유 포인트"| F["포인트 잔액 조회"]
+    F --> G["보유 포인트 요약 안내"]
+    B -->|"만료 예정 포인트"| H["30일 이내 만료 예정 포인트 조회"]
+    H --> I["만료 예정 포인트와 기간 안내"]
+    B -->|"쿠폰 보유 · 사용 가능"| J["쿠폰 목록 및 주요 조건 조회"]
+    J --> K["사용 가능 쿠폰 수와 주요 쿠폰 안내"]
+    B -->|"특정 상품에 쿠폰 적용 불가"| L["상품·쿠폰 단서 확인"]
+    L --> M{"상품·쿠폰 특정 가능"}
+    M -->|"가능"| N["쿠폰 상세 조건 확인"]
+    N --> O{"적용 불가 사유 확인"}
+    O -->|"확인"| P["최소금액·카테고리·브랜드·기간 등<br/>조건 안내"]
+    O -->|"확인 불가"| Q["정책 확인 필요 또는 상담원 인계"]
+    M -->|"불가"| R["추가 질문 또는 화면 확인 안내"]
+    G --> S["추가 도움 확인"]
+    I --> S
+    K --> S
+    P --> S
+    Q --> S
+    R --> S
+  </pre></div>
+
+  <h3>9. SMS 링크 발송 공통 흐름</h3>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    A["SMS 딥링크 발송 요청"] --> B["발송 API 호출"]
+    B --> C{"발송 성공"}
+    C -->|"실패"| D["실패 사유 로깅 및<br/>재시도 가능 여부 확인"]
+    D --> E{"재시도 가능"}
+    E -->|"가능"| B
+    E -->|"불가"| F["상담원 인계 또는 대체 안내"]
+    C -->|"성공"| G["고객에게 문자 수신 여부 확인"]
+    G --> H{"문자를 받았는가"}
+    H -->|"못 받음"| I["재발송 횟수 확인"]
+    I --> J{"재발송 2회 미만"}
+    J -->|"예"| K["SMS 재발송"]
+    K --> G
+    J -->|"아니오"| L["상담원 인계"]
+    H -->|"받음"| M["링크에서 진행할 항목 짧게 안내"]
+    M --> N["추가 도움 여부 확인"]
+    N --> O{"더 도움이 필요한가"}
+    O -->|"아니오"| P(["통화 종료"])
+    O -->|"예"| Q["통화 유지 후 다음 문의 처리"]
+  </pre></div>
+  <p class="hint">※ 고객 미수신과 발송 API 실패는 다른 분기임. 전자는 재발송, 후자는 재시도 가능 여부를 먼저 판정함</p>
+
+  <h2 id="s5">처리 방식 비교 — 원안 대비 변경</h2>
+  <p>
+    원래 시나리오는 클레임 API로 콜봇이 직접 처리하는 것을 전제로 작성됐음.
+    콜봇 인증이 발신번호 기반 점유인증으로 결정되면서 <b>Write 액션만 LMS 문자 셀프서비스로 전환</b>됐고,
+    Read 액션과 원래부터 딥링크였던 항목은 변동 없음
+  </p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>기능</th><th>원래 계획</th><th>현재 처리 방식</th><th>구분</th></tr></thead>
+      <tbody>
+        <tr><td>주문·배송 조회</td><td>주문 상세·배송 정보 API 조회 후 음성 안내</td><td>동일</td><td><span class="tag keep">그대로</span></td></tr>
+        <tr><td>포인트 조회</td><td>포인트 잔액·만료 예정 API 조회 후 음성 안내</td><td>동일</td><td><span class="tag keep">그대로</span></td></tr>
+        <tr><td>쿠폰 조회</td><td>쿠폰 목록·조건 API 조회 후 음성 안내</td><td>동일</td><td><span class="tag keep">그대로</span></td></tr>
+        <tr><td>구매확정</td><td>구매확정 가능 여부 API 확인 → 동의 → <b>구매확정 API 실행</b> → 상태 재조회</td><td>문자 링크 발송, 고객이 앱에서 직접 확정 (LMS 209)</td><td><span class="tag sms">문자</span></td></tr>
+        <tr><td>배송지 변경</td><td>변경 가능 판정 → 새 주소 청취·재확인 → <b>배송지 변경 API 실행</b> → 재조회<br>(주소 확인 2회 실패 시에만 SMS 폴백)</td><td>문자 링크 발송, 고객이 앱에서 직접 변경 (LMS 201)</td><td><span class="tag sms">문자</span></td></tr>
+        <tr><td>배송일 변경</td><td>변경 가능 날짜 조회 → 희망일 청취·재확인 → <b>배송일 변경 API 실행</b> → 재조회</td><td>문자 링크 발송, 고객이 앱에서 직접 선택 (LMS 210)</td><td><span class="tag sms">문자</span></td></tr>
+        <tr><td>주문취소</td><td>취소 가능 판정 API → 유의사항 안내·동의 → <b>취소 API 실행</b> → 상태 재조회</td><td>문자 링크 발송, 고객이 앱에서 직접 취소 (LMS 208)</td><td><span class="tag sms">문자</span></td></tr>
+        <tr><td>반품 신청</td><td>딥링크 생성 후 SMS 발송</td><td>동일 (LMS 202)</td><td><span class="tag keep">그대로</span></td></tr>
+        <tr><td>교환 신청</td><td>딥링크 생성 후 SMS 발송</td><td>동일 (LMS 203)</td><td><span class="tag keep">그대로</span></td></tr>
+        <tr><td>파손·오배송·누락</td><td>증상 판정 후 반품·교환 또는 파트너사 문의 딥링크 발송</td><td>동일 (LMS 202 · 203 · 204)</td><td><span class="tag keep">그대로</span></td></tr>
+        <tr><td>판매자 문의</td><td>딥링크 생성 후 SMS 발송</td><td>동일 (LMS 204)</td><td><span class="tag keep">그대로</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><b>정리하면 실제로 바뀐 건 4개임</b> — 구매확정, 배송지 변경, 배송일 변경, 주문취소</p>
+  <ul>
+    <li>4개 모두 주문 상태를 바꾸는 Write 액션이며, 원래는 콜봇이 API로 실행하고 결과를 재조회해 완료를 안내하는 흐름이었음</li>
+    <li>현재는 콜봇이 <b>대상 주문까지만 특정해서 문자를 보내고</b>, 실행과 완료 확인은 고객이 앱에서 수행함</li>
+    <li>따라서 원안에 있던 <b>번호 선택(DTMF) 최종 확인, API 실행 결과 판정, 완료 단정 금지 분기는 이 4개에서 동작하지 않음</b>. 위 케이스별 다이어그램에 남아 있는 해당 구간은 보안 검토 후 API 처리가 허용될 때 적용되는 흐름임</li>
+    <li>조회성 3개(주문·배송, 포인트, 쿠폰)는 콜봇이 음성으로 답하는 것이 원칙이며, 고객이 전체 목록을 보고 싶다고 하면 별도로 화면 링크(LMS 205 · 206 · 207)를 발송함</li>
+  </ul>
+
+  <div class="foot">
+    오늘의집 서비스운영팀 · 최종 수정 2026-08-11<br>
+    문의는 슬랙 <code>#proj-aicx-ai_chatbot</code> 채널로 부탁드립니다.
+  </div>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: dark ? 'dark' : 'neutral',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: false },
+    themeVariables: { fontFamily: '-apple-system, "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif', fontSize: '13px' }
+  });
+</script>
+</body>
+</html>
