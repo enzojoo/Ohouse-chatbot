@@ -114,6 +114,11 @@
     padding:2px 9px;white-space:nowrap}
   .tag.keep{background:var(--green-soft);color:var(--green)}
   .tag.sms{background:var(--amber-soft);color:var(--amber)}
+  .tag.mod{background:var(--pink-soft);color:var(--pink)}
+  .tag.new{background:var(--violet-soft);color:var(--violet)}
+
+  .old{color:var(--ink-3)}
+  td.fix{background:var(--brand-soft)}
 
   .foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-3);font-size:12px}
@@ -141,6 +146,7 @@
       <li><a href="#s1">개요</a></li>
       <li><a href="#s2">전체 응대 흐름</a></li>
       <li><a href="#s3">현황</a></li>
+      <li><a href="#s6">고정 안내 멘트 최종본</a></li>
       <li><a href="#s4">케이스별 시나리오</a></li>
       <li><a href="#s5">처리 방식 비교 — 원안 대비 변경</a></li>
     </ol>
@@ -181,8 +187,8 @@ flowchart TD
 
     I --> J{"발신번호 회원정보와<br/>성함 일치"}
     J -->|"불일치"| K{"불일치 횟수"}
-    K -->|"1회"| I
-    K -->|"2회"| HO
+    K -->|"1·2회"| I
+    K -->|"3회"| HO
     J -->|"일치"| T["대상 주문·상품 조회"]
     L{"요청 유형"}
     T --> U{"단일 주문·옵션<br/>특정"}
@@ -215,7 +221,7 @@ flowchart TD
       <ul>
         <li>IVR 2번·3번 선택 — 콜봇 응대 범위 외</li>
         <li>조회 요청했으나 비회원(<code>userId</code> 없음) 또는 다계정(<code>userId</code>가 2개 이상 존재)인 경우 — 개인정보 조회 자체가 불가</li>
-        <li>성함 2회 불일치 — 본인확인 실패</li>
+        <li>성함 3회 불일치 — 본인확인 실패</li>
         <li>대상 주문·상품 특정 실패 — 추가 질문 후에도 단일 주문·옵션을 특정하지 못한 경우</li>
         <li>문자 추가 전송 후에도 미수신(최대 2회까지 전송 처리) — 딥링크 전달 불가</li>
         <li>고객의 상담원 연결 요청 — 본인확인 전후 무관하게 언제든 가능</li>
@@ -280,8 +286,9 @@ flowchart TD
       <tbody>
         <tr><td>성함 요청</td><td>정확한 정보 확인을 위해, 연락 주신 고객님의 성함 확인 부탁드립니다</td></tr>
         <tr><td>일치</td><td>확인 감사드립니다. 무엇을 도와드릴까요?</td></tr>
-        <tr><td>1회 불일치</td><td>정확한 확인을 위해 성함을 한번 더 말씀해주세요.</td></tr>
-        <tr><td>2회 불일치</td><td>죄송합니다. 정확한 확인이 어려워, 상담원을 연결해드리겠습니다. 잠시만 기다려주세요</td></tr>
+        <tr><td>1회 불일치</td><td>정확한 확인을 위해 성함을 한번 더 말씀 부탁 드립니다.</td></tr>
+        <tr><td>2회 불일치</td><td>정확한 확인을 위해 성함을 한번 더 말씀 부탁 드립니다. <span class="tag mod">1회와 동일</span></td></tr>
+        <tr><td>3회 불일치 · 본인확인 불가</td><td>죄송합니다. 정확한 확인이 어려워, 상담원을 연결해드리겠습니다. 잠시만 기다려주세요</td></tr>
         <tr><td>비회원 / 다계정</td><td>정확한 확인을 위해 상담원을 연결해드리겠습니다. 잠시만 기다려주세요.</td></tr>
         <tr><td>조회 시도</td><td>확인해보겠습니다. 잠시만 기다려주세요.</td></tr>
         <tr><td>문자 미수신 · 추가 전송 1회차</td><td>문자가 도착하지 않으셨나요? 다시 보내드릴게요. 잠시만 기다려주세요</td></tr>
@@ -290,7 +297,7 @@ flowchart TD
       </tbody>
     </table>
   </div>
-  <p class="hint">※ 음성인식 오류로 인한 이탈을 막기 위해 1회 재확인 절차를 둠</p>
+  <p class="hint">※ 위 표는 AICX 콜봇 오집사 v60 현행 기준임 · 수정안은 <a href="#s6">고정 안내 멘트 최종본</a> 참조</p>
 
   <h3>5. 본인확인 대상 구분</h3>
   <div class="scroll-x">
@@ -313,7 +320,7 @@ flowchart TD
 
   <h3>6. 대응 불가 조건</h3>
   <ul>
-    <li>성함 <b>2회 불일치</b> 시 상담원 연결</li>
+    <li>성함 <b>3회 불일치</b> 시 상담원 연결</li>
     <li><b>비회원 / 다계정 조회 기능 요청 시 상담원 연결</b></li>
   </ul>
   <div class="callout pink">
@@ -342,6 +349,83 @@ flowchart TD
         <tr><td>배송일 변경</td><td>배송일 변경 링크를 문자로 보내드렸어요. 링크를 누르신 뒤 주문상세에서 배송일 변경 버튼을 눌러주세요</td><td>[오늘의집] 배송일 변경 안내</td><td><a href="https://link.ohou.se/3zkvzhf">link.ohou.se/3zkvzhf</a></td></tr>
       </tbody>
     </table>
+  </div>
+
+  <h2 id="s6">고정 안내 멘트 최종본</h2>
+
+  <p>
+    AICX 콜봇 오집사 <b>v60 고정 멘트</b>를 기준으로, 수정이 필요한 항목만 정리함.
+    표에 없는 멘트는 <b>현행 유지</b>
+  </p>
+
+  <h3>수정 항목</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>구분</th><th>기존</th><th>수정</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>클로징 AI 고지</td>
+          <td class="old">오늘의집 상담사 오집사였습니다. 좋은 하루 보내세요.</td>
+          <td class="fix">지금까지 오늘의집 <b>AI 상담사</b> 오집사였습니다. 이용해주셔서 감사합니다. 궁금한 점 있으시면 언제든 다시 전화주세요.</td>
+        </tr>
+        <tr>
+          <td>최초 성함 확인</td>
+          <td class="old">정확한 정보 확인을 위해, 연락 주신 고객님의 성함 확인 부탁드립니다</td>
+          <td class="fix">주문 정보를 확인하려면 본인 확인이 필요해요. 전화 주신 분 성함을 말씀해주시겠어요?</td>
+        </tr>
+        <tr>
+          <td>성함 일치</td>
+          <td class="old">멘트 없음 <span class="tag new">신설</span></td>
+          <td class="fix">네, 확인해주셔서 감사합니다.</td>
+        </tr>
+        <tr>
+          <td>1회 불일치</td>
+          <td class="old">정확한 확인을 위해 성함을 한번 더 말씀 부탁 드립니다</td>
+          <td class="fix">제가 잘 못 들은 것 같아요. 성함을 한 번만 더 말씀해주시겠어요?</td>
+        </tr>
+        <tr>
+          <td>2회 불일치</td>
+          <td class="old">1회와 동일 <span class="tag mod">중복</span></td>
+          <td class="fix">죄송합니다. 성함을 또박또박 한 번만 더 말씀해주시겠어요?</td>
+        </tr>
+        <tr>
+          <td>문자 재발송 2회차</td>
+          <td class="old">1회차와 동일 <span class="tag mod">중복</span></td>
+          <td class="fix">한 번 더 보내드릴게요. 스팸함에도 있는지 같이 확인해주시겠어요?</td>
+        </tr>
+        <tr>
+          <td>비회원 · 다계정</td>
+          <td class="old">목록에 없음 <span class="tag new">신설</span></td>
+          <td class="fix">정확한 상담을 위해 상담원 연결을 도와드릴게요.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>무응답 4단계</h3>
+  <p>
+    현행은 <b>30초 재안내 → 누적 60초 자동 종료</b> 2단계이며 종료 전용 멘트가 없음.
+    아래 4단계로 신설함
+  </p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>단계</th><th>대기</th><th>누적</th><th>멘트</th></tr></thead>
+      <tbody>
+        <tr><td>1차</td><td>7초</td><td>7초</td><td>고객님, 잘 안 들리셨을까요? 다시 한번 말씀부탁드립니다.</td></tr>
+        <tr><td>2차</td><td>+10초</td><td>17초</td><td>고객님, 다시 말씀드리겠습니다. <b>{이전 질문 그대로 발화}</b></td></tr>
+        <tr><td>3차</td><td>+10초</td><td>27초</td><td>고객님, 지금 전화 상담이 어려우신 것 같아 잠시 후 통화를 종료할게요. 계속하시려면 말씀해주세요.</td></tr>
+        <tr><td>종료</td><td>+7초</td><td>34초</td><td>응답이 없어 통화를 종료할게요. 궁금한 점 있으시면 언제든 다시 전화 주세요. 감사합니다.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">
+    ※ 2차에서 <b>직전 질문을 그대로 다시 읽어주는 것</b>이 핵심임 · 3차는 종료를 반드시 예고함<br>
+    ※ 문자 수신 확인처럼 대기가 필요한 구간의 타임아웃 예외는 미확정
+  </p>
+
+  <div class="callout brand">
+    <b>본인확인 재시도 횟수는 AICX 현행 구현에 맞춰 3회로 통일함.</b>
+    기존 우리 시나리오는 2회였으며, 본 문서와 QA 시트를 3회 기준으로 정렬함
   </div>
 
   <h2 id="s4">케이스별 시나리오</h2>
