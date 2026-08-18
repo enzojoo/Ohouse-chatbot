@@ -85,6 +85,12 @@
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
   a{color:var(--brand-deep)}
 
+  pre.msg{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;margin:6px 0 18px;font-size:12.5px;line-height:1.65;
+    white-space:pre-wrap;word-break:break-word;overflow-x:auto;color:var(--ink);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .msg-label{font-size:13px;font-weight:700;margin:18px 0 0}
+
   .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;
     background:var(--card);border:1px solid var(--line);
     border-radius:14px;box-shadow:var(--shadow);margin:16px 0}
@@ -149,6 +155,7 @@
       <li><a href="#s6">고정 안내 멘트 최종본</a></li>
       <li><a href="#s4">케이스별 시나리오</a></li>
       <li><a href="#s5">처리 방식 비교 — 원안 대비 변경</a></li>
+      <li><a href="#s7">참고 — 콜봇 발송 문자 템플릿(LMS)</a></li>
     </ol>
   </div>
 
@@ -402,25 +409,26 @@ flowchart TD
     </table>
   </div>
 
-  <h3>무응답 4단계</h3>
+  <h3>무응답 3단계</h3>
   <p>
     현행은 <b>30초 재안내 → 누적 60초 자동 종료</b> 2단계이며 종료 전용 멘트가 없음.
-    아래 4단계로 신설함
+    원안은 4단계였으나 AICX 제안을 수용해 <b>3단계로 확정함</b>(2026-08-14 합의)
   </p>
   <div class="scroll-x">
     <table>
       <thead><tr><th>단계</th><th>대기</th><th>누적</th><th>멘트</th></tr></thead>
       <tbody>
-        <tr><td>1차</td><td>7초</td><td>7초</td><td>고객님, 잘 안 들리셨을까요? 다시 한번 말씀부탁드립니다.</td></tr>
-        <tr><td>2차</td><td>+10초</td><td>17초</td><td>고객님, 다시 말씀드리겠습니다. <b>{이전 질문 그대로 발화}</b></td></tr>
-        <tr><td>3차</td><td>+10초</td><td>27초</td><td>고객님, 지금 전화 상담이 어려우신 것 같아 잠시 후 통화를 종료할게요. 계속하시려면 말씀해주세요.</td></tr>
-        <tr><td>종료</td><td>+7초</td><td>34초</td><td>응답이 없어 통화를 종료할게요. 궁금한 점 있으시면 언제든 다시 전화 주세요. 감사합니다.</td></tr>
+        <tr><td>1차 재안내</td><td>12초</td><td>12초</td><td>고객님, 잘 안 들리셨을까요? 다시 한번 말씀부탁드립니다.</td></tr>
+        <tr><td>2차 종료 예고</td><td>+10초</td><td>22초</td><td>고객님, 지금 전화 상담이 어려우신 것 같아 통화를 종료할게요. 계속하시려면 말씀해주세요.</td></tr>
+        <tr><td>3차 종료</td><td>+10초</td><td>약 32초</td><td>응답이 없어 통화를 종료할게요. 궁금한 점 있으시면 언제든 다시 전화 주세요. 감사합니다. <span class="tag mod">멘트 후 종료</span></td></tr>
       </tbody>
     </table>
   </div>
   <p class="hint">
-    ※ 2차에서 <b>직전 질문을 그대로 다시 읽어주는 것</b>이 핵심임 · 3차는 종료를 반드시 예고함<br>
-    ※ 문자 수신 확인처럼 대기가 필요한 구간의 타임아웃 예외는 미확정
+    ※ 원안 4단계 중 <b>2차(직전 질문 그대로 재발화)를 제외</b>하고 1 · 3 · 4단계를 3단계로 재구성함<br>
+    ※ 1차 트리거를 7초 → <b>12초</b>로 늘림 — 직전에 발송한 문자 링크를 확인하는 중에 재안내가 끼어드는 것을 방지<br>
+    ※ 총 통화 시간은 <b>기존 4단계 34초 → 3단계 32초</b>로 오히려 짧아짐<br>
+    ※ 본인확인(성함 청취)처럼 고객이 생각할 시간이 필요한 구간에도 동일하게 적용되는지는 <b>AICX 확인 대기 중</b>(2026-08-18 문의)
   </p>
 
   <div class="callout brand">
@@ -730,8 +738,143 @@ flowchart TD
     <li>조회성 3개(주문·배송, 포인트, 쿠폰)는 콜봇이 음성으로 답하는 것이 원칙이며, 고객이 전체 목록을 보고 싶다고 하면 별도로 화면 링크(LMS 205 · 206 · 207)를 발송함</li>
   </ul>
 
+  <h2 id="s7">참고 — 콜봇 발송 문자 템플릿(LMS)</h2>
+  <p>
+    콜봇은 채팅의 회원 인증 체계가 아닌 <b>전화번호 점유 인증</b>만 사용하므로 챗봇 대비 처리 범위가 좁음.
+    이를 보완하기 위해 통화 중 고객이 셀프서비스로 처리할 수 있도록 <b>앱 경로(딥링크)를 문자(LMS)로 발송</b>함.
+  </p>
+  <p class="hint">
+    발신번호 <code>16700876</code> · 카테고리 <code>고객센터 콜봇 발송용</code> · 전 템플릿 LMS<br>
+    ※ 원본 관리 문서 — <a href="https://app.notion.com/p/ohouse/LMS-10-3b4a597878a081548b84cddca737da17">콜봇 셀프서비스 LMS 템플릿 현황(노션)</a>
+  </p>
+
+  <h3>템플릿 목록</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>ID</th><th>템플릿명</th><th>제목</th><th>발송 방식</th><th>단축 링크</th></tr></thead>
+      <tbody>
+        <tr><td>201</td><td>배송지 변경</td><td>[오늘의집] 배송지 변경 안내</td><td>주문번호 치환</td><td><code>link.ohou.se/2jpjkq</code></td></tr>
+        <tr><td>202</td><td>반품 신청</td><td>[오늘의집] 반품 신청 안내</td><td>주문번호 · 주문옵션번호 치환</td><td><code>link.ohou.se/32m8i3</code></td></tr>
+        <tr><td>203</td><td>교환 신청</td><td>[오늘의집] 교환 신청 안내</td><td>주문번호 · 주문옵션번호 치환</td><td><code>link.ohou.se/7y4opb3</code></td></tr>
+        <tr><td>204</td><td>파손·오배송·누락 및 판매자 문의</td><td>[오늘의집] 판매자 문의 안내</td><td>주문상품번호 · 주문옵션번호 치환</td><td><code>link.ohou.se/xmdqsv</code></td></tr>
+        <tr><td>205</td><td>쿠폰함 확인</td><td>[오늘의집] 쿠폰 확인 안내</td><td>파라미터 없이 그대로 발송</td><td><code>link.ohou.se/b01jpq</code></td></tr>
+        <tr><td>206</td><td>포인트 조회</td><td>[오늘의집] 포인트 안내</td><td>파라미터 없이 그대로 발송</td><td><code>link.ohou.se/9pfvsy</code></td></tr>
+        <tr><td>207</td><td>주문내역 조회</td><td>[오늘의집] 주문내역 안내</td><td>파라미터 없이 그대로 발송</td><td><code>link.ohou.se/98sor3</code></td></tr>
+        <tr><td>208</td><td>주문 취소 요청</td><td>[오늘의집] 주문 취소 안내</td><td>주문번호 · 주문옵션번호 치환</td><td><code>link.ohou.se/n0wecta</code></td></tr>
+        <tr><td>209</td><td>구매 확정</td><td>[오늘의집] 구매확정 안내</td><td>파라미터 없이 그대로 발송</td><td><code>link.ohou.se/00jfjzy</code></td></tr>
+        <tr><td>210</td><td>배송일 변경</td><td>[오늘의집] 배송일 변경 안내</td><td>주문번호 치환</td><td><code>link.ohou.se/3zkvzhf</code></td></tr>
+        <tr><td>211 <span class="tag new">신설</span></td><td>자유형 문자 템플릿</td><td>[오늘의집] 링크 안내</td><td><code>##link##</code> 변수에 상황별 링크 주입</td><td>고정 없음</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">※ 205 · 206 · 207은 콜봇이 음성으로 답하는 것이 원칙이며, 고객이 전체 목록을 보고 싶다고 할 때만 발송함</p>
+
+  <div class="callout violet">
+    <b>211 자유형 템플릿을 신설함.</b>
+    201~210은 상황이 고정된 템플릿이라 그 밖의 요청에는 링크를 보낼 수단이 없었음.
+    211은 <code>##link##</code> 하나만 변수로 두어 <b>콜봇이 상황에 맞는 링크를 골라 발송</b>할 수 있게 함.
+    챗봇 응대용으로 만들어 둔 Airbridge 단축링크 9종(알림 설정 · 문의내역 · 리뷰 · 친구초대 · 패키지할인 · 사진 올리기 · 동영상 올리기 · 회원탈퇴 · 이벤트 확인)을
+    콜봇 전용 지식으로 별도 등록해 상황별 발송이 되는지 검증 예정임.
+  </div>
+  <p class="hint">
+    ※ 문자 본문에서는 <code>ohouseapp://</code> 스킴이 링크로 렌더링되지 않으므로, 지식에 등록하는 링크는 반드시 <b>Airbridge 단축링크 형태</b>여야 함
+  </p>
+
+  <h3>문안 전문</h3>
+
+  <p class="msg-label">배송지 변경(201)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 배송지 변경 링크예요.
+
+##productName##
+##link##
+
+배송지 변경 버튼을 눌러 새 주소를 입력해주세요.
+주문 상태에 따라 배송지 변경이 제한될 수 있어요.</pre>
+
+  <p class="msg-label">반품 신청(202)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 반품 신청 링크예요.
+
+##productName##
+##link##
+
+반품 사유와 수거지, 반품 비용, 동의 항목을 확인한 뒤 신청할 수 있어요.</pre>
+
+  <p class="msg-label">교환 신청(203)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 교환 신청 링크예요.
+
+##productName##
+##link##
+
+교환 사유와 재배송지, 교환 비용, 동의 항목을 확인한 뒤 신청할 수 있어요.</pre>
+
+  <p class="msg-label">파손·오배송·누락 및 판매자 문의(204)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 판매자 문의하기 링크예요.
+
+##productName##
+##link##
+
+주문하신 상품에 대해 궁금한 점이나 문제를 판매자에게 직접 문의해주세요.
+사진을 첨부하거나 자세한 내용을 입력해야 할 수 있어요.</pre>
+
+  <p class="msg-label">쿠폰함 확인(205)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 쿠폰함 링크예요.
+
+##link##</pre>
+
+  <p class="msg-label">포인트 조회(206)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 포인트 조회 링크예요.
+
+##link##</pre>
+
+  <p class="msg-label">주문내역 조회(207)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 주문내역 조회 링크예요.
+
+##link##</pre>
+
+  <p class="msg-label">주문 취소 요청(208)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 주문 취소 링크예요.
+
+##productName##
+##link##
+
+주문을 취소하시면 즉시 처리되며 되돌릴 수 없어요.</pre>
+
+  <p class="msg-label">구매 확정(209)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 구매 확정 링크예요.
+
+##productName##
+##link##
+
+상품에 문제가 없는지 확인하고, 해당 상품의 구매 확정 버튼을 눌러주세요.
+구매 확정 후에는 반품·교환 신청이 어려워요.</pre>
+
+  <p class="msg-label">배송일 변경(210)</p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 배송일 변경 링크예요.
+
+##productName##
+##link##
+
+배송일 변경 버튼을 눌러 원하시는 배송일을 선택해주세요.
+주문 상태나 배송지에 따라 변경이 어려울 수 있어요.</pre>
+
+  <p class="msg-label">자유형(211) <span class="tag new">신설</span></p>
+  <pre class="msg">[오늘의집]
+상담 중 안내드린 링크예요.
+
+##link##</pre>
+
   <div class="foot">
-    오늘의집 서비스운영팀 · 최종 수정 2026-08-11<br>
+    오늘의집 서비스운영팀 · 최종 수정 2026-08-18<br>
     문의는 슬랙 <code>#proj-aicx-ai_chatbot</code> 채널로 부탁드립니다.
   </div>
 
