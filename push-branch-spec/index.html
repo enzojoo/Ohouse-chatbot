@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>고객센터 새 답변 알림 발송 채널 분기 연동 스펙</title>
+<style>
+  :root{
+    --bg:#EEF1F7; --card:#FFFFFF;
+    --ink:#1E2330; --ink-2:#4B5468; --ink-3:#8A93A6;
+    --line:#E5E8F0; --line-2:#EEF1F7;
+    --brand:#2F6BFF; --brand-soft:#E8F0FF; --brand-deep:#1B4FD6;
+    --green:#21C07A; --green-soft:#DFF7EC;
+    --amber:#F0A52B; --amber-soft:#FFF1D9;
+    --pink:#E94668; --pink-soft:#FCE3E9;
+    --violet:#7A5CFF; --violet-soft:#EFEAFF;
+    --shadow:0 1px 2px rgba(20,30,60,.04), 0 4px 12px rgba(20,30,60,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1424; --card:#171E31;
+      --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+      --line:#28304A; --line-2:#1F2740;
+      --brand:#6E9BFF; --brand-soft:#1C2848; --brand-deep:#9DBBFF;
+      --green:#3ED79A; --green-soft:#16351F;
+      --amber:#F2B857; --amber-soft:#3A2C13;
+      --pink:#FF7793; --pink-soft:#3A1B24;
+      --violet:#A48CFF; --violet-soft:#241E42;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1424; --card:#171E31;
+    --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+    --line:#28304A; --line-2:#1F2740;
+    --brand:#6E9BFF; --brand-soft:#1C2848; --brand-deep:#9DBBFF;
+    --green:#3ED79A; --green-soft:#16351F;
+    --amber:#F2B857; --amber-soft:#3A2C13;
+    --pink:#FF7793; --pink-soft:#3A1B24;
+    --violet:#A48CFF; --violet-soft:#241E42;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:14px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  .doc{max-width:1080px;margin:0 auto;padding:36px 20px 96px}
+
+  .doc-head{margin-bottom:24px}
+  .doc-head h1{margin:0;font-size:26px;line-height:1.35;letter-spacing:-.01em}
+  .doc-head .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;font-size:12px}
+  .doc-head .meta span{background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:4px 11px;color:var(--ink-2)}
+
+  .notice{background:var(--amber-soft);border:1px solid var(--amber);
+    border-radius:12px;padding:13px 16px;margin:20px 0 28px;font-size:13px;color:var(--ink)}
+  .notice b{font-weight:700}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin-bottom:32px;box-shadow:var(--shadow)}
+  .toc h3{margin:0 0 10px;font-size:11px;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .toc ol{margin:0;padding-left:18px;columns:2;column-gap:28px}
+  @media(max-width:640px){.toc ol{columns:1}}
+  .toc li{margin:3px 0}
+  .toc a{color:var(--ink-2);text-decoration:none}
+  .toc a:hover{color:var(--brand-deep);text-decoration:underline}
+
+  h2{margin:44px 0 14px;font-size:20px;letter-spacing:-.01em;
+    padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{margin:30px 0 10px;font-size:16px;letter-spacing:-.01em}
+  h2:first-of-type{margin-top:8px}
+
+  p{margin:10px 0}
+  ul{margin:10px 0;padding-left:20px}
+  li{margin:5px 0}
+  li > ul{margin:5px 0}
+  b,strong{font-weight:700}
+  code{background:var(--line-2);border:1px solid var(--line);border-radius:5px;
+    padding:1px 5px;font-size:.9em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  a{color:var(--brand-deep)}
+
+  pre.msg{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;margin:6px 0 18px;font-size:12.5px;line-height:1.65;
+    white-space:pre-wrap;word-break:break-word;overflow-x:auto;color:var(--ink);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .msg-label{font-size:13px;font-weight:700;margin:18px 0 0}
+
+  .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow);margin:16px 0}
+  .scroll-x table{margin:0;border:0;box-shadow:none;border-radius:0}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+  th,td{border-bottom:1px solid var(--line);padding:10px 13px;
+    text-align:left;vertical-align:top}
+  th{background:var(--line-2);font-weight:700;color:var(--ink);
+    white-space:nowrap;position:sticky;top:0}
+  tr:last-child td{border-bottom:0}
+
+  .mermaid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 18px;margin:16px 0;box-shadow:var(--shadow)}
+  .mermaid-wrap .mermaid{min-width:min-content;text-align:center}
+  .mermaid-wrap svg{max-width:none !important;height:auto}
+  .hint{font-size:11.5px;color:var(--ink-3);margin:-6px 0 16px;padding-left:2px}
+
+  .callout{border-radius:12px;padding:14px 16px;margin:16px 0;font-size:13.5px;
+    border:1px solid var(--line);background:var(--card)}
+  .callout.violet{background:var(--violet-soft);border-color:var(--violet)}
+  .callout.pink{background:var(--pink-soft);border-color:var(--pink)}
+  .callout.brand{background:var(--brand-soft);border-color:var(--brand)}
+
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;
+    padding:2px 9px;white-space:nowrap}
+  .tag.keep{background:var(--green-soft);color:var(--green)}
+  .tag.sms{background:var(--amber-soft);color:var(--amber)}
+  .tag.mod{background:var(--pink-soft);color:var(--pink)}
+  .tag.new{background:var(--violet-soft);color:var(--violet)}
+
+  .old{color:var(--ink-3)}
+  td.fix{background:var(--brand-soft)}
+
+  .foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--ink-3);font-size:12px}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="doc-head">
+    <h1>고객센터 새 답변 알림 발송 채널 분기 연동 스펙</h1>
+    <div class="meta">
+      <span>오늘의집 서비스운영팀</span>
+      <span>최종 수정 2026-08-25</span>
+      <span>v1.3</span>
+    </div>
+  </div>
+
+  <div class="notice">
+    다이어그램과 표는 좌우로 스크롤됩니다.
+  </div>
+
+  <div class="toc">
+    <h3>목차</h3>
+    <ol>
+      <li><a href="#s1">개요</a></li>
+      <li><a href="#s2">현황</a></li>
+      <li><a href="#s3">연동 스펙</a></li>
+      <li><a href="#s4">예외 처리와 잔여 오차</a></li>
+      <li><a href="#s5">확정 필요 항목</a></li>
+    </ol>
+  </div>
+
+  <h2 id="s1">개요</h2>
+  <h3>목적</h3>
+  <ul>
+    <li>고객센터 새 답변 알림 발송 시, 발송 직전에 Braze로 <b>앱 푸시 수신 가능 여부를 조회</b>하고 결과에 따라 앱 푸시와 LMS로 채널을 분기하는 구조를 정의</li>
+  </ul>
+  <h3>적용 범위</h3>
+  <ul>
+    <li>알림 2종 — 채팅 새 답변 알림 / 1:1 문의 새 답변 알림</li>
+    <li>발송 주체는 AICX이며, 오늘의집은 Braze 캠페인, API 키, LMS 템플릿, 딥링크 규격을 제공</li>
+  </ul>
+
+  <h3>전체 흐름</h3>
+  <div class="mermaid-wrap">
+    <pre class="mermaid">
+flowchart TD
+    A(["새 답변 발생"]) --> B{"오늘의집 회원번호 보유"}
+    B -->|"없음 · 비회원"| Z(["발송 없음"])
+    B -->|"있음"| C["1단계<br/>Braze 수신 가능 여부 조회<br/>users/export/ids"]
+    C --> D{"2단계<br/>수신 가능 판정"}
+    D -->|"가능"| E["3-A단계<br/>앱 푸시 발송"]
+    D -->|"불가"| F["3-B단계<br/>LMS 발송"]
+    E --> G(["고객이 앱 푸시로 확인"])
+    F --> H(["고객이 문자로 확인"])
+    </pre>
+  </div>
+
+  <h2 id="s2">현황</h2>
+  <h3>기존 발송 구조</h3>
+  <ul>
+    <li>As-is는 새 답변 발생 시 Braze 앱 푸시를 단건 발송하는 구조이며, 수신이 불가한 유저는 알림을 전혀 받지 못함</li>
+    <li>실측 결과 전체 인입 중 앱 푸시 도달 가능 비중은 <b>55.1%</b> 수준 (2026-07-27 ~ 2026-08-22, 채팅 + 1:1 문의 12,796건 기준)</li>
+  </ul>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>구분</th><th>비중</th></tr></thead>
+      <tbody>
+        <tr><td>앱 푸시로 커버</td><td><b>55.1%</b></td></tr>
+        <tr><td>회원이지만 푸시 불가 — LMS 대상</td><td><b>30.2%</b></td></tr>
+        <tr><td>비회원 — 알림 수단 없음</td><td><b>14.7%</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>수신 가능 여부 판정 구조</h3>
+  <ul>
+    <li>Braze에는 <b>발송 건별 수신 여부를 조회하는 API가 없음</b></li>
+    <li>따라서 <b>발송 전에 수신 가능 여부를 판정해 채널을 분기하는 구조</b>로 구현 필요</li>
+  </ul>
+
+  <h3>지연 시간 실측</h3>
+  <p class="hint">사내망에서 iad-03 호출 기준 3회 안정값</p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>단계</th><th>현재 — 앱 푸시만 발송</th><th>변경안 — 사전 판정 후 분기</th></tr></thead>
+      <tbody>
+        <tr><td>수신 가능 여부 조회</td><td class="old">없음</td><td class="fix"><b>0.32초</b> (50건 배치 시 0.61초)</td></tr>
+        <tr><td>분기 판정</td><td class="old">없음</td><td class="fix">코드 내 처리</td></tr>
+        <tr><td>발송 호출</td><td>0.24초</td><td>앱 푸시 0.24초 / 불가 시 LMS 발송 호출</td></tr>
+        <tr><td><b>합계</b></td><td><b>약 0.24초</b></td><td><b>약 0.56초</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="s3">연동 스펙</h2>
+  <h3>공통</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>항목</th><th>값</th></tr></thead>
+      <tbody>
+        <tr><td>호스트</td><td><code>https://rest.iad-03.braze.com</code> (오늘의집 인스턴스 = dashboard-03)</td></tr>
+        <tr><td>인증 헤더</td><td><code>Authorization: Bearer {REST API 키}</code></td></tr>
+        <tr><td>Content-Type</td><td><code>application/json</code></td></tr>
+        <tr><td>유저 식별자</td><td><code>external_user_id</code> = 오늘의집 회원번호 / <b>반드시 문자열로 전송</b> (숫자로 보내면 매칭 실패)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>1단계 — 수신 가능 여부 조회</h3>
+  <p class="msg-label">요청 <code>POST /users/export/ids</code></p>
+  <pre class="msg">{
+  "external_ids": ["12345678"],
+  "fields_to_export": ["external_id", "push_subscribe", "push_tokens"]
+}</pre>
+
+  <p class="msg-label">응답 예시</p>
+  <pre class="msg">{
+  "users": [{
+    "external_id": "12345678",
+    "push_subscribe": "opted_in",
+    "push_tokens": [
+      { "app": "오늘의집", "platform": "iOS", "notifications_enabled": true }
+    ]
+  }],
+  "invalid_user_ids": [],
+  "message": "success"
+}</pre>
+
+  <ul>
+    <li><code>fields_to_export</code>는 위 3개로 고정할 것 — 필드를 좁히면 rate limit이 <b>초당 40건</b>으로 확보되나, <code>campaigns_received</code>를 포함하면 <b>분당 250건</b>으로 떨어짐</li>
+    <li><code>external_ids</code>는 요청당 최대 50건</li>
+    <li>알림은 건별로 발생하므로 1건 조회가 기본이며, 배치 재알림 등에서만 묶어서 호출</li>
+  </ul>
+
+  <h3>2단계 — 판정 규칙</h3>
+  <p>위에서부터 순서대로 확인하고, 먼저 걸리는 조건으로 확정</p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>순서</th><th>확인 항목</th><th>조건</th><th>판정</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><code>invalid_user_ids</code></td><td>회원번호가 여기에 포함됨 (Braze 프로필 없음)</td><td>앱 푸시 불가 → LMS</td></tr>
+        <tr><td>2</td><td><code>push_subscribe</code></td><td>값이 <code>unsubscribed</code></td><td>앱 푸시 불가 → LMS</td></tr>
+        <tr><td>3</td><td><code>push_tokens</code></td><td>배열이 비어 있음 (등록 기기 없음)</td><td>앱 푸시 불가 → LMS</td></tr>
+        <tr><td>4</td><td><code>notifications_enabled</code></td><td><code>true</code>인 토큰이 하나도 없음</td><td>앱 푸시 불가 → LMS</td></tr>
+        <tr><td>5</td><td>-</td><td>1~4에 모두 해당하지 않음</td><td><b>앱 푸시 발송</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout pink">
+    <b>4번 조건을 빠뜨리면 대상자의 절반가량을 오판함.</b> <code>push_subscribe</code>와 <code>push_tokens</code>만 보면
+    토큰은 있으나 기기 알림이 꺼진 유저가 발송 가능으로 잡힘
+  </div>
+  <ul>
+    <li><code>notifications_enabled</code>는 Braze 문서상 포그라운드 푸시 관련 필드로 기술되어 있으나, 표본 450명 교차검증에서 오늘의집 기기 알림 동의 값과 일치하는 것이 확인되어 판정에 사용</li>
+    <li>회원당 등록 기기는 평균 2개, 최대 15개 (무효 토큰 누적) — <b>토큰 배열은 항상 다건 전제로 처리할 것</b></li>
+  </ul>
+
+  <h3>3-A단계 — 앱 푸시 발송</h3>
+  <ul>
+    <li>기 전달되었던 API를 활용하여 앱 푸시 발송</li>
+  </ul>
+
+  <h3>3-B단계 — LMS 발송</h3>
+  <ul>
+    <li>콜봇 셀프서비스 문자에서 사용 중인 <b>NHN Cloud SMS API v2.2</b> 경로를 그대로 재사용
+      <ul>
+        <li>발신번호 <code>1670-0876</code></li>
+        <li>알림 2종용 LMS 템플릿은 <b>미등록</b> 상태이며, 문안 확정 후 오늘의집에서 등록</li>
+        <li>회원 전화번호 조회 경로는 <b>미확정</b> — AICX 보유 데이터로 커버되는지 확인 필요</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3>딥링크 규격</h3>
+  <div class="callout brand">
+    <b>발송 채널별로 링크 형식이 다름.</b> 앱 푸시는 앱 스킴을 그대로 쓰지만,
+    문자 앱은 커스텀 스킴을 링크로 렌더링하지 않아 LMS는 Airbridge 단축링크로 변환해야 함
+  </div>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>발송 채널</th><th>알림 유형</th><th>형식</th></tr></thead>
+      <tbody>
+        <tr><td>앱 푸시</td><td>채팅</td><td><code>ohouseapp://ohou.se/customer_center?chat_id={채팅 ID}</code></td></tr>
+        <tr><td>앱 푸시</td><td>1:1 문의</td><td><code>ohouseapp://ohou.se/customer_center/inquiry/{문의 ID}</code></td></tr>
+        <tr><td>LMS</td><td>공통</td><td><code>https://link.ohou.se/{코드}?deeplink_url={URL 인코딩한 위 딥링크}</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li>LMS용 Airbridge 단축링크 코드는 <b>미발급</b> 상태</li>
+    <li>채팅 딥링크의 <code>chat_id</code> 분기 처리는 <b>AICX 측 개발 범위</b></li>
+  </ul>
+
+  <h3>로깅 요구사항</h3>
+  <ul>
+    <li>발송 건별로 아래 값을 남겨야 커버리지와 채널 비중을 사후에 측정할 수 있음
+      <ul>
+        <li>회원번호, 알림 유형, 판정 결과(2단계 1~5번 중 어느 조건에 걸렸는지), 선택된 채널, 발송 요청 ID, 호출 시각</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2 id="s4">예외 처리와 잔여 오차</h2>
+  <h3>예외 처리</h3>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>상황</th><th>처리</th></tr></thead>
+      <tbody>
+        <tr><td>회원번호 없음 — 비회원</td><td>발송 없음. 조회 API 호출도 하지 않음</td></tr>
+        <tr><td>조회 API 실패 또는 타임아웃</td><td>앱 푸시를 시도하고 실패 로그를 남기는 방향을 권고 (LMS 폴백은 중복 발송·비용 발생 위험)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>사전 판정으로도 걸러지지 않는 케이스</h3>
+  <p>분기 구조를 넣어도 아래 두 케이스는 해소되지 않는 잔여 오차임. 테스트 중 발송 가능으로 판정됐는데 단말에 안 뜨는 경우 이 둘 중 하나일 가능성이 높음</p>
+  <ul>
+    <li><b>무효 토큰 잔존</b> — Braze 푸시 토큰은 기기와 앱 설치 단위로 등록되고 로그아웃해도 이전 프로필에서 삭제되지 않음. 과거 로그인 이력만 있어도 토큰이 남아 판정을 통과하지만 단말에는 표시되지 않음</li>
+    <li><b>계정 전환 후 미도달</b> — 앱이 로그인 시점에 Braze <code>changeUser</code>를 호출하지 않아, 앱을 완전히 재실행하기 전까지 어느 계정으로도 푸시가 도달하지 않음 (81분 실측, 상한 미확인). 근본 해결은 앱 측 작업이며 별도 협의 중</li>
+  </ul>
+
+  <h2 id="s5">확정 필요 항목</h2>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>항목</th><th>담당</th><th>상태</th></tr></thead>
+      <tbody>
+        <tr><td>기존 AICX 키에 <code>users.export.ids</code> 권한 추가</td><td>오늘의집</td><td>권한 확인 필요</td></tr>
+        <tr><td>LMS 문안 확정 및 템플릿 등록</td><td>오늘의집</td><td>미등록</td></tr>
+        <tr><td>LMS 발송 경로 및 회원 전화번호 조회 방식</td><td>오늘의집 · AICX</td><td>미확정</td></tr>
+        <tr><td>LMS용 Airbridge 단축링크 발급</td><td>오늘의집</td><td>미발급</td></tr>
+        <tr><td>채팅 딥링크 <code>chat_id</code> 분기 처리</td><td><b>AICX</b></td><td>개발 필요</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>검증 역할 분담</h3>
+  <ul>
+    <li>AICX는 사내망 밖이라 QA 빌드 설치가 불가해 테스트용 단말 토큰을 만들 수 없음</li>
+    <li>따라서 <b>AICX는 API 호출 성공(200/201)까지, 오늘의집은 실기기 도달과 딥링크 랜딩까지</b> 검증하는 것으로 분담</li>
+    <li>검증용 회원번호는 오늘의집에서 별도 지정해 전달</li>
+  </ul>
+
+  <div class="foot">
+    오늘의집 서비스운영팀 · 최종 수정 2026-08-25<br>
+    문의는 슬랙 <code>#proj-aicx-ai_chatbot</code> 채널로 부탁드립니다.
+  </div>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: dark ? 'dark' : 'neutral',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: false },
+    themeVariables: { fontFamily: '-apple-system, "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif', fontSize: '13px' }
+  });
+</script>
+</body>
+</html>
