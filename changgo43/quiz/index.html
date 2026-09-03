@@ -46,6 +46,33 @@ h1,h2,p{margin:0}
 }
 .combolist button:hover,.combolist button.hi{background:var(--oh-soft)}
 .combolist button i{font-style:normal; font-size:12.5px; color:var(--ink3)}
+.whorow{display:flex; gap:9px; align-items:stretch}
+.whorow input{flex:1}
+.btn.sm{padding:14px 20px; font-size:14px}
+.joined{
+  display:flex; align-items:center; gap:10px; background:rgba(255,255,255,.08);
+  border-radius:12px; padding:14px 15px; font-size:16px; font-weight:800;
+}
+.joined .lock{font-size:12px; font-weight:700; color:rgba(255,255,255,.45)}
+.joined .btn{margin-left:auto; padding:9px 15px; font-size:13px}
+.pill{cursor:pointer; border:0}
+.pill:disabled{cursor:default; opacity:.55}
+.detail{
+  margin-top:16px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+  border-radius:18px; padding:20px 18px;
+}
+.detail .dh{display:flex; align-items:baseline; gap:10px}
+.detail .dh .t{font-size:15px; font-weight:800}
+.detail .dh .x{margin-left:auto; background:none; border:0; color:rgba(255,255,255,.5); font-size:20px; cursor:pointer; line-height:1}
+.detail .q{margin:12px 0 0; font-size:16px; font-weight:700; line-height:1.5}
+.detail .a{margin:9px 0 0; font-size:14px; color:#8FE3A8; font-weight:700}
+.detail .row .s{color:rgba(255,255,255,.45)}
+.detail .row.out{opacity:.5}
+.miss{font-size:12px; font-weight:700; color:rgba(255,255,255,.4)}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:10px}
+.chip{font-size:12px; font-weight:700; background:rgba(255,255,255,.08); border-radius:999px; padding:6px 11px}
+.chip.no{color:rgba(255,255,255,.35)}
+.chip.won{background:rgba(143,227,168,.18); color:#8FE3A8}
 
 /* 카드 */
 .card{
@@ -145,11 +172,12 @@ h1,h2,p{margin:0}
 
   <div class="who">
     <label for="who">참가자</label>
-    <input id="who" type="text" placeholder="이름을 검색하세요" autocomplete="off">
+    <div id="whoBox"></div>
     <div class="combolist" id="list" hidden></div>
   </div>
 
   <div class="prog" id="prog"></div>
+  <div id="detail"></div>
   <div id="body"></div>
   <div id="admin"></div>
 
@@ -166,7 +194,7 @@ const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yo
 const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
 const QTYPE = { ai:"AI 활용능력", title:"노래 제목 맞히기", lyrics:"가사 맞히기" };
 
-const elWho = document.getElementById("who"),
+const elWhoBox = document.getElementById("whoBox"),
       elList = document.getElementById("list"),
       elBody = document.getElementById("body"),
       elAdmin = document.getElementById("admin"),
@@ -177,7 +205,54 @@ const elWho = document.getElementById("who"),
 function showToast(t){ elToast.textContent=t; elToast.classList.add("on"); setTimeout(function(){ elToast.classList.remove("on"); },1900); }
 function esc(t){ return String(t).replace(/</g,"&lt;"); }
 
-/* ---------- 참가자 선택 ---------- */
+/* ---------- 참가 등록 ----------
+   이름을 고르고 [완료]를 눌러야 참가로 잡힌다. 누가 실제로 왔는지 여기서 갈린다.
+   답을 한 번이라도 제출하면 이름을 바꿀 수 없다. */
+let me = null, locked = false, editing = true;
+try { const sv=JSON.parse(localStorage.getItem("cg43_quiz_me")||"null"); if(sv&&sv.n){ me=sv; editing=false; } } catch(e){}
+function nickOf(){ return me ? me.n : ""; }
+
+function renderWho(){
+  if (!editing && me){
+    elWhoBox.innerHTML = '<div class="joined"><span>'+esc(me.n)+'</span>'
+      + (locked ? '<span class="lock">참여 중 · 변경 불가</span>'
+                : '<button class="btn ghost sm" type="button" id="edit">수정</button>')
+      + '</div>';
+  } else {
+    elWhoBox.innerHTML = '<div class="whorow">'
+      + '<input id="who" type="text" placeholder="이름을 검색하세요" autocomplete="off" value="'
+      +   (me ? esc(me.n).replace(/"/g,"&quot;") : "") + '">'
+      + '<button class="btn sm" type="button" id="done">완료</button></div>';
+    const inp=document.getElementById("who");
+    inp.addEventListener("focus", function(){ openList(inp.value); });
+    inp.addEventListener("input", function(){ openList(inp.value); });
+    inp.addEventListener("keydown", onKey);
+  }
+}
+elWhoBox.addEventListener("click", function(e){
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.id==="edit"){ if(locked){ showToast("이미 참여하셔서 변경할 수 없습니다"); return; } editing=true; renderWho(); }
+  if(b.id==="done") register();
+});
+function register(){
+  const inp=document.getElementById("who"); if(!inp) return;
+  const v=inp.value.trim();
+  if(!v){ showToast("이름을 입력해 주세요"); return; }
+  const hit=MEMBERS.filter(function(m){ return m.n===v; })[0];
+  me = hit || { n:v, h:"" };
+  fetch(API+"/quiz/join",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({nick:me.n, handle:me.h})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d.ok){ showToast(d.error||"등록 실패"); return; }
+      locked = !!d.locked; editing=false;
+      try{ localStorage.setItem("cg43_quiz_me", JSON.stringify(me)); }catch(e){}
+      showToast(me.n+"님 참가 등록 완료");
+      renderWho(); closeList(); lastHtml=""; load();
+    })
+    .catch(function(){ showToast("등록에 실패했습니다"); });
+}
+
 let shown = [], hi = -1;
 function openList(q){
   const k=(q||"").trim().toLowerCase();
@@ -188,24 +263,25 @@ function openList(q){
   elList.hidden=false; hi=-1;
 }
 function closeList(){ elList.hidden=true; hi=-1; }
-function choose(m){ elWho.value=m.n; try{ localStorage.setItem("cg43_who", JSON.stringify(m)); }catch(e){} closeList(); load(); }
-elWho.addEventListener("focus", function(){ openList(elWho.value); });
-elWho.addEventListener("input", function(){ openList(elWho.value); });
-elWho.addEventListener("keydown", function(e){
-  if (elList.hidden || !shown.length) return;
+function onKey(e){
+  if (elList.hidden || !shown.length){ if(e.key==="Enter"){ e.preventDefault(); register(); } return; }
   if (e.key==="ArrowDown"||e.key==="ArrowUp"){
     e.preventDefault(); hi += (e.key==="ArrowDown"?1:-1);
     if(hi<0) hi=shown.length-1; if(hi>=shown.length) hi=0;
     elList.querySelectorAll("button").forEach(function(b,i){ b.classList.toggle("hi", i===hi); });
     const c=elList.querySelectorAll("button")[hi]; if(c) c.scrollIntoView({block:"nearest"});
-  } else if (e.key==="Enter" && hi>=0){ e.preventDefault(); choose(shown[hi]); }
-  else if (e.key==="Escape") closeList();
-});
+  } else if (e.key==="Enter"){
+    e.preventDefault();
+    if(hi>=0){ document.getElementById("who").value=shown[hi].n; closeList(); }
+    register();
+  } else if (e.key==="Escape") closeList();
+}
 elList.addEventListener("mousedown", function(e){
-  const b=e.target.closest("button[data-i]"); if(b){ e.preventDefault(); choose(shown[parseInt(b.dataset.i,10)]); }
+  const b=e.target.closest("button[data-i]");
+  if(b){ e.preventDefault(); document.getElementById("who").value=shown[parseInt(b.dataset.i,10)].n; closeList(); register(); }
 });
 document.addEventListener("click", function(e){ if(!elList.hidden && !e.target.closest(".who")) closeList(); });
-try{ const sv=JSON.parse(localStorage.getItem("cg43_who")||"null"); if(sv&&sv.n) elWho.value=sv.n; }catch(e){}
+renderWho();
 
 /* ---------- 화면 ---------- */
 let lastHtml="", msg=null, rounds=null;
@@ -214,15 +290,54 @@ function renderProg(q){
   elRc.textContent = q.totalRounds ? ("총 " + q.totalRounds + "라운드") : "";
   elProg.innerHTML = q.meta.map(function(m){
     const on = q.active && q.active.i===m.i;
-    return '<span class="pill'+(on?" on":(m.done?" done":""))+'">R'+(m.i+1)+' '+m.count+'/5</span>';
+    const open = m.done || (m.tried>0 && !(on && q.active.started));   // 끝난 라운드만 열람 가능
+    return '<button class="pill'+(on?" on":(m.done?" done":""))+'" data-r="'+m.i+'"'
+      + (open?"":" disabled")+'>R'+(m.i+1)+' '+m.count+'/'+q.win+'</button>';
   }).join("");
+}
+
+/* ---------- 지난 라운드 상세 ---------- */
+const elDetail = document.getElementById("detail");
+let openRound = null;
+elProg.addEventListener("click", function(e){
+  const b=e.target.closest(".pill[data-r]"); if(!b || b.disabled) return;
+  const i=parseInt(b.dataset.r,10);
+  if(openRound===i){ openRound=null; elDetail.innerHTML=""; return; }
+  openRound=i; showRound(i);
+});
+elDetail.addEventListener("click", function(e){
+  if(e.target.closest(".x")){ openRound=null; elDetail.innerHTML=""; }
+});
+function showRound(i){
+  elDetail.innerHTML='<div class="detail"><div class="dh"><span class="t">불러오는 중…</span></div></div>';
+  fetch(API+"/quiz/round?i="+i)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d.ok){ elDetail.innerHTML='<div class="detail"><div class="dh"><span class="t">'+esc(d.error)+'</span>'
+        + '<button class="x" type="button">×</button></div></div>'; return; }
+      elDetail.innerHTML='<div class="detail">'
+        + '<div class="dh"><span class="t">ROUND '+(d.i+1)+' · '+(QTYPE[d.type]||d.type)+'</span>'
+        +   '<button class="x" type="button">×</button></div>'
+        + '<p class="q">'+esc(d.question||"(문제 없음)")+'</p>'
+        + '<p class="a">정답 · '+esc(String(d.answers||"").split("|").join(" / "))+'</p>'
+        + '<div class="win"><div class="t">정답 입력 '+d.submissions.length+'명 (상위 '+d.win+'명 통과)</div>'
+        + (d.submissions.length
+            ? d.submissions.map(function(w,k){
+                return '<div class="row'+(k>=d.win?" out":"")+'"><span class="n">'+(k+1)+'</span>'
+                  + '<span class="w">'+esc(w.nick)+'</span>'
+                  + '<span class="s">'+(w.ms>=0?(w.ms/1000).toFixed(1)+"초":"")
+                  + (k>=d.win?" · 정원 초과":"")+'</span></div>'; }).join("")
+            : '<p class="empty">정답자가 없습니다.</p>')
+        + '</div></div>';
+    })
+    .catch(function(){ elDetail.innerHTML=""; });
 }
 
 /* 내가 몇 조인지 (선발된 라운드 번호 = 조 번호) */
 function myGroup(q, nick){
-  if(!nick || !q.allWinners) return null;
-  for(const k of Object.keys(q.allWinners)){
-    const list=q.allWinners[k];
+  if(!nick || !q.groups) return null;
+  for(const k of Object.keys(q.groups)){
+    const list=q.groups[k];
     if(list.some(function(w){ return w.nick===nick; }))
       return { no: parseInt(k,10)+1, members:list };
   }
@@ -230,7 +345,7 @@ function myGroup(q, nick){
 }
 
 function render(q){
-  const nick = elWho.value.trim();
+  const nick = nickOf();
   renderProg(q);
   const mine = myGroup(q, nick);
   let h="";
@@ -261,15 +376,15 @@ function render(q){
       + '<p class="ask">'+esc(t)+'</p>'
       + '<p class="sub">문제가 곧 나타납니다. 화면을 그대로 두세요.</p></div>';
   } else {
-    const r=q.round, full=q.winners.length>=5;
+    const r=q.round, full=q.winners.length>=q.win;
     h = '<div class="card"><span class="tag">ROUND '+(r.i+1)+' · '+(QTYPE[r.type]||r.type)+'</span>'
       + '<p class="ask">'+esc(r.question)+'</p>';
-    if (!nick) h += '<p class="sub">위에서 본인 이름을 먼저 선택해 주세요.</p>';
-    else if (full) h += '<p class="sub">5명이 모두 찼습니다. 다음 라운드를 기다려 주세요.</p>';
+    if (!nick) h += '<p class="sub">위에서 이름을 고르고 <b>완료</b>를 눌러 참가 등록해 주세요.</p>';
+    else if (full) h += '<p class="sub">'+q.win+'명이 모두 찼습니다. 다음 라운드를 기다려 주세요.</p>';
     else h += '<div class="inrow"><input id="ans" type="text" maxlength="60" autocomplete="off" placeholder="정답 입력">'
            +  '<button class="btn" type="button" id="send">제출</button></div>'
            +  '<p class="msg'+(msg?(msg.ok?" good":" bad"):"")+'">'+(msg?esc(msg.text):"")+'</p>';
-    h += '<div class="win"><div class="t">정답자 '+q.winners.length+' / 5</div>'
+    h += '<div class="win"><div class="t">정답자 '+q.winners.length+' / '+q.win+'</div>'
       + (q.winners.length
           ? q.winners.map(function(w,i){
               return '<div class="row'+(w.nick===nick?" me":"")+'"><span class="n">'+(i+1)+'</span>'
@@ -293,8 +408,8 @@ document.addEventListener("keydown", function(e){
 });
 function submit(){
   const el=document.getElementById("ans"); if(!el) return;
-  const nick=elWho.value.trim();
-  if(!nick){ showToast("먼저 이름을 선택해 주세요"); elWho.focus(); return; }
+  const nick=nickOf();
+  if(!nick){ showToast("먼저 이름을 등록해 주세요"); return; }
   const v=el.value.trim(); if(!v) return;
   el.value=""; el.blur();
   fetch(API+"/quiz/answer",{method:"POST",headers:{"Content-Type":"application/json"},
@@ -302,7 +417,10 @@ function submit(){
     .then(function(r){ return r.json(); })
     .then(function(d){
       if(d.blocked) msg={ok:false,text:d.blocked};
-      else if(d.correct) msg={ok:true,text:"정답입니다! "+d.rank+"번째로 선발되셨어요 🎉"};
+      else if(d.correct){ locked=true; renderWho();
+        msg = d.inTop
+          ? {ok:true,text:"정답입니다! "+d.rank+"번째로 통과하셨어요 🎉"}
+          : {ok:false,text:"정답이지만 이미 "+d.win+"명이 찼습니다. 다음 라운드를 노려주세요"}; }
       else msg={ok:false,text:"정답이 아닙니다! 다시 확인해 주세요"};
       lastHtml=""; load();
     })
@@ -329,25 +447,40 @@ function renderAdmin(q){
     rounds=[];
     adminCall({action:"rounds"}, function(d){
       rounds = (d.rounds&&d.rounds.length) ? d.rounds
-        : Array.from({length:7},function(_,i){ return {type:"ai",title:"라운드 "+(i+1),question:"",answers:""}; });
+        : Array.from({length:9},function(_,i){ return {type:"ai",title:(i+1)+"라운드",question:"",answers:""}; });
       adminHtml=""; renderAdmin(q);
     });
     return;
   }
   const act=q.active;
-  const h='<div class="admin"><div class="h">총무용 · 라운드 편집</div>'
+  const joined = q.joined || [];
+  const picked = q.picked || [];
+  const absent = MEMBERS.filter(function(m){ return joined.indexOf(m.n)<0; });
+  const rest = joined.filter(function(n){ return picked.indexOf(n)<0; });
+  const h='<div class="admin">'
+    + '<div class="h">참석 현황 · 등록 '+joined.length+'명 / 명단 '+MEMBERS.length+'명</div>'
+    + '<div class="chips">'
+    +   joined.map(function(n){
+          return '<span class="chip'+(picked.indexOf(n)>=0?" won":"")+'">'+esc(n)+'</span>'; }).join("")
+    +   absent.map(function(m){ return '<span class="chip no">'+esc(m.n)+' (미참여)</span>'; }).join("")
+    + '</div>'
+    + '<div class="acts" style="margin-top:12px">'
+    +   '<button id="finalize" class="go">남은 '+rest.length+'명 마지막 조로 확정</button>'
+    +   '<button id="resetJoined" class="warn">참석 등록 초기화</button></div>'
+    + '<div class="h" style="margin-top:22px">총무용 · 라운드 편집</div>'
     + rounds.map(function(r,i){
-        const w=(q.allWinners&&q.allWinners[i])||[];
+        const w=(q.groups&&q.groups[i])||[];
         const on=act&&act.i===i;
         return '<div class="qr" data-i="'+i+'"><div class="l1"><span class="idx">R'+(i+1)+'</span>'
           + '<select class="ty">'+['ai','title','lyrics'].map(function(t){
               return '<option value="'+t+'"'+(r.type===t?' selected':'')+'>'+QTYPE[t]+'</option>'; }).join("")+'</select>'
           + '<input class="ti" value="'+String(r.title||"").replace(/"/g,"&quot;")+'" placeholder="라운드 이름">'
-          + '<span class="st">'+(on?(act.started?"● 진행 중":"○ 준비됨"):"")+' '+w.length+'/5</span></div>'
+          + '<span class="st">'+(on?(act.started?"● 진행 중":"○ 준비됨"):"")+' '+w.length+'/'+(q.win||4)+'</span></div>'
           + '<textarea class="qu" placeholder="문제">'+esc(r.question||"")+'</textarea>'
           + '<input class="an" value="'+String(r.answers||"").replace(/"/g,"&quot;")+'" placeholder="정답 (여러 표기 허용: 아이유 좋은날|좋은날 아이유)">'
           + '<div class="acts"><button data-a="arm">준비</button><button data-a="start" class="go">시작</button>'
-          +   '<button data-a="stop">종료</button><button data-a="clear" class="warn">정답자 초기화</button></div></div>';
+          +   '<button data-a="stop">종료</button><button data-a="post">슬랙 재게시</button>'
+          +   '<button data-a="clear" class="warn">정답자 초기화</button></div></div>';
       }).join("")
     + '<div class="acts" style="margin-top:16px"><button id="save" class="go">전체 저장</button>'
     +   '<button id="clearAll" class="warn">전체 정답자 초기화</button></div></div>';
@@ -357,18 +490,22 @@ elAdmin.addEventListener("click", function(e){
   const b=e.target.closest("button"); if(!b) return;
   if(b.id==="save"){ rounds=collect(); adminCall({action:"save",rounds:rounds},function(){ showToast("저장했습니다"); adminHtml=""; }); return; }
   if(b.id==="clearAll"){ if(confirm("모든 라운드의 정답자를 지울까요?")) adminCall({action:"clearAll"}); return; }
+  if(b.id==="finalize"){ if(confirm("남은 인원을 마지막 조로 확정하고 슬랙에 올릴까요?"))
+      adminCall({action:"finalize"}, function(d){ if(d.ok) showToast(d.rest.length+"명 확정"); }); return; }
+  if(b.id==="resetJoined"){ if(confirm("참석 등록을 모두 지울까요?")) adminCall({action:"resetJoined"}); return; }
   const row=b.closest(".qr"); if(!row) return;
   const i=parseInt(row.dataset.i,10), a=b.dataset.a;
   if(a==="arm"){ rounds=collect(); adminCall({action:"save",rounds:rounds},function(){ adminCall({action:"arm",i:i}); }); }
   else if(a==="start") adminCall({action:"start"});
   else if(a==="stop") adminCall({action:"stop"});
+  else if(a==="post") adminCall({action:"post",i:i}, function(d){ if(d.ok) showToast("슬랙에 올렸습니다"); });
   else if(a==="clear"){ if(confirm("R"+(i+1)+" 정답자를 지울까요?")) adminCall({action:"clear",i:i}); }
 });
 
 /* ---------- 폴링 ---------- */
 let timer=null, lastQ=null;
 function load(){
-  const nick=elWho.value.trim();
+  const nick=nickOf();
   fetch(API+"/quiz/state?nick="+encodeURIComponent(nick))
     .then(function(r){ return r.json(); })
     .then(function(d){
