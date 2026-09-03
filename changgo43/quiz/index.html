@@ -26,6 +26,8 @@ h1,h2,p{margin:0}
 .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
 .top .eyebrow{font-size:12.5px; font-weight:800; letter-spacing:.04em; color:rgba(255,255,255,.45)}
 .top h1{font-size:24px; font-weight:800; letter-spacing:-.04em}
+#roomTag{font-size:12px; font-weight:800; letter-spacing:.06em; color:var(--deep);
+  background:#F0B84B; border-radius:999px; padding:5px 11px; vertical-align:middle; margin-left:6px}
 .top .rc{margin-left:auto; font-size:12.5px; font-weight:700; color:rgba(255,255,255,.5)}
 
 /* 참가자 선택 */
@@ -165,7 +167,7 @@ h1,h2,p{margin:0}
   <div class="top">
     <div>
       <div class="eyebrow">O!Night in Changgo 43</div>
-      <h1>퀴즈 타임</h1>
+      <h1>퀴즈 타임 <span id="roomTag"></span></h1>
     </div>
     <span class="rc" id="rc"></span>
   </div>
@@ -192,6 +194,9 @@ h1,h2,p{margin:0}
 const API = "https://changgo43-order.enzojoo.workers.dev";
 const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yoo"},{"n":"Becky","h":"sohee.bae"},{"n":"Better","h":"better.kim"},{"n":"BK","h":"byungkwon.yang"},{"n":"Breeze","h":"sky"},{"n":"Bryan","h":"jeonghyeon.kim"},{"n":"Chai","h":"chai"},{"n":"Charley Hwang","h":"h.hwang"},{"n":"Chloe","h":"chloe.oh"},{"n":"Claire","h":"claire.lee"},{"n":"Dana","h":"dayoon.kang"},{"n":"Della","h":"hyejin.lee"},{"n":"Dragon","h":"ky.han"},{"n":"Ella","h":"sm.lee"},{"n":"Enzo","h":"yb.joo"},{"n":"Goya","h":"ye.choe"},{"n":"Graham","h":"graham"},{"n":"Hardy","h":"hj.lee"},{"n":"Hayden","h":"hayden.lee"},{"n":"Heather","h":"sh.yoon"},{"n":"Holly","h":"holly.lee"},{"n":"Irwin","h":"js.oh"},{"n":"Jenny","h":"moonj.kim"},{"n":"Jisoo Jeon","h":"jisoo.jeon"},{"n":"John","h":"john"},{"n":"Julie","h":"yw.kim159"},{"n":"Kei","h":"kei.oh"},{"n":"Khan","h":"khan.lee"},{"n":"Kiana","h":"cy.lee"},{"n":"Modo","h":"jh.han"},{"n":"pyoroy","h":"sg.pyo"},{"n":"Raul Hyun","h":"er.hyun"},{"n":"Renee","h":"ea.ryu"},{"n":"Scott","h":"js.lee"},{"n":"Seosu","h":"sy.seo"},{"n":"Terry","h":"hangyul.lee"},{"n":"Winni","h":"minkyu.kim"},{"n":"Wiz","h":"yeji.kim"},{"n":"Wonjae","h":"wonjae.kim"},{"n":"Yeon","h":"sy02"}];
 const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
+/* #room=test 를 붙이면 실전과 완전히 분리된 리허설 방을 쓴다.
+   참가자 링크에는 이 값이 없으므로 리허설이 보이지 않는다. */
+const ROOM = /room=test/.test(location.hash) ? "test" : "main";
 const QTYPE = { ai:"AI 활용능력", title:"노래 제목 맞히기", lyrics:"가사 맞히기", observe:"관찰력 게임" };
 
 const elWhoBox = document.getElementById("whoBox"),
@@ -241,7 +246,7 @@ function register(){
   const hit=MEMBERS.filter(function(m){ return m.n===v; })[0];
   me = hit || { n:v, h:"" };
   fetch(API+"/quiz/join",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({nick:me.n, handle:me.h})})
+    body:JSON.stringify({nick:me.n, handle:me.h, room:ROOM})})
     .then(function(r){ return r.json(); })
     .then(function(d){
       if(!d.ok){ showToast(d.error||"등록 실패"); return; }
@@ -282,6 +287,7 @@ elList.addEventListener("mousedown", function(e){
 });
 document.addEventListener("click", function(e){ if(!elList.hidden && !e.target.closest(".who")) closeList(); });
 renderWho();
+if (ROOM === "test") document.getElementById("roomTag").textContent = "리허설";
 
 /* ---------- 화면 ---------- */
 let lastHtml="", msg=null, rounds=null;
@@ -310,7 +316,7 @@ elDetail.addEventListener("click", function(e){
 });
 function showRound(i){
   elDetail.innerHTML='<div class="detail"><div class="dh"><span class="t">불러오는 중…</span></div></div>';
-  fetch(API+"/quiz/round?i="+i)
+  fetch(API+"/quiz/round?i="+i+"&room="+ROOM)
     .then(function(r){ return r.json(); })
     .then(function(d){
       if(!d.ok){ elDetail.innerHTML='<div class="detail"><div class="dh"><span class="t">'+esc(d.error)+'</span>'
@@ -413,7 +419,7 @@ function submit(){
   const v=el.value.trim(); if(!v) return;
   el.value=""; el.blur();
   fetch(API+"/quiz/answer",{method:"POST",headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({nick:nick,answer:v})})
+    body:JSON.stringify({nick:nick,answer:v,room:ROOM})})
     .then(function(r){ return r.json(); })
     .then(function(d){
       if(d.blocked) msg={ok:false,text:d.blocked};
@@ -429,7 +435,7 @@ function submit(){
 
 /* ---------- 총무 ---------- */
 function adminCall(body, then){
-  body.key=ADMIN_KEY;
+  body.key=ADMIN_KEY; body.room=ROOM;
   return fetch(API+"/quiz/admin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
     .then(function(r){ return r.json(); })
     .then(function(d){ if(!d.ok) showToast(d.error||"실패"); if(then) then(d); lastHtml=""; load(); });
@@ -518,7 +524,7 @@ elAdmin.addEventListener("click", function(e){
 let timer=null, lastQ=null;
 function load(){
   const nick=nickOf();
-  fetch(API+"/quiz/state?nick="+encodeURIComponent(nick))
+  fetch(API+"/quiz/state?nick="+encodeURIComponent(nick)+"&room="+ROOM)
     .then(function(r){ return r.json(); })
     .then(function(d){
       if(!d||!d.ok) return;
