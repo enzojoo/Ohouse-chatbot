@@ -1,0 +1,488 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>창고43 주문 가이드</title>
+<style>
+  @page { size: A4 portrait; margin: 10mm; }
+  :root {
+    --ink:#1a1a1c; --ink-2:#55555c; --ink-3:#8e8e96;
+    --rule:#e3e2df; --card:#f7f6f3; --paper:#fff;
+  }
+  * { box-sizing: border-box; }
+  html { background: #cfcecb; }
+  body {
+    margin: 0;
+    font-family: "Pretendard Variable","Pretendard",-apple-system,
+      "Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+    color: var(--ink); -webkit-font-smoothing: antialiased;
+  }
+  .sheet {
+    width: 190mm; min-height: 275mm; margin: 8mm auto;
+    background: var(--paper); display: flex; flex-direction: column;
+  }
+  .masthead {
+    border-top: 2.5px solid var(--ink); border-bottom: 1px solid var(--ink);
+    padding: 7px 0 6px; display: flex; align-items: flex-end; gap: 12px;
+  }
+  .brand {
+    font-size: 11.5px; font-weight: 700; letter-spacing: .14em;
+    color: var(--ink-2); padding-bottom: 3px;
+  }
+  .seats { font-size: 30px; font-weight: 800; letter-spacing: -.035em; line-height: .95; }
+  .seats em { font-style: normal; font-size: 17px; font-weight: 700; margin-left: 2px; }
+  .budget { margin-left: auto; text-align: right; padding-bottom: 2px; }
+  .budget .b1 { font-size: 15px; font-weight: 800; letter-spacing: -.02em; }
+  .budget .b2 { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
+  .intro {
+    margin: 8px 0 0; font-size: 11.5px; line-height: 1.55; color: var(--ink-2);
+  }
+  .intro strong { color: var(--ink); font-weight: 700; }
+
+  .grid {
+    margin-top: 9px; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 8px; flex: 1;
+  }
+  .card {
+    background: var(--card); border-radius: 11px;
+    border-top: 3px solid var(--accent);
+    padding: 12px 13px 11px; display: flex; flex-direction: column;
+  }
+  .c1 { --accent:#4a6a6b; } .c2 { --accent:#a8712c; } .c3 { --accent:#93373a; }
+  .c4 { --accent:#6b5a8c; } .c5 { --accent:#4f7a45; } .menu { --accent:#26262a; }
+
+  .kicker { font-size: 10.5px; font-weight: 700; color: var(--accent); }
+  .name { margin: 2px 0 8px; font-size: 18px; font-weight: 800; letter-spacing: -.03em; }
+  .sum { display: flex; align-items: baseline; gap: 6px; }
+  .total { font-size: 21px; font-weight: 800; letter-spacing: -.035em;
+           font-variant-numeric: tabular-nums; }
+  .each { font-size: 11px; color: var(--ink-3); font-weight: 500; }
+
+  table { width: 100%; margin-top: 9px; border-collapse: collapse; font-size: 11.5px; }
+  tbody { border-top: 1px solid var(--rule); }
+  td { padding: 3.6px 0; border-bottom: 1px solid var(--rule); }
+  td + td {
+    text-align: right; color: var(--ink-2); font-size: 11px;
+    font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 8px;
+  }
+  tr.drink td { border-bottom: 0; padding-top: 5px; color: var(--ink-3); }
+  tr.drink td + td { color: var(--ink-3); }
+
+  .note {
+    margin-top: auto; padding-top: 9px;
+    font-size: 10.5px; line-height: 1.5; color: var(--ink-2);
+  }
+  .note::before {
+    content: ""; display: block; width: 20px; height: 2px;
+    background: var(--accent); margin-bottom: 6px;
+  }
+
+  .menucols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; margin-top: 8px; }
+  .mcat {
+    font-size: 9.5px; font-weight: 700; color: var(--ink-3);
+    padding: 7px 0 3px; border-bottom: 1px solid var(--rule);
+  }
+  .menucols > div > .mcat:first-child { padding-top: 0; }
+  .mrow {
+    display: flex; gap: 6px; font-size: 10.5px;
+    padding: 3px 0; border-bottom: 1px solid var(--rule);
+  }
+  .mrow span:first-child { flex: 1; }
+  .mrow span:last-child {
+    color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+
+  /* ---- 화면(웹 공유)용 ---- */
+  .nav {
+    position: sticky; top: 0; z-index: 5;
+    background: rgba(255,255,255,.94); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+    display: flex; gap: 6px; padding: 9px 14px;
+  }
+  .nav a {
+    flex: 1; text-align: center; text-decoration: none;
+    font-size: 12.5px; font-weight: 700; color: var(--ink-2);
+    padding: 7px 0; border-radius: 8px; background: var(--card);
+  }
+  .sheet { scroll-margin-top: 52px; }
+
+  @media screen and (max-width: 760px) {
+    html { background: #fff; }
+    .sheet {
+      width: auto; min-height: 0; margin: 0;
+      padding: 14px 14px 24px; border-bottom: 8px solid #eeedea;
+    }
+    .sheet:last-child { border-bottom: 0; }
+    .grid { grid-template-columns: 1fr; gap: 10px; }
+    .seats { font-size: 26px; }
+    .menucols { grid-template-columns: 1fr; gap: 0; }
+    .nav a { font-size: 12px; }
+  }
+  @media screen and (min-width: 761px) {
+    .sheet { padding: 12mm 10mm; }
+  }
+
+  @media print {
+    html { background: #fff; }
+    .sheet { margin: 0; width: auto; min-height: 0; height: 100%;
+             page-break-after: always; }
+    .sheet:last-child { page-break-after: auto; }
+    .card { break-inside: avoid; }
+    .nav { display: none; }
+    .sheet { padding: 0; border-bottom: 0; }
+
+    /* 6칸이 A4 한 장에 들어가도록 인쇄 시 여백 압축 */
+    .masthead { padding: 5px 0 4px; }
+    .seats { font-size: 26px; }
+    .intro { margin-top: 6px; font-size: 11px; }
+    .grid { margin-top: 6px; gap: 6px; }
+    .card { padding: 9px 10px 8px; }
+    .kicker { font-size: 10px; }
+    .name { margin: 1px 0 4px; font-size: 16px; }
+    .total { font-size: 19px; }
+    table { margin-top: 5px; }
+    td { padding: 1.7px 0; }
+    tr.drink td { padding-top: 3px; }
+    .note { padding-top: 5px; font-size: 10px; line-height: 1.45; }
+    .note::before { margin-bottom: 4px; }
+    .menucols { margin-top: 5px; }
+    .mcat { padding: 3px 0 1.5px; }
+    .mrow { padding: 1.3px 0; }
+  }
+</style>
+
+<nav class="nav"><a href="#s3">3인</a><a href="#s4">4인</a><a href="#s5">5인</a><a href="#s6">6인</a></nav>
+
+<section class="sheet" id="s3">
+  <div class="masthead">
+    <div class="brand">창고43</div>
+    <div class="seats">3<em>인 테이블</em></div>
+    <div class="budget">
+      <div class="b1">300,000원</div>
+      <div class="b2">인당 100,000원</div>
+    </div>
+  </div>
+  <p class="intro"><strong>메뉴판 보고 자유롭게 시키셔도 됩니다.</strong> 고르기 번거로우실까 봐 인당 10만원 안에서 다섯 가지를 미리 짜뒀어요.</p>
+  <div class="grid">
+      <div class="card menu">
+      <div class="kicker">메뉴판</div>
+      <div class="name">창고43</div>
+      <div class="menucols">
+      <div>
+      <div class="mcat">고기</div>
+      <div class="mrow"><span>창고스페셜 150g</span><span>54,000</span></div>
+      <div class="mcat">곁들임</div>
+      <div class="mrow"><span>육사시미 120g</span><span>39,000</span></div>
+      <div class="mrow"><span>육회 150g</span><span>35,000</span></div>
+      <div class="mrow"><span>반달육전</span><span>24,000</span></div>
+      <div class="mrow"><span>차돌박이 밀쌈</span><span>38,000</span></div>
+      <div class="mcat">곁들임 구이</div>
+      <div class="mrow"><span>두 가지 치즈구이</span><span>20,000</span></div>
+      <div class="mrow"><span>모둠 채소 구이</span><span>18,000</span></div>
+      </div>
+      <div>
+      <div class="mcat">구이 후 식사</div>
+      <div class="mrow"><span>한우 트러플 짜파게티</span><span>25,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 대</span><span>17,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 중</span><span>14,000</span></div>
+      <div class="mrow"><span>깍두기볶음밥</span><span>8,000</span></div>
+      <div class="mcat">식사</div>
+      <div class="mrow"><span>된장찌개 대</span><span>15,000</span></div>
+      <div class="mrow"><span>된장찌개 중</span><span>12,000</span></div>
+      <div class="mrow"><span>냉면 물·비빔</span><span>12,000</span></div>
+      <div class="mrow"><span>누룽지</span><span>6,000</span></div>
+      <div class="mrow"><span>연잎밥</span><span>6,000</span></div>
+      <div class="mcat">주류</div>
+      <div class="mrow"><span>소주</span><span>7,000</span></div>
+      <div class="mrow"><span>맥주</span><span>8,000</span></div>
+      </div>
+      </div>
+      <p class="note">아래 다섯 가지는 예산에 맞춰 미리 짜둔 조합입니다. 여기서 빼거나 더하셔도 됩니다.</p>
+      </div>
+      <div class="card c1">
+        <div class="kicker">1안</div>
+        <div class="name">밸런스형</div>
+        <div class="sum"><span class="total">297,000원</span><span class="each">인당 99,000원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×3</td><td>162,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>소주 3 + 맥주 3</td><td>45,000</td></tr></tbody></table>
+        <p class="note">1인 1인분에 육회로 시작해 짜파게티로 마무리. 고기와 곁들임, 식사가 고르게 들어갑니다.</p>
+      </div>
+      <div class="card c2">
+        <div class="kicker">2안</div>
+        <div class="name">고주망태형</div>
+        <div class="sum"><span class="total">289,000원</span><span class="each">인당 96,300원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×2</td><td>108,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr class="drink"><td>소주 6 + 맥주 6</td><td>90,000</td></tr></tbody></table>
+        <p class="note">육사시미와 육전처럼 두고 먹는 안주 위주로 짰습니다. 술 12병에 맞춘 구성입니다.</p>
+      </div>
+      <div class="card c3">
+        <div class="kicker">3안</div>
+        <div class="name">프로틴형</div>
+        <div class="sum"><span class="total">293,000원</span><span class="each">인당 97,700원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×4</td><td>216,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr class="drink"><td>소주 2 + 맥주 2</td><td>30,000</td></tr></tbody></table>
+        <p class="note">구이 4인분에 육사시미까지. 고기 양을 가장 크게 잡았습니다.</p>
+      </div>
+      <div class="card c4">
+        <div class="kicker">4안</div>
+        <div class="name">골고루형</div>
+        <div class="sum"><span class="total">289,000원</span><span class="each">인당 96,300원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×2</td><td>108,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr class="drink"><td>소주 3 + 맥주 3</td><td>45,000</td></tr></tbody></table>
+        <p class="note">곁들임을 네 가지로 넓게 깔았습니다. 여러 메뉴를 조금씩 맛보는 자리에.</p>
+      </div>
+      <div class="card c5">
+        <div class="kicker">5안</div>
+        <div class="name">건강지킴이형</div>
+        <div class="sum"><span class="total">295,000원</span><span class="each">인당 98,300원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×4</td><td>216,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>된장말이 밥·면 중</td><td>14,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>주류 없음</td><td>—</td></tr></tbody></table>
+        <p class="note">술 없이 가는 자리. 구이는 넉넉히 잡고 채소구이와 된장말이로 마무리합니다.</p>
+      </div>
+  </div>
+</section>
+
+<section class="sheet" id="s4">
+  <div class="masthead">
+    <div class="brand">창고43</div>
+    <div class="seats">4<em>인 테이블</em></div>
+    <div class="budget">
+      <div class="b1">400,000원</div>
+      <div class="b2">인당 100,000원</div>
+    </div>
+  </div>
+  <p class="intro"><strong>메뉴판 보고 자유롭게 시키셔도 됩니다.</strong> 고르기 번거로우실까 봐 인당 10만원 안에서 다섯 가지를 미리 짜뒀어요.</p>
+  <div class="grid">
+      <div class="card menu">
+      <div class="kicker">메뉴판</div>
+      <div class="name">창고43</div>
+      <div class="menucols">
+      <div>
+      <div class="mcat">고기</div>
+      <div class="mrow"><span>창고스페셜 150g</span><span>54,000</span></div>
+      <div class="mcat">곁들임</div>
+      <div class="mrow"><span>육사시미 120g</span><span>39,000</span></div>
+      <div class="mrow"><span>육회 150g</span><span>35,000</span></div>
+      <div class="mrow"><span>반달육전</span><span>24,000</span></div>
+      <div class="mrow"><span>차돌박이 밀쌈</span><span>38,000</span></div>
+      <div class="mcat">곁들임 구이</div>
+      <div class="mrow"><span>두 가지 치즈구이</span><span>20,000</span></div>
+      <div class="mrow"><span>모둠 채소 구이</span><span>18,000</span></div>
+      </div>
+      <div>
+      <div class="mcat">구이 후 식사</div>
+      <div class="mrow"><span>한우 트러플 짜파게티</span><span>25,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 대</span><span>17,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 중</span><span>14,000</span></div>
+      <div class="mrow"><span>깍두기볶음밥</span><span>8,000</span></div>
+      <div class="mcat">식사</div>
+      <div class="mrow"><span>된장찌개 대</span><span>15,000</span></div>
+      <div class="mrow"><span>된장찌개 중</span><span>12,000</span></div>
+      <div class="mrow"><span>냉면 물·비빔</span><span>12,000</span></div>
+      <div class="mrow"><span>누룽지</span><span>6,000</span></div>
+      <div class="mrow"><span>연잎밥</span><span>6,000</span></div>
+      <div class="mcat">주류</div>
+      <div class="mrow"><span>소주</span><span>7,000</span></div>
+      <div class="mrow"><span>맥주</span><span>8,000</span></div>
+      </div>
+      </div>
+      <p class="note">아래 다섯 가지는 예산에 맞춰 미리 짜둔 조합입니다. 여기서 빼거나 더하셔도 됩니다.</p>
+      </div>
+      <div class="card c1">
+        <div class="kicker">1안</div>
+        <div class="name">밸런스형</div>
+        <div class="sum"><span class="total">390,000원</span><span class="each">인당 97,500원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×4</td><td>216,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>소주 4 + 맥주 4</td><td>60,000</td></tr></tbody></table>
+        <p class="note">1인 1인분 기준. 육회로 시작해 짜파게티와 찌개로 마무리까지 흐름이 이어집니다.</p>
+      </div>
+      <div class="card c2">
+        <div class="kicker">2안</div>
+        <div class="name">고주망태형</div>
+        <div class="sum"><span class="total">396,000원</span><span class="each">인당 99,000원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×3</td><td>162,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>소주 8 + 맥주 8</td><td>120,000</td></tr></tbody></table>
+        <p class="note">생고기 안주 두 가지에 찌개까지. 술 16병 마시는 동안 상이 비지 않게 짰습니다.</p>
+      </div>
+      <div class="card c3">
+        <div class="kicker">3안</div>
+        <div class="name">프로틴형</div>
+        <div class="sum"><span class="total">394,000원</span><span class="each">인당 98,500원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×5</td><td>270,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>소주 2 + 맥주 2</td><td>30,000</td></tr></tbody></table>
+        <p class="note">구이 5인분에 육사시미와 육회. 채소나 치즈 없이 고기로만 채웠습니다.</p>
+      </div>
+      <div class="card c4">
+        <div class="kicker">4안</div>
+        <div class="name">골고루형</div>
+        <div class="sum"><span class="total">394,000원</span><span class="each">인당 98,500원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×3</td><td>162,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>소주 4 + 맥주 4</td><td>60,000</td></tr></tbody></table>
+        <p class="note">곁들임 네 종류를 전부 올렸습니다. 취향이 갈리는 자리에 좋습니다.</p>
+      </div>
+      <div class="card c5">
+        <div class="kicker">5안</div>
+        <div class="name">건강지킴이형</div>
+        <div class="sum"><span class="total">387,000원</span><span class="each">인당 96,800원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×5</td><td>270,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>된장말이 밥·면 중</td><td>14,000</td></tr><tr><td>된장찌개 중</td><td>12,000</td></tr><tr class="drink"><td>주류 없음</td><td>—</td></tr></tbody></table>
+        <p class="note">술 대신 고기와 곁들임에 예산을 썼습니다. 채소구이가 사이를 잡아줍니다.</p>
+      </div>
+  </div>
+</section>
+
+<section class="sheet" id="s5">
+  <div class="masthead">
+    <div class="brand">창고43</div>
+    <div class="seats">5<em>인 테이블</em></div>
+    <div class="budget">
+      <div class="b1">500,000원</div>
+      <div class="b2">인당 100,000원</div>
+    </div>
+  </div>
+  <p class="intro"><strong>메뉴판 보고 자유롭게 시키셔도 됩니다.</strong> 고르기 번거로우실까 봐 인당 10만원 안에서 다섯 가지를 미리 짜뒀어요.</p>
+  <div class="grid">
+      <div class="card menu">
+      <div class="kicker">메뉴판</div>
+      <div class="name">창고43</div>
+      <div class="menucols">
+      <div>
+      <div class="mcat">고기</div>
+      <div class="mrow"><span>창고스페셜 150g</span><span>54,000</span></div>
+      <div class="mcat">곁들임</div>
+      <div class="mrow"><span>육사시미 120g</span><span>39,000</span></div>
+      <div class="mrow"><span>육회 150g</span><span>35,000</span></div>
+      <div class="mrow"><span>반달육전</span><span>24,000</span></div>
+      <div class="mrow"><span>차돌박이 밀쌈</span><span>38,000</span></div>
+      <div class="mcat">곁들임 구이</div>
+      <div class="mrow"><span>두 가지 치즈구이</span><span>20,000</span></div>
+      <div class="mrow"><span>모둠 채소 구이</span><span>18,000</span></div>
+      </div>
+      <div>
+      <div class="mcat">구이 후 식사</div>
+      <div class="mrow"><span>한우 트러플 짜파게티</span><span>25,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 대</span><span>17,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 중</span><span>14,000</span></div>
+      <div class="mrow"><span>깍두기볶음밥</span><span>8,000</span></div>
+      <div class="mcat">식사</div>
+      <div class="mrow"><span>된장찌개 대</span><span>15,000</span></div>
+      <div class="mrow"><span>된장찌개 중</span><span>12,000</span></div>
+      <div class="mrow"><span>냉면 물·비빔</span><span>12,000</span></div>
+      <div class="mrow"><span>누룽지</span><span>6,000</span></div>
+      <div class="mrow"><span>연잎밥</span><span>6,000</span></div>
+      <div class="mcat">주류</div>
+      <div class="mrow"><span>소주</span><span>7,000</span></div>
+      <div class="mrow"><span>맥주</span><span>8,000</span></div>
+      </div>
+      </div>
+      <p class="note">아래 다섯 가지는 예산에 맞춰 미리 짜둔 조합입니다. 여기서 빼거나 더하셔도 됩니다.</p>
+      </div>
+      <div class="card c1">
+        <div class="kicker">1안</div>
+        <div class="name">밸런스형</div>
+        <div class="sum"><span class="total">482,000원</span><span class="each">인당 96,400원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×5</td><td>270,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 5 + 맥주 5</td><td>75,000</td></tr></tbody></table>
+        <p class="note">1인 1인분에 곁들임 네 가지. 남는 예산은 술을 더 붙이는 데 쓰시면 됩니다.</p>
+      </div>
+      <div class="card c2">
+        <div class="kicker">2안</div>
+        <div class="name">고주망태형</div>
+        <div class="sum"><span class="total">485,000원</span><span class="each">인당 97,000원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×3</td><td>162,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 10 + 맥주 10</td><td>150,000</td></tr></tbody></table>
+        <p class="note">안주 다섯 가지에 찌개까지. 술 20병에 맞춰 곁들임을 두껍게 깔았습니다.</p>
+      </div>
+      <div class="card c3">
+        <div class="kicker">3안</div>
+        <div class="name">프로틴형</div>
+        <div class="sum"><span class="total">485,000원</span><span class="each">인당 97,000원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×7</td><td>378,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 3 + 맥주 3</td><td>45,000</td></tr></tbody></table>
+        <p class="note">구이 7인분. 판이 계속 돌아가도록 고기에 예산을 몰았습니다.</p>
+      </div>
+      <div class="card c4">
+        <div class="kicker">4안</div>
+        <div class="name">골고루형</div>
+        <div class="sum"><span class="total">496,000원</span><span class="each">인당 99,200원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×4</td><td>216,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr><td>연잎밥 ×5</td><td>30,000</td></tr><tr class="drink"><td>소주 5 + 맥주 5</td><td>75,000</td></tr></tbody></table>
+        <p class="note">연잎밥까지 1인 1개씩. 메뉴판을 가장 넓게 훑는 구성입니다.</p>
+      </div>
+      <div class="card c5">
+        <div class="kicker">5안</div>
+        <div class="name">건강지킴이형</div>
+        <div class="sum"><span class="total">486,000원</span><span class="each">인당 97,200원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×6</td><td>324,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>된장말이 밥·면 대</td><td>17,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>주류 없음</td><td>—</td></tr></tbody></table>
+        <p class="note">술 없는 테이블용. 생고기 두 가지에 채소구이, 된장말이로 마무리합니다.</p>
+      </div>
+  </div>
+</section>
+
+<section class="sheet" id="s6">
+  <div class="masthead">
+    <div class="brand">창고43</div>
+    <div class="seats">6<em>인 테이블</em></div>
+    <div class="budget">
+      <div class="b1">600,000원</div>
+      <div class="b2">인당 100,000원</div>
+    </div>
+  </div>
+  <p class="intro"><strong>메뉴판 보고 자유롭게 시키셔도 됩니다.</strong> 고르기 번거로우실까 봐 인당 10만원 안에서 다섯 가지를 미리 짜뒀어요.</p>
+  <div class="grid">
+      <div class="card menu">
+      <div class="kicker">메뉴판</div>
+      <div class="name">창고43</div>
+      <div class="menucols">
+      <div>
+      <div class="mcat">고기</div>
+      <div class="mrow"><span>창고스페셜 150g</span><span>54,000</span></div>
+      <div class="mcat">곁들임</div>
+      <div class="mrow"><span>육사시미 120g</span><span>39,000</span></div>
+      <div class="mrow"><span>육회 150g</span><span>35,000</span></div>
+      <div class="mrow"><span>반달육전</span><span>24,000</span></div>
+      <div class="mrow"><span>차돌박이 밀쌈</span><span>38,000</span></div>
+      <div class="mcat">곁들임 구이</div>
+      <div class="mrow"><span>두 가지 치즈구이</span><span>20,000</span></div>
+      <div class="mrow"><span>모둠 채소 구이</span><span>18,000</span></div>
+      </div>
+      <div>
+      <div class="mcat">구이 후 식사</div>
+      <div class="mrow"><span>한우 트러플 짜파게티</span><span>25,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 대</span><span>17,000</span></div>
+      <div class="mrow"><span>된장말이 밥·면 중</span><span>14,000</span></div>
+      <div class="mrow"><span>깍두기볶음밥</span><span>8,000</span></div>
+      <div class="mcat">식사</div>
+      <div class="mrow"><span>된장찌개 대</span><span>15,000</span></div>
+      <div class="mrow"><span>된장찌개 중</span><span>12,000</span></div>
+      <div class="mrow"><span>냉면 물·비빔</span><span>12,000</span></div>
+      <div class="mrow"><span>누룽지</span><span>6,000</span></div>
+      <div class="mrow"><span>연잎밥</span><span>6,000</span></div>
+      <div class="mcat">주류</div>
+      <div class="mrow"><span>소주</span><span>7,000</span></div>
+      <div class="mrow"><span>맥주</span><span>8,000</span></div>
+      </div>
+      </div>
+      <p class="note">아래 다섯 가지는 예산에 맞춰 미리 짜둔 조합입니다. 여기서 빼거나 더하셔도 됩니다.</p>
+      </div>
+      <div class="card c1">
+        <div class="kicker">1안</div>
+        <div class="name">밸런스형</div>
+        <div class="sum"><span class="total">585,000원</span><span class="each">인당 97,500원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×7</td><td>378,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 6 + 맥주 6</td><td>90,000</td></tr></tbody></table>
+        <p class="note">구이를 넉넉히 잡고 곁들임은 셋으로 정리했습니다. 여섯이 나눠 먹기 가장 편합니다.</p>
+      </div>
+      <div class="card c2">
+        <div class="kicker">2안</div>
+        <div class="name">고주망태형</div>
+        <div class="sum"><span class="total">593,000원</span><span class="each">인당 98,800원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×4</td><td>216,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 12 + 맥주 12</td><td>180,000</td></tr></tbody></table>
+        <p class="note">곁들임을 여섯 가지로 전부 깔았습니다. 술 24병에 맞춘 구성입니다.</p>
+      </div>
+      <div class="card c3">
+        <div class="kicker">3안</div>
+        <div class="name">프로틴형</div>
+        <div class="sum"><span class="total">589,000원</span><span class="each">인당 98,200원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×8</td><td>432,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>깍두기볶음밥</td><td>8,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 4 + 맥주 4</td><td>60,000</td></tr></tbody></table>
+        <p class="note">구이 8인분에 육사시미와 육회. 고기에 예산 대부분을 넣었습니다.</p>
+      </div>
+      <div class="card c4">
+        <div class="kicker">4안</div>
+        <div class="name">골고루형</div>
+        <div class="sum"><span class="total">574,000원</span><span class="each">인당 95,700원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×5</td><td>270,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>반달육전</td><td>24,000</td></tr><tr><td>두 가지 치즈구이</td><td>20,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>한우 트러플 짜파게티</td><td>25,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr class="drink"><td>소주 6 + 맥주 6</td><td>90,000</td></tr></tbody></table>
+        <p class="note">곁들임 전 종류에 구이 5인분. 사람이 많아 취향이 갈릴 때 무난합니다.</p>
+      </div>
+      <div class="card c5">
+        <div class="kicker">5안</div>
+        <div class="name">건강지킴이형</div>
+        <div class="sum"><span class="total">576,000원</span><span class="each">인당 96,000원</span></div>
+        <table><tbody><tr><td>창고스페셜 ×7</td><td>378,000</td></tr><tr><td>육사시미</td><td>39,000</td></tr><tr><td>육회</td><td>35,000</td></tr><tr><td>차돌박이 밀쌈</td><td>38,000</td></tr><tr><td>모둠 채소 구이</td><td>18,000</td></tr><tr><td>된장말이 밥·면 대</td><td>17,000</td></tr><tr><td>된장찌개 대</td><td>15,000</td></tr><tr><td>연잎밥 ×6</td><td>36,000</td></tr><tr class="drink"><td>주류 없음</td><td>—</td></tr></tbody></table>
+        <p class="note">술 없이 가는 자리. 연잎밥까지 1인 1개씩 챙겼습니다.</p>
+      </div>
+  </div>
+</section>
