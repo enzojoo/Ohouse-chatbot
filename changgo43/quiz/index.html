@@ -479,8 +479,9 @@ function renderAdmin(q){
           + '<span class="st">'+(on?(act.started?"● 진행 중":"○ 준비됨"):"")+' '+w.length+'/'+(q.win||4)+'</span></div>'
           + '<textarea class="qu" placeholder="문제">'+esc(r.question||"")+'</textarea>'
           + '<input class="an" value="'+String(r.answers||"").replace(/"/g,"&quot;")+'" placeholder="정답 · 여러 표기는 | 로 구분">'
-          + '<div class="miss" style="margin-top:7px">여러 표기 <b>아이유 좋은날|좋은날 아이유</b>'
-          +   ' · 일부만 맞아도 인정 <b>*좋은날</b></div>'
+          + '<div class="miss" style="margin-top:7px">'
+          +   '여러 표기 <b>A|B</b> · 포함되면 인정 <b>*키워드</b> · 둘 다 있어야 인정 <b>가수+제목</b>'
+          + '</div>'
           + '<div class="acts"><button data-a="arm">준비</button><button data-a="start" class="go">시작</button>'
           +   '<button data-a="stop">종료</button><button data-a="post">슬랙 재게시</button>'
           +   '<button data-a="clear" class="warn">정답자 초기화</button></div></div>';
