@@ -26,8 +26,10 @@ h1,h2,p{margin:0}
 .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
 .top .eyebrow{font-size:12.5px; font-weight:800; letter-spacing:.04em; color:rgba(255,255,255,.45)}
 .top h1{font-size:24px; font-weight:800; letter-spacing:-.04em}
-#roomTag{font-size:12px; font-weight:800; letter-spacing:.06em; color:var(--deep);
-  background:#F0B84B; border-radius:999px; padding:5px 11px; vertical-align:middle; margin-left:6px}
+#roomTag{font-size:12px; font-weight:800; letter-spacing:.06em; border-radius:999px;
+  padding:5px 11px; vertical-align:middle; margin-left:6px}
+#roomTag.test{background:#F0B84B; color:var(--deep)}
+#roomTag.live{background:#C4453E; color:#fff}
 .top .rc{margin-left:auto; font-size:12.5px; font-weight:700; color:rgba(255,255,255,.5)}
 
 /* 참가자 선택 */
@@ -196,7 +198,13 @@ const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yo
 const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
 /* #room=test 를 붙이면 실전과 완전히 분리된 리허설 방을 쓴다.
    참가자 링크에는 이 값이 없으므로 리허설이 보이지 않는다. */
-const ROOM = /room=test/.test(location.hash) ? "test" : "main";
+function roomFromHash(){ return /room=test/.test(location.hash) ? "test" : "main"; }
+const ROOM = roomFromHash();
+/* 주소창에서 해시만 바꾸면 페이지가 다시 로드되지 않아, 이전 방 상태가 남는다.
+   방이 바뀌면 강제로 새로고침해서 화면과 실제 방을 항상 일치시킨다. */
+window.addEventListener("hashchange", function(){
+  if (roomFromHash() !== ROOM) location.reload();
+});
 const QTYPE = { ai:"AI 활용능력", title:"노래 제목 맞히기", lyrics:"가사 맞히기", observe:"관찰력 게임" };
 
 const elWhoBox = document.getElementById("whoBox"),
@@ -287,7 +295,12 @@ elList.addEventListener("mousedown", function(e){
 });
 document.addEventListener("click", function(e){ if(!elList.hidden && !e.target.closest(".who")) closeList(); });
 renderWho();
-if (ROOM === "test") document.getElementById("roomTag").textContent = "리허설";
+(function(){
+  const tag = document.getElementById("roomTag");
+  if (!ADMIN_KEY){ tag.style.display = "none"; return; }      // 참가자에게는 안 보임
+  if (ROOM === "test"){ tag.textContent = "리허설"; tag.className = "test"; }
+  else { tag.textContent = "실전"; tag.className = "live"; }
+})();
 
 /* ---------- 화면 ---------- */
 let lastHtml="", msg=null, rounds=null;
