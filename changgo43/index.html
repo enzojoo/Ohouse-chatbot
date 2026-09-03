@@ -1114,6 +1114,7 @@ function renderRace(sum){
 }
 
 function loadTally(){
+  if (document.hidden) return;                 // 주머니 속일 땐 요청하지 않는다
   fetch(ORDER_API + "/tally")
     .then(function(r){ return r.json(); })
     .then(function(d){ if (d && d.ok){ renderTally(d.summary); renderRace(d.summary); } })
@@ -1121,7 +1122,7 @@ function loadTally(){
 }
 renderTally(null);
 loadTally();
-setInterval(loadTally, 30000);
+setInterval(loadTally, 60000);
 
 /* ----- 주문 취소 -----
    봇이 쓴 메시지는 워크스페이스 관리자만 슬랙에서 지울 수 있다.
@@ -1147,7 +1148,7 @@ function box(title, rows){
 
 /* 주문자 이름으로 본인 주문을 불러온다 (기기가 바뀌어도 이름만 고르면 보인다) */
 function loadMine(){
-  if (ADMIN_KEY) return;
+  if (ADMIN_KEY || document.hidden) return;
   const nick = elWho.value.trim();
   if (!nick){ myEl.innerHTML = ""; return; }
   fetch(ORDER_API + "/mine", {
@@ -1163,7 +1164,7 @@ function loadMine(){
     .catch(function(){});
 }
 function loadAdmin(){
-  if (!ADMIN_KEY) return;
+  if (!ADMIN_KEY || document.hidden) return;
   fetch(ORDER_API + "/orders", {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ key: ADMIN_KEY })
@@ -1200,7 +1201,7 @@ myEl.addEventListener("click", function(e){
     .catch(function(){ showToast("취소하지 못했습니다"); btn.disabled = false; btn.textContent = "취소"; });
 });
 refreshMyList();
-setInterval(refreshMyList, 30000);
+setInterval(refreshMyList, 60000);
 
 /* ----- 전송 ----- */
 elForm.addEventListener("submit", function(e){
@@ -1346,6 +1347,7 @@ function renderPrizes(d){
 }
 
 function loadPrizes(){
+  if (document.hidden) return;
   fetch(ORDER_API + "/prizes" + (ADMIN_KEY ? "?key=" + ADMIN_KEY : ""))
     .then(function(r){ return r.json(); })
     .then(function(d){ if (d && d.ok) renderPrizes(d); })
@@ -1364,11 +1366,14 @@ document.addEventListener("click", function(e){
     .then(function(d){
       showToast(d.ok ? (next ? "상품을 공개했습니다" : "상품을 다시 숨겼습니다") : (d.error || "실패"));
       loadPrizes();
+document.addEventListener("visibilitychange", function(){
+  if (!document.hidden){ loadTally(); refreshMyList(); loadPrizes(); }
+});
     })
     .catch(function(){ showToast("전환하지 못했습니다"); e.target.disabled = false; });
 });
 loadPrizes();
-setInterval(loadPrizes, 30000);
+setInterval(loadPrizes, 60000);
 
 /* ---------- 메뉴판 ---------- */
 document.getElementById("menucols").innerHTML = (function(){
