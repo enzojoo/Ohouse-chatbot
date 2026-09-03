@@ -414,6 +414,13 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 .cart .empty{padding:16px 0 4px; font-size:14px; color:var(--ink3)}
 .osubmit{margin-top:16px; width:100%}
 .ohint{margin:16px 0 0; font-size:13.5px; line-height:1.65; color:var(--ink2)}
+.closed{
+  margin-top:26px; background:var(--deep); color:#fff; border-radius:18px;
+  padding:34px 28px; text-align:center;
+}
+.closed .em{font-size:40px; line-height:1}
+.closed .t{margin:14px 0 0; font-size:clamp(21px,4.4vw,27px); font-weight:800; letter-spacing:-.035em}
+.closed .s{margin:12px 0 0; font-size:15px; line-height:1.7; color:rgba(255,255,255,.68)}
 .ohint a{color:var(--oh-dd); font-weight:700}
 .otally{margin-top:14px; background:#fff; border:1px solid var(--rule); border-radius:18px; padding:24px}
 .otop{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
@@ -680,7 +687,8 @@ function tick(){
   const diff = TARGET - Date.now();
   if (diff <= 0){
     cd.className = "cd live";
-    cd.innerHTML = '<div class="u"><div class="n">회식 진행 중</div><div class="l">CHEERS</div></div>';
+    cd.innerHTML = '<div class="u"><div class="n">회식 종료</div>'
+      + '<div class="l">THANK YOU</div></div>';
     return;
   }
   const s = Math.floor(diff/1000);
@@ -1124,11 +1132,28 @@ function renderRace(sum){
     + '</div>';
 }
 
+let closedShown = false;
+function showClosed(){
+  if (closedShown) return;
+  closedShown = true;
+  const card = document.querySelector(".ocard");
+  if (card) card.outerHTML =
+      '<div class="closed"><div class="em">\uD83C\uDF56</div>'
+    + '<p class="t">회식이 종료되었습니다</p>'
+    + '<p class="s">참여해주셔서 감사합니다.<br>오늘 하루 고생 많으셨습니다!</p></div>';
+  const link = document.querySelector(".otally-link");
+  if (link) link.remove();
+}
+
 function loadTally(){
   if (document.hidden) return;                 // 주머니 속일 땐 요청하지 않는다
   fetch(ORDER_API + "/tally")
     .then(function(r){ return r.json(); })
-    .then(function(d){ if (d && d.ok){ renderTally(d.summary); renderRace(d.summary); } })
+    .then(function(d){
+      if (!d || !d.ok) return;
+      renderTally(d.summary); renderRace(d.summary);
+      if (d.closed) showClosed();
+    })
     .catch(function(){});
 }
 renderTally(null);
