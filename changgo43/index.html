@@ -288,26 +288,52 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 
 /* ---------- 주문 ---------- */
 .order{background:#fff}
-.ocard{
-  margin-top:26px; background:var(--paper); border:1px solid var(--rule);
-  border-radius:18px; padding:26px;
-}
-.oform{display:grid; grid-template-columns:1fr 1.5fr .7fr auto; gap:12px; align-items:end}
-.ofield{display:flex; flex-direction:column; gap:7px; min-width:0}
+.ocard{margin-top:26px; background:var(--paper); border:1px solid var(--rule); border-radius:18px; padding:26px}
+.orow{display:grid; gap:12px; align-items:end}
+.orow.who{grid-template-columns:1fr}
+.orow.pick{grid-template-columns:1fr .62fr auto; margin-top:14px}
+.ofield{display:flex; flex-direction:column; gap:7px; min-width:0; position:relative}
 .ofield label{font-size:12px; font-weight:800; letter-spacing:.06em; color:var(--ink3)}
 .ofield input,.ofield select{
   font:inherit; font-size:15px; font-weight:600; color:var(--ink);
   background:#fff; border:1px solid var(--rule); border-radius:11px;
   padding:12px 13px; width:100%; -webkit-appearance:none; appearance:none;
 }
-.ofield select{background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);
+.ofield select{
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);
   background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%; background-size:5px 5px,5px 5px;
-  background-repeat:no-repeat; padding-right:34px}
+  background-repeat:no-repeat; padding-right:34px;
+}
 .ofield input:focus,.ofield select:focus{outline:none; border-color:var(--oh)}
-.oform .btn{height:45px}
+.combolist{
+  position:absolute; left:0; right:0; top:100%; margin-top:6px; z-index:9;
+  background:#fff; border:1px solid var(--rule); border-radius:12px;
+  box-shadow:0 10px 26px rgba(8,48,63,.13); max-height:236px; overflow-y:auto; padding:6px;
+}
+.combolist button{
+  display:flex; align-items:baseline; gap:8px; width:100%; text-align:left;
+  background:none; border:0; font:inherit; font-size:14.5px; color:var(--ink);
+  padding:10px 11px; border-radius:9px; cursor:pointer;
+}
+.combolist button:hover,.combolist button.hi{background:var(--oh-soft)}
+.combolist button i{font-style:normal; font-size:12.5px; color:var(--ink3)}
+.combolist .none{padding:12px; font-size:14px; color:var(--ink3)}
+.oadd{height:45px; white-space:nowrap}
+.cart{margin-top:18px; border-top:1px solid var(--rule); padding-top:6px}
+.cart .line{display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--rule); font-size:14.5px}
+.cart .line .nm{flex:1; font-weight:600}
+.cart .line .am{color:var(--ink2); font-size:13.5px; font-variant-numeric:tabular-nums; white-space:nowrap}
+.cart .line .del{
+  border:0; background:none; cursor:pointer; color:var(--ink3); font-size:17px;
+  line-height:1; padding:4px 2px;
+}
+.cart .line .del:hover{color:var(--pro)}
+.cart .sum{display:flex; justify-content:space-between; align-items:baseline; padding:14px 0 2px; font-weight:800}
+.cart .sum .a{font-size:20px; letter-spacing:-.04em; font-variant-numeric:tabular-nums}
+.cart .empty{padding:16px 0 4px; font-size:14px; color:var(--ink3)}
+.osubmit{margin-top:16px; width:100%}
 .ohint{margin:16px 0 0; font-size:13.5px; line-height:1.65; color:var(--ink2)}
 .ohint a{color:var(--oh-dd); font-weight:700}
-
 .otally-link{
   margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:12px;
   background:#fff; border:1px solid var(--rule); border-radius:16px; padding:20px 22px;
@@ -339,6 +365,9 @@ footer a:hover{color:#fff}
   .oform .btn{grid-column:1 / -1; width:100%}
   .ocard{padding:20px 17px}
   .otally-link{padding:18px}
+  .orow.pick{grid-template-columns:1fr auto}
+  .orow.pick .ofield:nth-child(2){grid-column:1}
+  .oadd{grid-column:2}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; transition-duration:.01ms !important}
@@ -446,21 +475,32 @@ footer a:hover{color:#fff}
     <div class="eyebrow">Order</div>
     <h2>주문 요청하기</h2>
     <div class="ocard">
-      <form class="oform" id="oForm" method="post" action="https://script.google.com/a/macros/bucketplace.net/s/AKfycbxY7EbrxZLy3h3TLxdzFRXNQlQKevoIVpdzuA0BE-vmWPh0duwnyJk0WXZyc1jpRRVZ/exec">
-        <div class="ofield">
-          <label for="oNick">닉네임</label>
-          <input id="oNick" name="nick" type="text" maxlength="20" placeholder="엔조" autocomplete="off" required>
+      <form id="oForm" method="post" action="https://script.google.com/a/macros/bucketplace.net/s/AKfycbxY7EbrxZLy3h3TLxdzFRXNQlQKevoIVpdzuA0BE-vmWPh0duwnyJk0WXZyc1jpRRVZ/exec">
+        <div class="orow who">
+          <div class="ofield">
+            <label for="oWho">주문자</label>
+            <input id="oWho" type="text" placeholder="이름을 검색하세요" autocomplete="off" role="combobox" aria-expanded="false">
+            <div class="combolist" id="oList" hidden></div>
+          </div>
         </div>
-        <div class="ofield wide">
-          <label for="oItem">메뉴</label>
-          <select id="oItem" name="item"></select>
+        <div class="orow pick">
+          <div class="ofield">
+            <label for="oItem">메뉴</label>
+            <select id="oItem"></select>
+          </div>
+          <div class="ofield">
+            <label for="oQty">수량</label>
+            <select id="oQty"></select>
+          </div>
+          <button class="btn btn-line oadd" type="button" id="oAdd">담기</button>
         </div>
-        <div class="ofield">
-          <label for="oQty">수량</label>
-          <select id="oQty" name="qty"></select>
-        </div>
-        <input type="hidden" name="price" id="oPrice">
-        <button class="btn btn-primary" type="submit" id="oSend">주문하기</button>
+
+        <div class="cart" id="oCart"></div>
+
+        <input type="hidden" name="nick" id="oNick">
+        <input type="hidden" name="handle" id="oHandle">
+        <input type="hidden" name="items" id="oItems">
+        <button class="btn btn-primary osubmit" type="submit" id="oSend">주문하기</button>
       </form>
       <p class="ohint" id="oHint"></p>
     </div>
@@ -769,16 +809,23 @@ showAll("6");
 /* 배포가 bucketplace.net 도메인 한정이라 fetch(교차 출처)는 CORS로 막힌다.
    그래서 form 을 최상위 이동으로 제출한다 — 구글 세션 쿠키가 실려 사파리에서도 통한다. */
 const SLACK_CHANNEL_URL = "https://ohou-se.slack.com/archives/C0BUFNL2SAF";
+const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yoo"},{"n":"Becky","h":"sohee.bae"},{"n":"Better","h":"better.kim"},{"n":"BK","h":"byungkwon.yang"},{"n":"Breeze","h":"sky"},{"n":"Bryan","h":"jeonghyeon.kim"},{"n":"Chai","h":"chai"},{"n":"Charley Hwang","h":"h.hwang"},{"n":"Chloe","h":"chloe.oh"},{"n":"Claire","h":"claire.lee"},{"n":"Dana","h":"dayoon.kang"},{"n":"Della","h":"hyejin.lee"},{"n":"Dragon","h":"ky.han"},{"n":"Ella","h":"sm.lee"},{"n":"Enzo","h":"yb.joo"},{"n":"Goya","h":"ye.choe"},{"n":"Graham","h":"graham"},{"n":"Hayden","h":"hayden.lee"},{"n":"Heather","h":"sh.yoon"},{"n":"Holly","h":"holly.lee"},{"n":"Irwin","h":"js.oh"},{"n":"Jenny","h":"moonj.kim"},{"n":"Jisoo Jeon","h":"jisoo.jeon"},{"n":"John","h":"john"},{"n":"Julie","h":"yw.kim159"},{"n":"Kei","h":"kei.oh"},{"n":"Khan","h":"khan.lee"},{"n":"Kiana","h":"cy.lee"},{"n":"Modo","h":"jh.han"},{"n":"pyoroy","h":"sg.pyo"},{"n":"Raul Hyun","h":"er.hyun"},{"n":"Renee","h":"ea.ryu"},{"n":"Scott","h":"js.lee"},{"n":"Seosu","h":"sy.seo"},{"n":"Terry","h":"hangyul.lee"},{"n":"Winni","h":"minkyu.kim"},{"n":"Wiz","h":"yeji.kim"},{"n":"Wonjae","h":"wonjae.kim"},{"n":"Yeon","h":"sy02"}];
 
 const MENU_ITEMS = DATA.menu.filter(function(m){ return !m.cat; });
-const elNick  = document.getElementById("oNick"),
+const elWho   = document.getElementById("oWho"),
+      elList  = document.getElementById("oList"),
+      elNick  = document.getElementById("oNick"),
+      elHandle= document.getElementById("oHandle"),
+      elItems = document.getElementById("oItems"),
       elItem  = document.getElementById("oItem"),
       elQty   = document.getElementById("oQty"),
-      elPrice = document.getElementById("oPrice"),
+      elAdd   = document.getElementById("oAdd"),
+      elCart  = document.getElementById("oCart"),
       elForm  = document.getElementById("oForm"),
       elHint  = document.getElementById("oHint");
 
 function priceOf(str){ return parseInt(String(str).replace(/[^0-9]/g, ""), 10) || 0; }
+function comma(n){ return Number(n).toLocaleString("en-US"); }
 
 elItem.innerHTML = MENU_ITEMS.map(function(m){
   return '<option value="'+m.item+'" data-price="'+priceOf(m.price)+'">'+m.item+' · '+m.price+'원</option>';
@@ -787,19 +834,95 @@ elQty.innerHTML = [1,2,3,4,5,6,7,8,9,10].map(function(n){
   return '<option value="'+n+'">'+n+'</option>';
 }).join("");
 
-function syncPrice(){ elPrice.value = elItem.options[elItem.selectedIndex].dataset.price; }
-elItem.addEventListener("change", syncPrice);
-syncPrice();
+/* ----- 주문자 검색 ----- */
+let hiIndex = -1, shown = [];
+function openList(q){
+  const key = (q || "").trim().toLowerCase();
+  shown = MEMBERS.filter(function(m){
+    return !key || m.n.toLowerCase().indexOf(key) >= 0 || m.h.toLowerCase().indexOf(key) >= 0;
+  });
+  if (!shown.length){
+    elList.innerHTML = '<div class="none">명단에 없으면 그대로 입력해도 됩니다</div>';
+  } else {
+    elList.innerHTML = shown.map(function(m, i){
+      return '<button type="button" data-i="'+i+'"><span>'+m.n+'</span><i>@'+m.h+'</i></button>';
+    }).join("");
+  }
+  elList.hidden = false; elWho.setAttribute("aria-expanded", "true"); hiIndex = -1;
+}
+function closeList(){ elList.hidden = true; elWho.setAttribute("aria-expanded", "false"); hiIndex = -1; }
+function choose(m){
+  elWho.value = m.n; elNick.value = m.n; elHandle.value = m.h;
+  try { localStorage.setItem("cg43_who", JSON.stringify(m)); } catch (err) {}
+  closeList();
+}
+elWho.addEventListener("focus", function(){ openList(elWho.value); });
+elWho.addEventListener("input", function(){ elNick.value = elWho.value; elHandle.value = ""; openList(elWho.value); });
+elWho.addEventListener("keydown", function(e){
+  if (elList.hidden || !shown.length) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    e.preventDefault();
+    hiIndex += (e.key === "ArrowDown" ? 1 : -1);
+    if (hiIndex < 0) hiIndex = shown.length - 1;
+    if (hiIndex >= shown.length) hiIndex = 0;
+    elList.querySelectorAll("button").forEach(function(b, i){ b.classList.toggle("hi", i === hiIndex); });
+    const cur = elList.querySelectorAll("button")[hiIndex];
+    if (cur) cur.scrollIntoView({ block: "nearest" });
+  } else if (e.key === "Enter" && hiIndex >= 0){
+    e.preventDefault(); choose(shown[hiIndex]);
+  } else if (e.key === "Escape"){ closeList(); }
+});
+elList.addEventListener("mousedown", function(e){
+  const b = e.target.closest("button[data-i]");
+  if (b){ e.preventDefault(); choose(shown[parseInt(b.dataset.i, 10)]); }
+});
+document.addEventListener("click", function(e){
+  if (!elList.hidden && !e.target.closest(".ofield")) closeList();
+});
+try {
+  const saved = JSON.parse(localStorage.getItem("cg43_who") || "null");
+  if (saved && saved.n){ elWho.value = saved.n; elNick.value = saved.n; elHandle.value = saved.h || ""; }
+} catch (err) {}
+
+/* ----- 장바구니 ----- */
+let cart = [];
+function renderCart(){
+  if (!cart.length){
+    elCart.innerHTML = '<p class="empty">담은 메뉴가 없습니다. 메뉴를 고르고 담기를 눌러 주세요.</p>';
+  } else {
+    const total = cart.reduce(function(a, c){ return a + c.price * c.qty; }, 0);
+    elCart.innerHTML = cart.map(function(c, i){
+      return '<div class="line"><span class="nm">'+c.item+' ×'+c.qty+'</span>'
+           + '<span class="am">'+comma(c.price * c.qty)+'원</span>'
+           + '<button class="del" type="button" data-i="'+i+'" aria-label="빼기">×</button></div>';
+    }).join("")
+    + '<div class="sum"><span>합계</span><span class="a">'+comma(total)+'원</span></div>';
+  }
+  elItems.value = JSON.stringify(cart);
+}
+elAdd.addEventListener("click", function(){
+  const opt = elItem.options[elItem.selectedIndex];
+  const item = opt.value, price = parseInt(opt.dataset.price, 10), qty = parseInt(elQty.value, 10);
+  const hit = cart.filter(function(c){ return c.item === item; })[0];
+  if (hit) hit.qty = Math.min(20, hit.qty + qty);
+  else cart.push({ item: item, price: price, qty: qty });
+  elQty.selectedIndex = 0;
+  renderCart();
+  showToast(item + " 담았습니다");
+});
+elCart.addEventListener("click", function(e){
+  const b = e.target.closest(".del");
+  if (b){ cart.splice(parseInt(b.dataset.i, 10), 1); renderCart(); }
+});
+renderCart();
 
 elHint.innerHTML = '주문하면 슬랙 <a href="'+SLACK_CHANNEL_URL+'" target="_blank" rel="noopener">취합 스레드</a>에 바로 올라갑니다. 회사 구글 계정 로그인이 필요합니다.';
 
-try { const saved = localStorage.getItem("cg43_nick"); if (saved) elNick.value = saved; } catch (err) {}
-
 elForm.addEventListener("submit", function(e){
-  const nick = elNick.value.trim();
-  if (!nick){ e.preventDefault(); elNick.focus(); return showToast("닉네임을 입력해 주세요"); }
-  try { localStorage.setItem("cg43_nick", nick); } catch (err) {}
-  syncPrice();
+  if (!elWho.value.trim()){ e.preventDefault(); elWho.focus(); return showToast("주문자를 선택해 주세요"); }
+  if (!cart.length){ e.preventDefault(); return showToast("메뉴를 담아 주세요"); }
+  elNick.value = elWho.value.trim();
+  elItems.value = JSON.stringify(cart);
 });
 
 /* ---------- 메뉴판 ---------- */
