@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O!Night 퀴즈</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --oh:#35C5F0; --oh-d:#0E9FCE; --oh-dd:#0A7CA4; --oh-soft:#EAF7FD;
+  --ink:#0E2B38; --ink2:#4E6B77; --ink3:#8AA0AA;
+  --paper:#F7FAFB; --rule:#E3EAEE; --deep:#08303F; --ember:#C8562F;
+  --good:#2E9E5B; --bad:#C4453E;
+}
+*{box-sizing:border-box}
+html{background:var(--deep)}
+body{
+  margin:0; min-height:100svh; background:var(--deep); color:#fff;
+  font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
+  -webkit-font-smoothing:antialiased; letter-spacing:-.012em;
+  word-break:keep-all; overflow-wrap:break-word;
+}
+h1,h2,p{margin:0}
+.wrap{max-width:640px; margin:0 auto; padding:26px 18px 60px}
+.top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.top .eyebrow{font-size:11.5px; font-weight:800; letter-spacing:.18em; color:rgba(255,255,255,.4)}
+.top h1{font-size:24px; font-weight:800; letter-spacing:-.04em}
+.top .rc{margin-left:auto; font-size:12.5px; font-weight:700; color:rgba(255,255,255,.5)}
+
+/* 참가자 선택 */
+.who{margin-top:20px; position:relative}
+.who label{display:block; font-size:12px; font-weight:800; letter-spacing:.06em; color:rgba(255,255,255,.5); margin-bottom:7px}
+.who input{
+  width:100%; font:inherit; font-size:16px; font-weight:600; color:var(--ink);
+  background:#fff; border:0; border-radius:12px; padding:14px 15px;
+}
+.who input:focus{outline:2px solid var(--oh)}
+.combolist{
+  position:absolute; left:0; right:0; top:100%; margin-top:6px; z-index:9; background:#fff;
+  border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.35); max-height:240px; overflow-y:auto; padding:6px;
+}
+.combolist button{
+  display:flex; align-items:baseline; gap:8px; width:100%; text-align:left; background:none; border:0;
+  font:inherit; font-size:14.5px; color:var(--ink); padding:11px; border-radius:9px; cursor:pointer;
+}
+.combolist button:hover,.combolist button.hi{background:var(--oh-soft)}
+.combolist button i{font-style:normal; font-size:12.5px; color:var(--ink3)}
+
+/* 카드 */
+.card{
+  margin-top:18px; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14); border-radius:20px; padding:26px 22px;
+}
+.tag{
+  display:inline-flex; align-items:center; gap:8px; font-size:11.5px; font-weight:800;
+  letter-spacing:.1em; color:#fff; background:var(--ember); border-radius:999px; padding:7px 14px;
+}
+.tag.wait{background:rgba(255,255,255,.16)}
+.tag.done{background:rgba(255,255,255,.16)}
+.ask{margin:16px 0 0; font-size:clamp(20px,4.6vw,27px); font-weight:800; letter-spacing:-.035em; line-height:1.45}
+.sub{margin:10px 0 0; font-size:14px; line-height:1.6; color:rgba(255,255,255,.55)}
+.inrow{display:flex; gap:9px; margin-top:20px}
+.inrow input{
+  flex:1; min-width:0; font:inherit; font-size:17px; color:var(--ink); background:#fff;
+  border:0; border-radius:12px; padding:15px;
+}
+.inrow input:focus{outline:2px solid var(--oh)}
+.btn{
+  border:0; cursor:pointer; font:inherit; font-size:15px; font-weight:800; color:#fff;
+  background:var(--ember); border-radius:12px; padding:15px 24px; white-space:nowrap;
+}
+.btn:disabled{opacity:.45; cursor:default}
+.btn.ghost{background:rgba(255,255,255,.12)}
+.msg{margin:13px 0 0; font-size:14.5px; font-weight:700; min-height:1.2em}
+.msg.bad{color:#FF9C93}
+.msg.good{color:#8FE3A8}
+
+/* 정답자 */
+.win{margin:22px 0 0; padding-top:18px; border-top:1px solid rgba(255,255,255,.14)}
+.win .t{font-size:11.5px; font-weight:800; letter-spacing:.12em; color:rgba(255,255,255,.45)}
+.row{display:flex; align-items:center; gap:11px; padding:11px 0; font-size:15px}
+.row .n{
+  flex:0 0 24px; height:24px; border-radius:8px; background:rgba(255,255,255,.14);
+  display:grid; place-items:center; font-size:12px; font-weight:800;
+}
+.row.me .n{background:var(--oh); color:var(--deep)}
+.row .w{font-weight:700}
+.row .s{margin-left:auto; font-size:12.5px; color:rgba(255,255,255,.45); font-variant-numeric:tabular-nums}
+.empty{margin:12px 0 0; font-size:13.5px; color:rgba(255,255,255,.45)}
+
+/* 진행 현황 */
+.prog{margin-top:18px; display:flex; gap:6px; flex-wrap:wrap}
+.pill{
+  font-size:11.5px; font-weight:800; padding:7px 11px; border-radius:999px;
+  background:rgba(255,255,255,.08); color:rgba(255,255,255,.5);
+}
+.pill.on{background:var(--ember); color:#fff}
+.pill.done{background:rgba(143,227,168,.18); color:#8FE3A8}
+
+/* 총무 */
+.admin{margin-top:22px; background:rgba(0,0,0,.28); border-radius:18px; padding:20px 18px}
+.admin .h{font-size:11.5px; font-weight:800; letter-spacing:.12em; color:rgba(255,255,255,.5); margin-bottom:14px}
+.qr{border-top:1px solid rgba(255,255,255,.12); padding:14px 0}
+.qr:first-of-type{border-top:0}
+.l1{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.l1 .idx{font-size:12px; font-weight:800; color:rgba(255,255,255,.5)}
+.qr input,.qr select,.qr textarea{
+  font:inherit; font-size:13.5px; color:var(--ink); background:#fff; border:0;
+  border-radius:9px; padding:9px 11px; min-width:0;
+}
+.qr .ti{flex:1; min-width:120px}
+.qr textarea{width:100%; margin-top:8px; resize:vertical; min-height:56px; line-height:1.55}
+.qr .an{width:100%; margin-top:8px}
+.st{margin-left:auto; font-size:12px; color:rgba(255,255,255,.5)}
+.acts{display:flex; gap:6px; margin-top:10px; flex-wrap:wrap}
+.acts button{
+  font:inherit; font-size:12.5px; font-weight:700; border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.08); color:#fff; border-radius:9px; padding:9px 13px; cursor:pointer;
+}
+.acts button:hover{background:rgba(255,255,255,.18)}
+.acts button.go{background:var(--ember); border-color:transparent}
+.acts button.warn{border-color:rgba(255,140,130,.4); color:#FF9C93}
+.foot{margin-top:26px; font-size:12.5px; line-height:1.7; color:rgba(255,255,255,.35)}
+.foot a{color:rgba(255,255,255,.6)}
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translate(-50%,14px);
+  background:#fff; color:var(--ink); font-size:14px; font-weight:700;
+  padding:12px 20px; border-radius:11px; opacity:0; pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease; z-index:60;
+}
+.toast.on{opacity:1; transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">O!NIGHT IN CHANGGO 43</div>
+      <h1>퀴즈 타임</h1>
+    </div>
+    <span class="rc" id="rc"></span>
+  </div>
+
+  <div class="who">
+    <label for="who">참가자</label>
+    <input id="who" type="text" placeholder="이름을 검색하세요" autocomplete="off">
+    <div class="combolist" id="list" hidden></div>
+  </div>
+
+  <div class="prog" id="prog"></div>
+  <div id="body"></div>
+  <div id="admin"></div>
+
+  <p class="foot">
+    답은 화면에 입력합니다. 다른 사람 답은 보이지 않고, 정답을 맞힌 분만 아래 목록에 순서대로 올라갑니다.<br>
+    <a href="../">← 회식 페이지로</a>
+  </p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const API = "https://changgo43-order.enzojoo.workers.dev";
+const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yoo"},{"n":"Becky","h":"sohee.bae"},{"n":"Better","h":"better.kim"},{"n":"BK","h":"byungkwon.yang"},{"n":"Breeze","h":"sky"},{"n":"Bryan","h":"jeonghyeon.kim"},{"n":"Chai","h":"chai"},{"n":"Charley Hwang","h":"h.hwang"},{"n":"Chloe","h":"chloe.oh"},{"n":"Claire","h":"claire.lee"},{"n":"Dana","h":"dayoon.kang"},{"n":"Della","h":"hyejin.lee"},{"n":"Dragon","h":"ky.han"},{"n":"Ella","h":"sm.lee"},{"n":"Enzo","h":"yb.joo"},{"n":"Goya","h":"ye.choe"},{"n":"Graham","h":"graham"},{"n":"Hayden","h":"hayden.lee"},{"n":"Heather","h":"sh.yoon"},{"n":"Holly","h":"holly.lee"},{"n":"Irwin","h":"js.oh"},{"n":"Jenny","h":"moonj.kim"},{"n":"Jisoo Jeon","h":"jisoo.jeon"},{"n":"John","h":"john"},{"n":"Julie","h":"yw.kim159"},{"n":"Kei","h":"kei.oh"},{"n":"Khan","h":"khan.lee"},{"n":"Kiana","h":"cy.lee"},{"n":"Modo","h":"jh.han"},{"n":"pyoroy","h":"sg.pyo"},{"n":"Raul Hyun","h":"er.hyun"},{"n":"Renee","h":"ea.ryu"},{"n":"Scott","h":"js.lee"},{"n":"Seosu","h":"sy.seo"},{"n":"Terry","h":"hangyul.lee"},{"n":"Winni","h":"minkyu.kim"},{"n":"Wiz","h":"yeji.kim"},{"n":"Wonjae","h":"wonjae.kim"},{"n":"Yeon","h":"sy02"}];
+const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
+const QTYPE = { ai:"AI 활용능력", title:"노래 제목 맞히기", lyrics:"가사 맞히기" };
+
+const elWho = document.getElementById("who"),
+      elList = document.getElementById("list"),
+      elBody = document.getElementById("body"),
+      elAdmin = document.getElementById("admin"),
+      elProg = document.getElementById("prog"),
+      elRc = document.getElementById("rc"),
+      elToast = document.getElementById("toast");
+
+function showToast(t){ elToast.textContent=t; elToast.classList.add("on"); setTimeout(function(){ elToast.classList.remove("on"); },1900); }
+function esc(t){ return String(t).replace(/</g,"&lt;"); }
+
+/* ---------- 참가자 선택 ---------- */
+let shown = [], hi = -1;
+function openList(q){
+  const k=(q||"").trim().toLowerCase();
+  shown = MEMBERS.filter(function(m){ return !k || m.n.toLowerCase().indexOf(k)>=0 || m.h.toLowerCase().indexOf(k)>=0; });
+  elList.innerHTML = shown.length
+    ? shown.map(function(m,i){ return '<button type="button" data-i="'+i+'"><span>'+m.n+'</span><i>@'+m.h+'</i></button>'; }).join("")
+    : '<div style="padding:12px;color:#8AA0AA;font-size:14px">명단에 없으면 그대로 입력해도 됩니다</div>';
+  elList.hidden=false; hi=-1;
+}
+function closeList(){ elList.hidden=true; hi=-1; }
+function choose(m){ elWho.value=m.n; try{ localStorage.setItem("cg43_who", JSON.stringify(m)); }catch(e){} closeList(); load(); }
+elWho.addEventListener("focus", function(){ openList(elWho.value); });
+elWho.addEventListener("input", function(){ openList(elWho.value); });
+elWho.addEventListener("keydown", function(e){
+  if (elList.hidden || !shown.length) return;
+  if (e.key==="ArrowDown"||e.key==="ArrowUp"){
+    e.preventDefault(); hi += (e.key==="ArrowDown"?1:-1);
+    if(hi<0) hi=shown.length-1; if(hi>=shown.length) hi=0;
+    elList.querySelectorAll("button").forEach(function(b,i){ b.classList.toggle("hi", i===hi); });
+    const c=elList.querySelectorAll("button")[hi]; if(c) c.scrollIntoView({block:"nearest"});
+  } else if (e.key==="Enter" && hi>=0){ e.preventDefault(); choose(shown[hi]); }
+  else if (e.key==="Escape") closeList();
+});
+elList.addEventListener("mousedown", function(e){
+  const b=e.target.closest("button[data-i]"); if(b){ e.preventDefault(); choose(shown[parseInt(b.dataset.i,10)]); }
+});
+document.addEventListener("click", function(e){ if(!elList.hidden && !e.target.closest(".who")) closeList(); });
+try{ const sv=JSON.parse(localStorage.getItem("cg43_who")||"null"); if(sv&&sv.n) elWho.value=sv.n; }catch(e){}
+
+/* ---------- 화면 ---------- */
+let lastHtml="", msg=null, rounds=null;
+
+function renderProg(q){
+  elRc.textContent = q.totalRounds ? ("총 " + q.totalRounds + "라운드") : "";
+  elProg.innerHTML = q.meta.map(function(m){
+    const on = q.active && q.active.i===m.i;
+    return '<span class="pill'+(on?" on":(m.done?" done":""))+'">R'+(m.i+1)+' '+m.count+'/5</span>';
+  }).join("");
+}
+
+function render(q){
+  const nick = elWho.value.trim();
+  renderProg(q);
+  let h="";
+  if (!q.active){
+    h = '<div class="card"><span class="tag wait">대기 중</span>'
+      + '<p class="sub">아직 시작된 라운드가 없습니다. 이 화면을 켜둔 채로 기다려 주세요.</p></div>';
+  } else if (!q.round){
+    const t = q.meta[q.active.i] ? q.meta[q.active.i].title : "";
+    h = '<div class="card"><span class="tag wait">곧 시작합니다</span>'
+      + '<p class="ask">'+esc(t)+'</p>'
+      + '<p class="sub">문제가 곧 나타납니다. 화면을 그대로 두세요.</p></div>';
+  } else {
+    const r=q.round, full=q.winners.length>=5;
+    h = '<div class="card"><span class="tag">ROUND '+(r.i+1)+' · '+(QTYPE[r.type]||r.type)+'</span>'
+      + '<p class="ask">'+esc(r.question)+'</p>';
+    if (!nick) h += '<p class="sub">위에서 본인 이름을 먼저 선택해 주세요.</p>';
+    else if (q.eliminated) h += '<p class="sub">이미 선발되셨습니다. 이번 라운드는 쉬어가세요 🎉</p>';
+    else if (full) h += '<p class="sub">5명이 모두 찼습니다. 다음 라운드를 기다려 주세요.</p>';
+    else h += '<div class="inrow"><input id="ans" type="text" maxlength="60" autocomplete="off" placeholder="정답 입력">'
+           +  '<button class="btn" type="button" id="send">제출</button></div>'
+           +  '<p class="msg'+(msg?(msg.ok?" good":" bad"):"")+'">'+(msg?esc(msg.text):"")+'</p>';
+    h += '<div class="win"><div class="t">정답자 '+q.winners.length+' / 5</div>'
+      + (q.winners.length
+          ? q.winners.map(function(w,i){
+              return '<div class="row'+(w.nick===nick?" me":"")+'"><span class="n">'+(i+1)+'</span>'
+                + '<span class="w">'+esc(w.nick)+'</span>'
+                + '<span class="s">'+(w.ms>=0?(w.ms/1000).toFixed(1)+"초":"")+'</span></div>'; }).join("")
+          : '<p class="empty">아직 정답자가 없습니다.</p>')
+      + '</div></div>';
+  }
+  if (h!==lastHtml){
+    const keep = document.getElementById("ans");
+    const val = keep ? keep.value : "";
+    elBody.innerHTML=h; lastHtml=h;
+    const nx = document.getElementById("ans");
+    if (nx && val){ nx.value = val; }
+  }
+}
+
+document.addEventListener("click", function(e){ if(e.target && e.target.id==="send") submit(); });
+document.addEventListener("keydown", function(e){
+  if(e.key==="Enter" && document.activeElement && document.activeElement.id==="ans") submit();
+});
+function submit(){
+  const el=document.getElementById("ans"); if(!el) return;
+  const nick=elWho.value.trim();
+  if(!nick){ showToast("먼저 이름을 선택해 주세요"); elWho.focus(); return; }
+  const v=el.value.trim(); if(!v) return;
+  el.value=""; el.blur();
+  fetch(API+"/quiz/answer",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({nick:nick,answer:v})})
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(d.blocked) msg={ok:false,text:d.blocked};
+      else if(d.correct) msg={ok:true,text:"정답입니다! "+d.rank+"번째로 선발되셨어요 🎉"};
+      else msg={ok:false,text:"정답이 아닙니다! 다시 확인해 주세요"};
+      lastHtml=""; load();
+    })
+    .catch(function(){ msg={ok:false,text:"전송 실패. 다시 시도해 주세요"}; lastHtml=""; render(lastQ||{meta:[],active:null,winners:[]}); });
+}
+
+/* ---------- 총무 ---------- */
+function adminCall(body, then){
+  body.key=ADMIN_KEY;
+  return fetch(API+"/quiz/admin",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if(!d.ok) showToast(d.error||"실패"); if(then) then(d); lastHtml=""; load(); });
+}
+function collect(){
+  return Array.from(elAdmin.querySelectorAll(".qr")).map(function(el){
+    return { type:el.querySelector(".ty").value, title:el.querySelector(".ti").value,
+             question:el.querySelector(".qu").value, answers:el.querySelector(".an").value };
+  });
+}
+let adminHtml="";
+function renderAdmin(q){
+  if(!ADMIN_KEY) return;
+  if(rounds===null){
+    rounds=[];
+    adminCall({action:"rounds"}, function(d){
+      rounds = (d.rounds&&d.rounds.length) ? d.rounds
+        : Array.from({length:7},function(_,i){ return {type:"ai",title:"라운드 "+(i+1),question:"",answers:""}; });
+      adminHtml=""; renderAdmin(q);
+    });
+    return;
+  }
+  const act=q.active;
+  const h='<div class="admin"><div class="h">총무용 · 라운드 편집</div>'
+    + rounds.map(function(r,i){
+        const w=(q.allWinners&&q.allWinners[i])||[];
+        const on=act&&act.i===i;
+        return '<div class="qr" data-i="'+i+'"><div class="l1"><span class="idx">R'+(i+1)+'</span>'
+          + '<select class="ty">'+['ai','title','lyrics'].map(function(t){
+              return '<option value="'+t+'"'+(r.type===t?' selected':'')+'>'+QTYPE[t]+'</option>'; }).join("")+'</select>'
+          + '<input class="ti" value="'+String(r.title||"").replace(/"/g,"&quot;")+'" placeholder="라운드 이름">'
+          + '<span class="st">'+(on?(act.started?"● 진행 중":"○ 준비됨"):"")+' '+w.length+'/5</span></div>'
+          + '<textarea class="qu" placeholder="문제">'+esc(r.question||"")+'</textarea>'
+          + '<input class="an" value="'+String(r.answers||"").replace(/"/g,"&quot;")+'" placeholder="정답 (여러 표기 허용: 아이유 좋은날|좋은날 아이유)">'
+          + '<div class="acts"><button data-a="arm">준비</button><button data-a="start" class="go">시작</button>'
+          +   '<button data-a="stop">종료</button><button data-a="clear" class="warn">정답자 초기화</button></div></div>';
+      }).join("")
+    + '<div class="acts" style="margin-top:16px"><button id="save" class="go">전체 저장</button>'
+    +   '<button id="clearAll" class="warn">전체 정답자 초기화</button></div></div>';
+  if(h!==adminHtml){ elAdmin.innerHTML=h; adminHtml=h; }
+}
+elAdmin.addEventListener("click", function(e){
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.id==="save"){ rounds=collect(); adminCall({action:"save",rounds:rounds},function(){ showToast("저장했습니다"); adminHtml=""; }); return; }
+  if(b.id==="clearAll"){ if(confirm("모든 라운드의 정답자를 지울까요?")) adminCall({action:"clearAll"}); return; }
+  const row=b.closest(".qr"); if(!row) return;
+  const i=parseInt(row.dataset.i,10), a=b.dataset.a;
+  if(a==="arm"){ rounds=collect(); adminCall({action:"save",rounds:rounds},function(){ adminCall({action:"arm",i:i}); }); }
+  else if(a==="start") adminCall({action:"start"});
+  else if(a==="stop") adminCall({action:"stop"});
+  else if(a==="clear"){ if(confirm("R"+(i+1)+" 정답자를 지울까요?")) adminCall({action:"clear",i:i}); }
+});
+
+/* ---------- 폴링 ---------- */
+let timer=null, lastQ=null;
+function load(){
+  const nick=elWho.value.trim();
+  fetch(API+"/quiz/state?nick="+encodeURIComponent(nick))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if(!d||!d.ok) return;
+      lastQ=d.quiz; render(d.quiz); renderAdmin(d.quiz);
+      next(d.quiz.active ? 1200 : 12000);
+    })
+    .catch(function(){ next(4000); });
+}
+function next(ms){ clearTimeout(timer); timer=setTimeout(load, ms); }
+document.addEventListener("visibilitychange", function(){ if(!document.hidden) load(); });
+load();
+</script>
+</body>
+</html>
