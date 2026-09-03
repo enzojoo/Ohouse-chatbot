@@ -373,6 +373,20 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 .osum .a{font-size:27px; font-weight:800; letter-spacing:-.045em; font-variant-numeric:tabular-nums}
 .osum .b{font-size:13px; color:var(--ink3); font-weight:600}
 .oempty{margin:14px 0 0; font-size:14px; color:var(--ink3)}
+.myline{
+  display:flex; align-items:center; gap:10px; padding:11px 0;
+  border-bottom:1px solid var(--rule); font-size:14px;
+}
+.myline .nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.myline .am{color:var(--ink2); font-size:13px; font-variant-numeric:tabular-nums; white-space:nowrap}
+.myline .who{color:var(--ink3); font-size:12.5px; font-weight:700; flex:0 0 auto}
+.cancel{
+  border:1px solid var(--rule); background:#fff; border-radius:9px; cursor:pointer;
+  font:inherit; font-size:12.5px; font-weight:700; color:var(--ink2); padding:7px 11px; white-space:nowrap;
+}
+.cancel:hover{border-color:var(--pro); color:var(--pro)}
+.cancel[disabled]{opacity:.4; cursor:default}
+.mytitle{margin-top:20px; padding-top:16px; border-top:1px solid var(--rule); font-size:13px; font-weight:800; color:var(--ink3)}
 
 footer{background:var(--deep); color:rgba(255,255,255,.62); padding:48px 0; font-size:13.5px; line-height:1.7}
 footer a{color:rgba(255,255,255,.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.3)}
@@ -552,6 +566,7 @@ footer a:hover{color:#fff}
       <p class="ohint" id="oHint"></p>
     </div>
     <div class="otally" id="otally"></div>
+    <div id="myOrders"></div>
   </div>
 </section>
 
@@ -1007,6 +1022,80 @@ renderTally(null);
 loadTally();
 setInterval(loadTally, 30000);
 
+/* ----- 주문 취소 -----
+   봇이 쓴 메시지는 워크스페이스 관리자만 슬랙에서 지울 수 있다.
+   그래서 취소는 봇 자신이 대신 지우게 한다.
+   · 일반 참석자: 이 기기에서 넣은 주문만 (주문 시 받은 ts 를 보관)
+   · 총무: 주소 끝에 #admin=<키> 를 붙이면 전체 주문을 취소할 수 있다 */
+const myEl = document.getElementById("myOrders");
+const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
+let myTickets = [];
+try { myTickets = JSON.parse(localStorage.getItem("cg43_tickets") || "[]"); } catch (err) {}
+function saveTickets(){ try { localStorage.setItem("cg43_tickets", JSON.stringify(myTickets)); } catch (err) {} }
+
+function lineHtml(t, showWho){
+  const label = t.items.map(function(i){ return i.item+' ×'+i.qty; }).join(", ");
+  return '<div class="myline" data-ts="'+t.ts+'">'
+    + (showWho ? '<span class="who">'+t.nick+'</span>' : '')
+    + '<span class="nm">'+label+'</span>'
+    + '<span class="am">'+comma(t.subtotal)+'원</span>'
+    + '<button class="cancel" type="button">취소</button></div>';
+}
+function renderMine(){
+  if (ADMIN_KEY) return;
+  if (!myTickets.length){ myEl.innerHTML = ""; return; }
+  myEl.innerHTML = '<div class="otally"><div class="mytitle" style="margin-top:0;padding-top:0;border:0">'
+    + '내가 넣은 주문</div>' + myTickets.map(function(t){ return lineHtml(t, false); }).join("") + '</div>';
+}
+function loadAdmin(){
+  if (!ADMIN_KEY) return;
+  fetch(ORDER_API + "/orders", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ key: ADMIN_KEY })
+  })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d.ok){ myEl.innerHTML = '<div class="otally"><p class="oempty">'+d.error+'</p></div>'; return; }
+      myEl.innerHTML = '<div class="otally"><div class="mytitle" style="margin-top:0;padding-top:0;border:0">'
+        + '전체 주문 (총무용 · '+d.tickets.length+'건)</div>'
+        + (d.tickets.length
+            ? d.tickets.map(function(t){ return lineHtml(t, true); }).join("")
+            : '<p class="oempty">아직 주문이 없습니다.</p>')
+        + '</div>';
+    })
+    .catch(function(){});
+}
+myEl.addEventListener("click", function(e){
+  const btn = e.target.closest(".cancel");
+  if (!btn) return;
+  const row = btn.closest(".myline");
+  const ts = row.dataset.ts;
+  if (!confirm("이 주문을 취소할까요?")) return;
+  btn.disabled = true; btn.textContent = "취소 중…";
+  fetch(ORDER_API + "/cancel", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ts: ts, key: ADMIN_KEY, nick: elWho.value.trim() })
+  })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.ok){
+        showToast("주문을 취소했습니다");
+        myTickets = myTickets.filter(function(t){ return t.ts !== ts; });
+        saveTickets(); renderTally(d.summary);
+        if (ADMIN_KEY) loadAdmin(); else renderMine();
+      } else {
+        showToast((d && d.error) || "취소하지 못했습니다");
+        btn.disabled = false; btn.textContent = "취소";
+      }
+    })
+    .catch(function(){
+      showToast("취소하지 못했습니다");
+      btn.disabled = false; btn.textContent = "취소";
+    });
+});
+renderMine(); loadAdmin();
+if (ADMIN_KEY) setInterval(loadAdmin, 30000);
+
 /* ----- 전송 ----- */
 elForm.addEventListener("submit", function(e){
   e.preventDefault();
@@ -1025,7 +1114,12 @@ elForm.addEventListener("submit", function(e){
     .then(function(d){
       if (d && d.ok){
         showToast(nick + "님 주문 " + comma(d.subtotal) + "원 접수했습니다");
+        if (d.ticket){
+          myTickets.push({ ts: d.ticket, nick: nick, items: cart, subtotal: d.subtotal });
+          saveTickets();
+        }
         cart = []; renderCart(); renderTally(d.summary);
+        renderMine(); loadAdmin();
       } else {
         showToast((d && d.error) || "주문 전송에 실패했습니다");
       }
