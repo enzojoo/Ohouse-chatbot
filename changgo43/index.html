@@ -243,7 +243,27 @@ tr.drink td{color:var(--ink3); border-bottom:0; padding-top:11px}
 }
 .tab:hover{border-color:var(--oh)}
 .tab.on{background:var(--deep); border-color:var(--deep); color:#fff}
-.cgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+.cgrid{
+  display:flex; gap:14px; margin-top:6px; overflow-x:auto;
+  scroll-snap-type:x mandatory; scroll-behavior:smooth; scroll-padding-left:0;
+  -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:4px;
+}
+.cgrid::-webkit-scrollbar{display:none}
+.cgrid .combo{flex:0 0 min(88%,420px); scroll-snap-align:start; align-self:flex-start}
+.cnav{display:flex; align-items:center; justify-content:center; gap:16px; margin-top:18px}
+.cbtn{
+  width:42px; height:42px; border-radius:50%; border:1px solid var(--rule);
+  background:#fff; cursor:pointer; color:var(--ink2); font-size:15px; line-height:1;
+  display:grid; place-items:center; transition:border-color .15s ease, color .15s ease, opacity .15s ease;
+}
+.cbtn:hover{border-color:var(--oh); color:var(--oh-dd)}
+.cbtn[disabled]{opacity:.3; cursor:default; border-color:var(--rule); color:var(--ink3)}
+.cdots{display:flex; gap:7px; align-items:center}
+.cdot{
+  width:8px; height:8px; padding:0; border:0; border-radius:99px;
+  background:#D3DEE3; cursor:pointer; transition:width .2s ease, background .2s ease;
+}
+.cdot.on{width:22px; background:var(--deep)}
 
 /* ---------- 메뉴판 ---------- */
 details.acc{
@@ -310,7 +330,6 @@ footer a:hover{color:#fff}
   .tbr{display:none}
   .qbox{padding:22px 18px; border-radius:16px}
   .mcols{grid-template-columns:1fr; gap:0}
-  .cgrid{grid-template-columns:1fr}
   .cd .u{min-width:0; padding:14px 4px 11px}
   .floaters span{font-size:calc(var(--s) * .66)}
   .combo{padding:20px 17px 17px}
@@ -413,6 +432,11 @@ footer a:hover{color:#fff}
     <h2>인원별 추천 조합</h2>
     <div class="tabs" id="tabs"></div>
     <div class="cgrid" id="cgrid"></div>
+    <div class="cnav">
+      <button class="cbtn" type="button" id="cPrev" aria-label="이전 조합">◀</button>
+      <div class="cdots" id="cDots"></div>
+      <button class="cbtn" type="button" id="cNext" aria-label="다음 조합">▶</button>
+    </div>
   </div>
 </section>
 
@@ -572,7 +596,7 @@ function comboCard(seat, type, extraClass){
     return '<tr'+(r.drink ? ' class="drink"' : '')+'><td>'+r.item+'</td><td>'+r.price+'</td></tr>';
   }).join("");
   return '<div class="combo '+(extraClass||"")+'" style="--accent:'+t.color+'">'
-    + '<div class="chead"><span class="k">'+t.emoji+' '+t.name+' · '+seat+'명</span></div>'
+    + '<div class="chead"><span class="k">'+(ORDER.indexOf(type)+1)+'안 · '+t.emoji+' '+t.name+' · '+seat+'명</span></div>'
     + '<div class="ctot"><span class="a">'+c.total+'</span><span class="b">'+c.each+'</span></div>'
     + '<table><tbody>'+rows+'</tbody></table>'
     + '<p class="cnote">'+kb(c.note)+'</p></div>';
@@ -690,9 +714,49 @@ const tabsEl = document.getElementById("tabs"), gridEl = document.getElementById
 tabsEl.innerHTML = ["3","4","5","6"].map(function(n){
   return '<button class="tab" type="button" data-n="'+n+'">'+n+'명</button>';
 }).join("");
+const prevEl = document.getElementById("cPrev"),
+      nextEl = document.getElementById("cNext"),
+      dotsEl = document.getElementById("cDots");
+
+dotsEl.innerHTML = ORDER.map(function(t, i){
+  return '<button class="cdot" type="button" data-i="'+i+'" aria-label="'+(i+1)+'안"></button>';
+}).join("");
+
+function cardStep(){
+  const first = gridEl.querySelector(".combo");
+  return first ? first.getBoundingClientRect().width + 14 : gridEl.clientWidth;
+}
+function activeIndex(){
+  const max = gridEl.scrollWidth - gridEl.clientWidth;
+  if (max > 0 && gridEl.scrollLeft >= max - 2) return ORDER.length - 1;  // 끝까지 밀면 마지막 안
+  return Math.round(gridEl.scrollLeft / cardStep());
+}
+function syncNav(){
+  const i = Math.max(0, Math.min(ORDER.length - 1, activeIndex()));
+  dotsEl.querySelectorAll(".cdot").forEach(function(d, k){ d.classList.toggle("on", k === i); });
+  prevEl.disabled = gridEl.scrollLeft <= 2;
+  nextEl.disabled = gridEl.scrollLeft >= gridEl.scrollWidth - gridEl.clientWidth - 2;
+}
+function goTo(i){
+  gridEl.scrollTo({ left: Math.max(0, i) * cardStep(), behavior: "smooth" });
+}
+prevEl.addEventListener("click", function(){ goTo(activeIndex() - 1); });
+nextEl.addEventListener("click", function(){ goTo(activeIndex() + 1); });
+dotsEl.addEventListener("click", function(e){
+  const b = e.target.closest(".cdot");
+  if (b) goTo(parseInt(b.dataset.i, 10));
+});
+let navTimer;
+gridEl.addEventListener("scroll", function(){
+  clearTimeout(navTimer); navTimer = setTimeout(syncNav, 60);
+}, { passive: true });
+window.addEventListener("resize", syncNav);
+
 function showAll(n){
   tabsEl.querySelectorAll(".tab").forEach(function(b){ b.classList.toggle("on", b.dataset.n === n); });
   gridEl.innerHTML = ORDER.map(function(t){ return comboCard(n, t); }).join("");
+  gridEl.scrollLeft = 0;
+  syncNav();
 }
 tabsEl.querySelectorAll(".tab").forEach(function(b){
   b.addEventListener("click", function(){ showAll(b.dataset.n); });
