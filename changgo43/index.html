@@ -390,28 +390,31 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 .racehead{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
 .racehead .t{font-size:16px; font-weight:800; letter-spacing:-.03em}
 .racehead .u{font-size:12px; font-weight:600; color:var(--ink3)}
-.lane{margin-top:16px}
-.lane .top{display:flex; align-items:baseline; gap:8px; font-size:14px}
-.lane .rk{flex:0 0 auto; font-size:13px}
-.lane .nm{font-weight:800; letter-spacing:-.02em}
-.lane .cx{font-size:11.5px; font-weight:700; color:var(--pro)}
-.lane .am{margin-left:auto; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
-.track{
-  position:relative; height:30px; margin-top:6px;
-  border-bottom:2px dashed var(--rule);
+.racesub{margin:8px 0 0; font-size:13px; color:var(--ink3)}
+.pv{display:flex; align-items:center; gap:13px; margin-top:16px}
+.pv .face{
+  flex:0 0 40px; height:40px; border-radius:12px; background:var(--paper);
+  display:grid; place-items:center; font-size:22px; line-height:1;
+  transition:background .4s ease;
 }
-.track .car{
-  position:absolute; bottom:1px; font-size:21px; line-height:1;
-  transform:translateX(-50%); transition:left .8s cubic-bezier(.34,1.2,.4,1);
+.pv .body{flex:1; min-width:0}
+.pv .top{display:flex; align-items:baseline; gap:8px}
+.pv .nm{font-size:14px; font-weight:800; letter-spacing:-.02em}
+.pv .st{font-size:12px; color:var(--ink3); font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.pv .am{margin-left:auto; font-size:13.5px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
+.pv .am.neg{color:var(--pro)}
+.bar{position:relative; height:8px; margin-top:7px; background:#E8EFF2; border-radius:99px; overflow:hidden}
+.bar i{
+  display:block; height:100%; border-radius:99px;
+  background:linear-gradient(90deg,#4CCDF2,#22B4E4);
+  transition:width .8s cubic-bezier(.34,1.1,.4,1), background .4s ease;
 }
-.track .fill{
-  position:absolute; left:0; bottom:0; height:2px; background:var(--oh);
-  border-radius:2px; transition:width .8s cubic-bezier(.34,1.2,.4,1);
-}
-.raceempty{margin:14px 0 0; font-size:14px; color:var(--ink3)}
+.bar i.warn{background:linear-gradient(90deg,#F0B84B,#E09A2B)}
+.bar i.bad{background:linear-gradient(90deg,#D9645F,#B4433E)}
+.pv .cx{font-size:11.5px; color:var(--ink3); font-weight:600}
 .racefoot{margin:18px 0 0; padding-top:14px; border-top:1px solid var(--rule);
   font-size:13px; color:var(--ink2); display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
-.racefoot b{color:var(--pro); font-weight:700}
+.racefoot b{color:var(--ink); font-weight:700}
 .mytitle{margin-top:20px; padding-top:16px; border-top:1px solid var(--rule); font-size:13px; font-weight:800; color:var(--ink3)}
 
 footer{background:var(--deep); color:rgba(255,255,255,.62); padding:48px 0; font-size:13.5px; line-height:1.7}
@@ -437,6 +440,7 @@ footer a:hover{color:#fff}
   .ocard,.aicard{padding:18px 15px}
   .bub{max-width:90%}
   .otally,.race{padding:20px 17px}
+  .pv .st{display:none}
   .orow.pick{grid-template-columns:1fr auto}
   .orow.pick .ofield:nth-child(2){grid-column:1}
   .oadd{grid-column:2}
@@ -1040,32 +1044,50 @@ function renderTally(sum){
       }).join("")
     + '</tbody></table>';
 }
-/* ----- 주문 레이스 ----- */
+/* ----- 가난해지는 중 -----
+   많이 시킬수록 지갑이 비어가는 연출. 순위 경쟁이 아니라 지출 경고에 가깝게 둔다. */
 const raceEl = document.getElementById("race");
-const CARS = ["\uD83C\uDFCE\uFE0F","\uD83D\uDE97","\uD83D\uDE99","\uD83D\uDE95","\uD83D\uDEFB","\uD83D\uDE9A","\uD83D\uDEF5","\uD83D\uDEB2"];
+const WALLET = 500000;                    // 각자 지갑 기준액
+const STAGES = [
+  { at: 0,      face: "\uD83E\uDD35", label: "아직 여유롭습니다" },
+  { at: 50000,  face: "\uD83D\uDE42", label: "이 정도는 괜찮아요" },
+  { at: 120000, face: "\uD83D\uDE05", label: "슬슬 계산기를 두드립니다" },
+  { at: 220000, face: "\uD83D\uDE30", label: "지갑이 얇아졌습니다" },
+  { at: 350000, face: "\uD83D\uDE31", label: "통장을 확인하는 중" },
+  { at: 500000, face: "\uD83E\uDD72", label: "이번 달은 끝났습니다" }
+];
+function stageOf(spent){
+  let st = STAGES[0];
+  for (const s2 of STAGES) if (spent >= s2.at) st = s2;
+  return st;
+}
 function renderRace(sum){
   const racers = (sum && sum.racers) || [];
   if (!racers.length){ raceEl.innerHTML = ""; return; }
-  const max = Math.max.apply(null, racers.map(function(r){ return r.total; })) || 1;
-  const lanes = racers.slice(0, 12).map(function(r, i){
-    const pct = Math.min(95, Math.max(4, Math.round((r.total / max) * 95)));  // 차가 트랙 밖으로 안 나가게
-    const rank = i === 0 && r.total > 0 ? "\uD83C\uDFC6" : (i + 1) + ".";
-    return '<div class="lane">'
-      + '<div class="top"><span class="rk">'+rank+'</span>'
-      +   '<span class="nm">'+r.nick+'</span>'
-      +   (r.cancelCount ? '<span class="cx">취소 '+r.cancelCount+'건 −'+comma(r.canceled)+'원</span>' : '')
-      +   '<span class="am">'+comma(r.total)+'원</span></div>'
-      + '<div class="track"><span class="fill" style="width:'+pct+'%"></span>'
-      +   '<span class="car" style="left:'+pct+'%">'+CARS[i % CARS.length]+'</span></div>'
-      + '</div>';
+  const rows = racers.slice(0, 20).map(function(r){
+    const left = WALLET - r.total;
+    const pct = Math.max(0, Math.min(100, Math.round((left / WALLET) * 100)));
+    const st = stageOf(r.total);
+    const cls = pct <= 15 ? "bad" : (pct <= 45 ? "warn" : "");
+    return '<div class="pv">'
+      + '<div class="face">'+st.face+'</div>'
+      + '<div class="body">'
+      +   '<div class="top"><span class="nm">'+r.nick+'</span>'
+      +     '<span class="st">'+st.label+'</span>'
+      +     '<span class="am'+(left < 0 ? ' neg' : '')+'">'
+      +       (left < 0 ? '−' + comma(-left) : comma(left)) + '원</span></div>'
+      +   '<div class="bar"><i class="'+cls+'" style="width:'+pct+'%"></i></div>'
+      +   (r.cancelCount ? '<div class="cx">취소 '+r.cancelCount+'건 · '+comma(r.canceled)+'원 회복</div>' : '')
+      + '</div></div>';
   }).join("");
   raceEl.innerHTML = '<div class="race">'
-    + '<div class="racehead"><span class="t">\uD83C\uDFC1 주문 레이스</span>'
-    +   '<span class="u">'+racers.length+'명 참가</span></div>'
-    + lanes
+    + '<div class="racehead"><span class="t">\uD83D\uDCB8 가난해지는 중</span>'
+    +   '<span class="u">'+racers.length+'명</span></div>'
+    + '<p class="racesub">지갑 '+comma(WALLET)+'원으로 시작합니다. 주문할수록 줄어듭니다.</p>'
+    + rows
     + (sum.cancelCount
         ? '<div class="racefoot"><span>지금까지 취소</span>'
-          + '<span><b>'+sum.cancelCount+'건 −'+comma(sum.canceledTotal)+'원</b></span></div>'
+          + '<span><b>'+sum.cancelCount+'건 '+comma(sum.canceledTotal)+'원</b></span></div>'
         : '')
     + '</div>';
 }
