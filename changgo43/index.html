@@ -386,6 +386,32 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 }
 .cancel:hover{border-color:var(--pro); color:var(--pro)}
 .cancel[disabled]{opacity:.4; cursor:default}
+.race{margin-top:14px; background:#fff; border:1px solid var(--rule); border-radius:18px; padding:24px}
+.racehead{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.racehead .t{font-size:16px; font-weight:800; letter-spacing:-.03em}
+.racehead .u{font-size:12px; font-weight:600; color:var(--ink3)}
+.lane{margin-top:16px}
+.lane .top{display:flex; align-items:baseline; gap:8px; font-size:14px}
+.lane .rk{flex:0 0 auto; font-size:13px}
+.lane .nm{font-weight:800; letter-spacing:-.02em}
+.lane .cx{font-size:11.5px; font-weight:700; color:var(--pro)}
+.lane .am{margin-left:auto; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
+.track{
+  position:relative; height:30px; margin-top:6px;
+  border-bottom:2px dashed var(--rule);
+}
+.track .car{
+  position:absolute; bottom:1px; font-size:21px; line-height:1;
+  transform:translateX(-50%); transition:left .8s cubic-bezier(.34,1.2,.4,1);
+}
+.track .fill{
+  position:absolute; left:0; bottom:0; height:2px; background:var(--oh);
+  border-radius:2px; transition:width .8s cubic-bezier(.34,1.2,.4,1);
+}
+.raceempty{margin:14px 0 0; font-size:14px; color:var(--ink3)}
+.racefoot{margin:18px 0 0; padding-top:14px; border-top:1px solid var(--rule);
+  font-size:13px; color:var(--ink2); display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap}
+.racefoot b{color:var(--pro); font-weight:700}
 .mytitle{margin-top:20px; padding-top:16px; border-top:1px solid var(--rule); font-size:13px; font-weight:800; color:var(--ink3)}
 
 footer{background:var(--deep); color:rgba(255,255,255,.62); padding:48px 0; font-size:13.5px; line-height:1.7}
@@ -410,7 +436,7 @@ footer a:hover{color:#fff}
   .oform .btn{grid-column:1 / -1; width:100%}
   .ocard,.aicard{padding:18px 15px}
   .bub{max-width:90%}
-  .otally{padding:20px 17px}
+  .otally,.race{padding:20px 17px}
   .orow.pick{grid-template-columns:1fr auto}
   .orow.pick .ofield:nth-child(2){grid-column:1}
   .oadd{grid-column:2}
@@ -566,6 +592,7 @@ footer a:hover{color:#fff}
       <p class="ohint" id="oHint"></p>
     </div>
     <div class="otally" id="otally"></div>
+    <div id="race"></div>
     <div id="myOrders"></div>
   </div>
 </section>
@@ -1013,10 +1040,40 @@ function renderTally(sum){
       }).join("")
     + '</tbody></table>';
 }
+/* ----- 주문 레이스 ----- */
+const raceEl = document.getElementById("race");
+const CARS = ["\uD83C\uDFCE\uFE0F","\uD83D\uDE97","\uD83D\uDE99","\uD83D\uDE95","\uD83D\uDEFB","\uD83D\uDE9A","\uD83D\uDEF5","\uD83D\uDEB2"];
+function renderRace(sum){
+  const racers = (sum && sum.racers) || [];
+  if (!racers.length){ raceEl.innerHTML = ""; return; }
+  const max = Math.max.apply(null, racers.map(function(r){ return r.total; })) || 1;
+  const lanes = racers.slice(0, 12).map(function(r, i){
+    const pct = Math.min(95, Math.max(4, Math.round((r.total / max) * 95)));  // 차가 트랙 밖으로 안 나가게
+    const rank = i === 0 && r.total > 0 ? "\uD83C\uDFC6" : (i + 1) + ".";
+    return '<div class="lane">'
+      + '<div class="top"><span class="rk">'+rank+'</span>'
+      +   '<span class="nm">'+r.nick+'</span>'
+      +   (r.cancelCount ? '<span class="cx">취소 '+r.cancelCount+'건 −'+comma(r.canceled)+'원</span>' : '')
+      +   '<span class="am">'+comma(r.total)+'원</span></div>'
+      + '<div class="track"><span class="fill" style="width:'+pct+'%"></span>'
+      +   '<span class="car" style="left:'+pct+'%">'+CARS[i % CARS.length]+'</span></div>'
+      + '</div>';
+  }).join("");
+  raceEl.innerHTML = '<div class="race">'
+    + '<div class="racehead"><span class="t">\uD83C\uDFC1 주문 레이스</span>'
+    +   '<span class="u">'+racers.length+'명 참가</span></div>'
+    + lanes
+    + (sum.cancelCount
+        ? '<div class="racefoot"><span>지금까지 취소</span>'
+          + '<span><b>'+sum.cancelCount+'건 −'+comma(sum.canceledTotal)+'원</b></span></div>'
+        : '')
+    + '</div>';
+}
+
 function loadTally(){
   fetch(ORDER_API + "/tally")
     .then(function(r){ return r.json(); })
-    .then(function(d){ if (d && d.ok) renderTally(d.summary); })
+    .then(function(d){ if (d && d.ok){ renderTally(d.summary); renderRace(d.summary); } })
     .catch(function(){});
 }
 renderTally(null);
@@ -1090,7 +1147,11 @@ myEl.addEventListener("click", function(e){
   })
     .then(function(r){ return r.json(); })
     .then(function(d){
-      if (d && d.ok){ showToast("주문을 취소했습니다"); renderTally(d.summary); refreshMyList(); }
+      if (d && d.ok){
+        const amt = d.canceled ? comma(d.canceled.subtotal) + "원 취소" : "주문을 취소했습니다";
+        showToast("−" + amt + " · 총액 " + comma(d.summary.total) + "원");
+        renderTally(d.summary); renderRace(d.summary); refreshMyList();
+      }
       else { showToast((d && d.error) || "취소하지 못했습니다"); btn.disabled = false; btn.textContent = "취소"; }
     })
     .catch(function(){ showToast("취소하지 못했습니다"); btn.disabled = false; btn.textContent = "취소"; });
@@ -1116,7 +1177,7 @@ elForm.addEventListener("submit", function(e){
     .then(function(d){
       if (d && d.ok){
         showToast(nick + "님 주문 " + comma(d.subtotal) + "원 접수했습니다");
-        cart = []; renderCart(); renderTally(d.summary); refreshMyList();
+        cart = []; renderCart(); renderTally(d.summary); renderRace(d.summary); refreshMyList();
       } else {
         showToast((d && d.error) || "주문 전송에 실패했습니다");
       }
