@@ -1300,7 +1300,7 @@ const przSec  = document.getElementById("prize"),
       przGrid = document.getElementById("pGrid"),
       przAdmin= document.getElementById("pAdmin"),
       przBadge= document.getElementById("pBadge");
-let przOn = null;
+let przOn = null, przSig = null;
 
 function renderPrizes(d){
   const items = d.items || [];
@@ -1308,7 +1308,12 @@ function renderPrizes(d){
   przSec.classList.toggle("on", !!(show && items.length) || !!ADMIN_KEY);
   przBadge.textContent = d.adminPreview ? "총무 미리보기 · 아직 비공개" : "TODAY'S GIFT";
 
-  przGrid.innerHTML = (show ? items : []).map(function(it){
+  /* 30초마다 다시 그리면 펼쳐둔 메시지 카드가 접히고 이미지도 매번 깜빡인다.
+     내용이 실제로 달라졌을 때만 다시 그린다. */
+  const sig = [show ? 1 : 0, d.adminPreview ? 1 : 0, items.length].join(":");
+  if (sig !== przSig){
+    przSig = sig;
+    przGrid.innerHTML = (show ? items : []).map(function(it){
     return '<div class="pcard">'
       + '<div class="ph"><img loading="lazy" alt="'+it.brand+' '+it.product+'" src="'
       +   ORDER_API + '/prize-img/' + it.img + (d.adminPreview ? '?key=' + ADMIN_KEY : '') + '"></div>'
@@ -1321,7 +1326,8 @@ function renderPrizes(d){
       +       '<p class="key">'+kb(it.key)+'</p></div>'
       +   '</details>'
       + '</div></div>';
-  }).join("");
+    }).join("");
+  }
 
   if (ADMIN_KEY){
     przAdmin.hidden = false;
