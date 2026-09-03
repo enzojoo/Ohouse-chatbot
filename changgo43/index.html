@@ -6,7 +6,7 @@
 <title>O!Night in Changgo 43</title>
 <meta name="description" content="O!Night in Changgo 43 — 9월 3일 18:30, 창고43 강남점.">
 <meta property="og:title" content="O!Night in Changgo 43">
-<meta property="og:description" content="9월 3일 (수) 18:30 · 창고43 강남점">
+<meta property="og:description" content="9월 3일 (목) 18:30 · 창고43 강남점">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
@@ -22,6 +22,7 @@ body{
   margin:0; color:var(--ink); background:var(--paper);
   font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
   -webkit-font-smoothing:antialiased; letter-spacing:-.012em;
+  word-break:keep-all; overflow-wrap:break-word;
 }
 .wrap{max-width:var(--wrap); margin:0 auto; padding:0 22px}
 section{padding:80px 0}
@@ -58,8 +59,21 @@ h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-sp
 .hero::after{
   content:""; position:absolute; left:0; right:0; bottom:0; height:120px;
   background:linear-gradient(to bottom, transparent, var(--paper));
+  z-index:1;
 }
-.hero .wrap{position:relative; z-index:1; width:100%; padding-top:76px; padding-bottom:76px}
+.floaters{position:absolute; inset:0; z-index:0; pointer-events:none}
+.floaters span{
+  position:absolute; left:var(--x); top:var(--y);
+  font-size:var(--s); line-height:1; opacity:var(--o);
+  filter:blur(var(--b,0px)) drop-shadow(0 8px 16px rgba(8,48,63,.18));
+  animation:floaty var(--t) ease-in-out var(--d) infinite;
+  will-change:transform;
+}
+@keyframes floaty{
+  0%,100%{transform:translate3d(0,0,0) rotate(var(--r))}
+  50%{transform:translate3d(0,-20px,0) rotate(calc(var(--r) * -.55))}
+}
+.hero .wrap{position:relative; z-index:2; width:100%; padding-top:76px; padding-bottom:76px}
 .h-kick{
   display:inline-flex; align-items:center; gap:9px;
   font-size:12.5px; font-weight:800; letter-spacing:.13em;
@@ -70,8 +84,8 @@ h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-sp
   animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
 .h-title{
-  margin:24px 0 0; font-size:clamp(38px,9vw,68px); font-weight:800;
-  letter-spacing:-.045em; line-height:1.06;
+  margin:24px 0 0; font-size:min(8.6vw,64px); font-weight:800;
+  letter-spacing:-.045em; line-height:1.08; white-space:nowrap;
 }
 .cd{margin:42px 0 0; display:flex; gap:10px; flex-wrap:wrap}
 .cd .u{
@@ -263,6 +277,7 @@ footer a:hover{color:#fff}
   .mcols{grid-template-columns:1fr; gap:0}
   .cgrid{grid-template-columns:1fr}
   .cd .u{min-width:0; padding:14px 4px 11px}
+  .floaters span{font-size:calc(var(--s) * .66)}
   .combo{padding:20px 17px 17px}
   .tab{flex:1 1 auto; padding:11px 8px}
 }
@@ -275,9 +290,23 @@ footer a:hover{color:#fff}
 <body>
 
 <header class="hero">
+  <div class="floaters" aria-hidden="true">
+    <span style="--x:5%;--y:11%;--s:74px;--o:.97;--r:-12deg;--t:7.5s;--d:0s">🥩</span>
+    <span style="--x:77%;--y:14%;--s:66px;--o:.97;--r:10deg;--t:8.5s;--d:.7s">🍺</span>
+    <span style="--x:71%;--y:74%;--s:70px;--o:.97;--r:-8deg;--t:9s;--d:1.4s">🎁</span>
+    <span style="--x:7%;--y:76%;--s:60px;--o:.95;--r:9deg;--t:8s;--d:.4s">🍶</span>
+    <span style="--x:44%;--y:6%;--s:46px;--o:.8;--b:1px;--r:14deg;--t:10s;--d:1.1s">🍻</span>
+    <span style="--x:23%;--y:86%;--s:46px;--o:.8;--b:1px;--r:-14deg;--t:9.5s;--d:2s">🥓</span>
+    <span style="--x:57%;--y:90%;--s:42px;--o:.78;--b:1px;--r:8deg;--t:11s;--d:.2s">🏆</span>
+    <span style="--x:88%;--y:44%;--s:44px;--o:.78;--b:1px;--r:-10deg;--t:10.5s;--d:1.8s">🍖</span>
+    <span style="--x:33%;--y:19%;--s:30px;--o:.5;--b:3px;--r:18deg;--t:12s;--d:.9s">🧊</span>
+    <span style="--x:64%;--y:29%;--s:28px;--o:.5;--b:3px;--r:-16deg;--t:13s;--d:2.4s">✨</span>
+    <span style="--x:3%;--y:44%;--s:30px;--o:.45;--b:3px;--r:12deg;--t:12.5s;--d:1.6s">🍚</span>
+    <span style="--x:91%;--y:66%;--s:32px;--o:.45;--b:3px;--r:-18deg;--t:11.5s;--d:.5s">🥢</span>
+  </div>
   <div class="wrap">
-    <div class="h-kick"><i></i>2026. 09. 03 (수) 18:30</div>
-    <h1 class="h-title">O!Night<br>in Changgo 43</h1>
+    <div class="h-kick"><i></i>2026. 09. 03 (목) 18:30</div>
+    <h1 class="h-title">O!Night in Changgo 43</h1>
     <div class="cd" id="cd"></div>
     <div class="h-cta">
       <a class="btn btn-primary" href="#test">회식 성향 테스트 하기</a>
@@ -308,7 +337,7 @@ footer a:hover{color:#fff}
         <div class="vname">창고43 강남점</div>
         <p class="vaddr">서울 강남구 강남대로 362<br>대륭강남타워 지하 1층</p>
         <div class="vmeta">
-          <div class="vrow"><b>일시</b><span>2026년 9월 3일 (수) 18:30</span></div>
+          <div class="vrow"><b>일시</b><span>2026년 9월 3일 (목) 18:30</span></div>
           <div class="vrow"><b>건물</b><span>대륭강남타워 B1</span></div>
         </div>
       </div>
@@ -353,7 +382,7 @@ footer a:hover{color:#fff}
 
 <footer>
   <div class="wrap">
-    창고43 강남점 · 2026년 9월 3일 (수) 18:30<br>
+    창고43 강남점 · 2026년 9월 3일 (목) 18:30<br>
     메뉴 조합은 인당 10만원 예산에 맞춰 미리 짜둔 참고안입니다.
     <div class="flinks">
       <a href="print.html">인쇄용 페이지</a>
