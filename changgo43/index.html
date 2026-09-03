@@ -606,7 +606,10 @@ function renderResult(){
           return '<button class="seat" type="button" data-n="'+n+'">'+n+'명</button>';
         }).join("")
     + '</div></div><div id="comboSlot"></div>'
-    + '<div class="ragain"><button class="btn btn-line" type="button" id="againBtn">다시 테스트하기</button></div>'
+    + '<div class="ragain">'
+    +   '<button class="btn btn-oh" type="button" id="orderBtn" hidden>주문 문구 복사하기</button>'
+    +   '<button class="btn btn-line" type="button" id="againBtn">다시 테스트하기</button>'
+    + '</div>'
     + '</div>';
   document.querySelectorAll(".seat").forEach(function(b){
     b.addEventListener("click", function(){ pickSeat(b.dataset.n); });
@@ -624,7 +627,24 @@ function pickSeat(n){
     b.classList.toggle("on", b.dataset.n === n);
   });
   document.getElementById("comboSlot").innerHTML = comboCard(n, resultType, "fade");
+  const ob = document.getElementById("orderBtn");
+  if (ob) ob.hidden = false;
 }
+
+/* 슬랙 채널에 붙여넣을 주문 한 줄 */
+function orderLine(){
+  const t = TYPES[resultType], c = DATA.combos[seats][resultType];
+  return "주문: " + t.emoji + " " + t.name + " · " + seats + "명 · " + c.total;
+}
+document.addEventListener("click", function(e){
+  if (!e.target || e.target.id !== "orderBtn") return;
+  if (!resultType || !seats) return;
+  const line = orderLine();
+  navigator.clipboard.writeText(line).then(
+    function(){ showToast("복사했습니다 · 회식 채널에 붙여넣어 주세요"); },
+    function(){ showToast(line); }
+  );
+});
 render();
 
 /* ---------- 인원별 전체 조합 ---------- */
