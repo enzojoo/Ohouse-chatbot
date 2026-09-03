@@ -151,6 +151,7 @@ h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-sp
 .pcard details[open] summary::after{content:" −"}
 .pcard .st p{margin:0 0 10px; font-size:13.5px; line-height:1.75; color:var(--ink2)}
 .pcard .st p:last-child{margin-bottom:0}
+.pcard .st p.key{margin-top:14px; color:var(--ink); font-weight:800}
 .padmin{
   margin-top:18px; display:flex; align-items:center; gap:12px; flex-wrap:wrap;
   background:var(--paper); border:1px solid var(--rule); border-radius:14px; padding:16px 18px;
@@ -1316,7 +1317,8 @@ function renderPrizes(d){
       +   '<div class="pn">'+it.product+'</div>'
       +   '<p class="tg">'+kb(it.tagline)+'</p>'
       +   '<details><summary>메시지 카드 읽기</summary>'
-      +     '<div class="st">'+it.story.map(function(t){ return '<p>'+kb(t)+'</p>'; }).join("")+'</div>'
+      +     '<div class="st">'+it.story.map(function(t){ return '<p>'+kb(t)+'</p>'; }).join("")
+      +       '<p class="key">'+kb(it.key)+'</p></div>'
       +   '</details>'
       + '</div></div>';
   }).join("");
