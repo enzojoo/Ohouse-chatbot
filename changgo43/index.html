@@ -121,6 +121,15 @@ h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-sp
 .temoji{font-size:38px; line-height:1; flex:0 0 auto}
 .ttitle{font-size:clamp(18px,3.5vw,22px); font-weight:800; letter-spacing:-.035em}
 .ttext{margin:9px 0 0; font-size:14.5px; line-height:1.7; color:rgba(255,255,255,.72); max-width:56ch}
+.tcta{
+  display:inline-flex; align-items:center; gap:8px; margin-top:17px;
+  background:#fff; color:var(--deep); text-decoration:none;
+  font-size:15px; font-weight:800; letter-spacing:-.02em;
+  padding:13px 21px; border-radius:12px;
+  transition:transform .12s ease, opacity .15s ease;
+}
+.tcta:hover{opacity:.88}
+.tcta:active{transform:translateY(1px)}
 
 /* ---------- 경품 ---------- */
 .prize{background:#fff; display:none}
@@ -523,6 +532,7 @@ footer a:hover{color:#fff}
         <p class="ttext">게임과 상품 증정 행사가 준비되어 있습니다.
           자세한 건 현장에서 공개할게요.<br class="tbr">
           열심히 참여하시는 분께는 행운이 따를지도 모릅니다.</p>
+        <a class="tcta" href="quiz/">게임 참여하기 <span>→</span></a>
       </div>
     </div>
   </div>
@@ -650,6 +660,7 @@ footer a:hover{color:#fff}
     창고43 강남점 · 2026년 9월 3일 (목) 18:30<br>
     메뉴 조합은 인당 10만원 예산에 맞춰 미리 짜둔 참고안입니다.
     <div class="flinks">
+      <a href="quiz/">게임 참여하기</a>
       <a href="print.html">인쇄용 페이지</a>
       <a href="창고43_주문가이드.pdf">PDF 내려받기</a>
     </div>
