@@ -266,6 +266,37 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 .mrow span:first-child{flex:1}
 .mrow span:last-child{color:var(--ink2); font-variant-numeric:tabular-nums; white-space:nowrap}
 
+/* ---------- 주문 ---------- */
+.order{background:#fff}
+.ocard{
+  margin-top:26px; background:var(--paper); border:1px solid var(--rule);
+  border-radius:18px; padding:26px;
+}
+.oform{display:grid; grid-template-columns:1fr 1.5fr .7fr auto; gap:12px; align-items:end}
+.ofield{display:flex; flex-direction:column; gap:7px; min-width:0}
+.ofield label{font-size:12px; font-weight:800; letter-spacing:.06em; color:var(--ink3)}
+.ofield input,.ofield select{
+  font:inherit; font-size:15px; font-weight:600; color:var(--ink);
+  background:#fff; border:1px solid var(--rule); border-radius:11px;
+  padding:12px 13px; width:100%; -webkit-appearance:none; appearance:none;
+}
+.ofield select{background-image:linear-gradient(45deg,transparent 50%,var(--ink3) 50%),linear-gradient(135deg,var(--ink3) 50%,transparent 50%);
+  background-position:calc(100% - 17px) 50%,calc(100% - 12px) 50%; background-size:5px 5px,5px 5px;
+  background-repeat:no-repeat; padding-right:34px}
+.ofield input:focus,.ofield select:focus{outline:none; border-color:var(--oh)}
+.oform .btn{height:45px}
+.ohint{margin:16px 0 0; font-size:13.5px; line-height:1.65; color:var(--ink2)}
+.ohint a{color:var(--oh-dd); font-weight:700}
+
+.otally{margin-top:16px; background:#fff; border:1px solid var(--rule); border-radius:18px; padding:24px}
+.otop{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.otop .t{font-size:16px; font-weight:800; letter-spacing:-.03em}
+.otop .u{font-size:12px; font-weight:600; color:var(--ink3)}
+.osum{margin:12px 0 0; display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
+.osum .a{font-size:27px; font-weight:800; letter-spacing:-.045em; font-variant-numeric:tabular-nums}
+.osum .b{font-size:13px; color:var(--ink3); font-weight:600}
+.oempty{margin:14px 0 0; font-size:14px; color:var(--ink3)}
+
 footer{background:var(--deep); color:rgba(255,255,255,.62); padding:48px 0; font-size:13.5px; line-height:1.7}
 footer a{color:rgba(255,255,255,.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.3)}
 footer a:hover{color:#fff}
@@ -284,6 +315,10 @@ footer a:hover{color:#fff}
   .floaters span{font-size:calc(var(--s) * .66)}
   .combo{padding:20px 17px 17px}
   .tab{flex:1 1 auto; padding:11px 8px}
+  .oform{grid-template-columns:1fr 1fr; gap:10px}
+  .ofield.wide{grid-column:1 / -1}
+  .oform .btn{grid-column:1 / -1; width:100%}
+  .ocard,.otally{padding:20px 17px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; transition-duration:.01ms !important}
@@ -378,6 +413,32 @@ footer a:hover{color:#fff}
     <h2>인원별 추천 조합</h2>
     <div class="tabs" id="tabs"></div>
     <div class="cgrid" id="cgrid"></div>
+  </div>
+</section>
+
+<section class="order" id="order">
+  <div class="wrap">
+    <div class="eyebrow">Order</div>
+    <h2>주문 요청하기</h2>
+    <div class="ocard">
+      <div class="oform">
+        <div class="ofield">
+          <label for="oNick">닉네임</label>
+          <input id="oNick" type="text" maxlength="20" placeholder="엔조" autocomplete="off">
+        </div>
+        <div class="ofield wide">
+          <label for="oItem">메뉴</label>
+          <select id="oItem"></select>
+        </div>
+        <div class="ofield">
+          <label for="oQty">수량</label>
+          <select id="oQty"></select>
+        </div>
+        <button class="btn btn-primary" type="button" id="oSend">주문하기</button>
+      </div>
+      <p class="ohint" id="oHint"></p>
+    </div>
+    <div class="otally" id="otally"></div>
   </div>
 </section>
 
@@ -637,6 +698,90 @@ tabsEl.querySelectorAll(".tab").forEach(function(b){
   b.addEventListener("click", function(){ showAll(b.dataset.n); });
 });
 showAll("6");
+
+/* ---------- 주문 ---------- */
+const ORDER_API = "";   // Apps Script 웹앱 /exec URL
+const SLACK_CHANNEL_URL = "https://ohou-se.slack.com/archives/C0BUNTW3KQ9";
+
+const MENU_ITEMS = DATA.menu.filter(function(m){ return !m.cat; });
+const elNick = document.getElementById("oNick"),
+      elItem = document.getElementById("oItem"),
+      elQty  = document.getElementById("oQty"),
+      elSend = document.getElementById("oSend"),
+      elHint = document.getElementById("oHint"),
+      elTally = document.getElementById("otally");
+
+function priceOf(str){ return parseInt(String(str).replace(/[^0-9]/g, ""), 10) || 0; }
+function comma(n){ return Number(n).toLocaleString("en-US"); }
+
+elItem.innerHTML = MENU_ITEMS.map(function(m){
+  return '<option value="'+m.item+'" data-price="'+priceOf(m.price)+'">'+m.item+' · '+m.price+'원</option>';
+}).join("");
+elQty.innerHTML = [1,2,3,4,5,6,7,8,9,10].map(function(n){
+  return '<option value="'+n+'">'+n+'</option>';
+}).join("");
+
+elHint.innerHTML = ORDER_API
+  ? '주문하면 슬랙 <a href="'+SLACK_CHANNEL_URL+'" target="_blank" rel="noopener">#0903-창고43-연합회식</a> 취합 스레드에 바로 올라갑니다.'
+  : '주문 접수는 준비 중입니다. 잠시 뒤 다시 시도해 주세요.';
+
+// 닉네임은 이 기기에만 기억해둔다
+try {
+  const saved = localStorage.getItem("cg43_nick");
+  if (saved) elNick.value = saved;
+} catch (err) {}
+
+function renderTally(sum){
+  if (!sum || !sum.count){
+    elTally.innerHTML = '<div class="otop"><span class="t">주문 현황</span></div>'
+      + '<p class="oempty">아직 들어온 주문이 없습니다.</p>';
+    return;
+  }
+  const now = new Date();
+  const hh = String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+  const rows = sum.rows.map(function(r){
+    return '<tr><td>'+r.item+' ×'+r.qty+'</td><td>'+comma(r.amount)+'</td></tr>';
+  }).join("");
+  elTally.innerHTML =
+    '<div class="otop"><span class="t">주문 현황</span><span class="u">'+hh+' 기준</span></div>'
+    + '<div class="osum"><span class="a">'+comma(sum.total)+'원</span>'
+    + '<span class="b">주문 '+sum.count+'건 · '+sum.qty+'개</span></div>'
+    + '<table><tbody>'+rows+'</tbody></table>';
+}
+
+function loadTally(){
+  if (!ORDER_API) return renderTally(null);
+  fetch(ORDER_API, { method: "GET" })
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) renderTally(d.summary); })
+    .catch(function(){});
+}
+
+elSend.addEventListener("click", function(){
+  if (!ORDER_API) return showToast("주문 접수는 준비 중입니다");
+  const nick = elNick.value.trim();
+  if (!nick) { elNick.focus(); return showToast("닉네임을 입력해 주세요"); }
+  const opt = elItem.options[elItem.selectedIndex];
+  const payload = {
+    nick: nick,
+    item: opt.value,
+    price: parseInt(opt.dataset.price, 10),
+    qty: parseInt(elQty.value, 10)
+  };
+  try { localStorage.setItem("cg43_nick", nick); } catch (err) {}
+  elSend.disabled = true; elSend.textContent = "보내는 중…";
+  fetch(ORDER_API, { method: "POST", body: JSON.stringify(payload) })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.ok){ showToast("주문을 넣었습니다"); renderTally(d.summary); }
+      else showToast((d && d.error) || "주문 전송에 실패했습니다");
+    })
+    .catch(function(){ showToast("주문 전송에 실패했습니다"); })
+    .finally(function(){ elSend.disabled = false; elSend.textContent = "주문하기"; });
+});
+
+loadTally();
+setInterval(loadTally, 30000);
 
 /* ---------- 메뉴판 ---------- */
 document.getElementById("menucols").innerHTML = (function(){
