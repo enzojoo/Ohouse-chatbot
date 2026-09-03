@@ -334,14 +334,14 @@ details.acc[open]>summary::after{transform:rotate(45deg)}
 .osubmit{margin-top:16px; width:100%}
 .ohint{margin:16px 0 0; font-size:13.5px; line-height:1.65; color:var(--ink2)}
 .ohint a{color:var(--oh-dd); font-weight:700}
-.otally-link{
-  margin-top:14px; display:flex; align-items:center; justify-content:space-between; gap:12px;
-  background:#fff; border:1px solid var(--rule); border-radius:16px; padding:20px 22px;
-  text-decoration:none; color:var(--ink); font-size:16px; font-weight:700; letter-spacing:-.03em;
-  transition:border-color .15s ease;
-}
-.otally-link:hover{border-color:var(--oh)}
-.otally-link b{color:var(--oh-dd); font-size:17px}
+.otally{margin-top:14px; background:#fff; border:1px solid var(--rule); border-radius:18px; padding:24px}
+.otop{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
+.otop .t{font-size:16px; font-weight:800; letter-spacing:-.03em}
+.otop .u{font-size:12px; font-weight:600; color:var(--ink3)}
+.osum{margin:12px 0 0; display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
+.osum .a{font-size:27px; font-weight:800; letter-spacing:-.045em; font-variant-numeric:tabular-nums}
+.osum .b{font-size:13px; color:var(--ink3); font-weight:600}
+.oempty{margin:14px 0 0; font-size:14px; color:var(--ink3)}
 
 footer{background:var(--deep); color:rgba(255,255,255,.62); padding:48px 0; font-size:13.5px; line-height:1.7}
 footer a{color:rgba(255,255,255,.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.3)}
@@ -364,7 +364,7 @@ footer a:hover{color:#fff}
   .ofield.wide{grid-column:1 / -1}
   .oform .btn{grid-column:1 / -1; width:100%}
   .ocard{padding:20px 17px}
-  .otally-link{padding:18px}
+  .otally{padding:20px 17px}
   .orow.pick{grid-template-columns:1fr auto}
   .orow.pick .ofield:nth-child(2){grid-column:1}
   .oadd{grid-column:2}
@@ -475,7 +475,7 @@ footer a:hover{color:#fff}
     <div class="eyebrow">Order</div>
     <h2>주문 요청하기</h2>
     <div class="ocard">
-      <form id="oForm" method="post" action="https://script.google.com/a/macros/bucketplace.net/s/AKfycbxY7EbrxZLy3h3TLxdzFRXNQlQKevoIVpdzuA0BE-vmWPh0duwnyJk0WXZyc1jpRRVZ/exec">
+      <form id="oForm">
         <div class="orow who">
           <div class="ofield">
             <label for="oWho">주문자</label>
@@ -497,14 +497,12 @@ footer a:hover{color:#fff}
 
         <div class="cart" id="oCart"></div>
 
-        <input type="hidden" name="nick" id="oNick">
         <input type="hidden" name="handle" id="oHandle">
-        <input type="hidden" name="items" id="oItems">
         <button class="btn btn-primary osubmit" type="submit" id="oSend">주문하기</button>
       </form>
       <p class="ohint" id="oHint"></p>
     </div>
-    <a class="otally-link" href="https://script.google.com/a/macros/bucketplace.net/s/AKfycbxY7EbrxZLy3h3TLxdzFRXNQlQKevoIVpdzuA0BE-vmWPh0duwnyJk0WXZyc1jpRRVZ/exec"><span>주문 현황 보기</span><b>→</b></a>
+    <div class="otally" id="otally"></div>
   </div>
 </section>
 
@@ -809,14 +807,13 @@ showAll("6");
 /* 배포가 bucketplace.net 도메인 한정이라 fetch(교차 출처)는 CORS로 막힌다.
    그래서 form 을 최상위 이동으로 제출한다 — 구글 세션 쿠키가 실려 사파리에서도 통한다. */
 const SLACK_CHANNEL_URL = "https://ohou-se.slack.com/archives/C0BUFNL2SAF";
+const ORDER_API = "https://changgo43-order.enzojoo.workers.dev";
 const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yoo"},{"n":"Becky","h":"sohee.bae"},{"n":"Better","h":"better.kim"},{"n":"BK","h":"byungkwon.yang"},{"n":"Breeze","h":"sky"},{"n":"Bryan","h":"jeonghyeon.kim"},{"n":"Chai","h":"chai"},{"n":"Charley Hwang","h":"h.hwang"},{"n":"Chloe","h":"chloe.oh"},{"n":"Claire","h":"claire.lee"},{"n":"Dana","h":"dayoon.kang"},{"n":"Della","h":"hyejin.lee"},{"n":"Dragon","h":"ky.han"},{"n":"Ella","h":"sm.lee"},{"n":"Enzo","h":"yb.joo"},{"n":"Goya","h":"ye.choe"},{"n":"Graham","h":"graham"},{"n":"Hayden","h":"hayden.lee"},{"n":"Heather","h":"sh.yoon"},{"n":"Holly","h":"holly.lee"},{"n":"Irwin","h":"js.oh"},{"n":"Jenny","h":"moonj.kim"},{"n":"Jisoo Jeon","h":"jisoo.jeon"},{"n":"John","h":"john"},{"n":"Julie","h":"yw.kim159"},{"n":"Kei","h":"kei.oh"},{"n":"Khan","h":"khan.lee"},{"n":"Kiana","h":"cy.lee"},{"n":"Modo","h":"jh.han"},{"n":"pyoroy","h":"sg.pyo"},{"n":"Raul Hyun","h":"er.hyun"},{"n":"Renee","h":"ea.ryu"},{"n":"Scott","h":"js.lee"},{"n":"Seosu","h":"sy.seo"},{"n":"Terry","h":"hangyul.lee"},{"n":"Winni","h":"minkyu.kim"},{"n":"Wiz","h":"yeji.kim"},{"n":"Wonjae","h":"wonjae.kim"},{"n":"Yeon","h":"sy02"}];
 
 const MENU_ITEMS = DATA.menu.filter(function(m){ return !m.cat; });
 const elWho   = document.getElementById("oWho"),
       elList  = document.getElementById("oList"),
-      elNick  = document.getElementById("oNick"),
       elHandle= document.getElementById("oHandle"),
-      elItems = document.getElementById("oItems"),
       elItem  = document.getElementById("oItem"),
       elQty   = document.getElementById("oQty"),
       elAdd   = document.getElementById("oAdd"),
@@ -852,12 +849,12 @@ function openList(q){
 }
 function closeList(){ elList.hidden = true; elWho.setAttribute("aria-expanded", "false"); hiIndex = -1; }
 function choose(m){
-  elWho.value = m.n; elNick.value = m.n; elHandle.value = m.h;
+  elWho.value = m.n; elHandle.value = m.h;
   try { localStorage.setItem("cg43_who", JSON.stringify(m)); } catch (err) {}
   closeList();
 }
 elWho.addEventListener("focus", function(){ openList(elWho.value); });
-elWho.addEventListener("input", function(){ elNick.value = elWho.value; elHandle.value = ""; openList(elWho.value); });
+elWho.addEventListener("input", function(){ elHandle.value = ""; openList(elWho.value); });
 elWho.addEventListener("keydown", function(e){
   if (elList.hidden || !shown.length) return;
   if (e.key === "ArrowDown" || e.key === "ArrowUp"){
@@ -881,7 +878,7 @@ document.addEventListener("click", function(e){
 });
 try {
   const saved = JSON.parse(localStorage.getItem("cg43_who") || "null");
-  if (saved && saved.n){ elWho.value = saved.n; elNick.value = saved.n; elHandle.value = saved.h || ""; }
+  if (saved && saved.n){ elWho.value = saved.n; elHandle.value = saved.h || ""; }
 } catch (err) {}
 
 /* ----- 장바구니 ----- */
@@ -898,7 +895,6 @@ function renderCart(){
     }).join("")
     + '<div class="sum"><span>합계</span><span class="a">'+comma(total)+'원</span></div>';
   }
-  elItems.value = JSON.stringify(cart);
 }
 elAdd.addEventListener("click", function(){
   const opt = elItem.options[elItem.selectedIndex];
@@ -916,13 +912,63 @@ elCart.addEventListener("click", function(e){
 });
 renderCart();
 
-elHint.innerHTML = '주문하면 슬랙 <a href="'+SLACK_CHANNEL_URL+'" target="_blank" rel="noopener">취합 스레드</a>에 바로 올라갑니다. 회사 구글 계정 로그인이 필요합니다.';
+elHint.innerHTML = '주문하면 슬랙 <a href="'+SLACK_CHANNEL_URL+'" target="_blank" rel="noopener">취합 스레드</a>에 바로 올라갑니다.';
 
+/* ----- 주문 현황 ----- */
+const elTally = document.getElementById("otally");
+function renderTally(sum){
+  if (!sum || !sum.count){
+    elTally.innerHTML = '<div class="otop"><span class="t">주문 현황</span></div>'
+      + '<p class="oempty">아직 들어온 주문이 없습니다.</p>';
+    return;
+  }
+  const d = new Date();
+  const hh = String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  elTally.innerHTML =
+    '<div class="otop"><span class="t">주문 현황</span><span class="u">'+hh+' 기준</span></div>'
+    + '<div class="osum"><span class="a">'+comma(sum.total)+'원</span>'
+    + '<span class="b">주문자 '+sum.people+'명 · '+sum.qty+'개</span></div>'
+    + '<table><tbody>'
+    + sum.rows.map(function(r){
+        return '<tr><td>'+r.item+' ×'+r.qty+'</td><td>'+comma(r.amount)+'</td></tr>';
+      }).join("")
+    + '</tbody></table>';
+}
+function loadTally(){
+  fetch(ORDER_API + "/tally")
+    .then(function(r){ return r.json(); })
+    .then(function(d){ if (d && d.ok) renderTally(d.summary); })
+    .catch(function(){});
+}
+renderTally(null);
+loadTally();
+setInterval(loadTally, 30000);
+
+/* ----- 전송 ----- */
 elForm.addEventListener("submit", function(e){
-  if (!elWho.value.trim()){ e.preventDefault(); elWho.focus(); return showToast("주문자를 선택해 주세요"); }
-  if (!cart.length){ e.preventDefault(); return showToast("메뉴를 담아 주세요"); }
-  elNick.value = elWho.value.trim();
-  elItems.value = JSON.stringify(cart);
+  e.preventDefault();
+  const nick = elWho.value.trim();
+  if (!nick){ elWho.focus(); return showToast("주문자를 선택해 주세요"); }
+  if (!cart.length) return showToast("메뉴를 담아 주세요");
+
+  const btn = document.getElementById("oSend");
+  btn.disabled = true; btn.textContent = "보내는 중…";
+  fetch(ORDER_API + "/order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nick: nick, handle: elHandle.value, items: cart })
+  })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.ok){
+        showToast(nick + "님 주문 " + comma(d.subtotal) + "원 접수했습니다");
+        cart = []; renderCart(); renderTally(d.summary);
+      } else {
+        showToast((d && d.error) || "주문 전송에 실패했습니다");
+      }
+    })
+    .catch(function(){ showToast("네트워크 오류로 전송하지 못했습니다"); })
+    .finally(function(){ btn.disabled = false; btn.textContent = "주문하기"; });
 });
 
 /* ---------- 메뉴판 ---------- */
