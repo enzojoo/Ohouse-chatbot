@@ -24,7 +24,7 @@ body{
 h1,h2,p{margin:0}
 .wrap{max-width:640px; margin:0 auto; padding:26px 18px 60px}
 .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
-.top .eyebrow{font-size:11.5px; font-weight:800; letter-spacing:.18em; color:rgba(255,255,255,.4)}
+.top .eyebrow{font-size:12.5px; font-weight:800; letter-spacing:.04em; color:rgba(255,255,255,.45)}
 .top h1{font-size:24px; font-weight:800; letter-spacing:-.04em}
 .top .rc{margin-left:auto; font-size:12.5px; font-weight:700; color:rgba(255,255,255,.5)}
 
@@ -164,7 +164,7 @@ h1,h2,p{margin:0}
 <div class="wrap">
   <div class="top">
     <div>
-      <div class="eyebrow">O!NIGHT IN CHANGGO 43</div>
+      <div class="eyebrow">O!Night in Changgo 43</div>
       <h1>퀴즈 타임</h1>
     </div>
     <span class="rc" id="rc"></span>
@@ -443,6 +443,7 @@ function collect(){
 let adminHtml="";
 function renderAdmin(q){
   if(!ADMIN_KEY) return;
+  if(rounds !== null && q.totalRounds && rounds.length !== q.totalRounds) rounds = null;
   if(rounds===null){
     rounds=[];
     adminCall({action:"rounds"}, function(d){
@@ -477,18 +478,28 @@ function renderAdmin(q){
           + '<input class="ti" value="'+String(r.title||"").replace(/"/g,"&quot;")+'" placeholder="라운드 이름">'
           + '<span class="st">'+(on?(act.started?"● 진행 중":"○ 준비됨"):"")+' '+w.length+'/'+(q.win||4)+'</span></div>'
           + '<textarea class="qu" placeholder="문제">'+esc(r.question||"")+'</textarea>'
-          + '<input class="an" value="'+String(r.answers||"").replace(/"/g,"&quot;")+'" placeholder="정답 (여러 표기 허용: 아이유 좋은날|좋은날 아이유)">'
+          + '<input class="an" value="'+String(r.answers||"").replace(/"/g,"&quot;")+'" placeholder="정답 · 여러 표기는 | 로 구분">'
+          + '<div class="miss" style="margin-top:7px">여러 표기 <b>아이유 좋은날|좋은날 아이유</b>'
+          +   ' · 일부만 맞아도 인정 <b>*좋은날</b></div>'
           + '<div class="acts"><button data-a="arm">준비</button><button data-a="start" class="go">시작</button>'
           +   '<button data-a="stop">종료</button><button data-a="post">슬랙 재게시</button>'
           +   '<button data-a="clear" class="warn">정답자 초기화</button></div></div>';
       }).join("")
-    + '<div class="acts" style="margin-top:16px"><button id="save" class="go">전체 저장</button>'
+    + '<div class="acts" style="margin-top:16px"><button id="addR">라운드 추가</button>'
+    +   '<button id="delR">마지막 라운드 삭제</button>'
+    +   '<button id="save" class="go">전체 저장</button>'
     +   '<button id="clearAll" class="warn">전체 정답자 초기화</button></div></div>';
   if(h!==adminHtml){ elAdmin.innerHTML=h; adminHtml=h; }
 }
 elAdmin.addEventListener("click", function(e){
   const b=e.target.closest("button"); if(!b) return;
   if(b.id==="save"){ rounds=collect(); adminCall({action:"save",rounds:rounds},function(){ showToast("저장했습니다"); adminHtml=""; }); return; }
+  if(b.id==="addR"){ rounds=collect(); rounds.push({type:"ai",title:(rounds.length+1)+"라운드",question:"",answers:""});
+    adminCall({action:"save",rounds:rounds},function(){ adminHtml=""; showToast("라운드 추가"); }); return; }
+  if(b.id==="delR"){ rounds=collect();
+    if(rounds.length<=1){ showToast("최소 1라운드는 있어야 합니다"); return; }
+    if(!confirm("마지막 라운드를 지울까요?")) return;
+    rounds.pop(); adminCall({action:"save",rounds:rounds},function(){ adminHtml=""; showToast("삭제했습니다"); }); return; }
   if(b.id==="clearAll"){ if(confirm("모든 라운드의 정답자를 지울까요?")) adminCall({action:"clearAll"}); return; }
   if(b.id==="finalize"){ if(confirm("남은 인원을 마지막 조로 확정하고 슬랙에 올릴까요?"))
       adminCall({action:"finalize"}, function(d){ if(d.ok) showToast(d.rest.length+"명 확정"); }); return; }
