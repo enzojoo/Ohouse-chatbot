@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>창고43 회식 · 2026.09.03</title>
-<meta name="description" content="9월 3일 18:30, 창고43 강남점. 스캇님 산하 5개팀 회식.">
-<meta property="og:title" content="창고43 회식 · 2026.09.03 18:30">
-<meta property="og:description" content="회식 성향 테스트하고 오늘의 메뉴 정하기">
+<title>O!Night in Changgo 43</title>
+<meta name="description" content="O!Night in Changgo 43 — 9월 3일 18:30, 창고43 강남점.">
+<meta property="og:title" content="O!Night in Changgo 43">
+<meta property="og:description" content="9월 3일 (수) 18:30 · 창고43 강남점">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
@@ -70,12 +70,8 @@ h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-sp
   animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
 .h-title{
-  margin:24px 0 0; font-size:clamp(38px,9.2vw,74px); font-weight:800;
-  letter-spacing:-.05em; line-height:1.02;
-}
-.h-sub{
-  margin:16px 0 0; font-size:clamp(16px,3.3vw,21px); font-weight:600;
-  letter-spacing:-.025em; color:rgba(8,48,63,.66);
+  margin:24px 0 0; font-size:clamp(38px,9vw,68px); font-weight:800;
+  letter-spacing:-.045em; line-height:1.06;
 }
 .cd{margin:42px 0 0; display:flex; gap:10px; flex-wrap:wrap}
 .cd .u{
@@ -92,6 +88,18 @@ h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-sp
 .cd.live .u{flex:0 1 auto; padding:19px 30px}
 .cd.live .n{font-size:clamp(22px,5.4vw,32px)}
 .h-cta{margin:36px 0 0; display:flex; gap:10px; flex-wrap:wrap}
+
+/* ---------- 티저 ---------- */
+.teaser{padding:0 0 8px}
+.tcard{
+  margin-top:-28px; position:relative; z-index:2;
+  background:var(--deep); color:#fff; border-radius:18px;
+  padding:26px 28px; display:flex; gap:20px; align-items:center;
+  box-shadow:0 8px 28px rgba(8,48,63,.16);
+}
+.temoji{font-size:38px; line-height:1; flex:0 0 auto}
+.ttitle{font-size:clamp(18px,3.5vw,22px); font-weight:800; letter-spacing:-.035em}
+.ttext{margin:9px 0 0; font-size:14.5px; line-height:1.7; color:rgba(255,255,255,.72); max-width:56ch}
 
 /* ---------- 장소 ---------- */
 .vcard{
@@ -250,6 +258,7 @@ footer a:hover{color:#fff}
   section{padding:60px 0}
   .wrap{padding:0 18px}
   .vcard{grid-template-columns:1fr; padding:24px; gap:22px}
+  .tcard{flex-direction:column; align-items:flex-start; gap:14px; padding:24px 22px}
   .qbox{padding:22px 18px; border-radius:16px}
   .mcols{grid-template-columns:1fr; gap:0}
   .cgrid{grid-template-columns:1fr}
@@ -268,8 +277,7 @@ footer a:hover{color:#fff}
 <header class="hero">
   <div class="wrap">
     <div class="h-kick"><i></i>2026. 09. 03 (수) 18:30</div>
-    <h1 class="h-title">창고43 회식</h1>
-    <p class="h-sub">스캇님 산하 5개팀</p>
+    <h1 class="h-title">O!Night<br>in Changgo 43</h1>
     <div class="cd" id="cd"></div>
     <div class="h-cta">
       <a class="btn btn-primary" href="#test">회식 성향 테스트 하기</a>
@@ -277,6 +285,19 @@ footer a:hover{color:#fff}
     </div>
   </div>
 </header>
+
+<section class="teaser">
+  <div class="wrap">
+    <div class="tcard">
+      <div class="temoji">🎁</div>
+      <div>
+        <div class="ttitle">오늘, 먹고 마시는 게 다가 아닙니다</div>
+        <p class="ttext">게임과 상품 증정 행사가 준비되어 있습니다.
+          자세한 건 현장에서 공개할게요. 열심히 참여하시는 분께는 행운이 따를지도 모릅니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="venue" id="venue">
   <div class="wrap">
