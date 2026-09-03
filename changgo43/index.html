@@ -4,103 +4,98 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>창고43 회식 · 2026.09.03</title>
-<meta name="description" content="9월 3일 18:30, 창고43 강남점. 회식 성향 테스트로 오늘의 메뉴를 정해보세요.">
+<meta name="description" content="9월 3일 18:30, 창고43 강남점. 스캇님 산하 5개팀 회식.">
 <meta property="og:title" content="창고43 회식 · 2026.09.03 18:30">
 <meta property="og:description" content="회식 성향 테스트하고 오늘의 메뉴 정하기">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
-  --ink:#17161a; --ink2:#55545c; --ink3:#8b8a93;
-  --paper:#fbfaf8; --card:#fff; --rule:#e8e6e2;
-  --dark:#141210; --ember:#c8562f;
-  --bal:#4a6a6b; --dri:#a8712c; --pro:#93373a; --var:#6b5a8c; --hea:#4f7a45;
-  --wrap:960px;
+  --oh:#35C5F0; --oh-d:#0E9FCE; --oh-dd:#0A7CA4; --oh-soft:#EAF7FD;
+  --ink:#0E2B38; --ink2:#4E6B77; --ink3:#8AA0AA;
+  --paper:#F7FAFB; --card:#fff; --rule:#E3EAEE; --deep:#08303F;
+  --bal:#3F7E80; --dri:#A8712C; --pro:#93373a; --var:#6b5a8c; --hea:#4f7a45;
+  --wrap:1000px;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; background:var(--paper)}
 body{
   margin:0; color:var(--ink); background:var(--paper);
   font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
-  -webkit-font-smoothing:antialiased; letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased; letter-spacing:-.012em;
 }
 .wrap{max-width:var(--wrap); margin:0 auto; padding:0 22px}
-section{padding:88px 0}
-.eyebrow{
-  font-size:12px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-  color:var(--ink3);
+section{padding:80px 0}
+.eyebrow{font-size:12px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--oh-d)}
+h2{margin:10px 0 0; font-size:clamp(27px,5.4vw,38px); font-weight:800; letter-spacing:-.04em; line-height:1.18}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px; border:0; cursor:pointer;
+  font:inherit; font-size:15px; font-weight:700; letter-spacing:-.015em;
+  padding:14px 24px; border-radius:12px; text-decoration:none;
+  transition:transform .12s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
 }
-h2{margin:10px 0 0; font-size:clamp(28px,5.5vw,40px); font-weight:800; letter-spacing:-.035em; line-height:1.15}
-.lede{margin:14px 0 0; font-size:16px; line-height:1.65; color:var(--ink2); max-width:52ch}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--deep); color:#fff}
+.btn-primary:hover{background:#0b4055}
+.btn-ghost{background:rgba(255,255,255,.82); color:var(--oh-dd); box-shadow:0 1px 3px rgba(8,48,63,.1)}
+.btn-ghost:hover{background:#fff}
+.btn-oh{background:var(--oh-d); color:#fff}
+.btn-oh:hover{background:var(--oh-dd)}
+.btn-line{background:#fff; color:var(--ink); border:1px solid var(--rule)}
+.btn-line:hover{border-color:var(--oh)}
 
 /* ---------- HERO ---------- */
 .hero{
-  position:relative; background:var(--dark); color:#fff; padding:0; overflow:hidden;
+  position:relative; overflow:hidden; color:var(--deep);
   min-height:100svh; display:flex; flex-direction:column; justify-content:center;
+  background:linear-gradient(155deg,#8FE0F8 0%,#4CCDF2 38%,#22B4E4 100%);
 }
 .hero::before{
   content:""; position:absolute; inset:0;
   background:
-    radial-gradient(60% 55% at 50% 8%, rgba(200,86,47,.42), transparent 68%),
-    radial-gradient(48% 44% at 82% 92%, rgba(168,113,44,.26), transparent 70%);
+    radial-gradient(52% 46% at 78% 12%, rgba(255,255,255,.55), transparent 70%),
+    radial-gradient(46% 40% at 12% 88%, rgba(255,255,255,.32), transparent 72%);
 }
 .hero::after{
-  content:""; position:absolute; left:0; right:0; bottom:0; height:130px;
+  content:""; position:absolute; left:0; right:0; bottom:0; height:120px;
   background:linear-gradient(to bottom, transparent, var(--paper));
 }
-.hero .wrap{position:relative; z-index:1; width:100%; padding-top:80px; padding-bottom:80px}
+.hero .wrap{position:relative; z-index:1; width:100%; padding-top:76px; padding-bottom:76px}
 .h-kick{
   display:inline-flex; align-items:center; gap:9px;
-  font-size:12.5px; font-weight:700; letter-spacing:.14em;
-  color:#f3d9c9; background:rgba(255,255,255,.09);
-  border:1px solid rgba(255,255,255,.16); border-radius:999px; padding:7px 15px;
+  font-size:12.5px; font-weight:800; letter-spacing:.13em;
+  color:var(--deep); background:rgba(255,255,255,.6);
+  border-radius:999px; padding:8px 16px;
 }
-.h-kick i{width:6px; height:6px; border-radius:50%; background:var(--ember); font-style:normal;
+.h-kick i{width:6px; height:6px; border-radius:50%; background:var(--deep); font-style:normal;
   animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.8)}}
 .h-title{
-  margin:26px 0 0; font-size:clamp(44px,12vw,88px); font-weight:800;
-  letter-spacing:-.05em; line-height:.98;
+  margin:24px 0 0; font-size:clamp(38px,9.2vw,74px); font-weight:800;
+  letter-spacing:-.05em; line-height:1.02;
 }
-.h-title span{display:block; color:#fff}
-.h-title .sub{
-  font-size:clamp(17px,3.6vw,24px); font-weight:600; letter-spacing:-.02em;
-  color:rgba(255,255,255,.62); margin-top:16px;
+.h-sub{
+  margin:16px 0 0; font-size:clamp(16px,3.3vw,21px); font-weight:600;
+  letter-spacing:-.025em; color:rgba(8,48,63,.66);
 }
-.cd{margin:44px 0 0; display:flex; gap:10px; flex-wrap:wrap}
+.cd{margin:42px 0 0; display:flex; gap:10px; flex-wrap:wrap}
 .cd .u{
-  flex:1 1 0; min-width:74px; background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.13); border-radius:14px;
-  padding:16px 8px 13px; text-align:center; backdrop-filter:blur(6px);
+  flex:1 1 0; min-width:74px; background:rgba(255,255,255,.78);
+  border-radius:15px; padding:17px 8px 14px; text-align:center;
+  box-shadow:0 2px 10px rgba(8,48,63,.08);
 }
 .cd .n{
-  font-size:clamp(30px,7.5vw,46px); font-weight:800; letter-spacing:-.045em;
-  font-variant-numeric:tabular-nums; line-height:1;
+  font-size:clamp(30px,7.4vw,46px); font-weight:800; letter-spacing:-.05em;
+  font-variant-numeric:tabular-nums; line-height:1; color:var(--deep);
 }
-.cd .l{margin-top:7px; font-size:11px; font-weight:700; letter-spacing:.13em; color:rgba(255,255,255,.5)}
-.cd.live{justify-content:center}
-.cd.live .u{flex:0 1 auto; padding:18px 26px}
-.cd.live .n{font-size:clamp(22px,5.5vw,32px)}
-.h-cta{margin:38px 0 0; display:flex; gap:10px; flex-wrap:wrap}
-.btn{
-  display:inline-flex; align-items:center; gap:8px; border:0; cursor:pointer;
-  font:inherit; font-size:15px; font-weight:700; letter-spacing:-.01em;
-  padding:14px 24px; border-radius:12px; text-decoration:none;
-  transition:transform .12s ease, background .15s ease, opacity .15s ease;
-}
-.btn:active{transform:translateY(1px)}
-.btn-primary{background:var(--ember); color:#fff}
-.btn-primary:hover{background:#d75f34}
-.btn-ghost{background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2)}
-.btn-ghost:hover{background:rgba(255,255,255,.16)}
-.btn-dark{background:var(--ink); color:#fff}
-.btn-dark:hover{opacity:.86}
-.btn-line{background:#fff; color:var(--ink); border:1px solid var(--rule)}
-.btn-line:hover{border-color:#c9c6c0}
+.cd .l{margin-top:8px; font-size:10.5px; font-weight:800; letter-spacing:.13em; color:var(--oh-dd)}
+.cd.live{justify-content:flex-start}
+.cd.live .u{flex:0 1 auto; padding:19px 30px}
+.cd.live .n{font-size:clamp(22px,5.4vw,32px)}
+.h-cta{margin:36px 0 0; display:flex; gap:10px; flex-wrap:wrap}
 
 /* ---------- 장소 ---------- */
-.venue{background:var(--paper)}
 .vcard{
-  margin-top:30px; background:var(--card); border:1px solid var(--rule);
+  margin-top:28px; background:var(--card); border:1px solid var(--rule);
   border-radius:18px; padding:30px; display:grid; gap:26px;
   grid-template-columns:1.15fr .85fr;
 }
@@ -108,163 +103,159 @@ h2{margin:10px 0 0; font-size:clamp(28px,5.5vw,40px); font-weight:800; letter-sp
 .vaddr{margin:12px 0 0; font-size:15px; line-height:1.65; color:var(--ink2)}
 .vmeta{margin-top:22px; border-top:1px solid var(--rule); padding-top:18px; display:grid; gap:12px}
 .vrow{display:flex; gap:14px; font-size:14.5px; align-items:baseline}
-.vrow b{flex:0 0 62px; color:var(--ink3); font-weight:700; font-size:12.5px; letter-spacing:.06em}
-.vrow span{color:var(--ink); font-weight:500}
+.vrow b{flex:0 0 56px; color:var(--ink3); font-weight:800; font-size:12px; letter-spacing:.06em}
+.vrow span{color:var(--ink); font-weight:600}
 .vact{display:flex; flex-direction:column; gap:9px; justify-content:center}
-.vact .btn{justify-content:center; width:100%}
+.vact .btn{width:100%}
 .toast{
   position:fixed; left:50%; bottom:28px; transform:translate(-50%,14px);
-  background:var(--ink); color:#fff; font-size:14px; font-weight:600;
+  background:var(--deep); color:#fff; font-size:14px; font-weight:600;
   padding:12px 20px; border-radius:11px; opacity:0; pointer-events:none;
   transition:opacity .2s ease, transform .2s ease; z-index:60;
 }
 .toast.on{opacity:1; transform:translate(-50%,0)}
 
 /* ---------- 테스트 ---------- */
-.quiz{background:var(--dark); color:#fff}
-.quiz .eyebrow{color:rgba(255,255,255,.42)}
-.quiz .lede{color:rgba(255,255,255,.66)}
+.quiz{background:#fff}
 .qbox{
-  margin-top:34px; background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.12); border-radius:20px; padding:32px;
+  margin-top:30px; background:var(--paper);
+  border:1px solid var(--rule); border-radius:20px; padding:32px;
 }
-.qintro{text-align:center; padding:14px 0}
-.qintro .big{font-size:clamp(22px,4.6vw,30px); font-weight:800; letter-spacing:-.035em; line-height:1.35}
-.qintro p{margin:16px auto 26px; font-size:15px; line-height:1.7; color:rgba(255,255,255,.6); max-width:40ch}
-.prog{display:flex; align-items:center; gap:12px; margin-bottom:26px}
-.bar{flex:1; height:4px; background:rgba(255,255,255,.13); border-radius:99px; overflow:hidden}
-.bar i{display:block; height:100%; background:var(--ember); border-radius:99px; transition:width .35s cubic-bezier(.4,0,.2,1)}
-.pnum{font-size:12.5px; font-weight:700; color:rgba(255,255,255,.5); font-variant-numeric:tabular-nums}
-.qtext{font-size:clamp(19px,3.8vw,25px); font-weight:700; letter-spacing:-.03em; line-height:1.45; margin:0 0 22px}
+.qintro{text-align:center; padding:12px 0}
+.qintro .big{font-size:clamp(21px,4.4vw,29px); font-weight:800; letter-spacing:-.04em; line-height:1.35}
+.qintro p{margin:14px 0 26px; font-size:15px; line-height:1.7; color:var(--ink2)}
+.prog{display:flex; align-items:center; gap:12px; margin-bottom:24px}
+.bar{flex:1; height:4px; background:#DFE8EC; border-radius:99px; overflow:hidden}
+.bar i{display:block; height:100%; background:var(--oh); border-radius:99px; transition:width .35s cubic-bezier(.4,0,.2,1)}
+.pnum{font-size:12.5px; font-weight:800; color:var(--ink3); font-variant-numeric:tabular-nums}
+.qtext{font-size:clamp(19px,3.7vw,24px); font-weight:700; letter-spacing:-.035em; line-height:1.45; margin:0 0 20px}
 .opts{display:grid; gap:9px}
 .opt{
   display:flex; align-items:flex-start; gap:13px; width:100%; text-align:left;
-  background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.12);
-  border-radius:13px; padding:16px 17px; cursor:pointer; color:#fff;
-  font:inherit; font-size:15px; line-height:1.5; letter-spacing:-.015em;
-  transition:background .14s ease, border-color .14s ease, transform .1s ease;
+  background:#fff; border:1px solid var(--rule); border-radius:13px;
+  padding:16px 17px; cursor:pointer; color:var(--ink);
+  font:inherit; font-size:15px; line-height:1.5; letter-spacing:-.018em;
+  transition:border-color .14s ease, background .14s ease, transform .1s ease;
 }
-.opt:hover{background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.28)}
+.opt:hover{border-color:var(--oh); background:var(--oh-soft)}
 .opt:active{transform:scale(.99)}
 .opt em{
   flex:0 0 24px; height:24px; border-radius:7px; font-style:normal;
-  background:rgba(255,255,255,.12); display:grid; place-items:center;
-  font-size:12px; font-weight:800; color:rgba(255,255,255,.75); margin-top:1px;
+  background:var(--oh-soft); display:grid; place-items:center;
+  font-size:12px; font-weight:800; color:var(--oh-dd); margin-top:1px;
 }
 .qback{
-  margin-top:20px; background:none; border:0; color:rgba(255,255,255,.45);
-  font:inherit; font-size:13.5px; font-weight:600; cursor:pointer; padding:6px 0;
+  margin-top:18px; background:none; border:0; color:var(--ink3);
+  font:inherit; font-size:13.5px; font-weight:700; cursor:pointer; padding:6px 0;
 }
-.qback:hover{color:rgba(255,255,255,.8)}
-
-/* 분석 연출 */
+.qback:hover{color:var(--ink)}
 .analyze{text-align:center; padding:44px 0}
 .spinner{
-  width:40px; height:40px; margin:0 auto 26px; border-radius:50%;
-  border:3px solid rgba(255,255,255,.14); border-top-color:var(--ember);
-  animation:spin .8s linear infinite;
+  width:38px; height:38px; margin:0 auto 24px; border-radius:50%;
+  border:3px solid #DFE8EC; border-top-color:var(--oh); animation:spin .8s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-.aline{font-size:16px; line-height:1.7; color:rgba(255,255,255,.72); min-height:2.4em}
-.aline b{color:#fff; font-weight:700}
+.aline{font-size:16px; line-height:1.7; color:var(--ink2); min-height:2.4em}
+.aline b{color:var(--ink); font-weight:800}
 .fade{animation:fadeUp .45s ease both}
 @keyframes fadeUp{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
 
-/* 결과 */
 .result{text-align:center}
-.remoji{font-size:58px; line-height:1}
-.rname{
-  margin:14px 0 0; font-size:clamp(30px,6.5vw,44px); font-weight:800; letter-spacing:-.04em;
-}
-.rcatch{margin:16px 0 0; font-size:clamp(16px,3.2vw,19px); font-weight:600; color:var(--accent); letter-spacing:-.02em}
-.rdesc{
-  margin:20px auto 0; font-size:15.5px; line-height:1.78; color:rgba(255,255,255,.68);
-  max-width:44ch; text-align:left;
-}
-.rdesc .punch{display:block; margin-top:14px; color:#fff; font-weight:700; font-size:17px}
-.rstrat{
-  margin:30px auto 0; max-width:44ch; border-top:1px solid rgba(255,255,255,.14);
-  padding-top:24px;
-}
-.rstrat .t{font-size:12px; font-weight:700; letter-spacing:.16em; color:rgba(255,255,255,.42)}
-.rstrat .q{margin:10px 0 0; font-size:17px; font-weight:700; letter-spacing:-.025em; line-height:1.5}
+.remoji{font-size:56px; line-height:1}
+.rname{margin:14px 0 0; font-size:clamp(29px,6.2vw,42px); font-weight:800; letter-spacing:-.045em}
+.rcatch{margin:14px 0 0; font-size:clamp(16px,3.1vw,19px); font-weight:700; color:var(--accent); letter-spacing:-.025em}
+.rdesc{margin:20px auto 0; font-size:15.5px; line-height:1.78; color:var(--ink2); max-width:46ch; text-align:left}
+.rdesc .punch{display:block; margin-top:14px; color:var(--ink); font-weight:800; font-size:17px}
+.rstrat{margin:28px auto 0; max-width:46ch; border-top:1px solid var(--rule); padding-top:22px}
+.rstrat .t{font-size:11.5px; font-weight:800; letter-spacing:.16em; color:var(--ink3)}
+.rstrat .q{margin:10px 0 0; font-size:17px; font-weight:700; letter-spacing:-.03em; line-height:1.5}
 
 /* 인원 선택 */
-.seatpick{margin:32px 0 0}
-.seatpick .t{font-size:13px; font-weight:700; color:rgba(255,255,255,.5); margin-bottom:12px}
+.seatpick{margin:30px 0 0}
+.seatpick .t{font-size:13px; font-weight:700; color:var(--ink3); margin-bottom:12px}
 .seats{display:flex; gap:8px; justify-content:center; flex-wrap:wrap}
 .seat{
-  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.16);
-  color:#fff; font:inherit; font-size:15px; font-weight:700; letter-spacing:-.02em;
+  background:#fff; border:1px solid var(--rule); color:var(--ink);
+  font:inherit; font-size:15px; font-weight:700; letter-spacing:-.025em;
   padding:12px 22px; border-radius:11px; cursor:pointer;
-  transition:background .14s ease, border-color .14s ease;
+  transition:background .14s ease, border-color .14s ease, color .14s ease;
 }
-.seat:hover{background:rgba(255,255,255,.13)}
-.seat.on{background:var(--accent); border-color:var(--accent); color:#fff}
+.seat:hover{border-color:var(--oh)}
+.seat.on{background:var(--accent,var(--oh-d)); border-color:var(--accent,var(--oh-d)); color:#fff}
 
 /* 조합 카드 */
 .combo{
-  margin:26px 0 0; background:#fff; color:var(--ink); border-radius:18px;
-  border-top:4px solid var(--accent); padding:26px 24px 22px; text-align:left;
+  background:#fff; color:var(--ink); border:1px solid var(--rule);
+  border-top:4px solid var(--accent); border-radius:16px;
+  padding:24px 22px 20px; text-align:left;
 }
+.result .combo{margin-top:24px}
 .chead{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
-.chead .k{font-size:12px; font-weight:800; color:var(--accent); letter-spacing:.04em}
+.chead .k{font-size:12.5px; font-weight:800; color:var(--accent); letter-spacing:.02em}
 .ctot{margin:8px 0 0; display:flex; align-items:baseline; gap:9px; flex-wrap:wrap}
-.ctot .a{font-size:32px; font-weight:800; letter-spacing:-.04em; font-variant-numeric:tabular-nums}
-.ctot .b{font-size:13.5px; color:var(--ink3); font-weight:600}
-table{width:100%; margin-top:18px; border-collapse:collapse; font-size:14.5px}
+.ctot .a{font-size:29px; font-weight:800; letter-spacing:-.045em; font-variant-numeric:tabular-nums}
+.ctot .b{font-size:13px; color:var(--ink3); font-weight:600}
+table{width:100%; margin-top:16px; border-collapse:collapse; font-size:14.5px}
 tbody{border-top:1px solid var(--rule)}
-td{padding:9px 0; border-bottom:1px solid var(--rule)}
+td{padding:8px 0; border-bottom:1px solid var(--rule)}
 td+td{text-align:right; color:var(--ink2); font-size:13.5px; font-variant-numeric:tabular-nums; white-space:nowrap; padding-left:10px}
-tr.drink td{color:var(--ink3); border-bottom:0; padding-top:12px}
-.cnote{
-  margin:16px 0 0; font-size:13.5px; line-height:1.65; color:var(--ink2);
-  background:var(--paper); border-radius:11px; padding:14px 15px;
+tr.drink td{color:var(--ink3); border-bottom:0; padding-top:11px}
+.cnote{margin:15px 0 0; font-size:13.5px; line-height:1.65; color:var(--ink2); background:var(--paper); border-radius:11px; padding:13px 14px}
+.ragain{margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+
+/* ---------- 전체 조합 ---------- */
+.allc{background:var(--paper)}
+.tabs{
+  margin-top:24px; display:flex; gap:8px; flex-wrap:wrap;
+  position:sticky; top:0; z-index:4; padding:12px 0;
+  background:linear-gradient(to bottom,var(--paper) 72%,rgba(247,250,251,0));
 }
-.ragain{margin-top:26px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+.tab{
+  background:#fff; border:1px solid var(--rule); color:var(--ink2);
+  font:inherit; font-size:15px; font-weight:700; letter-spacing:-.025em;
+  padding:11px 22px; border-radius:11px; cursor:pointer;
+  transition:background .14s ease, border-color .14s ease, color .14s ease;
+}
+.tab:hover{border-color:var(--oh)}
+.tab.on{background:var(--deep); border-color:var(--deep); color:#fff}
+.cgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
 
 /* ---------- 메뉴판 ---------- */
-.menu{background:var(--paper)}
 details.acc{
-  margin-top:26px; background:var(--card); border:1px solid var(--rule);
+  margin-top:24px; background:var(--card); border:1px solid var(--rule);
   border-radius:16px; overflow:hidden;
 }
 details.acc>summary{
   list-style:none; cursor:pointer; padding:22px 24px; display:flex;
   align-items:center; justify-content:space-between; gap:14px;
-  font-size:17px; font-weight:700; letter-spacing:-.025em;
+  font-size:17px; font-weight:700; letter-spacing:-.03em;
 }
 details.acc>summary::-webkit-details-marker{display:none}
-details.acc>summary::after{
-  content:"+"; font-size:22px; font-weight:400; color:var(--ink3); line-height:1;
-  transition:transform .2s ease;
-}
+details.acc>summary::after{content:"+"; font-size:22px; font-weight:400; color:var(--ink3); line-height:1; transition:transform .2s ease}
 details.acc[open]>summary::after{transform:rotate(45deg)}
 .accbody{padding:0 24px 24px}
 .mcols{display:grid; grid-template-columns:1fr 1fr; gap:0 34px}
-.mcat{
-  font-size:11px; font-weight:800; letter-spacing:.1em; color:var(--ink3);
-  padding:20px 0 7px; border-bottom:1px solid var(--rule);
-}
+.mcat{font-size:11px; font-weight:800; letter-spacing:.1em; color:var(--ink3); padding:20px 0 7px; border-bottom:1px solid var(--rule)}
 .mcols>div>.mcat:first-child{padding-top:0}
 .mrow{display:flex; gap:10px; font-size:14.5px; padding:9px 0; border-bottom:1px solid var(--rule)}
 .mrow span:first-child{flex:1}
 .mrow span:last-child{color:var(--ink2); font-variant-numeric:tabular-nums; white-space:nowrap}
 
-/* ---------- footer ---------- */
-footer{background:var(--dark); color:rgba(255,255,255,.5); padding:52px 0; font-size:13.5px; line-height:1.7}
-footer a{color:rgba(255,255,255,.8); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.28)}
+footer{background:var(--deep); color:rgba(255,255,255,.62); padding:48px 0; font-size:13.5px; line-height:1.7}
+footer a{color:rgba(255,255,255,.9); text-decoration:none; border-bottom:1px solid rgba(255,255,255,.3)}
 footer a:hover{color:#fff}
 .flinks{margin-top:16px; display:flex; gap:18px; flex-wrap:wrap}
 
-@media (max-width:720px){
-  section{padding:64px 0}
+@media (max-width:760px){
+  section{padding:60px 0}
   .wrap{padding:0 18px}
   .vcard{grid-template-columns:1fr; padding:24px; gap:22px}
-  .qbox{padding:24px 20px; border-radius:16px}
+  .qbox{padding:22px 18px; border-radius:16px}
   .mcols{grid-template-columns:1fr; gap:0}
+  .cgrid{grid-template-columns:1fr}
   .cd .u{min-width:0; padding:14px 4px 11px}
-  .combo{padding:22px 18px 18px}
+  .combo{padding:20px 17px 17px}
+  .tab{flex:1 1 auto; padding:11px 8px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; transition-duration:.01ms !important}
@@ -277,11 +268,8 @@ footer a:hover{color:#fff}
 <header class="hero">
   <div class="wrap">
     <div class="h-kick"><i></i>2026. 09. 03 (수) 18:30</div>
-    <h1 class="h-title">
-      <span>창고43</span>
-      <span>회식</span>
-      <span class="sub">강남점 · 대륭강남타워 지하 1층</span>
-    </h1>
+    <h1 class="h-title">창고43 회식</h1>
+    <p class="h-sub">스캇님 산하 5개팀</p>
     <div class="cd" id="cd"></div>
     <div class="h-cta">
       <a class="btn btn-primary" href="#test">회식 성향 테스트 하기</a>
@@ -294,7 +282,6 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="eyebrow">Venue</div>
     <h2>오시는 길</h2>
-    <p class="lede">강남역 인근입니다. 지하 1층이라 건물 안으로 들어가서 내려오셔야 합니다.</p>
     <div class="vcard">
       <div>
         <div class="vname">창고43 강남점</div>
@@ -302,11 +289,10 @@ footer a:hover{color:#fff}
         <div class="vmeta">
           <div class="vrow"><b>일시</b><span>2026년 9월 3일 (수) 18:30</span></div>
           <div class="vrow"><b>건물</b><span>대륭강남타워 B1</span></div>
-          <div class="vrow"><b>예산</b><span>인당 10만원</span></div>
         </div>
       </div>
       <div class="vact">
-        <a class="btn btn-dark" target="_blank" rel="noopener"
+        <a class="btn btn-oh" target="_blank" rel="noopener"
            href="https://map.naver.com/p/search/%EC%B0%BD%EA%B3%A043%20%EA%B0%95%EB%82%A8%EC%A0%90">네이버 지도에서 열기</a>
         <a class="btn btn-line" target="_blank" rel="noopener"
            href="https://map.kakao.com/?q=%EC%B0%BD%EA%B3%A043%20%EA%B0%95%EB%82%A8%EC%A0%90">카카오맵에서 열기</a>
@@ -320,7 +306,6 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="eyebrow">Test</div>
     <h2>회식 성향 테스트</h2>
-    <p class="lede">다섯 문항이면 끝납니다. 음식 얘기는 한 마디도 안 나오는데, 이상하게 메뉴가 정해집니다.</p>
     <div class="qbox" id="qbox"></div>
   </div>
 </section>
@@ -329,11 +314,19 @@ footer a:hover{color:#fff}
   <div class="wrap">
     <div class="eyebrow">Menu</div>
     <h2>전체 메뉴판</h2>
-    <p class="lede">추천 조합 말고 자유롭게 시키셔도 됩니다. 원본 메뉴판 가격입니다.</p>
     <details class="acc">
       <summary>창고43 메뉴판 펼쳐보기</summary>
       <div class="accbody"><div class="mcols" id="menucols"></div></div>
     </details>
+  </div>
+</section>
+
+<section class="allc" id="combos">
+  <div class="wrap">
+    <div class="eyebrow">All</div>
+    <h2>인원별 추천 조합</h2>
+    <div class="tabs" id="tabs"></div>
+    <div class="cgrid" id="cgrid"></div>
   </div>
 </section>
 
@@ -361,8 +354,7 @@ function tick(){
   const diff = TARGET - Date.now();
   if (diff <= 0){
     cd.className = "cd live";
-    cd.innerHTML = '<div class="u"><div class="n">회식 진행 중</div>'
-      + '<div class="l">CHEERS</div></div>';
+    cd.innerHTML = '<div class="u"><div class="n">회식 진행 중</div><div class="l">CHEERS</div></div>';
     return;
   }
   const s = Math.floor(diff/1000);
@@ -391,7 +383,7 @@ document.getElementById("copyAddr").addEventListener("click", function(){
   );
 });
 
-/* ---------- 테스트 ---------- */
+/* ---------- 유형 ---------- */
 const TYPES = {
   BALANCE:{emoji:"⚖️", name:"밸런스형", color:"var(--bal)",
     catch:"적당히가 가장 어렵다는 걸 아는 사람.",
@@ -414,6 +406,7 @@ const TYPES = {
     desc:"내 페이스를 알고, 무리하지 않으면서 만족을 챙기는 타입입니다. 많이 먹었다는 만족보다 잘 먹었다는 만족을 추구합니다.",
     punch:"", strat:"맛있게 먹고, 내일도 멀쩡하게."}
 };
+const ORDER = ["BALANCE","DRINK","PROTEIN","VARIETY","HEALTH"];
 
 const QUESTIONS = [
   {q:"예상치 못하게 하루가 통째로 비었습니다. 당신은?", o:[
@@ -450,6 +443,20 @@ const QUESTIONS = [
 const WEIGHT = [1,1,1,1,2];
 const LETTER = ["A","B","C","D","E"];
 
+/* ---------- 조합 카드 ---------- */
+function comboCard(seat, type, extraClass){
+  const c = DATA.combos[seat][type], t = TYPES[type];
+  const rows = c.rows.map(function(r){
+    return '<tr'+(r.drink ? ' class="drink"' : '')+'><td>'+r.item+'</td><td>'+r.price+'</td></tr>';
+  }).join("");
+  return '<div class="combo '+(extraClass||"")+'" style="--accent:'+t.color+'">'
+    + '<div class="chead"><span class="k">'+t.emoji+' '+t.name+' · '+seat+'명</span></div>'
+    + '<div class="ctot"><span class="a">'+c.total+'</span><span class="b">'+c.each+'</span></div>'
+    + '<table><tbody>'+rows+'</tbody></table>'
+    + '<p class="cnote">'+c.note+'</p></div>';
+}
+
+/* ---------- 테스트 ---------- */
 const qbox = document.getElementById("qbox");
 let answers = [], step = -1, resultType = null, seats = null;
 
@@ -460,8 +467,8 @@ function render(){
 function renderIntro(){
   qbox.innerHTML =
     '<div class="qintro fade">'
-    + '<div class="big">오늘 당신은<br>어떤 회식 유형일까요?</div>'
-    + '<p>5문항, 30초. 결과에 따라 인원수별 메뉴 조합을 추천해 드립니다.</p>'
+    + '<div class="big">오늘 당신은 어떤 회식 유형일까요?</div>'
+    + '<p>5문항 30초면 끝나고, 결과에 따라 인원수별 메뉴 조합을 추천해 드립니다.</p>'
     + '<button class="btn btn-primary" id="startBtn" type="button">테스트 시작하기</button>'
     + '</div>';
   document.getElementById("startBtn").addEventListener("click", function(){
@@ -492,7 +499,6 @@ function renderQ(){
   const back = document.getElementById("backBtn");
   if (back) back.addEventListener("click", function(){ step--; render(); });
 }
-
 function computeResult(){
   const scores = {BALANCE:0, DRINK:0, PROTEIN:0, VARIETY:0, HEALTH:0};
   answers.forEach(function(t, i){ scores[t] += WEIGHT[i]; });
@@ -504,11 +510,9 @@ function computeResult(){
   }
   return tied[0];
 }
-
 function analyze(){
   resultType = computeResult();
-  qbox.innerHTML = '<div class="analyze"><div class="spinner"></div>'
-    + '<div class="aline" id="aline">분석 중...</div></div>';
+  qbox.innerHTML = '<div class="analyze"><div class="spinner"></div><div class="aline" id="aline">분석 중...</div></div>';
   const el = document.getElementById("aline");
   setTimeout(function(){
     el.classList.add("fade");
@@ -520,7 +524,6 @@ function analyze(){
   }, 3000);
   setTimeout(renderResult, 4200);
 }
-
 function renderResult(){
   const t = TYPES[resultType];
   qbox.style.setProperty("--accent", t.color);
@@ -529,22 +532,15 @@ function renderResult(){
     + '<div class="remoji">'+t.emoji+'</div>'
     + '<div class="rname">'+t.name+'</div>'
     + '<div class="rcatch">'+t.catch+'</div>'
-    + '<p class="rdesc">'+t.desc
-    +   (t.punch ? '<b class="punch">'+t.punch+'</b>' : '')
-    + '</p>'
-    + '<div class="rstrat"><div class="t">오늘의 메뉴 전략</div>'
-    +   '<p class="q">'+t.strat+'</p></div>'
-    + '<div class="seatpick"><div class="t">오늘 몇 명이 모이나요?</div>'
-    +   '<div class="seats" id="seats">'
-    +     ["3","4","5","6"].map(function(n){
-            return '<button class="seat" type="button" data-n="'+n+'">'+n+'명</button>';
-          }).join("")
-    +   '</div></div>'
-    + '<div id="comboSlot"></div>'
-    + '<div class="ragain">'
-    +   '<button class="btn btn-ghost" type="button" id="againBtn">다시 테스트하기</button>'
-    + '</div></div>';
-
+    + '<p class="rdesc">'+t.desc + (t.punch ? '<b class="punch">'+t.punch+'</b>' : '') + '</p>'
+    + '<div class="rstrat"><div class="t">오늘의 메뉴 전략</div><p class="q">'+t.strat+'</p></div>'
+    + '<div class="seatpick"><div class="t">오늘 몇 명이 모이나요?</div><div class="seats" id="seats">'
+    +   ["3","4","5","6"].map(function(n){
+          return '<button class="seat" type="button" data-n="'+n+'">'+n+'명</button>';
+        }).join("")
+    + '</div></div><div id="comboSlot"></div>'
+    + '<div class="ragain"><button class="btn btn-line" type="button" id="againBtn">다시 테스트하기</button></div>'
+    + '</div>';
   document.querySelectorAll(".seat").forEach(function(b){
     b.addEventListener("click", function(){ pickSeat(b.dataset.n); });
   });
@@ -555,30 +551,31 @@ function renderResult(){
   });
   if (seats) pickSeat(seats);
 }
-
 function pickSeat(n){
   seats = n;
   document.querySelectorAll(".seat").forEach(function(b){
     b.classList.toggle("on", b.dataset.n === n);
   });
-  const c = DATA.combos[n][resultType];
-  const t = TYPES[resultType];
-  let rows = c.rows.map(function(r){
-    return '<tr'+(r.drink ? ' class="drink"' : '')+'><td>'+r.item+'</td><td>'+r.price+'</td></tr>';
-  }).join("");
-  document.getElementById("comboSlot").innerHTML =
-    '<div class="combo fade">'
-    + '<div class="chead"><span class="k">'+t.emoji+' '+t.name+' · '+n+'명</span></div>'
-    + '<div class="ctot"><span class="a">'+c.total+'</span><span class="b">'+c.each+'</span></div>'
-    + '<table><tbody>'+rows+'</tbody></table>'
-    + '<p class="cnote">'+c.note+'</p>'
-    + '</div>';
+  document.getElementById("comboSlot").innerHTML = comboCard(n, resultType, "fade");
 }
 render();
 
+/* ---------- 인원별 전체 조합 ---------- */
+const tabsEl = document.getElementById("tabs"), gridEl = document.getElementById("cgrid");
+tabsEl.innerHTML = ["3","4","5","6"].map(function(n){
+  return '<button class="tab" type="button" data-n="'+n+'">'+n+'명</button>';
+}).join("");
+function showAll(n){
+  tabsEl.querySelectorAll(".tab").forEach(function(b){ b.classList.toggle("on", b.dataset.n === n); });
+  gridEl.innerHTML = ORDER.map(function(t){ return comboCard(n, t); }).join("");
+}
+tabsEl.querySelectorAll(".tab").forEach(function(b){
+  b.addEventListener("click", function(){ showAll(b.dataset.n); });
+});
+showAll("6");
+
 /* ---------- 메뉴판 ---------- */
 document.getElementById("menucols").innerHTML = (function(){
-  // 카테고리 경계 중 좌우가 가장 고르게 갈리는 지점을 고른다
   const n = DATA.menu.length;
   let cut = n, best = Infinity;
   DATA.menu.forEach(function(m, i){
