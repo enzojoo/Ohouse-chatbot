@@ -192,7 +192,7 @@ h1,h2,p{margin:0}
 const API = "https://changgo43-order.enzojoo.workers.dev";
 const MEMBERS = [{"n":"Andy Alikov","h":"alikov.andrei"},{"n":"Becca","h":"bh.yoo"},{"n":"Becky","h":"sohee.bae"},{"n":"Better","h":"better.kim"},{"n":"BK","h":"byungkwon.yang"},{"n":"Breeze","h":"sky"},{"n":"Bryan","h":"jeonghyeon.kim"},{"n":"Chai","h":"chai"},{"n":"Charley Hwang","h":"h.hwang"},{"n":"Chloe","h":"chloe.oh"},{"n":"Claire","h":"claire.lee"},{"n":"Dana","h":"dayoon.kang"},{"n":"Della","h":"hyejin.lee"},{"n":"Dragon","h":"ky.han"},{"n":"Ella","h":"sm.lee"},{"n":"Enzo","h":"yb.joo"},{"n":"Goya","h":"ye.choe"},{"n":"Graham","h":"graham"},{"n":"Hayden","h":"hayden.lee"},{"n":"Heather","h":"sh.yoon"},{"n":"Holly","h":"holly.lee"},{"n":"Irwin","h":"js.oh"},{"n":"Jenny","h":"moonj.kim"},{"n":"Jisoo Jeon","h":"jisoo.jeon"},{"n":"John","h":"john"},{"n":"Julie","h":"yw.kim159"},{"n":"Kei","h":"kei.oh"},{"n":"Khan","h":"khan.lee"},{"n":"Kiana","h":"cy.lee"},{"n":"Modo","h":"jh.han"},{"n":"pyoroy","h":"sg.pyo"},{"n":"Raul Hyun","h":"er.hyun"},{"n":"Renee","h":"ea.ryu"},{"n":"Scott","h":"js.lee"},{"n":"Seosu","h":"sy.seo"},{"n":"Terry","h":"hangyul.lee"},{"n":"Winni","h":"minkyu.kim"},{"n":"Wiz","h":"yeji.kim"},{"n":"Wonjae","h":"wonjae.kim"},{"n":"Yeon","h":"sy02"}];
 const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
-const QTYPE = { ai:"AI 활용능력", title:"노래 제목 맞히기", lyrics:"가사 맞히기" };
+const QTYPE = { ai:"AI 활용능력", title:"노래 제목 맞히기", lyrics:"가사 맞히기", observe:"관찰력 게임" };
 
 const elWhoBox = document.getElementById("whoBox"),
       elList = document.getElementById("list"),
@@ -473,7 +473,7 @@ function renderAdmin(q){
         const w=(q.groups&&q.groups[i])||[];
         const on=act&&act.i===i;
         return '<div class="qr" data-i="'+i+'"><div class="l1"><span class="idx">R'+(i+1)+'</span>'
-          + '<select class="ty">'+['ai','title','lyrics'].map(function(t){
+          + '<select class="ty">'+['ai','title','lyrics','observe'].map(function(t){
               return '<option value="'+t+'"'+(r.type===t?' selected':'')+'>'+QTYPE[t]+'</option>'; }).join("")+'</select>'
           + '<input class="ti" value="'+String(r.title||"").replace(/"/g,"&quot;")+'" placeholder="라운드 이름">'
           + '<span class="st">'+(on?(act.started?"● 진행 중":"○ 준비됨"):"")+' '+w.length+'/'+(q.win||4)+'</span></div>'
@@ -522,12 +522,20 @@ function load(){
     .then(function(d){
       if(!d||!d.ok) return;
       lastQ=d.quiz; render(d.quiz); renderAdmin(d.quiz);
-      next(d.quiz.active ? 1200 : 12000);
+      next(pollMs(d.quiz));
     })
     .catch(function(){ next(4000); });
 }
+/* 화면을 보고 있을 때는 빠르게, 주머니 속(백그라운드)일 때는 느리게 돈다.
+   라운드가 걸리면 1.2초로 당겨서 문제가 거의 동시에 뜨게 한다. */
+function pollMs(q){
+  if (document.hidden) return 30000;
+  return (q && q.active) ? 1200 : 4000;
+}
 function next(ms){ clearTimeout(timer); timer=setTimeout(load, ms); }
 document.addEventListener("visibilitychange", function(){ if(!document.hidden) load(); });
+window.addEventListener("focus", load);
+window.addEventListener("pageshow", load);
 load();
 </script>
 </body>
