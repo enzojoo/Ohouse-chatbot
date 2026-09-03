@@ -928,6 +928,7 @@ function openList(q){
 function closeList(){ elList.hidden = true; elWho.setAttribute("aria-expanded", "false"); hiIndex = -1; }
 function choose(m){
   elWho.value = m.n; elHandle.value = m.h;
+  setTimeout(function(){ if (typeof refreshMyList === "function") refreshMyList(); }, 0);
   try { localStorage.setItem("cg43_who", JSON.stringify(m)); } catch (err) {}
   closeList();
 }
@@ -1029,9 +1030,6 @@ setInterval(loadTally, 30000);
    · 총무: 주소 끝에 #admin=<키> 를 붙이면 전체 주문을 취소할 수 있다 */
 const myEl = document.getElementById("myOrders");
 const ADMIN_KEY = (location.hash.match(/admin=([A-Za-z0-9]+)/) || [])[1] || "";
-let myTickets = [];
-try { myTickets = JSON.parse(localStorage.getItem("cg43_tickets") || "[]"); } catch (err) {}
-function saveTickets(){ try { localStorage.setItem("cg43_tickets", JSON.stringify(myTickets)); } catch (err) {} }
 
 function lineHtml(t, showWho){
   const label = t.items.map(function(i){ return i.item+' ×'+i.qty; }).join(", ");
@@ -1041,11 +1039,28 @@ function lineHtml(t, showWho){
     + '<span class="am">'+comma(t.subtotal)+'원</span>'
     + '<button class="cancel" type="button">취소</button></div>';
 }
-function renderMine(){
+function box(title, rows){
+  myEl.innerHTML = '<div class="otally">'
+    + '<div class="mytitle" style="margin-top:0;padding-top:0;border:0">'+title+'</div>'
+    + (rows || '<p class="oempty">아직 넣은 주문이 없습니다.</p>') + '</div>';
+}
+
+/* 주문자 이름으로 본인 주문을 불러온다 (기기가 바뀌어도 이름만 고르면 보인다) */
+function loadMine(){
   if (ADMIN_KEY) return;
-  if (!myTickets.length){ myEl.innerHTML = ""; return; }
-  myEl.innerHTML = '<div class="otally"><div class="mytitle" style="margin-top:0;padding-top:0;border:0">'
-    + '내가 넣은 주문</div>' + myTickets.map(function(t){ return lineHtml(t, false); }).join("") + '</div>';
+  const nick = elWho.value.trim();
+  if (!nick){ myEl.innerHTML = ""; return; }
+  fetch(ORDER_API + "/mine", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nick: nick })
+  })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (!d.ok) return;
+      if (!d.tickets.length){ myEl.innerHTML = ""; return; }
+      box(nick + "님이 넣은 주문", d.tickets.map(function(t){ return lineHtml(t, false); }).join(""));
+    })
+    .catch(function(){});
 }
 function loadAdmin(){
   if (!ADMIN_KEY) return;
@@ -1055,22 +1070,19 @@ function loadAdmin(){
   })
     .then(function(r){ return r.json(); })
     .then(function(d){
-      if (!d.ok){ myEl.innerHTML = '<div class="otally"><p class="oempty">'+d.error+'</p></div>'; return; }
-      myEl.innerHTML = '<div class="otally"><div class="mytitle" style="margin-top:0;padding-top:0;border:0">'
-        + '전체 주문 (총무용 · '+d.tickets.length+'건)</div>'
-        + (d.tickets.length
-            ? d.tickets.map(function(t){ return lineHtml(t, true); }).join("")
-            : '<p class="oempty">아직 주문이 없습니다.</p>')
-        + '</div>';
+      if (!d.ok){ box("총무용", '<p class="oempty">'+d.error+'</p>'); return; }
+      box("전체 주문 (총무용 · " + d.tickets.length + "건)",
+          d.tickets.length ? d.tickets.map(function(t){ return lineHtml(t, true); }).join("") : null);
     })
     .catch(function(){});
 }
+function refreshMyList(){ ADMIN_KEY ? loadAdmin() : loadMine(); }
+
 myEl.addEventListener("click", function(e){
   const btn = e.target.closest(".cancel");
   if (!btn) return;
-  const row = btn.closest(".myline");
-  const ts = row.dataset.ts;
-  if (!confirm("이 주문을 취소할까요?")) return;
+  const ts = btn.closest(".myline").dataset.ts;
+  if (!confirm("이 주문을 취소할까요? 슬랙에서도 지워집니다.")) return;
   btn.disabled = true; btn.textContent = "취소 중…";
   fetch(ORDER_API + "/cancel", {
     method: "POST", headers: { "Content-Type": "application/json" },
@@ -1078,23 +1090,13 @@ myEl.addEventListener("click", function(e){
   })
     .then(function(r){ return r.json(); })
     .then(function(d){
-      if (d && d.ok){
-        showToast("주문을 취소했습니다");
-        myTickets = myTickets.filter(function(t){ return t.ts !== ts; });
-        saveTickets(); renderTally(d.summary);
-        if (ADMIN_KEY) loadAdmin(); else renderMine();
-      } else {
-        showToast((d && d.error) || "취소하지 못했습니다");
-        btn.disabled = false; btn.textContent = "취소";
-      }
+      if (d && d.ok){ showToast("주문을 취소했습니다"); renderTally(d.summary); refreshMyList(); }
+      else { showToast((d && d.error) || "취소하지 못했습니다"); btn.disabled = false; btn.textContent = "취소"; }
     })
-    .catch(function(){
-      showToast("취소하지 못했습니다");
-      btn.disabled = false; btn.textContent = "취소";
-    });
+    .catch(function(){ showToast("취소하지 못했습니다"); btn.disabled = false; btn.textContent = "취소"; });
 });
-renderMine(); loadAdmin();
-if (ADMIN_KEY) setInterval(loadAdmin, 30000);
+refreshMyList();
+setInterval(refreshMyList, 30000);
 
 /* ----- 전송 ----- */
 elForm.addEventListener("submit", function(e){
@@ -1114,12 +1116,7 @@ elForm.addEventListener("submit", function(e){
     .then(function(d){
       if (d && d.ok){
         showToast(nick + "님 주문 " + comma(d.subtotal) + "원 접수했습니다");
-        if (d.ticket){
-          myTickets.push({ ts: d.ticket, nick: nick, items: cart, subtotal: d.subtotal });
-          saveTickets();
-        }
-        cart = []; renderCart(); renderTally(d.summary);
-        renderMine(); loadAdmin();
+        cart = []; renderCart(); renderTally(d.summary); refreshMyList();
       } else {
         showToast((d && d.error) || "주문 전송에 실패했습니다");
       }
