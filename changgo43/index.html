@@ -327,7 +327,7 @@ footer a:hover{color:#fff}
         <div class="ttitle">오늘, 먹고 마시는 게 다가 아닙니다</div>
         <p class="ttext">게임과 상품 증정 행사가 준비되어 있습니다.
           자세한 건 현장에서 공개할게요.<br class="tbr">
-          열심히&nbsp;참여하시는 분께는 행운이&nbsp;따를지도 모릅니다.</p>
+          열심히 참여하시는 분께는 행운이 따를지도 모릅니다.</p>
       </div>
     </div>
   </div>
@@ -437,32 +437,34 @@ document.getElementById("copyAddr").addEventListener("click", function(){
 /* ---------- 유형 ---------- */
 const TYPES = {
   BALANCE:{emoji:"⚖️", name:"밸런스형", color:"var(--bal)",
-    catch:"적당히가 가장 어렵다는&nbsp;걸 아는&nbsp;사람.",
-    desc:"한쪽으로 몰아가기보다는 모두가 만족할 수 있는 선택을 선호합니다. 고기도, 사이드도, 식사도 놓칠 수 없는 당신에게는 가장 안정적인 정석 조합을 추천합니다.",
-    punch:"", strat:"어느 하나 부족하지&nbsp;않게, 딱 기분&nbsp;좋을&nbsp;만큼."},
+    catch:"적당히가 가장 어렵다는 걸 아는 사람.",
+    desc:"한쪽으로 몰아가기보다는 모두가 만족할 수 있는 선택을 선호합니다. 고기도, 사이드도, 식사도 놓칠 수 없는 당신에게는 가장 안정적인 정석 조합을 추천합니다.",
+    punch:"", strat:"어느 하나 부족하지 않게, 딱 기분 좋을 만큼."},
   DRINK:{emoji:"🍻", name:"고주망태형", color:"var(--dri)",
-    catch:"사람이 모였는데 벌써 집에&nbsp;갈 생각을&nbsp;하나요?",
-    desc:"좋은 사람, 좋은 분위기에서 에너지가 올라가는 타입입니다. 음식도 중요하지만 오늘의 흐름이 끊기는 것은 용납할 수 없습니다.",
-    punch:"", strat:"음식이 끊겨도 안&nbsp;되고, 분위기는 더더욱 끊겨선 안&nbsp;됩니다."},
+    catch:"사람이 모였는데 벌써 집에 갈 생각을 하나요?",
+    desc:"좋은 사람, 좋은 분위기에서 에너지가 올라가는 타입입니다. 음식도 중요하지만 오늘의 흐름이 끊기는 것은 용납할 수 없습니다.",
+    punch:"", strat:"음식이 끊겨도 안 되고, 분위기는 더더욱 끊겨선 안 됩니다."},
   PROTEIN:{emoji:"🥩", name:"프로틴형", color:"var(--pro)",
-    catch:"할&nbsp;거면 제대로. 먹을&nbsp;거면 확실하게.",
-    desc:"이것저것 조금씩보다는 마음에 드는 하나에 제대로 집중하는 타입입니다. 그리고 오늘 집중해야 할 것은 명확합니다.",
-    punch:"고기입니다.", strat:"사이드는 거들&nbsp;뿐."},
+    catch:"할 거면 제대로. 먹을 거면 확실하게.",
+    desc:"이것저것 조금씩보다는 마음에 드는 하나에 제대로 집중하는 타입입니다. 그리고 오늘 집중해야 할 것은 명확합니다.",
+    punch:"고기입니다.", strat:"사이드는 거들 뿐."},
   VARIETY:{emoji:"🍽️", name:"골고루형", color:"var(--var)",
-    catch:"세상에는 아직 먹어보지&nbsp;못한 것이 너무&nbsp;많습니다.",
-    desc:"호기심이 많고 새로운 경험을 놓치기 싫어하는 타입입니다. 한 메뉴를 잔뜩 먹는 것보다 여러 가지를 하나씩 맛보는 재미가 중요합니다.",
-    punch:"", strat:"여기까지 왔는데 이것도&nbsp;한번 먹어봐야죠."},
+    catch:"세상에는 아직 먹어보지 못한 것이 너무 많습니다.",
+    desc:"호기심이 많고 새로운 경험을 놓치기 싫어하는 타입입니다. 한 메뉴를 잔뜩 먹는 것보다 여러 가지를 하나씩 맛보는 재미가 중요합니다.",
+    punch:"", strat:"여기까지 왔는데 이것도 한번 먹어봐야죠."},
   HEALTH:{emoji:"🌿", name:"건강지킴이형", color:"var(--hea)",
-    catch:"오늘의 나도 중요하지만 내일의&nbsp;나도&nbsp;나입니다.",
-    desc:"내 페이스를 알고, 무리하지 않으면서 만족을 챙기는 타입입니다. 많이 먹었다는 만족보다 잘 먹었다는 만족을 추구합니다.",
-    punch:"", strat:"맛있게&nbsp;먹고, 내일도&nbsp;멀쩡하게."}
+    catch:"오늘의 나도 중요하지만 내일의 나도 나입니다.",
+    desc:"내 페이스를 알고, 무리하지 않으면서 만족을 챙기는 타입입니다. 많이 먹었다는 만족보다 잘 먹었다는 만족을 추구합니다.",
+    punch:"", strat:"맛있게 먹고, 내일도 멀쩡하게."}
 };
 const ORDER = ["BALANCE","DRINK","PROTEIN","VARIETY","HEALTH"];
 
 /* 한글 줄바꿈 다듬기: 의존명사를 앞말에 붙이고, 문장 끝 두 어절을 묶는다 */
 const NB = "\u00A0";
 function kb(str){
-  return String(str)
+  str = String(str);
+  if (str.indexOf(NB) !== -1) return str;   // 손으로 다듬은 문구는 그대로 둔다
+  return str
     .replace(/ (수|것|것은|것도|것보다|줄|때|뿐|만큼|정도|분)(?=[ ,.?!)]|$)/g, NB + "$1")
     .replace(/([^ .?!]+) ([^ .?!]+[.?!])/g, "$1" + NB + "$2");
 }
@@ -599,7 +601,6 @@ function renderResult(){
         }).join("")
     + '</div></div><div id="comboSlot"></div>'
     + '<div class="ragain">'
-    +   '<button class="btn btn-oh" type="button" id="orderBtn" hidden>주문 문구 복사하기</button>'
     +   '<button class="btn btn-line" type="button" id="againBtn">다시 테스트하기</button>'
     + '</div>'
     + '</div>';
@@ -619,24 +620,8 @@ function pickSeat(n){
     b.classList.toggle("on", b.dataset.n === n);
   });
   document.getElementById("comboSlot").innerHTML = comboCard(n, resultType, "fade");
-  const ob = document.getElementById("orderBtn");
-  if (ob) ob.hidden = false;
 }
 
-/* 슬랙 채널에 붙여넣을 주문 한 줄 */
-function orderLine(){
-  const t = TYPES[resultType], c = DATA.combos[seats][resultType];
-  return "주문: " + t.emoji + " " + t.name + " · " + seats + "명 · " + c.total;
-}
-document.addEventListener("click", function(e){
-  if (!e.target || e.target.id !== "orderBtn") return;
-  if (!resultType || !seats) return;
-  const line = orderLine();
-  navigator.clipboard.writeText(line).then(
-    function(){ showToast("복사했습니다 · 회식 채널에 붙여넣어 주세요"); },
-    function(){ showToast(line); }
-  );
-});
 render();
 
 /* ---------- 인원별 전체 조합 ---------- */
