@@ -1096,9 +1096,11 @@ function renderTally(sum){
     return;
   }
   const d = new Date();
-  const hh = String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");
+  const hh = closedShown ? (FINAL_AT + " 기준 · 최종")
+    : (String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")+" 기준");
   elTally.innerHTML =
-    '<div class="otop"><span class="t">주문 현황</span><span class="u">'+hh+' 기준</span></div>'
+    '<div class="otop"><span class="t">'+(closedShown?"최종 주문 내역":"주문 현황")+'</span>'
+    + '<span class="u">'+hh+'</span></div>'
     + '<div class="osum"><span class="a">'+comma(sum.total)+'원</span>'
     + '<span class="b">주문자 '+sum.people+'명 · '+sum.qty+'개</span></div>'
     + '<table><tbody>'
@@ -1132,6 +1134,11 @@ function renderRace(sum){
     + '</div>';
 }
 
+/* 주문 마감 후에는 서버 집계 대신 확정본을 보여준다.
+   스레드가 초기화되며 일부 주문 메시지가 사라져 서버 계산으로는 복원할 수 없어,
+   20:36 시점 확정 기록을 그대로 싣는다. */
+const FINAL = {"rows":[{"item":"창고스페셜 150g","qty":57,"amount":3078000},{"item":"육사시미 120g","qty":10,"amount":390000},{"item":"한우 트러플 짜파게티","qty":10,"amount":250000},{"item":"반달육전","qty":9,"amount":216000},{"item":"맥주","qty":22,"amount":176000},{"item":"소주","qty":12,"amount":84000},{"item":"육회 150g","qty":2,"amount":70000},{"item":"깍두기볶음밥","qty":6,"amount":48000},{"item":"차돌박이 밀쌈","qty":1,"amount":38000},{"item":"냉면 물·비빔","qty":3,"amount":36000},{"item":"된장말이 밥·면 대","qty":1,"amount":17000},{"item":"된장찌개 대","qty":1,"amount":15000}],"total":4418000,"qty":134,"count":15,"people":15,"budget":4000000,"pct":110.4,"racers":[{"nick":"Enzo","total":2447000,"qty":82,"canceled":0,"cancelCount":1},{"nick":"Goya","total":394000,"qty":8,"canceled":0,"cancelCount":0},{"nick":"Charley Hwang","total":279000,"qty":8,"canceled":0,"cancelCount":0},{"nick":"Winni","total":212000,"qty":5,"canceled":0,"cancelCount":0},{"nick":"Heather","total":162000,"qty":3,"canceled":0,"cancelCount":0},{"nick":"Terry","total":158000,"qty":4,"canceled":0,"cancelCount":0},{"nick":"BK","total":146000,"qty":3,"canceled":0,"cancelCount":0},{"nick":"Julie","total":108000,"qty":2,"canceled":0,"cancelCount":0},{"nick":"Raul Hyun","total":108000,"qty":2,"canceled":0,"cancelCount":0},{"nick":"Bryan","total":108000,"qty":2,"canceled":0,"cancelCount":0},{"nick":"Dragon","total":78000,"qty":4,"canceled":0,"cancelCount":2},{"nick":"Better","total":67000,"qty":3,"canceled":0,"cancelCount":0},{"nick":"Wonjae","total":51000,"qty":4,"canceled":0,"cancelCount":0},{"nick":"Irwin","total":50000,"qty":2,"canceled":0,"cancelCount":0},{"nick":"Andy Alikov","total":50000,"qty":2,"canceled":0,"cancelCount":0}],"canceledTotal":640000,"cancelCount":3};
+const FINAL_AT = "20:36";
 let closedShown = false;
 function showClosed(){
   if (closedShown) return;
@@ -1151,8 +1158,8 @@ function loadTally(){
     .then(function(r){ return r.json(); })
     .then(function(d){
       if (!d || !d.ok) return;
-      renderTally(d.summary); renderRace(d.summary);
-      if (d.closed) showClosed();
+      if (d.closed){ showClosed(); renderTally(FINAL); renderRace(FINAL); }
+      else { renderTally(d.summary); renderRace(d.summary); }
     })
     .catch(function(){});
 }
