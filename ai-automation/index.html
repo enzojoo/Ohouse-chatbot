@@ -128,6 +128,33 @@
 
   .foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-3);font-size:12px}
+
+  .ex{margin:18px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+    background:var(--card);box-shadow:var(--shadow)}
+  .ex-cap{padding:9px 14px;background:var(--line-2);color:var(--ink-2);font-size:12px;
+    font-weight:700;border-bottom:1px solid var(--line)}
+  .msg{padding:13px 14px;border-bottom:1px solid var(--line-2)}
+  .msg:last-child{border-bottom:0}
+  .msg-from{font-size:12px;margin-bottom:7px}
+  .msg-from .who{color:var(--ink);font-weight:700}
+  .msg-from .when{color:var(--ink-3);margin-left:7px}
+  .badge{display:inline-block;font-size:10px;font-weight:700;padding:1px 6px;
+    border-radius:4px;margin-right:7px;vertical-align:1px}
+  .badge.bot{background:var(--brand-soft);color:var(--brand-deep)}
+  .badge.sys{background:var(--violet-soft);color:var(--violet)}
+  .badge.me{background:var(--green-soft);color:var(--green)}
+  .badge.you{background:var(--amber-soft);color:var(--amber)}
+  .msg-body{font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+  .msg-quote{margin-top:9px;padding:9px 12px;background:var(--line-2);border-radius:7px;
+    font-size:12.5px;line-height:1.65;white-space:pre-wrap;color:var(--ink-2)}
+  .term{background:#0E1424;color:#D7DEEE;padding:15px 16px;margin:0;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+    line-height:1.75;white-space:pre;overflow-x:auto}
+  .term b{color:#9DBBFF;font-weight:600}
+  .term .ok{color:#3ED79A}
+  .term .warn{color:#F2B857}
+  .term .dim{color:#7A8399}
+  .mask{color:var(--ink-3)}
 </style>
 </head>
 <body>
@@ -240,6 +267,73 @@ flowchart TD
     <li>정책 해석이 필요한 건. 규정이 확정되지 않은 사안은 임의 답변을 금지하고 있습니다.</li>
   </ul>
 
+
+  <h3>실제 동작 예시</h3>
+  <p>2026-09-09에 실제로 처리된 건입니다. 회원번호와 닉네임은 뒷자리를 가렸고, 채널명과 담당자명은 일반화했습니다.</p>
+
+  <div class="ex">
+    <div class="ex-cap">① 이관 접수 — 상담 시스템이 담당자를 멘션</div>
+    <div class="msg">
+      <div class="msg-from"><span class="badge sys">상담 시스템</span><span class="who">이관 봇</span><span class="when">15:28</span></div>
+      <div class="msg-body">@담당자 (cc: 팀원 2명)</div>
+      <div class="msg-quote">이관번호 : 37<span class="mask">****</span>
+티켓번호 : 88<span class="mask">*****</span>
+고객번호 : 71<span class="mask">*****</span>
+고객 닉네임 : <span class="mask">(닉네임)</span>
+심층문의 : FTC 00기 웰컴미션 시작 알림톡을 받지 못했다는 문의</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-cap">② 자동 초안 — 7분 뒤, 봇이 조회를 마치고 스레드에 올림</div>
+    <div class="msg">
+      <div class="msg-from"><span class="badge bot">BOT</span><span class="who">ENZO AI</span><span class="when">15:35</span></div>
+      <div class="msg-body">🤖 자동 초안 — <b>유관 부서 채널</b>에 아래 내용으로 전달할까요?
+✅ 전달 / ❌ 보류  <i>(이 스레드 아무 메시지에나 찍으면 됩니다)</i>
+<i>다르게 보내려면 `수정:` 답글을 쓰고 거기에 ✅를 찍으세요. 앞으로도 이렇게 쓰라는 뜻이면 `수정:` 대신 `학습:`으로 쓰세요.</i></div>
+      <div class="msg-quote">FTC 00기 웰컴미션 시작 알림톡 미수신 문의가 있어 전달드립니다.
+• 회원번호: 71<span class="mask">*****</span>
+• 확인된 내용: FTC 00기 유저리스트 No.***(활동중 / 라이트)로 확인되며, 웰컴 미션 RAW에도 9/8자 라이트 그룹(댓글 미참여자 80명 배치)으로 등록되어 있습니다.
+• 9/2 공유해주신 FTC 00기 오픈 일정 기준, 이 그룹은 9/9(수) 12:30 미션 시작 안내 알림톡 자동 발송 대상으로 보입니다.
+• 문의 인입 시점이 12:30 이후라, 오늘 배치가 정상 발송되었는지와 해당 회원이 발송 대상에 포함되었는지만 확인 부탁드립니다.</div>
+      <div class="msg-body" style="margin-top:12px">— 고객 답변 초안 —</div>
+      <div class="msg-quote">안녕하세요, 오늘의집입니다. 확인 결과 크리에이터님은 FTC 00기 웰컴미션 참여자로 정상 등록되어 있으며, 참여 그룹은 라이트 그룹입니다.
+미션 시작 안내 알림톡은 참여 확정 다음 날 12시 30분에 순차 발송되고 있으며, 크리에이터님이 포함된 그룹은 공식 미션 시작일인 9월 9일(수) 12시 30분 발송 대상으로 확인됩니다. 즉 발송이 누락된 것이 아니라 안내 시점이 오늘이었던 점 안내드립니다.
+
+<b>근거</b>: 사내 슬랙 「FTC 00기 오픈 스레드」 9/2 일정 공지 / FTC Master Sheet 유저리스트 ***번 · User Communication 「웰컴 미션 RAW」 9/8자 등록
+<b>판정</b>: 부분 가능 — 대상 포함 여부와 발송 스케줄은 사내 자료로 확정되나, 오늘 12:30 배치가 실제로 나갔는지는 부서 확인이 필요합니다.</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-cap">③ 승인과 전달 — 담당자가 ✅ 하나 찍으면 끝</div>
+    <div class="msg">
+      <div class="msg-from"><span class="badge bot">BOT</span><span class="who">ENZO AI</span><span class="when">16:03</span></div>
+      <div class="msg-body">✅ @담당자 님 승인으로 유관 부서 채널에 전달했습니다. 회신 오면 이 스레드에 이어붙일게요.</div>
+    </div>
+    <div class="msg">
+      <div class="msg-from"><span class="badge you">부서</span><span class="who">담당 부서</span><span class="when">16:21</span></div>
+      <div class="msg-body">해당 유저 개인정보 미변경자로, 방금 해당 유저 포함해서 9/9 웰컴미션 알림톡 중 개인정보 미변경자 대상 LMS 발송 완료되었습니다.</div>
+    </div>
+  </div>
+
+  <div class="ex">
+    <div class="ex-cap">④ 회신 반영과 자기 검수 — 봇이 자기 초안의 약한 지점을 스스로 지적</div>
+    <div class="msg">
+      <div class="msg-from"><span class="badge bot">BOT</span><span class="who">ENZO AI</span><span class="when">16:22</span></div>
+      <div class="msg-body">📩 @담당자 회신 도착 — <b>고객 발송용 답변 초안</b>입니다. 확인 후 발송해 주세요.
+
+이번 미수신은 회원님이 개인정보 미변경 상태로 등록되어 있어 발생한 것으로 확인됩니다. 확인 후 회원님을 포함한 개인정보 미변경자 전체에게 오늘(9/9) 웰컴미션 시작 안내 문자가 발송 완료되었습니다. 수신함에서 발송된 문자를 확인해 주시면 됩니다.
+
+🔍 <b>검수 의견</b> — 발송 전 아래를 원문과 대조해 주세요 <i>(검수도 틀릴 수 있습니다)</i>
+• (1) "개인정보 미변경자는 일반 알림톡이 아니라 별도의 문자(LMS)로 안내를 받는 대상이었습니다"라는 정책 설명은 두 출처 어디에도 없음. 담당부서는 "개인정보 미변경자 대상으로 LMS를 발송 완료했다"는 조치 사실만 밝혔을 뿐, 애초에 이들이 알림톡이 아닌 문자 수신 대상으로 정해져 있었다는 규칙은 언급하지 않음 — 초안이 원인 설명을 임의로 지어낸 것일 수 있음</div>
+    </div>
+  </div>
+
+  <div class="hint">
+    마지막 ④의 검수 의견이 이 자동화의 핵심입니다. 초안을 쓰는 것보다 <b>초안이 어디서 사실을 넘어섰는지 스스로 표시하는 것</b>이 실무에서 더 중요합니다. 사람은 전체를 다시 읽는 대신 표시된 지점만 확인하면 됩니다.
+  </div>
+
   <h3>실적과 한계</h3>
   <ul>
     <li>8월 기준 <b>94건</b>을 자동 분석했습니다.</li>
@@ -284,6 +378,24 @@ flowchart TD
     <li>값이 이미 맞으면 아무것도 쓰지 않으므로, 하루에 몇 번을 돌려도 안전합니다.</li>
   </ul>
 
+
+  <h3>실제 실행 결과</h3>
+  <div class="ex">
+    <div class="ex-cap">이상이 없을 때 — 아무것도 쓰지 않고 확인 결과만 남깁니다</div>
+    <pre class="term">[n8n raw] <span class="ok">이상 없음</span> — 최근 3일 36개 지표가 원천과 일치합니다.
+[종합 현황] <span class="ok">이상 없음</span>
+[핵심 지표] 큐별 블록 <span class="ok">이상 없음</span></pre>
+  </div>
+  <div class="ex">
+    <div class="ex-cap">차이를 발견했을 때 — 빈 값을 채우고 슬랙으로 보고합니다</div>
+    <pre class="term">○ 지표 감시·보정 (33초)
+    [종합 현황] <span class="warn">10건 채움</span>
+    [핵심 지표] 큐별 블록 이상 없음
+    🔧 ECA 지표 보정 2026-09-09 13:30
+    • 종합 현황 10건
+<span class="ok">✅ 시트 동기화 1/1 단계 성공</span></pre>
+  </div>
+
   <h3>실적</h3>
   <p>평일 2회 무인 실행 중입니다. 사람이 매일 조회해 시트에 옮기고 검산하던 구간이 사라졌습니다.</p>
 
@@ -325,6 +437,22 @@ flowchart TD
     <li><b>D+2 확정.</b> 어제 건은 아직 창이 닫히지 않아 미확정입니다. 확정된 구간만 시트에 씁니다.</li>
     <li><b>영업일과 공휴일을 자동 반영.</b> 금요일 09시 인입 건의 24시간은 월요일 09시입니다. 공휴일은 라이브러리와 과거 데이터 학습으로 자동 판별합니다.</li>
   </ol>
+
+
+  <h3>실제 실행 결과</h3>
+  <div class="ex">
+    <div class="ex-cap">평일 아침 자동 실행 — 내려받기부터 시트 적재까지 79초</div>
+    <pre class="term">○ 콜봇 재인입 (79초)
+    콜봇 단독종결 <b>2,851건</b> 중 24h 재인입 <b>1,656건</b>
+      — 실측 58.1% / 우연보정 후 순증 <b>35.4%</b> (1,009건)
+    회원번호 기준(2026-09-03~) 965건 / 커버 86%
+      — 실측 49.0% / 순증 42.1%
+    시트 `재인입 raw` 갱신 44행 · 추가 4행
+    <span class="dim">잠정치 2026-09-08, 2026-09-09 — 다음 실행에서 확정됩니다</span></pre>
+  </div>
+  <div class="hint">
+    <b>우연보정</b> · 고객은 콜봇과 무관하게도 다시 전화할 수 있습니다. 그 기저 확률을 빼지 않으면 콜봇 탓이 아닌 재인입까지 콜봇 실패로 잡힙니다. 실측값과 보정값을 함께 남기는 이유입니다.
+  </div>
 
   <h3>실적</h3>
   <ul>
@@ -373,6 +501,29 @@ flowchart TD
     <li><b>전수 감사와 롤백 도구.</b> 가동 직후 7,284행을 원본과 1:1 대조해 96건을 조치했습니다. 잘못 처리된 건을 되돌리는 도구를 함께 만들어 두었습니다.</li>
     <li><b>감시 배치.</b> 별도 배치가 주기적으로 실행 상태를 점검하고, 예정된 실행이 누락되면 알립니다.</li>
   </ul>
+
+
+  <h3>실제 실행 결과</h3>
+  <div class="ex">
+    <div class="ex-cap">주간 해제 배치 — 대상 188건 처리 후 자체 점검까지</div>
+    <pre class="term">  [해제]  27<span class="mask">******</span> UNFIXED
+  [해제]  27<span class="mask">******</span> UNFIXED
+  [해제]  27<span class="mask">******</span> UNFIXED
+  <span class="dim">… 185건 생략 …</span>
+  시트 188칸 기록
+
+===== VIP 등급 적용 대상 관리_부분직시공
+  고정 0건 / 예고발송 0건 / 해제 0건
+  백업 backups/20260909-151155_….csv
+
+고정 0건 · 해제 <b>188건</b> · 알림톡 0건 · 변화없음 0건 · 시트동기화 0건
+  · 예고없이해제 0건 · <span class="warn">예고놓침 1건</span> · <span class="warn">기존VIP보호 1건</span> · <span class="ok">실패 0건</span>
+  [대장] 갱신 214행 · 신규 140행 · 원본 결측으로 보존 1칸 · 행틀어짐 0건
+<span class="ok">[DONE] 2026-09-09 15:12 rc=0</span></pre>
+  </div>
+  <div class="hint">
+    실행할 때마다 <b>대상 시트를 CSV로 백업</b>하고, 처리하지 않은 건은 사유와 함께 남깁니다. 위 로그의 "기존VIP보호 1건"은 다른 사유로 이미 VIP인 회원이라 건드리지 않은 것이고, "예고놓침 1건"은 사람이 확인해야 할 건으로 보고된 것입니다.
+  </div>
 
   <h3>실적</h3>
   <ul>
