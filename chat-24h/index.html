@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>채팅 상담 24시간 운영 전환 — 시나리오 목업</title>
+<style>
+  :root{
+    --bg:#EEF1F7; --card:#FFFFFF;
+    --ink:#1E2330; --ink-2:#4B5468; --ink-3:#8A93A6;
+    --line:#E5E8F0; --line-2:#EEF1F7;
+    --brand:#2F6BFF; --brand-soft:#E8F0FF; --brand-deep:#1B4FD6;
+    --green:#21C07A; --green-soft:#DFF7EC;
+    --amber:#F0A52B; --amber-soft:#FFF1D9;
+    --pink:#E94668; --pink-soft:#FCE3E9;
+    --violet:#7A5CFF; --violet-soft:#EFEAFF;
+    --shadow:0 1px 2px rgba(20,30,60,.04), 0 4px 12px rgba(20,30,60,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1424; --card:#171E31;
+      --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+      --line:#28304A; --line-2:#1F2740;
+      --brand:#6E9BFF; --brand-soft:#1C2848; --brand-deep:#9DBBFF;
+      --green:#3ED79A; --green-soft:#16351F;
+      --amber:#F2B857; --amber-soft:#3A2C13;
+      --pink:#FF7793; --pink-soft:#3A1B24;
+      --violet:#A48CFF; --violet-soft:#241E42;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1424; --card:#171E31;
+    --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+    --line:#28304A; --line-2:#1F2740;
+    --brand:#6E9BFF; --brand-soft:#1C2848; --brand-deep:#9DBBFF;
+    --green:#3ED79A; --green-soft:#16351F;
+    --amber:#F2B857; --amber-soft:#3A2C13;
+    --pink:#FF7793; --pink-soft:#3A1B24;
+    --violet:#A48CFF; --violet-soft:#241E42;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:14px/1.7 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  .doc{max-width:1120px;margin:0 auto;padding:36px 20px 96px}
+
+  .doc-head{margin-bottom:24px}
+  .doc-head h1{margin:0;font-size:26px;line-height:1.35;letter-spacing:-.01em}
+  .doc-head .meta{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;font-size:12px}
+  .doc-head .meta span{background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:4px 11px;color:var(--ink-2)}
+
+  .notice{background:var(--amber-soft);border:1px solid var(--amber);
+    border-radius:12px;padding:13px 16px;margin:20px 0 28px;font-size:13px;color:var(--ink)}
+  .notice b{font-weight:700}
+
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:16px 18px;margin-bottom:32px;box-shadow:var(--shadow)}
+  .toc h3{margin:0 0 10px;font-size:11px;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+  .toc ol{margin:0;padding-left:18px;columns:2;column-gap:28px}
+  @media(max-width:640px){.toc ol{columns:1}}
+  .toc li{margin:3px 0}
+  .toc a{color:var(--ink-2);text-decoration:none}
+  .toc a:hover{color:var(--brand-deep);text-decoration:underline}
+
+  h2{margin:44px 0 14px;font-size:20px;letter-spacing:-.01em;
+    padding-bottom:9px;border-bottom:2px solid var(--line)}
+  h3{margin:30px 0 10px;font-size:16px;letter-spacing:-.01em}
+  h2:first-of-type{margin-top:8px}
+
+  p{margin:10px 0}
+  ul{margin:10px 0;padding-left:20px}
+  li{margin:5px 0}
+  b,strong{font-weight:700}
+  code{background:var(--line-2);border:1px solid var(--line);border-radius:5px;
+    padding:1px 5px;font-size:.9em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  a{color:var(--brand-deep)}
+
+  pre.msg{background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;margin:6px 0 18px;font-size:12.5px;line-height:1.65;
+    white-space:pre-wrap;word-break:break-word;overflow-x:auto;color:var(--ink);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .msg-label{font-size:13px;font-weight:700;margin:18px 0 0}
+
+  .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow);margin:16px 0}
+  .scroll-x table{margin:0;border:0;box-shadow:none;border-radius:0}
+  table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+  th,td{border-bottom:1px solid var(--line);padding:10px 13px;text-align:left;vertical-align:top}
+  th{background:var(--line-2);font-weight:700;color:var(--ink);white-space:nowrap}
+  tr:last-child td{border-bottom:0}
+
+  .callout{border-radius:12px;padding:14px 16px;margin:16px 0;font-size:13.5px;
+    border:1px solid var(--line);background:var(--card)}
+  .callout.violet{background:var(--violet-soft);border-color:var(--violet)}
+  .callout.pink{background:var(--pink-soft);border-color:var(--pink)}
+  .callout.brand{background:var(--brand-soft);border-color:var(--brand)}
+
+  .tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;
+    padding:2px 9px;white-space:nowrap;vertical-align:middle}
+  .tag.keep{background:var(--green-soft);color:var(--green)}
+  .tag.mod{background:var(--pink-soft);color:var(--pink)}
+  .tag.new{background:var(--violet-soft);color:var(--violet)}
+  .tag.day{background:var(--amber-soft);color:var(--amber)}
+  .tag.night{background:var(--brand-soft);color:var(--brand-deep)}
+
+  .foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px}
+
+  /* ───────── 라이브 데모 레이아웃 ───────── */
+  .demo{display:grid;grid-template-columns:380px 1fr;gap:24px;align-items:start;margin:18px 0 8px}
+  @media(max-width:860px){.demo{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .panel h4{margin:0 0 8px;font-size:12px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em}
+  .panel + .panel{margin-top:14px}
+  .modes{display:flex;flex-wrap:wrap;gap:6px}
+  .modes button,.plays button,.ctl button{font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--card);
+    color:var(--ink-2);border-radius:999px;padding:5px 12px;cursor:pointer}
+  .modes button.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:700}
+  .plays{display:grid;grid-template-columns:1fr;gap:6px}
+  .plays button{text-align:left;border-radius:10px;padding:8px 12px;display:flex;gap:8px;align-items:center}
+  .plays button:hover{border-color:var(--brand);color:var(--brand-deep)}
+  .plays button .k{font-size:11px;font-weight:700;color:var(--ink-3);min-width:38px}
+  .status{font-size:13px;line-height:1.6;color:var(--ink-2)}
+  .status b{color:var(--ink)}
+  .ctl{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+  .ctl button.warn{color:var(--pink)}
+
+  /* ───────── 폰 프레임 (채팅 UI) ───────── */
+  .phone{width:360px;max-width:100%;height:720px;background:#fff;border-radius:28px;border:1px solid #D8DDE6;
+    box-shadow:0 8px 30px rgba(20,30,60,.12);overflow:hidden;position:relative;display:flex;flex-direction:column;
+    color:#2F3438;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    letter-spacing:-.2px;margin:0 auto}
+  .phone.short{height:600px}
+  .ph-head{height:56px;flex:0 0 56px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;
+    border-bottom:1px solid #EEF0F3;background:#fff;z-index:2}
+  .ph-logo{display:flex;align-items:center;gap:7px;font-weight:800;font-size:17px;color:#2F3438}
+  .ph-logo i{width:22px;height:22px;background:#4A9CFF;display:inline-block;
+    clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%);border-radius:5px}
+  .ph-x{font-size:22px;color:#2F3438;line-height:1}
+  .ph-body{flex:1;overflow-y:auto;padding:16px 16px 84px}
+  .ph-date{text-align:center;color:#9AA1AB;font-size:13px;margin:6px 0 16px}
+  .m-bot{font-size:15px;line-height:1.5;white-space:pre-line;margin:0 0 10px;padding-right:20px;color:#2F3438}
+  .m-meta{display:flex;align-items:center;gap:6px;color:#9AA1AB;font-size:12px;margin:8px 0 16px}
+  .m-meta i{width:10px;height:10px;background:#4A9CFF;display:inline-block;clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%);border-radius:2px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
+  .chip{font:inherit;font-size:15px;color:#3D93F5;background:#fff;border:1.5px solid #6FB5FF;border-radius:999px;
+    padding:9px 18px;cursor:pointer;line-height:1.3;white-space:nowrap}
+  .chip.primary{background:#4A9CFF;border-color:#4A9CFF;color:#fff;font-weight:700}
+  .chip.used{opacity:.45;pointer-events:none}
+  .chip.wide{width:100%;text-align:center}
+  .m-user{display:flex;justify-content:flex-end;margin:6px 0 16px}
+  .m-user span{background:#4A9CFF;color:#fff;font-size:15px;border-radius:20px;padding:11px 18px;max-width:82%;
+    line-height:1.4;white-space:pre-line}
+  .card-conn{background:#E9F4FF;border-radius:16px;padding:26px 18px;text-align:center;margin:8px 0 12px}
+  .card-conn .sp{width:36px;height:36px;border-radius:50%;border:4px solid #BFE0FF;border-top-color:#4A9CFF;margin:0 auto 14px;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .card-conn b{display:block;font-size:16px;margin-bottom:8px}
+  .card-conn .eta{font-size:14px;color:#5B636D;margin-bottom:10px}
+  .card-conn .eta b{display:inline;font-size:14px}
+  .card-conn p{margin:0;font-size:13.5px;color:#5B636D;line-height:1.5}
+  .card-order{border:1px solid #E5E8EC;border-radius:14px;padding:12px;display:flex;gap:12px;margin:8px 0 12px;background:#fff}
+  .card-order .img{width:56px;height:56px;border-radius:8px;background:linear-gradient(135deg,#D9E7F5,#B9D3EE);flex:0 0 56px}
+  .card-order .t{font-size:13.5px;line-height:1.45}
+  .card-order .t b{display:block}
+  .card-order .t .st{color:#3D93F5;font-weight:700}
+  .card-order .t .sub{color:#9AA1AB;font-size:12px}
+  .card-info{background:#F6F8FA;border-radius:12px;padding:12px 14px;font-size:13.5px;color:#5B636D;line-height:1.5;margin:6px 0 12px;white-space:pre-line}
+  .ph-end{position:absolute;right:16px;bottom:96px;background:#fff;border:1px solid #E5E8EC;border-radius:999px;
+    padding:10px 18px;font-size:15px;box-shadow:0 4px 14px rgba(0,0,0,.08);z-index:2;cursor:pointer}
+  .ph-end.off{opacity:.35;pointer-events:none}
+  .ph-input{position:absolute;left:12px;right:12px;bottom:14px;height:58px;border:1.5px solid #E1E5EA;border-radius:30px;
+    background:#fff;display:flex;align-items:center;padding:0 8px 0 10px;gap:8px;z-index:2}
+  .ph-input .plus{width:36px;height:36px;border-radius:50%;background:#E9F4FF;color:#4A9CFF;display:flex;align-items:center;justify-content:center;font-size:20px;flex:0 0 36px}
+  .ph-input input{flex:1;border:0;outline:0;font:inherit;font-size:14.5px;color:#2F3438;background:transparent;min-width:0}
+  .ph-input input::placeholder{color:#B4BAC2}
+  .ph-input input:disabled{background:transparent}
+  .ph-input .send{width:38px;height:38px;border-radius:50%;background:#4A9CFF;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 38px;cursor:pointer;border:0}
+  .ph-input.dim .send{background:#BFDCFF}
+  .ph-sys{text-align:center;color:#9AA1AB;font-size:12.5px;margin:10px 0 16px}
+
+  /* 1:1 문의 모달 */
+  .modal{position:absolute;inset:0;background:rgba(0,0,0,.45);z-index:5;display:flex;align-items:flex-end}
+  .sheet{background:#fff;width:100%;height:94%;border-radius:22px 22px 0 0;display:flex;flex-direction:column;overflow:hidden}
+  .sheet-h{padding:18px 20px 12px;border-bottom:1px solid #EEF0F3;position:relative}
+  .sheet-h small{color:#3D93F5;font-size:12px;font-weight:700}
+  .sheet-h h5{margin:2px 0 0;font-size:20px;font-weight:800}
+  .sheet-h .x{position:absolute;right:16px;top:16px;width:34px;height:34px;border-radius:50%;background:#F2F4F6;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer}
+  .sheet-b{flex:1;overflow-y:auto;padding:14px 18px}
+  .f{margin-bottom:14px}
+  .f label{display:block;font-size:13.5px;font-weight:700;margin-bottom:6px}
+  .f .in{border:1px solid #DDE1E6;border-radius:10px;padding:11px 12px;font-size:13.5px;color:#2F3438;display:flex;justify-content:space-between;align-items:center;background:#fff}
+  .f .in.ph{color:#B4BAC2}
+  .f .in.auto{border-color:#6FB5FF;background:#F4F9FF}
+  .f .in .cv{color:#9AA1AB}
+  .f textarea{width:100%;border:1px solid #6FB5FF;background:#F4F9FF;border-radius:10px;padding:10px 12px;font:inherit;font-size:12.5px;line-height:1.55;color:#2F3438;min-height:190px;resize:vertical}
+  .f .auto-note{font-size:11.5px;color:#3D93F5;margin-top:5px}
+  .f .file{border:1.5px dashed #D5DAE0;border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;font-size:12.5px;color:#9AA1AB}
+  .f .file b{border:1px solid #DDE1E6;border-radius:6px;padding:6px 10px;color:#2F3438;background:#fff;font-size:13px}
+  .sheet-f{padding:12px 18px 18px;border-top:1px solid #EEF0F3;display:grid;gap:8px}
+  .sheet-f button{font:inherit;font-size:15px;border-radius:10px;padding:13px;cursor:pointer;border:1px solid #DDE1E6;background:#fff;color:#2F3438}
+  .sheet-f button.go{background:#4A9CFF;border-color:#4A9CFF;color:#fff;font-weight:700}
+  .toast{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(30,35,48,.92);color:#fff;
+    padding:14px 22px;border-radius:12px;font-size:14px;z-index:9;white-space:nowrap}
+
+  /* 고객센터 진입 카드 */
+  .cs{background:#F7F8FA;border-radius:18px;padding:18px 16px;width:360px;max-width:100%;color:#2F3438;
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif}
+  .cs h6{margin:0 0 14px;font-size:19px;font-weight:800}
+  .cs .item{background:#fff;border-radius:14px;padding:16px;display:flex;gap:14px;align-items:center;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+  .cs .item .ic{width:56px;height:56px;border-radius:12px;background:#F2F4F6;display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 56px}
+  .cs .item b{display:block;font-size:17px;margin-bottom:3px}
+  .cs .item span{display:block;font-size:13px;color:#7A828C;line-height:1.45}
+  .cs .item.hl{outline:2px solid #4A9CFF}
+  .cs .item.hl span{color:#3D93F5;font-weight:700}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start;margin:14px 0}
+  @media(max-width:800px){.cmp{grid-template-columns:1fr}}
+  .cmp .lab{font-size:12px;font-weight:700;color:var(--ink-3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+
+  /* 시나리오 카드 */
+  .sc{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin:22px 0;
+    display:grid;grid-template-columns:376px 1fr;gap:0;overflow:hidden}
+  @media(max-width:860px){.sc{grid-template-columns:1fr}}
+  .sc .shot{padding:18px;background:var(--line-2);display:flex;justify-content:center;align-items:flex-start}
+  .sc .shot .phone{transform:scale(.92);transform-origin:top center;margin-bottom:-56px}
+  .sc .body{padding:18px 22px}
+  .sc .body h3{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .sc .body .id{font-family:ui-monospace,Menlo,monospace;font-size:12px;color:var(--ink-3);font-weight:700}
+  .sc .body .cond{font-size:12.5px;color:var(--ink-2);margin:4px 0 12px}
+  .sc dl{margin:0;display:grid;grid-template-columns:78px 1fr;gap:6px 10px;font-size:13px}
+  .sc dt{color:var(--ink-3);font-weight:700}
+  .sc dd{margin:0}
+  .sc dd ol,.sc dd ul{margin:0;padding-left:18px}
+  .sc .play{font:inherit;font-size:12px;border:1px solid var(--brand);background:var(--brand-soft);color:var(--brand-deep);
+    border-radius:999px;padding:4px 12px;cursor:pointer;margin-left:auto}
+  .q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 13px;margin:6px 0 10px;
+    font-size:13px;white-space:pre-line;line-height:1.6}
+  .q .btns{margin-top:6px}
+  .q .btns code{color:var(--brand-deep)}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="doc-head">
+    <h1>채팅 상담 24시간 운영 전환 — 시나리오 목업</h1>
+    <div class="meta">
+      <span>오늘의집 서비스운영팀</span>
+      <span>최종 수정 2026-09-11</span>
+      <span>인앱·웹 채팅(오집사) 대상</span>
+      <span>오픈 목표 9/29</span>
+    </div>
+  </div>
+
+  <div class="notice">
+    이 페이지의 채팅 화면은 <b>직접 클릭해서 동작</b>합니다. 아래 라이브 데모에서 시간대를 고르고 메뉴·버튼을 눌러 보시거나,
+    시나리오 목록의 <b>▶ 재생</b> 버튼으로 각 케이스를 자동 재생하실 수 있습니다.
+    화면 디자인은 현재 운영 중인 인앱 채팅 UI를 기준으로 그렸으며, 문안은 확정 전 초안입니다.
+  </div>
+
+  <div class="toc">
+    <h3>목차</h3>
+    <ol>
+      <li><a href="#s1">전환 개요와 동작 규칙</a></li>
+      <li><a href="#s2">라이브 데모</a></li>
+      <li><a href="#s3">고객센터 진입 화면 — 운영시간 안내 변경</a></li>
+      <li><a href="#s4">화면별 시나리오 (야간)</a></li>
+      <li><a href="#s5">경계 시간 처리 (18시·09시 전후)</a></li>
+      <li><a href="#s6">주간 기준 화면 (변경 없음)</a></li>
+      <li><a href="#s7">문안 모음</a></li>
+      <li><a href="#s8">챗봇 ↔ 1:1 문의 연동 요건</a></li>
+      <li><a href="#s9">확인이 필요한 사항</a></li>
+    </ol>
+  </div>
+
+  <h2 id="s1">전환 개요와 동작 규칙</h2>
+  <div class="scroll-x"><table>
+    <tr><th style="width:170px">구분</th><th>내용</th></tr>
+    <tr><td>대상</td><td>인앱·웹 채팅 상담 중 <b>상품 및 주문관련 문의(커머스)</b>만 24시간 운영으로 전환합니다.</td></tr>
+    <tr><td>제외</td><td><b>시공/이사/청소/제품설치 서비스 문의</b>와 <b>콘텐츠 수익화 프로그램</b>은 상담원 직결 구조이므로 평일 09~18시를 유지하고, 야간에는 운영시간을 안내합니다.</td></tr>
+    <tr><td>야간 정의</td><td>평일 18:00~익일 08:59, 토·일·공휴일 종일 (상담원 실시간 응대가 없는 시간 전체)</td></tr>
+    <tr><td>야간 상담원 연결</td><td>연결(Handover) 대신 <b>1:1 문의 접수를 유도</b>합니다. 고객이 접수를 선택하면 1:1 문의 작성 화면이 모달로 열리고, 대화 요약본이 본문에 자동 입력됩니다.</td></tr>
+    <tr><td>시간 판정 기준</td><td><b>상담원 연결을 요청한 시각</b>으로 판정합니다. 채팅에 처음 진입한 시각은 기준이 아닙니다. (5장 경계 시간 참조)</td></tr>
+  </table></div>
+
+  <h3>유형 × 시간대 동작 매트릭스</h3>
+  <div class="scroll-x"><table>
+    <tr><th>Depth1 메뉴</th><th>주간 (평일 09~18시)</th><th>야간·주말</th></tr>
+    <tr><td>상품 및 주문관련 문의</td><td>챗봇 응대 → 필요 시 상담원 연결 <span class="tag keep">유지</span></td><td>챗봇 응대 → 필요 시 <b>1:1 문의 접수 유도</b> <span class="tag new">신설</span></td></tr>
+    <tr><td>시공/이사/청소/제품설치 서비스 문의</td><td>Depth2 선택 → 상담원 연결 <span class="tag keep">유지</span></td><td>Depth2 선택 → <b>운영시간 안내</b> 후 종료 <span class="tag mod">변경</span></td></tr>
+    <tr><td>콘텐츠 수익화 프로그램</td><td>상담원 연결 <span class="tag keep">유지</span></td><td><b>운영시간 안내</b> 후 종료 <span class="tag mod">변경</span></td></tr>
+  </table></div>
+
+  <h2 id="s2">라이브 데모</h2>
+  <p>왼쪽 채팅 화면을 직접 조작하실 수 있습니다. 오른쪽에서 시간대를 바꾸면 같은 조작이라도 분기가 달라집니다. 입력창에 자유롭게 문장을 입력하셔도 됩니다 (예: "배송지 바꾸고 싶어요", "상담원 연결해 주세요").</p>
+
+  <div class="demo">
+    <div id="live"></div>
+    <div>
+      <div class="panel">
+        <h4>시간대 설정</h4>
+        <div class="modes" id="modes"></div>
+        <div class="status" id="status" style="margin-top:12px"></div>
+        <div class="ctl">
+          <button onclick="Live.reset()">처음부터</button>
+          <button class="warn" onclick="Live.stopPlay()">자동 재생 중지</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>시나리오 자동 재생</h4>
+        <div class="plays" id="plays"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="s3">고객센터 진입 화면 — 운영시간 안내 변경</h2>
+  <p>앱 고객센터 페이지의 <b>상담하기</b> 영역에서 채팅 상담의 안내 문구를 변경합니다. 24시간 적용 시점에 맞추어 함께 반영이 필요합니다.</p>
+  <div class="cmp">
+    <div>
+      <div class="lab">As-Is (현재)</div>
+      <div class="cs">
+        <h6>상담하기</h6>
+        <div class="item"><div class="ic">✎</div><div><b>1:1 문의</b><span>접수 24시간 · 답변 평일 09:00-18:00</span></div></div>
+        <div class="item"><div class="ic">💬</div><div><b>채팅 상담</b><span>평일 09:00-18:00</span></div></div>
+        <div class="item"><div class="ic">📞</div><div><b>전화 상담</b><span>평일 09:00-18:00<br>토·공휴일 : 원하는날도착 주문건 상담<br>일요일 : 휴무</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div class="lab">To-Be (변경) <span class="tag mod">변경</span></div>
+      <div class="cs">
+        <h6>상담하기</h6>
+        <div class="item"><div class="ic">✎</div><div><b>1:1 문의</b><span>접수 24시간 · 답변 평일 09:00-18:00</span></div></div>
+        <div class="item hl"><div class="ic">💬</div><div><b>채팅 상담</b><span>24시간 운영 / 평일 09:00~18:00 상담원 연결</span></div></div>
+        <div class="item"><div class="ic">📞</div><div><b>전화 상담</b><span>평일 09:00-18:00<br>토·공휴일 : 원하는날도착 주문건 상담<br>일요일 : 휴무</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="callout brand">
+    변경 문구: <b>채팅 상담 — 24시간 운영 / 평일 09:00~18:00 상담원 연결</b><br>
+    페이지 하단 푸터의 운영시간 표기는 전사 배포 일정에 따라 반영되는 영역이라, 적용 시점에 차이가 있을 수 있습니다.
+  </div>
+
+  <h2 id="s4">화면별 시나리오 (야간)</h2>
+  <p>각 화면은 위 라이브 데모와 같은 로직으로 그린 것이며, <b>▶ 데모에서 재생</b>을 누르면 상단 데모 화면에서 같은 흐름이 자동으로 재생됩니다. 예시 시각은 평일 22:40 진입 기준입니다.</p>
+  <div id="scen-night"></div>
+
+  <h2 id="s5">경계 시간 처리 (18시·09시 전후)</h2>
+  <p>판정 기준은 <b>상담원 연결을 요청한 시각</b>입니다. 채팅 진입 시각과 무관하게, 요청 시각이 운영시간 안이면 상담원을 연결하고 밖이면 1:1 문의 접수를 유도합니다.</p>
+  <div class="scroll-x"><table>
+    <tr><th>케이스</th><th>진입 시각</th><th>상담원 연결 요청 시각</th><th>처리</th></tr>
+    <tr><td>B-01</td><td>17:52 (운영시간 안)</td><td>18:01 (운영시간 밖)</td><td><b>야간 시나리오</b> — 1:1 문의 접수 유도 (N-05와 동일)</td></tr>
+    <tr><td>B-02</td><td>08:51 (운영시간 밖)</td><td>09:00 (운영시간 안)</td><td><b>상담원 연결 진행</b> — 주간과 동일하게 대기열 배정</td></tr>
+  </table></div>
+  <div id="scen-border"></div>
+
+  <h2 id="s6">주간 기준 화면 (변경 없음)</h2>
+  <p>평일 09~18시의 동작은 현재와 동일합니다. 비교를 위해 함께 둡니다.</p>
+  <div id="scen-day"></div>
+
+  <h2 id="s7">문안 모음</h2>
+  <p>모두 초안이며, 확정 시 이 페이지와 노션 정본을 함께 갱신합니다.</p>
+  <div id="copy-list"></div>
+
+  <h2 id="s8">챗봇 ↔ 1:1 문의 연동 요건</h2>
+  <p>1:1 문의 작성 화면은 채팅 위에 모달로 열리고, 닫힐 때 접수 결과를 챗봇이 받아서 다음 멘트를 분기합니다.</p>
+  <div class="scroll-x"><table>
+    <tr><th style="width:190px">항목</th><th>내용</th></tr>
+    <tr><td>① 모달 열기</td><td>챗봇의 <code>[문의 접수하기]</code> 버튼 → 1:1 문의 작성 화면을 모달로 호출. 이때 <b>문의 유형(매핑값)·주문번호·제목·대화 요약본</b>을 초기값으로 전달</td></tr>
+    <tr><td>② 본문 초기값</td><td>대화 요약본을 본문에 넣어 두고, 고객이 <b>수정·추가할 수 있게</b> 둠. 발화 전문은 접수 시 상담 내역과 함께 상담원 콘솔에 전달 (원문이 정본, 요약은 참고용)</td></tr>
+    <tr><td>③ 접수 완료 콜백</td><td>접수 성공 → 모달 닫힘 → 챗봇에 <code>submitted</code> 전달 → 접수 완료 안내 멘트 → 추가 문의 여부 확인 → 종료</td></tr>
+    <tr><td>④ 미접수 콜백</td><td>취소·닫기 → 챗봇에 <code>cancelled</code> 전달 → "추가로 문의하실 내용이 있으신가요?" → 대화 계속 / 접수 재안내 / 종료</td></tr>
+    <tr><td>⑤ 채널 태그</td><td>이렇게 생성된 1:1 문의는 콘솔에서 <b>야간 챗봇 이관건</b>으로 식별할 수 있는 구분값을 가짐</td></tr>
+    <tr><td>⑥ 첨부·인증</td><td>채팅에서 올린 이미지가 1:1 문의로 함께 넘어가야 하며, 로그인 세션의 본인확인 결과를 승계함 (AICX 회신 필요 항목)</td></tr>
+  </table></div>
+
+  <h2 id="s9">확인이 필요한 사항</h2>
+  <p>목업을 그리면서 가정한 부분입니다. 다른 방향이면 알려주시면 바로 반영하겠습니다.</p>
+  <div class="scroll-x"><table>
+    <tr><th style="width:44px">#</th><th style="width:220px">항목</th><th>목업에서의 가정</th></tr>
+    <tr><td>1</td><td>대화 없이 바로 상담원 연결을 요청한 경우</td><td>동일하게 접수 유도 멘트(②)를 내보내되, 요약할 대화가 없으므로 1:1 문의 본문은 빈칸으로 열립니다.</td></tr>
+    <tr><td>2</td><td>반복 요청 임계치</td><td>노션 정본 기준으로 상담원 연결 <b>3회째 요청</b>부터 "지금은 상담원 연결이 어려운 시간이에요" 멘트(⑦)로 전환합니다. 2회째부터로 바꿀 수 있습니다.</td></tr>
+    <tr><td>3</td><td>O2O·콘텐츠 야간 안내 후 처리</td><td>운영시간 안내 후 입력창을 닫고 상담 종료 상태로 둡니다. (다른 메뉴로 돌아가게 할지 결정 필요)</td></tr>
+    <tr><td>4</td><td>문의 유형·주문번호 자동 입력</td><td>챗봇 상담유형 → 1:1 문의 유형 매핑값과 대화 중 조회한 주문번호를 초기값으로 넣는 것으로 그렸습니다. 매핑표는 별도 정의가 필요합니다.</td></tr>
+    <tr><td>5</td><td>접수 완료 후 선택지 문구</td><td>"더 문의하실 내용이 있으신가요?"의 선택지를 <code>[네, 있어요]</code> <code>[아니요, 종료할게요]</code>로 두었습니다.</td></tr>
+    <tr><td>6</td><td>비회원 야간 처리</td><td>위클리 결정 대기 항목이라 이 목업에는 넣지 않았습니다. 결정되면 로그인 유도 화면을 추가하겠습니다.</td></tr>
+  </table></div>
+
+  <div class="foot">
+    오늘의집 서비스운영팀 · 최종 수정 2026-09-11<br>
+    노션 정본: 채팅 상담 24시간 운영 전환 _ 프로세스/시나리오 변경안 · 문의는 슬랙 <code>#proj-aicx-ai_chatbot</code> 채널로 부탁드립니다.
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   문안 (초안) — 확정 시 여기만 고치면 데모·정적 화면·문안 모음이 함께 바뀜
+   ═══════════════════════════════════════════════════════════ */
+const T = {
+  greet: '고객님, 안녕하세요!\n오늘의집 AI 상담사 오집사입니다.\n\n원하시는 메뉴를 선택해주세요.',
+  menu: ['상품 및 주문관련 문의', '시공/이사/청소/제품설치 서비스 문의', '콘텐츠 수익화 프로그램'],
+  commerceIntro: '아래의 문의유형을 먼저 선택하시면\n빠르게 상담 도와드릴게요!\n찾으시는 내용이 없다면 문의 내용을 직접 입력해주세요.',
+  commerceChips: ['주문 조회', '배송 현황', '상품 문의', '반품/교환'],
+  o2oIntro: '아래의 문의유형을 먼저 선택하시면\n빠르게 상담을 도와드릴게요!',
+  o2oChips: ['시공', '이사', '청소', '제품설치'],
+  contentDay: '콘텐츠 수익화 프로그램 문의는 담당 상담사가 확인할 수 있도록 연결할게요.',
+  o2oDay: '상담사 연결을 도와드릴게요. 잠시만 기다려 주세요.',
+  agentDay: '상담원 연결을 도와드릴게요. 잠시만 기다려 주세요.',
+  closedHours: '지금은 상담 운영 시간이 아니에요.\n채팅 상담은 평일 오전 9시~오후 6시에 도와드리고 있어요.',
+  handoverNight: '이 부분은 상담원 꼼꼼하게 확인해서 답변 드릴게요.\n지금까지 나눈 대화를 1:1 문의로 접수해 드리겠습니다.',
+  handoverBtns: ['문의 접수하기', '계속 대화하기'],
+  submitted: '문의가 접수되었습니다.\n운영시간 내 순차적으로 확인하고 답변드릴게요.\n진행 상황은 문의내역에서 확인하실 수 있습니다.',
+  moreAfterSubmit: '더 문의하실 내용이 있으신가요?',
+  notSubmitted: '추가로 문의하실 내용이 있으신가요?',
+  moreChips: ['네, 있어요', '아니요, 종료할게요'],
+  moreChipsNS: ['네, 있어요', '문의 접수하기', '아니요, 종료할게요'],
+  repeatAgent: '지금은 상담원 연결이 어려운 시간이에요.\n문의를 남겨주시면 빠르게 확인해 드릴게요.',
+  repeatAgentTail: '상담원 상담은 평일 오전 9시부터 오후 6시까지 가능하니, 그 시간에 다시 찾아주시면 바로 연결해 드리겠습니다.',
+  cont: '네, 이어서 말씀해주세요.\n궁금하신 내용을 입력해주시면 확인해 드릴게요.',
+  askMore: '네, 어떤 내용이 궁금하신가요?',
+  bye: '상담을 종료할게요.\n오늘의집을 이용해 주셔서 감사합니다.',
+  followChips: ['배송지를 변경하고 싶어요', '상담원 연결', '상담 종료'],
+  deliveryAns: '주문하신 상품의 배송 현황을 확인해 드릴게요.',
+  deliveryAfter: '더 궁금하신 점이 있으시면 말씀해주세요.',
+  genericAns: '말씀하신 내용을 확인해 드릴게요.\n주문하신 상품 관련 문의라면 주문 조회를 통해 자세히 안내드릴 수 있어요.',
+  orderAns: '최근 주문 내역을 확인해 드릴게요.',
+  productAns: '상품 문의를 도와드릴게요.\n궁금하신 상품명이나 주문번호를 알려주시면 확인해 드릴게요.',
+  returnAns: '반품/교환 접수를 도와드릴게요.\n대상 주문을 확인해 드릴게요.',
+  ph: '문의하고 싶은 내용을 말씀해주세요.',
+  phWait: '상담사 연결을 기다리고 있어요.',
+  phEnd: '상담이 종료되었습니다.',
+};
+const REPEAT_LIMIT = 3;   // 상담원 연결 n회째 요청부터 ⑦ 멘트
+
+/* 시간대 프리셋 */
+const MODES = {
+  day:     { label:'주간 · 평일 14:10', entry:'14:10', date:'2026년 09월 11일', weekend:false, step:1 },
+  night:   { label:'야간 · 평일 22:40', entry:'22:40', date:'2026년 09월 11일', weekend:false, step:1 },
+  weekend: { label:'주말 · 토 11:20', entry:'11:20', date:'2026년 09월 12일', weekend:true,  step:1 },
+  b1:      { label:'경계 A · 17:52 진입', entry:'17:52', date:'2026년 09월 11일', weekend:false, step:3 },
+  b2:      { label:'경계 B · 08:51 진입', entry:'08:51', date:'2026년 09월 11일', weekend:false, step:3 },
+};
+
+const toMin = s => { const [h,m] = s.split(':').map(Number); return h*60+m; };
+const fmt = m => String(Math.floor(m/60)%24).padStart(2,'0') + ':' + String(m%60).padStart(2,'0');
+
+/* ═══════════════════════════════════════════════════════════
+   상태 머신
+   ═══════════════════════════════════════════════════════════ */
+function Machine(mode){
+  const st = {
+    mode, clock: toMin(mode.entry), msgs: [], agentReq: 0, ctx: [],
+    modal: null, submitted: null, ended: false, waiting: false, toast: null, depth1: null,
+  };
+  const isOpen = () => !mode.weekend && st.clock >= 9*60 && st.clock < 18*60;
+  const bot  = (text, extra={}) => st.msgs.push(Object.assign({who:'bot', text, at:fmt(st.clock)}, extra));
+  const CTRL = ['문의 접수하기','계속 대화하기','네, 있어요','아니요, 종료할게요','상담 종료','상담원 연결'];
+  const user = (text) => { st.clock += mode.step; st.msgs.push({who:'user', text}); if (!CTRL.includes(text)) st.ctx.push({at:fmt(st.clock), who:'고객', text}); };
+  const finish = () => { st.ended = true; };
+
+  function start(){ st.msgs.push({who:'date', text: mode.date}); bot(T.greet, {chips: T.menu}); }
+
+  function agentRequest(){
+    if (isOpen()){ bot(T.agentDay, {card:'conn'}); st.waiting = true; return; }
+    st.agentReq += 1;
+    if (st.agentReq >= REPEAT_LIMIT){
+      bot(T.repeatAgent, {chips:['문의 접수하기'], primary:['문의 접수하기']});
+      bot(T.repeatAgentTail);
+    } else {
+      bot(T.handoverNight, {chips: T.handoverBtns, primary:['문의 접수하기']});
+    }
+  }
+  function handoverNeeded(){
+    if (isOpen()){ bot(T.agentDay, {card:'conn'}); st.waiting = true; return; }
+    bot(T.handoverNight, {chips: T.handoverBtns, primary:['문의 접수하기']});
+  }
+
+  function chip(label){
+    if (st.ended || st.waiting) return;
+    user(label);
+    switch(label){
+      case '상품 및 주문관련 문의':
+        st.depth1 = 'commerce'; bot(T.commerceIntro, {chips: T.commerceChips}); break;
+      case '시공/이사/청소/제품설치 서비스 문의':
+        st.depth1 = 'o2o'; bot(T.o2oIntro, {chips: T.o2oChips}); break;
+      case '콘텐츠 수익화 프로그램':
+        st.depth1 = 'content';
+        if (isOpen()){ bot(T.contentDay, {card:'conn'}); st.waiting = true; }
+        else { bot(T.closedHours); finish(); }
+        break;
+      case '시공': case '이사': case '청소': case '제품설치':
+        if (isOpen()){ bot(T.o2oDay, {card:'conn'}); st.waiting = true; }
+        else { bot(T.closedHours); finish(); }
+        break;
+      case '배송 현황':
+        bot(T.deliveryAns, {card:'order'}); bot(T.deliveryAfter, {chips: T.followChips}); break;
+      case '주문 조회':
+        bot(T.orderAns, {card:'order'}); bot(T.deliveryAfter, {chips: T.followChips}); break;
+      case '상품 문의':
+        bot(T.productAns, {chips: T.followChips}); break;
+      case '반품/교환':
+        bot(T.returnAns, {card:'order'}); bot(T.deliveryAfter, {chips: T.followChips}); break;
+      case '배송지를 변경하고 싶어요':
+        handoverNeeded(); break;
+      case '상담원 연결':
+        agentRequest(); break;
+      case '문의 접수하기':
+        st.modal = buildForm(); break;
+      case '계속 대화하기':
+        bot(T.cont, {chips:['상담원 연결','상담 종료']}); break;
+      case '네, 있어요':
+        bot(T.askMore, {chips:['배송지를 변경하고 싶어요','상담원 연결','상담 종료']}); break;
+      case '아니요, 종료할게요': case '상담 종료':
+        bot(T.bye); finish(); break;
+      default:
+        text(label, true);
+    }
+  }
+  function text(str, already){
+    if (st.ended || st.waiting) return;
+    if (!already) user(str);
+    if (/상담원|상담사|사람|직원/.test(str)) return agentRequest();
+    if (/배송지|주소|변경/.test(str)) return handoverNeeded();
+    if (/배송|언제|도착/.test(str)) { bot(T.deliveryAns, {card:'order'}); bot(T.deliveryAfter, {chips: T.followChips}); return; }
+    bot(T.genericAns, {chips: T.followChips});
+  }
+  function buildForm(){
+    const hasCtx = st.ctx.length > 1;   // Depth1 선택만 있으면 요약할 대화가 없음
+    const lines = st.ctx.map(c => `[${c.at}] 고객: ${c.text}`);
+    const body = hasCtx
+      ? `■ 상담 요약 (오집사 자동 작성)\n- 문의 유형: ${st.ctx[1].text}\n- 요청 내용: ${st.ctx[st.ctx.length-1].text}\n- 주문번호: 2026091012345 (원목 4단 서랍장)\n\n■ 고객 발화\n${lines.join('\n')}\n\n※ 추가하실 내용이 있으면 이어서 작성해주세요.`
+      : '';
+    return { type:'배송 문의', order:'2026091012345 · 원목 4단 서랍장', title: hasCtx ? '[채팅 상담 이관] 배송지 변경 요청' : '', body };
+  }
+  function modalSubmit(){
+    st.modal = null; st.submitted = true; st.clock += mode.step;
+    st.msgs.push({who:'sys', text:'1:1 문의가 접수되었어요 (문의번호 260911-0417)'});
+    bot(T.submitted); bot(T.moreAfterSubmit, {chips: T.moreChips});
+  }
+  function modalCancel(){
+    st.modal = null; st.submitted = false; st.clock += mode.step;
+    st.msgs.push({who:'sys', text:'1:1 문의 작성을 취소했어요'});
+    bot(T.notSubmitted, {chips: T.moreChipsNS, primary:['문의 접수하기']});
+  }
+  function endChat(){ if (st.ended) return; st.clock += mode.step; bot(T.bye); finish(); }
+
+  return { st, isOpen, start, chip, text, modalSubmit, modalCancel, endChat };
+}
+
+/* ═══════════════════════════════════════════════════════════
+   렌더러
+   ═══════════════════════════════════════════════════════════ */
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function render(root, m, opts={}){
+  const st = m.st, live = !!opts.live;
+  const lastBotIdx = (() => { for (let i=st.msgs.length-1;i>=0;i--) if (st.msgs[i].who==='bot' && st.msgs[i].chips) return i; return -1; })();
+  let h = '';
+  h += `<div class="ph-head"><div class="ph-logo"><i></i>오늘의집</div><div class="ph-x">✕</div></div>`;
+  h += `<div class="ph-body">`;
+  st.msgs.forEach((msg, i) => {
+    if (msg.who === 'date') { h += `<div class="ph-date">${esc(msg.text)}</div>`; return; }
+    if (msg.who === 'sys')  { h += `<div class="ph-sys">${esc(msg.text)}</div>`; return; }
+    if (msg.who === 'user') { h += `<div class="m-user"><span>${esc(msg.text)}</span></div>`; return; }
+    h += `<div class="m-bot">${esc(msg.text)}</div>`;
+    if (msg.card === 'order') h += `<div class="card-order"><div class="img"></div><div class="t"><b>원목 4단 서랍장 (화이트)</b><span class="st">배송 중</span> · 9/12(토) 도착 예정<br><span class="sub">주문번호 2026091012345 · CJ대한통운</span></div></div>`;
+    if (msg.card === 'conn')  h += `<div class="card-conn"><div class="sp"></div><b>상담사를 연결하고 있어요</b><div class="eta">예상 약 <b>3분</b></div><p>현재 문의가 많아 연결이 지연되고 있습니다.<br>잠시만 기다려 주세요.</p></div>`;
+    if (msg.chips){
+      const used = i !== lastBotIdx || st.ended || st.waiting;
+      h += `<div class="chips">` + msg.chips.map(c => {
+        const cls = ['chip', used ? 'used' : '', (msg.primary||[]).includes(c) ? 'primary' : ''].join(' ');
+        return `<button class="${cls}" data-chip="${esc(c)}">${esc(c)}</button>`;
+      }).join('') + `</div>`;
+    }
+    h += `<div class="m-meta"><i></i>오집사 ${msg.at}</div>`;
+  });
+  h += `</div>`;
+  h += `<div class="ph-end ${st.ended ? 'off':''}" data-end="1">✕ 상담 종료</div>`;
+  const ph = st.ended ? T.phEnd : (st.waiting ? T.phWait : T.ph);
+  h += `<div class="ph-input ${(st.ended||st.waiting)?'dim':''}"><div class="plus">+</div><input type="text" placeholder="${esc(ph)}" ${(!live||st.ended||st.waiting)?'disabled':''}><button class="send" data-send="1">↑</button></div>`;
+  if (st.modal){
+    const f = st.modal;
+    h += `<div class="modal"><div class="sheet">
+      <div class="sheet-h"><small>고객센터</small><h5>1:1 문의하기</h5><div class="x" data-cancel="1">✕</div></div>
+      <div class="sheet-b">
+        <div class="f"><label>문의 유형</label><div class="in auto">${esc(f.type)}<span class="cv">⌄</span></div><div class="auto-note">채팅 상담유형에서 자동 선택됨</div></div>
+        <div class="f"><label>주문번호 선택</label><div class="in auto">${esc(f.order)}<span class="cv">⌄</span></div></div>
+        <div class="f"><label>제목</label><div class="in ${f.title?'auto':'ph'}">${f.title ? esc(f.title) : '문의 제목을 입력하세요'}</div></div>
+        <div class="f"><label>문의 내용</label><textarea ${live?'':'readonly'} placeholder="문의 내용을 입력하세요">${esc(f.body)}</textarea><div class="auto-note">${f.body ? '대화 요약본이 자동으로 입력되었어요. 내용을 수정하거나 추가하실 수 있어요.' : '요약할 대화가 없어 비어 있어요. 문의 내용을 입력해주세요.'}</div></div>
+        <div class="f"><label>첨부파일</label><div class="file"><b>파일 첨부</b>최대 5개, 파일당 10MB</div></div>
+      </div>
+      <div class="sheet-f"><button data-cancel="1">취소</button><button class="go" data-submit="1">접수하기</button></div>
+    </div></div>`;
+  }
+  if (st.toast) h += `<div class="toast">${esc(st.toast)}</div>`;
+  root.innerHTML = h;
+  const body = root.querySelector('.ph-body');
+  if (body) body.scrollTop = body.scrollHeight;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   라이브 데모 컨트롤러
+   ═══════════════════════════════════════════════════════════ */
+const Live = (() => {
+  const root = document.getElementById('live');
+  const phone = document.createElement('div'); phone.className = 'phone'; root.appendChild(phone);
+  let modeKey = 'night', m, timer = null, queue = [];
+
+  function paint(){
+    render(phone, m, {live:true});
+    const s = m.st, open = m.isOpen();
+    document.getElementById('status').innerHTML =
+      `현재 시각 <b>${fmt(s.clock)}</b> · ${open ? '<span class="tag day">주간 · 상담원 연결 가능</span>' : '<span class="tag night">야간 · 접수 전용</span>'}<br>` +
+      `상담원 연결 요청 <b>${s.agentReq}회</b> · 1:1 문의 ${s.submitted===true?'<b>접수됨</b>':s.submitted===false?'<b>미접수</b>':'—'} · ${s.ended?'<b>상담 종료</b>':s.waiting?'<b>상담사 대기 중</b>':'진행 중'}`;
+    document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('on', b.dataset.mode === modeKey));
+  }
+  function setMode(k){ modeKey = k; reset(); }
+  function reset(){ stopPlay(); m = Machine(MODES[modeKey]); m.start(); paint(); }
+  function act(a){
+    if (a.chip) m.chip(a.chip);
+    else if (a.text) m.text(a.text);
+    else if (a.submit) m.modalSubmit();
+    else if (a.cancel) m.modalCancel();
+    else if (a.end) m.endChat();
+    paint();
+  }
+  function stopPlay(){ if (timer) clearTimeout(timer); timer = null; queue = []; }
+  function play(sc){
+    stopPlay(); modeKey = sc.mode; m = Machine(MODES[modeKey]); m.start(); paint();
+    queue = sc.steps.slice();
+    document.getElementById('s2').scrollIntoView({behavior:'smooth', block:'start'});
+    const tick = () => { if (!queue.length){ timer=null; return; } act(queue.shift()); timer = setTimeout(tick, 1100); };
+    timer = setTimeout(tick, 900);
+  }
+  phone.addEventListener('click', e => {
+    const t = e.target.closest('[data-chip],[data-end],[data-send],[data-cancel],[data-submit]');
+    if (!t) return;
+    stopPlay();
+    if (t.dataset.chip) return act({chip:t.dataset.chip});
+    if (t.dataset.end) return act({end:1});
+    if (t.dataset.cancel) return act({cancel:1});
+    if (t.dataset.submit) return act({submit:1});
+    if (t.dataset.send){ const inp = phone.querySelector('.ph-input input'); const v = (inp.value||'').trim(); if (v) act({text:v}); }
+  });
+  phone.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.matches('.ph-input input')){ const v = e.target.value.trim(); if (v){ stopPlay(); act({text:v}); } }
+  });
+  // 모드 버튼
+  const mroot = document.getElementById('modes');
+  Object.entries(MODES).forEach(([k,v]) => { const b = document.createElement('button'); b.textContent = v.label; b.dataset.mode = k; b.onclick = () => setMode(k); mroot.appendChild(b); });
+  reset();
+  return { reset, play, stopPlay, setMode };
+})();
+
+/* ═══════════════════════════════════════════════════════════
+   시나리오 정의 (정적 화면 + 자동 재생 공용)
+   ═══════════════════════════════════════════════════════════ */
+const C = s => ({chip:s});
+const X = s => ({text:s});
+const SCEN = [
+  { id:'N-01', group:'night', mode:'night', title:'야간 진입 · 메뉴 선택', tag:'keep',
+    cond:'평일 18:00~08:59, 주말 종일 진입',
+    steps:[],
+    flow:['진입 인사말과 Depth1 메뉴 3종은 현재와 동일합니다.','시간대별 인사말 분기는 두지 않습니다 (야간에도 같은 인사말).'],
+    note:'야간에는 24시간 운영 대상인 상품 및 주문관련 문의를 1순위로 두는 것이 목적이므로, 메뉴 순서는 유지합니다.' },
+  { id:'N-02', group:'night', mode:'night', title:'야간 · 시공/이사/청소/제품설치 서비스 문의', tag:'mod',
+    cond:'야간 · Depth1 = 서비스 문의 → Depth2 선택',
+    steps:[C('시공/이사/청소/제품설치 서비스 문의'), C('시공')],
+    flow:['Depth2(시공·이사·청소·제품설치)까지 선택하면 현재는 상담사 연결 카드가 뜹니다.','야간에는 연결 대신 운영시간 안내 멘트를 내보내고 상담을 종료 상태로 둡니다.'],
+    copy:'closedHours',
+    note:'Depth2 선택 시점에 판정합니다. Depth1만 누른 상태에서는 Depth2 칩을 그대로 보여줍니다.' },
+  { id:'N-03', group:'night', mode:'night', title:'야간 · 콘텐츠 수익화 프로그램', tag:'mod',
+    cond:'야간 · Depth1 = 콘텐츠 수익화 프로그램',
+    steps:[C('콘텐츠 수익화 프로그램')],
+    flow:['현재는 Depth1 선택 즉시 담당 상담사 연결 카드가 뜹니다.','야간에는 N-02와 같은 운영시간 안내 멘트로 대체하고 종료합니다.'],
+    copy:'closedHours' },
+  { id:'N-04', group:'night', mode:'night', title:'야간 · 상품 및 주문관련 문의 챗봇 응대', tag:'keep',
+    cond:'야간 · Depth1 = 상품 및 주문관련 문의',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황')],
+    flow:['주간과 동일하게 챗봇이 연결됩니다. Depth2 칩 선택이나 자유 입력 모두 가능합니다.','KMS·FAQ 응대와 인증 후 주문·배송 조회는 그대로 동작합니다.'],
+    note:'야간 write(취소·반품·교환 접수) 허용 범위는 위클리 결정 사항이라 이 목업에서는 조회 응대만 그렸습니다.' },
+  { id:'N-05', group:'night', mode:'night', title:'야간 · 상담원 확인이 필요한 경우 → 1:1 문의 접수 유도', tag:'new',
+    cond:'야간 · 챗봇이 처리할 수 없어 상담원 확인이 필요한 발화 (예: 배송지 변경)',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요')],
+    flow:['현재는 "상담원 연결을 도와드릴게요" + 연결 대기 카드가 뜹니다.','야간에는 접수 유도 멘트와 버튼 2개 [문의 접수하기] [계속 대화하기]를 내보냅니다.','고객이 직접 "상담원 연결"을 요청한 경우도 같은 멘트를 씁니다 (1~2회째).'],
+    copy:'handoverNight' },
+  { id:'N-06', group:'night', mode:'night', title:'[문의 접수하기] → 1:1 문의 작성 모달', tag:'new',
+    cond:'N-05에서 [문의 접수하기] 선택',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요'), C('문의 접수하기')],
+    flow:['채팅 위에 1:1 문의 작성 화면이 모달로 열립니다.','문의 유형·주문번호·제목은 챗봇 상담 정보로 자동 선택되고, 본문에는 대화 요약본이 들어갑니다.','고객은 본문을 수정하거나 내용을 추가한 뒤 [접수하기]를 누르거나, [취소]/[✕]로 모달을 닫을 수 있습니다.'],
+    note:'발화 전문은 접수 시 함께 전달되며 콘솔에서 원문이 정본, 요약은 참고용입니다.' },
+  { id:'N-07', group:'night', mode:'night', title:'접수 완료 → 안내 → 추가 문의 확인 → 종료', tag:'new',
+    cond:'N-06에서 [접수하기] 완료 후 채팅으로 복귀',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요'), C('문의 접수하기'), {submit:1}, C('아니요, 종료할게요')],
+    flow:['모달이 닫히면서 챗봇이 접수 완료 이벤트를 받습니다.','접수 완료 멘트 → "더 문의하실 내용이 있으신가요?" → [아니요, 종료할게요] 선택 시 종료 멘트 후 상담을 종료합니다.','[네, 있어요]를 고르면 대화를 이어가고, 다시 상담원 확인이 필요하면 N-05로 돌아갑니다.'],
+    copy:'submitted' },
+  { id:'N-08', group:'night', mode:'night', title:'접수 미완료(취소) → 추가 문의 확인 → 재안내', tag:'new',
+    cond:'N-06에서 [취소] 또는 [✕]로 모달을 닫은 경우',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요'), C('문의 접수하기'), {cancel:1}],
+    flow:['챗봇이 미접수 이벤트를 받고 "추가로 문의하실 내용이 있으신가요?"를 묻습니다.','선택지에 [문의 접수하기]를 함께 두어 접수를 다시 안내할 수 있게 합니다.','고객이 대화를 이어가면 핑퐁을 계속하고, 종료를 고르면 종료합니다.'],
+    copy:'notSubmitted' },
+  { id:'N-09', group:'night', mode:'night', title:'상담원 연결 반복 요청 (3회째부터)', tag:'new',
+    cond:'야간 · 접수 유도 후에도 상담원 연결을 계속 요청',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('상담원 연결'), C('계속 대화하기'), C('상담원 연결'), C('계속 대화하기'), C('상담원 연결')],
+    flow:['1~2회째 요청에는 N-05의 접수 유도 멘트를 보냅니다.','3회째부터는 연결이 어렵다는 안내와 [문의 접수하기] 버튼, 운영시간 안내를 내보내고 더 이상 연결 시도를 유도하지 않습니다.'],
+    copy:'repeatAgent',
+    note:'임계치는 REPEAT_LIMIT 상수(현재 3)로 두어 바꾸기 쉽게 했습니다.' },
+
+  { id:'B-01', group:'border', mode:'b1', title:'18시 이전 진입 → 18시 이후 상담원 요청', tag:'new',
+    cond:'17:52 진입 · 18:01 상담원 확인 필요',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요')],
+    flow:['진입은 운영시간 안이었지만, 상담원 확인이 필요해진 시각이 18시를 넘겼습니다.','판정 기준이 요청 시각이므로 야간 시나리오(1:1 문의 접수 유도)로 처리합니다.'],
+    note:'17:40~18:00 사이에 상담원 대기열에 이미 들어간 건은 기존처럼 상담원이 마무리합니다 (이 목업 범위 밖).' },
+  { id:'B-02', group:'border', mode:'b2', title:'09시 이전 진입 → 09시 이후 상담원 요청', tag:'keep',
+    cond:'08:51 진입 · 09:00 상담원 확인 필요',
+    steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요')],
+    flow:['진입은 야간이었지만 요청 시각이 09시를 넘겨 운영시간 안에 들어왔습니다.','주간과 동일하게 상담원 연결 카드를 띄우고 대기열에 배정합니다.'] },
+
+  { id:'D-01', group:'day', mode:'day', title:'주간 · 상품 및 주문관련 문의 → 상담원 연결', tag:'keep',
+    cond:'평일 14:10',
+    steps:[C('상품 및 주문관련 문의'), C('상담원 연결')],
+    flow:['현재와 동일합니다. 상담원 연결 멘트 후 연결 대기 카드가 뜨고 입력창은 대기 상태가 됩니다.'] },
+  { id:'D-02', group:'day', mode:'day', title:'주간 · 서비스 문의 Depth2 → 상담사 연결', tag:'keep',
+    cond:'평일 14:10',
+    steps:[C('시공/이사/청소/제품설치 서비스 문의'), C('시공')],
+    flow:['현재와 동일합니다.'] },
+  { id:'D-03', group:'day', mode:'day', title:'주간 · 콘텐츠 수익화 프로그램 → 담당 상담사 연결', tag:'keep',
+    cond:'평일 14:10',
+    steps:[C('콘텐츠 수익화 프로그램')],
+    flow:['현재와 동일합니다.'] },
+];
+
+const TAGNAME = {keep:'유지', mod:'변경', new:'신설'};
+function copyBlock(key){
+  const map = {
+    closedHours: T.closedHours,
+    handoverNight: T.handoverNight + '\n[문의 접수하기] [계속 대화하기]',
+    submitted: T.submitted + '\n\n' + T.moreAfterSubmit + '\n[네, 있어요] [아니요, 종료할게요]',
+    notSubmitted: T.notSubmitted + '\n[네, 있어요] [문의 접수하기] [아니요, 종료할게요]',
+    repeatAgent: T.repeatAgent + '\n[문의 접수하기]\n' + T.repeatAgentTail,
+  };
+  return map[key] ? `<dt>문안</dt><dd><div class="q">${esc(map[key])}</div></dd>` : '';
+}
+
+function buildScenario(sc){
+  const m = Machine(MODES[sc.mode]); m.start();
+  sc.steps.forEach(a => { if (a.chip) m.chip(a.chip); else if (a.text) m.text(a.text); else if (a.submit) m.modalSubmit(); else if (a.cancel) m.modalCancel(); });
+  const el = document.createElement('div'); el.className = 'sc'; el.id = 'sc-' + sc.id;
+  el.innerHTML = `<div class="shot"><div class="phone"></div></div>
+    <div class="body">
+      <h3><span class="id">${sc.id}</span>${esc(sc.title)} <span class="tag ${sc.tag}">${TAGNAME[sc.tag]}</span><button class="play">▶ 데모에서 재생</button></h3>
+      <div class="cond">조건: ${esc(sc.cond)}</div>
+      <dl>
+        <dt>흐름</dt><dd><ol>${sc.flow.map(f => `<li>${esc(f)}</li>`).join('')}</ol></dd>
+        ${sc.copy ? copyBlock(sc.copy) : ''}
+        ${sc.note ? `<dt>비고</dt><dd>${esc(sc.note)}</dd>` : ''}
+      </dl>
+    </div>`;
+  render(el.querySelector('.phone'), m);
+  el.querySelector('.play').onclick = () => Live.play(sc);
+  return el;
+}
+SCEN.forEach(sc => document.getElementById('scen-' + sc.group).appendChild(buildScenario(sc)));
+// 정적 화면은 레이아웃 뒤에 스크롤을 맨 아래로
+requestAnimationFrame(() => document.querySelectorAll('.sc .ph-body').forEach(b => b.scrollTop = b.scrollHeight));
+
+// 자동 재생 버튼 목록
+const proot = document.getElementById('plays');
+SCEN.forEach(sc => { const b = document.createElement('button'); b.innerHTML = `<span class="k">${sc.id}</span>${esc(sc.title)}`; b.onclick = () => Live.play(sc); proot.appendChild(b); });
+
+// 문안 모음
+const COPIES = [
+  ['① 야간 진입 인사말 (현재와 동일)', T.greet, 'keep'],
+  ['② O2O·콘텐츠 유형을 야간에 선택한 경우', T.closedHours, 'mod'],
+  ['③ 상담원 확인이 필요할 때 (접수 유도)', T.handoverNight + '\n[문의 접수하기] [계속 대화하기]', 'new'],
+  ['④ 접수 완료', T.submitted + '\n\n' + T.moreAfterSubmit + '\n[네, 있어요] [아니요, 종료할게요]', 'new'],
+  ['⑤ 접수 미완료(모달 취소)', T.notSubmitted + '\n[네, 있어요] [문의 접수하기] [아니요, 종료할게요]', 'new'],
+  ['⑥ 상담원 연결 반복 요청 (3회째부터)', T.repeatAgent + '\n[문의 접수하기]\n' + T.repeatAgentTail, 'new'],
+  ['⑦ 계속 대화하기 선택 시', T.cont, 'new'],
+  ['⑧ 종료', T.bye, 'keep'],
+];
+document.getElementById('copy-list').innerHTML = COPIES.map(([l, t, tag]) =>
+  `<p class="msg-label">${esc(l)} <span class="tag ${tag}">${TAGNAME[tag]}</span></p><pre class="msg">${esc(t)}</pre>`).join('');
+</script>
+</body>
+</html>
