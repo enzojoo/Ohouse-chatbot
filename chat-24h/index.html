@@ -112,6 +112,12 @@
   .tag.day{background:var(--amber-soft);color:var(--amber)}
   .tag.night{background:var(--brand-soft);color:var(--brand-deep)}
 
+  .mermaid-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:22px 18px;margin:12px 0 16px;box-shadow:var(--shadow)}
+  .mermaid-wrap .mermaid{min-width:min-content;text-align:center}
+  .mermaid-wrap svg{max-width:none !important;height:auto}
+  .dg-label{font-size:13.5px;font-weight:700;margin:18px 0 0}
+  .dg-label span{font-weight:400;color:var(--ink-3)}
   .foot{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px}
 
   /* ───────── 라이브 데모 레이아웃 ───────── */
@@ -304,6 +310,44 @@
     <tr><td>비회원</td><td>회원 정보가 없어 주문·배송 API 조회가 불가하므로 KMS·FAQ 응대만 하고, <b>Depth2(주문 조회·배송 현황·상품 문의·반품/교환) 선택이나 인증이 필요한 요청은 즉시 상담원 연결 대상</b>입니다. 주간은 바로 연결하고, 야간에는 <b>로그인을 유도</b>합니다. 로그인하면 인증 후 API 조회가 가능해지므로 회원과 동일하게 챗봇이 응대를 이어가고, 그래도 상담원 확인이 필요하면 1:1 문의 접수로 넘어갑니다. 거부하면 도움이 될 안내와 상담원 상담 가능 시간을 안내하고 챗봇 선에서 마무리합니다.</td></tr>
     <tr><td>시간 판정 기준</td><td><b>상담원 연결을 요청한 시각</b>으로 판정합니다. 채팅에 처음 진입한 시각은 기준이 아닙니다. (5장 경계 시간 참조)</td></tr>
   </table></div>
+
+  <h3>고객 인입 흐름 비교 (As-Is → To-Be)</h3>
+  <p class="dg-label">As-Is (현행) <span>· 주 123시간(73.2%) 동안 채팅 진입 자체가 막혀 있어 1:1 문의 작성만 가능합니다.</span></p>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    S(["고객 문의 발생"]) --> T{"인입 시각"}
+    T -->|"평일 09~18시 · 주 45h (26.8%)"| C["채팅 진입 가능"]
+    T -->|"야간·주말 · 주 123h (73.2%)"| X["채팅 진입 불가"]
+    C --> B["챗봇 응대"]
+    B -->|"61.1%"| B1(["단독 종결"])
+    B -->|"38.9%"| B2["상담원 연결"]
+    B2 --> B3(["실시간 상담 종결"])
+    X --> P["1:1 문의 직접 작성<br/>평일 야간 134건 · 주말 157건"]
+    P --> P1(["다음 영업일 09시부터 순차 답변"])
+  </pre></div>
+  <p class="dg-label">To-Be (전환 후) <span>· 야간에도 채팅이 열리고, 상담원 확인이 필요한 건만 1:1 문의로 자동 접수합니다.</span></p>
+  <div class="mermaid-wrap"><pre class="mermaid">
+flowchart TD
+    S(["고객 문의 발생"]) --> T{"인입 시각"}
+    T -->|"평일 09~18시"| D["채팅 진입 · 현행 유지"]
+    T -->|"야간·주말"| E{"고객 선택"}
+    D --> DB["챗봇 응대"]
+    DB -->|"61.1%"| DB1(["단독 종결"])
+    DB -->|"38.9%"| DB2(["상담원 실시간 상담"])
+    E -->|"채팅 · 신설 동선"| U{"문의 유형"}
+    E -->|"1:1 문의 직접 작성"| P2["1:1 문의 접수"]
+    U -->|"O2O·콘텐츠"| U1(["운영시간 안내 후 종료"])
+    U -->|"커머스"| NB["챗봇 응대<br/>야간 write 범위는 별도 정의"]
+    NB -->|"61.1%"| NB1(["단독 종결 · 즉시 해결"])
+    NB -->|"38.9%"| NM{"로그인 여부"}
+    NM -->|"회원"| NT["1:1 문의 자동 접수<br/>요약 + 발화 전문 이관"]
+    NM -->|"비회원"| NL{"로그인 유도"}
+    NL -->|"동의"| NT
+    NL -->|"거부"| NL1(["FAQ 안내 후 재방문 유도"])
+    NT --> NT1(["다음 영업일 09시부터 순차 답변"])
+    P2 --> NT1
+  </pre></div>
+  <p class="hint" style="font-size:11.5px;color:var(--ink-3);margin:-6px 0 16px">다이어그램은 좌우로 스크롤됩니다. 비율은 노션 정본의 인입 흐름 실측(2026-08-11~09-05)입니다.</p>
 
   <h3>유형 × 시간대 동작 매트릭스</h3>
   <div class="scroll-x"><table>
@@ -869,6 +913,17 @@ const COPIES = [
 ];
 document.getElementById('copy-list').innerHTML = COPIES.map(([l, t, tag]) =>
   `<p class="msg-label">${esc(l)} <span class="tag ${tag}">${TAGNAME[tag]}</span></p><pre class="msg">${esc(t)}</pre>`).join('');
+</script>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: dark ? 'dark' : 'neutral',
+    securityLevel: 'loose',
+    flowchart: { htmlLabels: true, curve: 'basis', useMaxWidth: false },
+    themeVariables: { fontFamily: '-apple-system, "Apple SD Gothic Neo", Pretendard, "Noto Sans KR", sans-serif', fontSize: '13px' }
+  });
 </script>
 </body>
 </html>
