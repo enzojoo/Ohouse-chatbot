@@ -154,6 +154,7 @@
   .ph-body{flex:1;overflow-y:auto;padding:16px 16px 84px}
   .ph-date{text-align:center;color:#9AA1AB;font-size:13px;margin:6px 0 16px}
   .m-bot{font-size:15px;line-height:1.5;white-space:pre-line;margin:0 0 10px;padding-right:20px;color:#2F3438}
+  .m-tail{margin-top:14px;font-size:14px;color:#5B636D}
   .m-meta{display:flex;align-items:center;gap:6px;color:#9AA1AB;font-size:12px;margin:8px 0 16px}
   .m-meta i{width:10px;height:10px;background:#4A9CFF;display:inline-block;clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%);border-radius:2px}
   .chips{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 4px}
@@ -473,7 +474,7 @@ const T = {
   moreChips: ['네, 있어요', '아니요, 종료할게요'],
   moreChipsNS: ['네, 있어요', '문의 접수하기', '아니요, 종료할게요'],
   repeatAgent: '지금은 상담원 연결이 어려운 시간이에요.\n문의를 남겨주시면 빠르게 확인해 드릴게요.',
-  repeatAgentTail: '상담원 상담은 평일 오전 9시부터 오후 6시까지 가능하니, 그 시간에 다시 찾아주시면 바로 연결해 드리겠습니다.',
+  reContact: '평일 09시-18시에 채팅 및 전화(1670-0876)로 재문의주시면, 상담원 연결도 도와드릴 수 있습니다.',
   cont: '네, 이어서 말씀해주세요.\n궁금하신 내용을 입력해주시면 확인해 드릴게요.',
   askMore: '네, 어떤 내용이 궁금하신가요?',
   bye: '상담을 종료할게요.\n오늘의집을 이용해 주셔서 감사합니다.',
@@ -528,16 +529,15 @@ function Machine(mode){
     if (st.guest) return guestPrompt();
     st.agentReq += 1;
     if (st.agentReq >= REPEAT_LIMIT){
-      bot(T.repeatAgent, {chips:['문의 접수하기'], primary:['문의 접수하기']});
-      bot(T.repeatAgentTail);
+      bot(T.repeatAgent, {chips:['문의 접수하기'], primary:['문의 접수하기'], tail: T.reContact});
     } else {
-      bot(T.handoverNight, {chips: T.handoverBtns, primary:['문의 접수하기']});
+      bot(T.handoverNight, {chips: T.handoverBtns, primary:['문의 접수하기'], tail: T.reContact});
     }
   }
   function handoverNeeded(){
     if (isOpen()){ bot(T.agentDay, {card:'conn'}); st.waiting = true; return; }
     if (st.guest) return guestPrompt();
-    bot(T.handoverNight, {chips: T.handoverBtns, primary:['문의 접수하기']});
+    bot(T.handoverNight, {chips: T.handoverBtns, primary:['문의 접수하기'], tail: T.reContact});
   }
 
   function chip(label){
@@ -660,6 +660,7 @@ function render(root, m, opts={}){
         return `<button class="${cls}" data-chip="${esc(c)}">${esc(c)}</button>`;
       }).join('') + `</div>`;
     }
+    if (msg.tail) h += `<div class="m-bot m-tail">${esc(msg.tail)}</div>`;
     h += `<div class="m-meta"><i></i>오집사 ${msg.at}</div>`;
   });
   h += `</div>`;
@@ -783,7 +784,7 @@ const SCEN = [
   { id:'N-05', group:'night', mode:'night', title:'야간 · 상담원 확인이 필요한 경우 → 1:1 문의 접수 유도', tag:'new',
     cond:'야간 · 챗봇이 처리할 수 없어 상담원 확인이 필요한 발화 (예: 배송지 변경)',
     steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('배송지를 변경하고 싶어요')],
-    flow:['현재는 "상담원 연결을 도와드릴게요" + 연결 대기 카드가 뜹니다.','야간에는 접수 유도 멘트와 버튼 2개 [문의 접수하기] [계속 대화하기]를 내보냅니다.','고객이 직접 "상담원 연결"을 요청한 경우도 같은 멘트를 씁니다 (1~2회째).'],
+    flow:['현재는 "상담원 연결을 도와드릴게요" + 연결 대기 카드가 뜹니다.','야간에는 접수 유도 멘트와 버튼 2개 [문의 접수하기] [계속 대화하기]를 내보내고, 그 아래에 운영시간 내 채팅·전화 재문의 안내를 붙입니다.','고객이 직접 "상담원 연결"을 요청한 경우도 같은 멘트를 씁니다 (1~2회째).'],
     copy:'handoverNight' },
   { id:'N-06', group:'night', mode:'night', title:'[문의 접수하기] → 1:1 문의 작성 모달', tag:'new',
     cond:'N-05에서 [문의 접수하기] 선택',
@@ -803,7 +804,7 @@ const SCEN = [
   { id:'N-09', group:'night', mode:'night', title:'상담원 연결 반복 요청 (3회째부터)', tag:'new',
     cond:'야간 · 접수 유도 후에도 상담원 연결을 계속 요청',
     steps:[C('상품 및 주문관련 문의'), C('배송 현황'), C('상담원 연결'), C('계속 대화하기'), C('상담원 연결'), C('계속 대화하기'), C('상담원 연결')],
-    flow:['1~2회째 요청에는 N-05의 접수 유도 멘트를 보냅니다.','3회째부터는 연결이 어렵다는 안내와 [문의 접수하기] 버튼, 운영시간 안내를 내보내고 더 이상 연결 시도를 유도하지 않습니다.'],
+    flow:['1~2회째 요청에는 N-05의 접수 유도 멘트를 보냅니다.','3회째부터는 연결이 어렵다는 안내와 [문의 접수하기] 버튼, 운영시간 내 채팅·전화 재문의 안내를 내보내고 더 이상 연결 시도를 유도하지 않습니다.'],
     copy:'repeatAgent' },
   { id:'N-10', group:'night', mode:'guest', title:'야간 · 비회원 KMS/FAQ 응대', tag:'keep',
     cond:'야간 · 로그인하지 않은 상태 · 회원 정보가 필요 없는 일반 문의',
@@ -861,10 +862,10 @@ const TAGNAME = {keep:'유지', mod:'변경', new:'신설'};
 function copyBlock(key){
   const map = {
     closedHours: T.closedHours,
-    handoverNight: T.handoverNight + '\n[문의 접수하기] [계속 대화하기]',
+    handoverNight: T.handoverNight + '\n[문의 접수하기] [계속 대화하기]\n\n' + T.reContact,
     submitted: T.submitted + '\n\n' + T.moreAfterSubmit + '\n[네, 있어요] [아니요, 종료할게요]',
     notSubmitted: T.notSubmitted + '\n[네, 있어요] [문의 접수하기] [아니요, 종료할게요]',
-    repeatAgent: T.repeatAgent + '\n[문의 접수하기]\n' + T.repeatAgentTail,
+    repeatAgent: T.repeatAgent + '\n[문의 접수하기]\n\n' + T.reContact,
     guestLogin: T.guestLogin + '\n[로그인하기] [로그인 없이 진행할게요]',
     guestRefuse: T.guestRefuse,
   };
@@ -901,10 +902,10 @@ SCEN.forEach(sc => { const b = document.createElement('button'); b.innerHTML = `
 const COPIES = [
   ['① 야간 진입 인사말 (현재와 동일)', T.greet, 'keep'],
   ['② O2O·콘텐츠 유형을 야간에 선택한 경우', T.closedHours, 'mod'],
-  ['③ 상담원 확인이 필요할 때 (접수 유도)', T.handoverNight + '\n[문의 접수하기] [계속 대화하기]', 'new'],
+  ['③ 상담원 확인이 필요할 때 (접수 유도)', T.handoverNight + '\n[문의 접수하기] [계속 대화하기]\n\n' + T.reContact, 'new'],
   ['④ 접수 완료', T.submitted + '\n\n' + T.moreAfterSubmit + '\n[네, 있어요] [아니요, 종료할게요]', 'new'],
   ['⑤ 접수 미완료(모달 취소)', T.notSubmitted + '\n[네, 있어요] [문의 접수하기] [아니요, 종료할게요]', 'new'],
-  ['⑥ 상담원 연결 반복 요청 (3회째부터)', T.repeatAgent + '\n[문의 접수하기]\n' + T.repeatAgentTail, 'new'],
+  ['⑥ 상담원 연결 반복 요청 (3회째부터)', T.repeatAgent + '\n[문의 접수하기]\n\n' + T.reContact, 'new'],
   ['⑦ 계속 대화하기 선택 시', T.cont, 'new'],
   ['⑧ 비회원 야간 · 로그인 유도', T.guestLogin + '\n[로그인하기] [로그인 없이 진행할게요]', 'new'],
   ['⑨ 비회원 야간 · 로그인 완료', T.loginDone, 'new'],
