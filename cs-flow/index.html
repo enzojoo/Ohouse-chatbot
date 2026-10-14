@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>고객센터 인입·종결 흐름도</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 시트 2장(AS-IS / TO-BE)을 위아래로, 각 시트는 콜 · 인앱/웹 · 게시판 레인을 나란히 둔 트리 + 레인 간 화살표 */
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-2: #eef2f5;
+  --fg: #1d2630;
+  --muted: #5d6b78;
+  --line: #c3ccd5;
+  --accent: #0a8fc2;
+  --new: #d9771b;
+  --new-bg: #fff4e8;
+  --warn: #b4232a;
+  --warn-bg: #fdecec;
+  --c-bot: #0a8fc2;   --c-bot-bg: #e3f4fb;
+  --c-call: #6a4fc4;  --c-call-bg: #efebfb;
+  --c-agent: #2f7d4e; --c-agent-bg: #e6f4ea;
+  --c-ai: #c2368f;    --c-ai-bg: #fbe8f3;
+  --c-none: #6b7580;  --c-none-bg: #eceff2;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11161b; --surface: #1a2128; --surface-2: #232c35; --fg: #e4eaf0; --muted: #98a6b3; --line: #3a4652;
+  --accent: #4cc0ea; --new: #f0a050; --new-bg: #3a2a1a; --warn: #f07a80; --warn-bg: #3a1e21;
+  --c-bot: #5cc6ee; --c-bot-bg: #173341; --c-call: #a893f0; --c-call-bg: #2a2445;
+  --c-agent: #6cc893; --c-agent-bg: #1a3325; --c-ai: #ee7cc0; --c-ai-bg: #3d1f31;
+  --c-none: #a3adb7; --c-none-bg: #2a3139; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11161b; --surface: #1a2128; --surface-2: #232c35; --fg: #e4eaf0; --muted: #98a6b3; --line: #3a4652;
+  --accent: #4cc0ea; --new: #f0a050; --new-bg: #3a2a1a; --warn: #f07a80; --warn-bg: #3a1e21;
+  --c-bot: #5cc6ee; --c-bot-bg: #173341; --c-call: #a893f0; --c-call-bg: #2a2445;
+  --c-agent: #6cc893; --c-agent-bg: #1a3325; --c-ai: #ee7cc0; --c-ai-bg: #3d1f31;
+  --c-none: #a3adb7; --c-none-bg: #2a3139; color-scheme: dark }
+
+body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 14px; line-height: 1.5; }
+.wrap { max-width: 1480px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 56px; display: grid; gap: 28px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+header.top { display: grid; gap: 10px; }
+header.top h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+header.top p { margin: 0; color: var(--muted); }
+header.top p.ref { font-size: 12.5px; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.jump a { font-weight: 600; font-size: 13px; color: var(--accent); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 5px 12px; border-radius: 999px; }
+nav.jump a:hover, nav.jump a:focus-visible { border-color: var(--accent); outline: none; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 12.5px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.legend .grp { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.legend b { color: var(--fg); font-weight: 600; margin-right: 2px; }
+
+section.sheet { display: grid; gap: 14px; scroll-margin-top: 12px; }
+.sheet-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-bottom: 2px solid var(--fg); padding-bottom: 8px; }
+.sheet-head h2 { font-size: 20px; font-weight: 700; }
+.sheet-head .tag { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.sheet-head .count { margin-left: auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.lanes { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: start; }
+@media (max-width: 1100px) { .lanes { grid-template-columns: 1fr; } }
+.lanes svg.arrows { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 2; }
+.lane { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 14px 16px; min-width: 0; }
+.lane h3 { font-size: 15px; font-weight: 700; }
+.lane .lane-note { margin: 4px 0 10px; font-size: 12.5px; color: var(--muted); }
+
+/* tree */
+ul.tree { list-style: none; margin: 0; padding: 0 0 0 14px; }
+ul.tree.root { padding-left: 0; }
+ul.tree li { position: relative; padding: 5px 0 5px 18px; min-width: 0; }
+ul.tree.root > li { padding-left: 0; }
+ul.tree:not(.root) > li::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1.5px solid var(--line); }
+ul.tree:not(.root) > li:last-child::before { bottom: auto; height: 21px; }
+ul.tree:not(.root) > li::after { content: ""; position: absolute; left: 0; top: 21px; width: 13px; border-top: 1.5px solid var(--line); }
+
+.node { border-radius: 8px; padding: 6px 10px; display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
+.node.entry { background: var(--fg); color: var(--bg); font-weight: 600; }
+.node.step { background: var(--surface-2); }
+.node.step .lbl::before { content: "◇ "; color: var(--muted); font-size: 11px; }
+.node.cond { background: transparent; padding: 2px 4px; }
+.node.cond .lbl { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.node.end { background: var(--surface); border: 1.5px solid var(--fg); }
+.node.end.new { border-color: var(--new); background: var(--new-bg); }
+.node.end.noticket { border: 1.5px dashed var(--line); }
+.node .lbl { font-weight: 600; }
+.node.end .lbl::before { content: "■ "; font-size: 10px; vertical-align: 1px; }
+.node .meta { display: flex; flex-wrap: wrap; gap: 5px 8px; align-items: center; }
+.node .note { font-size: 12px; color: var(--muted); }
+.num { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--fg); }
+.num .pct { color: var(--muted); }
+.num .est { color: var(--new); font-weight: 600; }
+
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.chip.bot { color: var(--c-bot); background: var(--c-bot-bg); }
+.chip.call { color: var(--c-call); background: var(--c-call-bg); }
+.chip.agent { color: var(--c-agent); background: var(--c-agent-bg); }
+.chip.ai { color: var(--c-ai); background: var(--c-ai-bg); }
+.chip.none { color: var(--c-none); background: var(--c-none-bg); }
+.chip.newtag { color: #fff; background: var(--new); }
+.chip.warn { color: var(--warn); background: var(--warn-bg); }
+.plus { font-size: 11px; color: var(--muted); }
+
+ul.changes { margin: 0; padding: 10px 14px 10px 32px; display: grid; gap: 4px; background: var(--new-bg); border: 1px solid var(--new); border-radius: 10px; font-size: 13.5px; }
+ul.changes li::marker { color: var(--new); }
+header.top p.ref a { color: var(--accent); }
+p.sched { margin: 0; font-size: 13px; color: var(--muted); }
+p.sched b { color: var(--fg); }
+.box.rules h3 { font-size: 14px; margin-bottom: 8px; }
+.box.rules ul { color: var(--fg); }
+.box.rules li b { font-weight: 600; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.box ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <h1>고객센터 인입·종결 흐름도</h1>
+    <p>채팅 24시간 운영과 1:1 문의 AI 자동답변 구축에 따른 고객 인입·종결 흐름의 Before &amp; After 비교 문서입니다.</p>
+    <p class="ref">※ 참고: AS-IS 건수는 2026년 9월 ECA 인입 티켓 기준이며, 비율의 분모는 해당 채널의 인입 합계입니다(전화 29,984건 · 인앱/웹 9,398건 · 게시판 13,439건). 게시판 분기 번호는 <a href="https://app.notion.com/p/3e3a597878a081579742d018e8f2a30f" target="_blank" rel="noopener">게시판 문의 자동답변 · 상담사 인계 분기 프로세스</a> 문서 기준입니다.</p>
+    <nav class="jump" aria-label="시트 이동"><a href="#asis">AS-IS 현재</a><a href="#tobe">TO-BE 11/2 이후</a></nav>
+  </header>
+
+  <div class="legend" aria-label="범례">
+    <span class="grp"><b>NPS</b><span class="chip bot">챗봇</span><span class="chip call">콜봇</span><span class="chip agent">상담사</span><span class="chip ai">AI답변</span><span class="chip none">미발송</span></span>
+    <span class="grp"><b>종결 노드 이름</b>ECA 인입흐름 (통계·NPS 기준값)</span>
+    <span class="grp"><b>종결</b><span class="chip newtag">신설</span> 주황 테두리 · 점선 = 티켓 없음</span>
+    <span class="grp"><b>건수 (AS-IS)</b>9월 인입 건수 · 채널 내 비율</span>
+  </div>
+
+  <section class="sheet" id="asis">
+    <div class="sheet-head"><span class="tag">Sheet 1 · AS-IS</span><h2>현재 운영 기준</h2><span class="count" data-count="asis"></span></div>
+    <div class="lanes" id="lanes-asis"></div>
+  </section>
+
+  <section class="sheet" id="tobe">
+    <div class="sheet-head"><span class="tag">Sheet 2 · TO-BE</span><h2>11/2 이후 (채팅 24시간 + 게시판 AI 자동답변)</h2><span class="count" data-count="tobe"></span></div>
+    <ul class="changes" aria-label="AS-IS 대비 바뀌는 점">
+      <li>야간·주말·공휴일에도 커머스 문의는 챗봇이 응대합니다.</li>
+      <li>야간에 상담사가 필요하면 1:1 문의 접수로 연결되고, 게시판에서 답변합니다.</li>
+      <li>게시판 문의는 AI가 분기를 판정해 자동답변하거나 상담사에게 배정합니다.</li>
+    </ul>
+    <p class="sched"><b>일정</b> AICX 개발 10/12~10/21 → QA 10/22~10/30 → <b>오픈 11/2</b></p>
+    <div class="lanes" id="lanes-tobe"></div>
+    <div class="box rules">
+      <h3>NPS · 지표 집계 규칙</h3>
+      <ul>
+        <li><b>NPS 발송 시점</b>: 티켓이 답변완료·처리완료로 바뀔 때 발송합니다. 같은 회원에게 3일 안에 발송한 이력이 있으면 보내지 않으며, 발송은 평일 09~19시에만 합니다.</li>
+        <li><b>NPS 미발송</b>: 「인앱/웹 &gt; 챗봇 &gt; 게시판」 채팅 티켓(게시판 티켓에서 함께 발송), 시간양해로 종결된 「게시판 &gt; AI답변」(선행 티켓에서 발송)</li>
+        <li><b>NPS 문항</b>: 게시판 AI답변 만족도 문항을 신설합니다. 챗봇을 거친 게시판 건은 기존 챗봇 문항과 함께 묶어 발송합니다.</li>
+        <li><b>챗봇 단독처리율</b>: 「인앱/웹 &gt; 챗봇 &gt; 게시판」은 분자에서 빼고 분모에는 넣습니다. 야간에 챗봇이 해결하지 못한 건으로 집계됩니다.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<script>
+const NPS = { bot: "챗봇", call: "콜봇", agent: "상담사", ai: "AI답변", none: "미발송" };
+const TOTAL = { call: 29984, chat: 9398, board: 13439 };
+
+const E = (o) => Object.assign({ t: "end" }, o);
+const S = (label, children) => ({ t: "step", label, children });
+const C = (label, children) => ({ t: "cond", label, children });
+
+// 공통 경로
+const chatHours = () => [
+  S("문의 영역 선택", [
+    C("1번 커머스", [
+      S("챗봇 응대", [
+        C("챗봇이 해결", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"], n: 4429, ch: "chat" })]),
+        C("상담사 연결 요청", [E({ label: "인앱/웹 > 챗봇 > 상담사", nps: ["bot", "agent"], n: 3394, ch: "chat" })]),
+      ]),
+    ]),
+    C("2번 O2O · 3번 콘텐츠", [
+      S("상담사 직연결", [E({ label: "인앱/웹 > 상담사", nps: ["agent"], n: 1575, ch: "chat" })]),
+    ]),
+  ]),
+];
+
+const phone = () => [
+  { t: "entry", label: "대표번호로 전화", children: [
+    C("평일 09~18시", [
+    S("IVR 메뉴 선택", [
+      C("1번 커머스 · 3번 기타", [
+        S("콜봇 응대", [
+          C("콜봇이 해결", [E({ label: "콜봇", nps: ["call"], n: 6689, ch: "call" })]),
+          C("상담사 연결", [E({ label: "콜봇 > 상담사", nps: ["call", "agent"], n: 14285, ch: "call" })]),
+        ]),
+      ]),
+      C("2번 O2O", [
+        S("상담사 직연결", [
+          E({ label: "상담사", nps: ["agent"], n: 7416, ch: "call" }),
+          C("다른 상담사로 호전환", [E({ label: "상담사 > 상담사(호전환)", nps: ["agent"], n: 1594, ch: "call" })]),
+        ]),
+      ]),
+    ]),
+    ]),
+    C("운영시간 외 (야간·주말·공휴일)", [E({ t: "noticket", label: "운영시간 안내 후 종료" })]),
+  ]},
+];
+
+const SHEETS = {
+  asis: [
+    { title: "전화", note: "평일 09~18시 운영, IVR 1번 커머스 · 2번 O2O · 3번 기타", tree: phone() },
+    { title: "인앱/웹 채팅", note: "평일 09~18시만 운영", tree: [
+      { t: "entry", label: "고객센터 > 채팅 상담 진입", children: [
+        C("평일 09~18시", chatHours()),
+        C("운영시간 외 (야간·주말·공휴일)", [E({ t: "noticket", label: "채팅 상담 미운영" })]),
+      ]},
+    ]},
+    { title: "게시판 (1:1 문의)", note: "24시간 접수, 답변은 영업일 09~18시", tree: [
+      { t: "entry", label: "고객이 1:1 문의 작성", children: [
+        S("영업일 09시 상담사 자동 배정", [
+          C("상담사 답변", [E({ label: "게시판", nps: ["agent"], n: 13439, ch: "board" })]),
+        ]),
+      ]},
+    ]},
+  ],
+  tobe: [
+    { title: "전화", note: "현재와 같음", tree: phone() },
+    { title: "인앱/웹 채팅", note: "24시간 운영, 상담사 연결은 평일 09~18시", tree: [
+      { t: "entry", label: "고객센터 > 채팅 상담 진입", children: [
+        C("평일 09~18시 (현재와 같음)", chatHours()),
+        C("운영시간 외 (야간·주말·공휴일)", [
+          S("문의 영역 선택", [
+            C("1번 커머스", [
+              S("챗봇 응대", [
+                C("챗봇이 해결", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"] })]),
+                C("상담사가 필요함", [
+                  C("1:1 문의 접수", [E({ label: "인앱/웹 > 챗봇 > 게시판", nps: ["none"], isNew: true, from: "night", note: "채팅 티켓은 바로 종결되고 게시판 티켓이 새로 생깁니다(티켓 2건). 챗봇 NPS는 게시판 티켓이 종결될 때 함께 발송합니다." })]),
+                  C("접수하지 않고 종료", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"] })]),
+                ]),
+              ]),
+            ]),
+            C("2번 O2O · 3번 콘텐츠", [E({ t: "noticket", label: "운영시간 안내 후 종료" })]),
+          ]),
+        ]),
+      ]},
+    ]},
+    { title: "게시판 (1:1 문의)", note: "AI 자동답변은 답변완료로 종결", tree: [
+      { t: "entry", label: "① 고객이 1:1 문의 직접 작성", children: [
+        S("AI 분기 판정 (1→6단계 순서로 확인, 처음 해당하는 단계에서 결정)", [
+          C("1 Critical 키워드 · 2 48시간 내 재문의 · 4-1 AI 상담 미지원 · 5-2 판매자 거절·불만 · 5-4-i 2주 내 판매자 문의 이력 있음 · 5-4-ii 주문건 특정 불가 · 6-2 답변 근거 없음", [
+            E({ label: "게시판 > 상담사", nps: ["agent"] }),
+          ]),
+          C("3 같은 주문번호를 다른 채널에서 상담사가 처리 중", [
+            S("AI 시간양해 안내", [
+              E({ label: "게시판 > AI답변", nps: ["none"], isNew: true, note: "선행 티켓에서 상담사 NPS가 나가므로 중복 발송하지 않음" }),
+            ]),
+          ]),
+          C("5-1 단순 접수 요청 · 5-3 문의내용 부정확 · 5-4-i 판매자 첫 문의 · 5-4-ii 상품문의 · 6-1 조회 결과·KMS 근거 있음", [
+            S("AI 자동답변 안내", [
+              E({ label: "게시판 > AI답변", nps: ["ai"], isNew: true }),
+            ]),
+          ]),
+          C("AI 판정 실패·오류", [
+            E({ label: "게시판 > 상담사", nps: ["agent"] }),
+          ]),
+        ]),
+      ]},
+      { t: "entry", label: "② 야간 챗봇에서 넘어온 1:1 문의", to: "night", children: [
+        C("1차 · 11/2 오픈 시 (전부 상담사)", [
+          E({ label: "인앱/웹 > 챗봇 > 게시판 > 상담사", nps: ["bot", "agent"], isNew: true }),
+        ]),
+        C("2차 · 모니터링 후 전환 (①과 같은 분기)", [
+          C("AI 답변", [E({ label: "인앱/웹 > 챗봇 > 게시판 > AI답변", nps: ["bot", "ai"], isNew: true })]),
+          C("상담사 답변", [E({ label: "인앱/웹 > 챗봇 > 게시판 > 상담사", nps: ["bot", "agent"], isNew: true })]),
+        ]),
+      ]},
+    ]},
+  ],
+};
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmt = (n) => n.toLocaleString("ko-KR");
+const chips = (nps) => nps.map((k) => `<span class="chip ${k}">${NPS[k]}</span>`).join('<span class="plus">+</span>');
+
+function nodeHTML(n, hideNum) {
+  const attr = (n.from ? ` data-from="${n.from}"` : "") + (n.to ? ` data-to="${n.to}"` : "");
+  if (n.t !== "end" && n.t !== "noticket") {
+    return `<div class="node ${n.t}"${attr}><span class="lbl">${esc(n.label)}</span></div>`;
+  }
+  const cls = ["node", "end"];
+  if (n.t === "noticket") cls.push("noticket");
+  if (n.isNew) cls.push("new");
+  const tags = [];
+  if (n.isNew) tags.push('<span class="chip newtag">신설</span>');
+  if (n.nps) tags.push(chips(n.nps));
+  let num = "";
+  if (hideNum) {
+    // TO-BE는 건수를 표시하지 않음
+  } else if (n.n != null) {
+    num = `<span class="num">${fmt(n.n)}건 · <span class="pct">${(n.n / TOTAL[n.ch] * 100).toFixed(1)}%</span></span>`;
+  } else if (n.est) {
+    num = `<span class="num"><span class="est">추정</span> ${esc(n.est)}</span>`;
+  }
+  const note = n.note ? `<span class="note">${esc(n.note)}</span>` : "";
+  const warn = n.warn ? `<span><span class="chip warn">⚠ ${esc(n.warn)}</span></span>` : "";
+  const meta = tags.length || num ? `<span class="meta">${tags.join(" ")}${num ? " " + num : ""}</span>` : "";
+  return `<div class="${cls.join(" ")}"${attr}><span class="lbl">${esc(n.label)}</span>${meta}${note}${warn}</div>`;
+}
+
+const treeHTML = (list, root, hideNum) =>
+  `<ul class="tree${root ? " root" : ""}">${list.map((n) => `<li>${nodeHTML(n, hideNum)}${n.children ? treeHTML(n.children, false, hideNum) : ""}</li>`).join("")}</ul>`;
+const countEnds = (list) =>
+  list.reduce((a, n) => a + (n.t === "end" || n.t === "noticket" ? 1 : 0) + (n.children ? countEnds(n.children) : 0), 0);
+
+const SVGNS = "http://www.w3.org/2000/svg";
+function drawArrows(box) {
+  let svg = box.querySelector("svg.arrows");
+  const pairs = [...box.querySelectorAll("[data-from]")].map((a) => [a, box.querySelector(`[data-to="${a.dataset.from}"]`)]).filter((p) => p[1]);
+  if (!pairs.length) return;
+  if (!svg) {
+    svg = document.createElementNS(SVGNS, "svg");
+    svg.setAttribute("class", "arrows");
+    svg.setAttribute("aria-hidden", "true");
+    box.appendChild(svg);
+  }
+  const b = box.getBoundingClientRect();
+  let html = `<defs><marker id="ah-${box.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--accent)"/></marker></defs>`;
+  for (const [a, z] of pairs) {
+    const s = a.getBoundingClientRect(), t = z.getBoundingClientRect();
+    let d;
+    if (t.left > s.right + 4) {
+      const x1 = s.right - b.left, y1 = s.top + s.height / 2 - b.top;
+      const x2 = t.left - b.left - 2, y2 = t.top + t.height / 2 - b.top;
+      const dx = Math.max(40, (x2 - x1) / 2);
+      d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+    } else {
+      const x1 = s.left + 30 - b.left, y1 = s.bottom - b.top;
+      const x2 = t.left + 30 - b.left, y2 = t.top - b.top - 2;
+      const dy = Math.max(40, (y2 - y1) / 2);
+      d = `M${x1},${y1} C${x1},${y1 + dy} ${x2},${y2 - dy} ${x2},${y2}`;
+    }
+    html += `<path d="${d}" fill="none" style="stroke:var(--accent)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-${box.id})"/>`;
+  }
+  svg.innerHTML = html;
+}
+
+for (const [key, lanes] of Object.entries(SHEETS)) {
+  const box = document.getElementById(`lanes-${key}`);
+  box.innerHTML = lanes.map((l) =>
+    `<div class="lane"><h3>${esc(l.title)}</h3><p class="lane-note">${esc(l.note)}</p>${treeHTML(l.tree, true, key === "tobe")}</div>`
+  ).join("");
+  const counts = lanes.map((l) => `${l.title.split(" ")[0]} ${countEnds(l.tree)}`);
+  const total = lanes.reduce((a, l) => a + countEnds(l.tree), 0);
+  document.querySelector(`[data-count="${key}"]`).textContent = `종결 지점 ${total}개 · ${counts.join(" · ")}`;
+  drawArrows(box);
+  if (window.ResizeObserver) new ResizeObserver(() => drawArrows(box)).observe(box);
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => document.querySelectorAll(".lanes").forEach(drawArrows));
+</script>
+</body>
+</html>
