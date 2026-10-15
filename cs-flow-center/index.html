@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>고객센터 인입·종결 흐름도</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: 시트 2장(AS-IS / TO-BE)을 위아래로, 각 시트는 콜 · 인앱/웹 · 게시판 레인을 나란히 둔 트리 + 레인 간 화살표 */
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-2: #eef2f5;
+  --fg: #1d2630;
+  --muted: #5d6b78;
+  --line: #c3ccd5;
+  --accent: #0a8fc2;
+  --new: #d9771b;
+  --new-bg: #fff4e8;
+  --warn: #b4232a;
+  --warn-bg: #fdecec;
+  --c-bot: #0a8fc2;   --c-bot-bg: #e3f4fb;
+  --c-call: #6a4fc4;  --c-call-bg: #efebfb;
+  --c-agent: #2f7d4e; --c-agent-bg: #e6f4ea;
+  --c-ai: #c2368f;    --c-ai-bg: #fbe8f3;
+  --c-none: #6b7580;  --c-none-bg: #eceff2;
+  --f-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11161b; --surface: #1a2128; --surface-2: #232c35; --fg: #e4eaf0; --muted: #98a6b3; --line: #3a4652;
+  --accent: #4cc0ea; --new: #f0a050; --new-bg: #3a2a1a; --warn: #f07a80; --warn-bg: #3a1e21;
+  --c-bot: #5cc6ee; --c-bot-bg: #173341; --c-call: #a893f0; --c-call-bg: #2a2445;
+  --c-agent: #6cc893; --c-agent-bg: #1a3325; --c-ai: #ee7cc0; --c-ai-bg: #3d1f31;
+  --c-none: #a3adb7; --c-none-bg: #2a3139; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11161b; --surface: #1a2128; --surface-2: #232c35; --fg: #e4eaf0; --muted: #98a6b3; --line: #3a4652;
+  --accent: #4cc0ea; --new: #f0a050; --new-bg: #3a2a1a; --warn: #f07a80; --warn-bg: #3a1e21;
+  --c-bot: #5cc6ee; --c-bot-bg: #173341; --c-call: #a893f0; --c-call-bg: #2a2445;
+  --c-agent: #6cc893; --c-agent-bg: #1a3325; --c-ai: #ee7cc0; --c-ai-bg: #3d1f31;
+  --c-none: #a3adb7; --c-none-bg: #2a3139; color-scheme: dark }
+
+body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background: var(--bg); color: var(--fg); font-family: var(--f-body); font-size: 14px; line-height: 1.5; }
+.wrap { max-width: 1480px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 56px; display: grid; gap: 28px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+header.top { display: grid; gap: 10px; }
+header.top h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.01em; }
+header.top p { margin: 0; color: var(--muted); }
+header.top p.ref { font-size: 12.5px; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px; }
+nav.jump a { font-weight: 600; font-size: 13px; color: var(--accent); text-decoration: none; border: 1px solid var(--line); background: var(--surface); padding: 5px 12px; border-radius: 999px; }
+nav.jump a:hover, nav.jump a:focus-visible { border-color: var(--accent); outline: none; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 12.5px; color: var(--muted); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.legend .grp { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.legend b { color: var(--fg); font-weight: 600; margin-right: 2px; }
+
+section.sheet { display: grid; gap: 14px; scroll-margin-top: 12px; }
+.sheet-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-bottom: 2px solid var(--fg); padding-bottom: 8px; }
+.sheet-head h2 { font-size: 20px; font-weight: 700; }
+.sheet-head .tag { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.sheet-head .count { margin-left: auto; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.lanes { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; align-items: start; }
+@media (max-width: 1100px) { .lanes { grid-template-columns: 1fr; } }
+.lanes svg.arrows { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 2; }
+.lane { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 14px 16px; min-width: 0; }
+.lane h3 { font-size: 15px; font-weight: 700; }
+.lane .lane-note { margin: 4px 0 10px; font-size: 12.5px; color: var(--muted); }
+
+/* tree */
+ul.tree { list-style: none; margin: 0; padding: 0 0 0 14px; }
+ul.tree.root { padding-left: 0; }
+ul.tree li { position: relative; padding: 5px 0 5px 18px; min-width: 0; }
+ul.tree.root > li { padding-left: 0; }
+ul.tree:not(.root) > li::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1.5px solid var(--line); }
+ul.tree:not(.root) > li:last-child::before { bottom: auto; height: 21px; }
+ul.tree:not(.root) > li::after { content: ""; position: absolute; left: 0; top: 21px; width: 13px; border-top: 1.5px solid var(--line); }
+
+.node { border-radius: 8px; padding: 6px 10px; display: grid; gap: 4px; min-width: 0; overflow-wrap: anywhere; }
+.node.entry { background: var(--fg); color: var(--bg); font-weight: 600; }
+.node.step { background: var(--surface-2); }
+.node.step .lbl::before { content: "◇ "; color: var(--muted); font-size: 11px; }
+.node.cond { background: transparent; padding: 2px 4px; }
+.node.cond .lbl { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.node.end { background: var(--surface); border: 1.5px solid var(--fg); }
+.node.end.new { border-color: var(--new); background: var(--new-bg); }
+.node.end.noticket { border: 1.5px dashed var(--line); }
+.node .lbl { font-weight: 600; }
+.node.end .lbl::before { content: "■ "; font-size: 10px; vertical-align: 1px; }
+.node .meta { display: flex; flex-wrap: wrap; gap: 5px 8px; align-items: center; }
+.node .note { font-size: 12px; color: var(--muted); }
+.num { font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--fg); }
+.num .pct { color: var(--muted); }
+.num .est { color: var(--new); font-weight: 600; }
+
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.chip.bot { color: var(--c-bot); background: var(--c-bot-bg); }
+.chip.call { color: var(--c-call); background: var(--c-call-bg); }
+.chip.agent { color: var(--c-agent); background: var(--c-agent-bg); }
+.chip.ai { color: var(--c-ai); background: var(--c-ai-bg); }
+.chip.none { color: var(--c-none); background: var(--c-none-bg); }
+.chip.newtag { color: #fff; background: var(--new); }
+.chip.warn { color: var(--warn); background: var(--warn-bg); }
+.plus { font-size: 11px; color: var(--muted); }
+
+ul.changes { margin: 0; padding: 10px 14px 10px 32px; display: grid; gap: 4px; background: var(--new-bg); border: 1px solid var(--new); border-radius: 10px; font-size: 13.5px; }
+ul.changes li::marker { color: var(--new); }
+header.top p.ref a { color: var(--accent); }
+p.sched { margin: 0; font-size: 13px; color: var(--muted); }
+p.sched b { color: var(--fg); }
+.box.rules h3 { font-size: 14px; margin-bottom: 8px; }
+.box.rules ul { color: var(--fg); }
+.box.rules li b { font-weight: 600; }
+.box { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.box ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 13px; color: var(--muted); }
+
+section.branch { display: grid; gap: 14px; scroll-margin-top: 12px; }
+.branch .lead { margin: 0; font-size: 13.5px; }
+.branch .lead b { font-weight: 700; }
+.branch h3.sub { font-size: 15px; font-weight: 700; margin-top: 6px; }
+.tbl-wrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table.bt { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 860px; }
+table.bt th, table.bt td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+table.bt th { background: var(--surface-2); font-weight: 600; white-space: nowrap; }
+table.bt tr:last-child td { border-bottom: 0; }
+table.bt td.step { font-weight: 600; white-space: nowrap; }
+table.bt td.step.child { padding-left: 24px; font-weight: 500; }
+table.bt td.step.grand { padding-left: 40px; font-weight: 500; }
+table.bt td.pct { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.bt td.ex { color: var(--muted); }
+table.bt tr.total td { background: var(--surface-2); font-weight: 700; }
+table.bt ul { margin: 0; padding-left: 16px; display: grid; gap: 2px; }
+.res { display: inline-block; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 1px 7px; white-space: nowrap; }
+.res.ai { color: var(--c-ai); background: var(--c-ai-bg); }
+.res.agent { color: var(--c-agent); background: var(--c-agent-bg); }
+.res.next { color: var(--muted); background: var(--surface-2); }
+table.bt.types { min-width: 760px; }
+</style>
+<style>body{margin:0}</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <h1>고객센터 인입·종결 흐름도</h1>
+    <p>채팅 24시간 운영과 1:1 문의 AI 자동답변 구축에 따른 고객 인입·종결 흐름의 Before &amp; After 비교 문서입니다.</p>
+    <p class="ref">※ 참고: AS-IS 건수는 2026년 9월 ECA 인입 티켓 기준이며, 비율의 분모는 해당 채널의 인입 합계입니다(전화 29,984건 · 인앱/웹 9,398건 · 게시판 13,439건).</p>
+    <nav class="jump" aria-label="시트 이동"><a href="#asis">AS-IS 현재</a><a href="#tobe">TO-BE 11/2 이후</a><a href="#branch">게시판 분기 로직</a></nav>
+  </header>
+
+  <div class="legend" aria-label="범례">
+    <span class="grp"><b>NPS</b><span class="chip bot">챗봇</span><span class="chip call">콜봇</span><span class="chip agent">상담사</span><span class="chip ai">AI답변</span><span class="chip none">미발송</span></span>
+    <span class="grp"><b>종결 노드 이름</b>ECA 인입흐름 (통계·NPS 기준값)</span>
+    <span class="grp"><b>종결</b><span class="chip newtag">신설</span> 주황 테두리 · 점선 = 티켓 없음</span>
+    <span class="grp"><b>건수 (AS-IS)</b>9월 인입 건수 · 채널 내 비율</span>
+  </div>
+
+  <section class="sheet" id="asis">
+    <div class="sheet-head"><span class="tag">Sheet 1 · AS-IS</span><h2>현재 운영 기준</h2><span class="count" data-count="asis"></span></div>
+    <div class="lanes" id="lanes-asis"></div>
+  </section>
+
+  <section class="sheet" id="tobe">
+    <div class="sheet-head"><span class="tag">Sheet 2 · TO-BE</span><h2>11/2 이후 (채팅 24시간 + 게시판 AI 자동답변)</h2><span class="count" data-count="tobe"></span></div>
+    <ul class="changes" aria-label="AS-IS 대비 바뀌는 점">
+      <li>야간·주말·공휴일에도 커머스 문의는 챗봇이 응대합니다.</li>
+      <li>야간에 상담사가 필요하면 1:1 문의 접수로 연결되고, 게시판에서 답변합니다.</li>
+      <li>게시판 문의는 AI가 분기를 판정해 자동답변하거나 상담사에게 배정합니다.</li>
+    </ul>
+    <p class="sched"><b>일정</b> AICX 개발 10/12~10/21 → QA 10/22~10/30 → <b>오픈 11/2</b></p>
+    <div class="lanes" id="lanes-tobe"></div>
+    <div class="box rules">
+      <h3>NPS · 지표 집계 규칙</h3>
+      <ul>
+        <li><b>NPS 발송 시점</b>: 티켓이 답변완료·처리완료로 바뀔 때 발송합니다. 같은 회원에게 3일 안에 발송한 이력이 있으면 보내지 않으며, 발송은 평일 09~19시에만 합니다.</li>
+        <li><b>NPS 미발송</b>: 「인앱/웹 &gt; 챗봇 &gt; 게시판」 채팅 티켓(게시판 티켓에서 함께 발송), 시간양해로 종결된 「게시판 &gt; AI답변」(선행 티켓에서 발송)</li>
+        <li><b>NPS 문항</b>: 게시판 AI답변 만족도 문항을 신설합니다. 챗봇을 거친 게시판 건은 기존 챗봇 문항과 함께 묶어 발송합니다.</li>
+        <li><b>챗봇 단독처리율</b>: 「인앱/웹 &gt; 챗봇 &gt; 게시판」은 분자에서 빼고 분모에는 넣습니다. 야간에 챗봇이 해결하지 못한 건으로 집계됩니다.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="branch" id="branch">
+    <div class="sheet-head"><span class="tag">Sheet 3 · 게시판</span><h2>게시판 문의 AI 자동답변 · 상담사 인계 분기 로직</h2></div>
+    <p class="lead">위 TO-BE 게시판 레인의 분기 번호가 이 표의 단계 번호입니다. 게시판 문의 1건은 <b>1 → 2 → 3 → 4 → 5 또는 6</b> 순서로 확인하며, <b>처음 해당하는 단계에서 결과가 확정</b>되고 이후 단계는 보지 않습니다. 1~3단계는 문의유형과 관계없이 항상 먼저 확인합니다.</p>
+    <p class="lead">비중은 8~9월 게시판 문의 20,457건에 이 기준을 적용했을 때의 <b>예상치</b>입니다. 자동답변 55.6% / 상담사 인계 44.4%이며, 실제 운영에서는 달라질 수 있습니다.</p>
+    <h3 class="sub">단계별 판단 기준</h3>
+    <div class="tbl-wrap"><table class="bt">
+      <thead><tr><th>단계</th><th>판단 질문</th><th>판단 기준</th><th>예시</th><th>결과</th><th>비중</th></tr></thead>
+      <tbody><tr><td class="step">1. Critical 키워드</td><td>위험·민감 키워드가 있는가?</td><td>문의 제목·본문에 Critical 키워드가 있음</td><td class="ex">"쌀에서 벌레가 나왔어요", "주문한 적 없는 택배가 왔어요", "소비자원에 신고하겠습니다"</td><td><span class="res agent">상담사 인계</span></td><td class="pct">1.1%</td></tr><tr><td class="step">2. 48시간 내 재문의</td><td>답변완료 후 48시간 안에 다시 문의했나?</td><td><ul><li>같은 주문번호의 IN 티켓(게시판·채팅·전화·메일)이 답변완료된 뒤 48시간 안에 게시판으로 다시 접수됨</li><li>주문번호가 없으면 문의 유형으로 판단해, 같은 유형(오류→오류, 로그인 불가→로그인 불가 등)으로 다시 들어온 건은 상담사에게 인계함</li></ul></td><td class="ex">어제 채팅으로 답변받은 교환 건을 오늘 게시판에 다시 작성</td><td><span class="res agent">상담사 인계</span></td><td class="pct">12.1%</td></tr><tr><td class="step">3. 처리 중인 티켓</td><td>다른 채널에서 이미 처리 중인가?</td><td><ul><li>게시판 접수 시점에 같은 주문번호의 게시판·채팅·전화 IN 티켓이 먼저 접수되어 상담사에게 배정됐지만 아직 완료되지 않음 (챗봇·콜봇에 배정된 건은 제외)</li><li>게시판 티켓은 [상담중] 상태가 되고, 실시간 채널 담당자가 티켓을 완료할 때 함께 완료됨 (자동 완료 가능 여부는 확인 중)</li></ul></td><td class="ex">채팅 상담 대기 중에 게시판에도 같은 내용 작성</td><td><span class="res ai">AI 자동답변</span> — 시간양해 안내</td><td class="pct">5.5%</td></tr><tr><td class="step">4. 문의유형 구분</td><td>어떤 문의유형인가?</td><td>상담유형(대/중/소) 기준으로 아래 셋 중 하나로 나눔 (상세는 아래 「문의유형별 분기」 표)<ul><li>4-1 AI 상담 미지원 → 상담사 인계</li><li>5 판매자 확인 필요</li><li>6 판매자 확인 불필요</li></ul></td><td class="ex">—</td><td><span class="res next">분기</span></td><td class="pct">—</td></tr><tr><td class="step child">4-1. AI 상담 미지원</td><td>AI 상담을 지원하지 않는 유형인가?</td><td>O2O · VOC · OB · 서류 발급(거래명세서·세금계산서·견적서) · 환불 지연 · 언론/대외기관</td><td class="ex">"청소 서비스 예약을 취소하고 싶어요", "세금계산서 발급해주세요"</td><td><span class="res agent">상담사 인계</span></td><td class="pct">4.7%</td></tr><tr><td class="step">5. 판매자 확인 필요</td><td>고객이 무엇을 요청하는가?</td><td>본문 내용으로 5-1~5-3에 해당하는지 보고, 해당하지 않으면 5-4로 판단</td><td class="ex">—</td><td><span class="res next">분기</span></td><td class="pct">—</td></tr><tr><td class="step child">5-1. 단순 접수 요청</td><td>전산 접수만 하면 되는가?</td><td>가능 여부를 묻지 않고 반품·교환·취소 처리 자체를 요청함 (고객이 직접 접수할 수 있는 건)</td><td class="ex">"반품해주세요", "주문 취소해주세요"</td><td><span class="res ai">AI 자동답변</span> — 접수 링크 안내</td><td class="pct">4.5%</td></tr><tr><td class="step child">5-2. 판매자 거절·불만</td><td>안내만으로 끝낼 수 없는 신호가 있나?</td><td>다음 중 하나라도 해당함<ul><li>판매자가 이미 거절하거나 "어렵다"고 답변함</li><li>약속 불이행·무응답</li><li>판매자 귀책 주장·항의</li><li>배송비·보상·교체 방식 등 조율이 필요함</li><li>조회 결과와 고객 말이 다름</li></ul></td><td class="ex">"판매자가 반품을 거절했어요", "6시까지 연락 준다더니", "일부 못 받았는데 배송완료"</td><td><span class="res agent">상담사 인계</span></td><td class="pct">2.8%</td></tr><tr><td class="step child">5-3. 문의내용 부정확</td><td>무엇을 원하는지 알 수 있나?</td><td>제목·본문에 요청 내용이 없거나 의미를 알 수 없음 (인사만, 상품명·업체명만, 오타·사진만)</td><td class="ex">"문의드립니다", "확인 부탁드립니다", "ㅇ"</td><td><span class="res ai">AI 자동답변</span> — 재접수 요청 안내</td><td class="pct">1.3%</td></tr><tr><td class="step child">5-4. 판매자 확인 필요</td><td>판매자가 답해야 하는 질문인가?</td><td>가능 여부·방법·진행 상황·상품 정보 등 판매자만 답할 수 있는 질문 → 주문건을 특정할 수 있는지 확인</td><td class="ex">"파손됐는데 교환 되나요?", "언제 배송되나요?"</td><td><span class="res next">분기</span></td><td class="pct">—</td></tr><tr><td class="step grand">5-4-i. 주문건 특정 가능 · 2주 내 주문문의 이력 없음</td><td>최근 2주 안에 판매자에게 물어봤나? → 아니오</td><td>선택한 주문번호로 주문건이 연결되고, 같은 주문으로 접수 전 14일 안에 주문문의 이력이 없음</td><td class="ex">처음 문의하는 배송일정 질문</td><td><span class="res ai">AI 자동답변</span> — 주문문의 작성 안내</td><td class="pct">22.8%</td></tr><tr><td class="step grand">5-4-i. 주문건 특정 가능 · 2주 내 주문문의 이력 있음</td><td>최근 2주 안에 판매자에게 물어봤나? → 예</td><td>같은 회원·같은 주문으로 접수 전 14일 안에 주문문의 이력이 있거나, 문의에 판매자·업체 확인을 언급함 (판매자에게 물었지만 해결되지 않음)</td><td class="ex">"업체에 물어봤는데 답이 없어요"</td><td><span class="res agent">상담사 인계</span></td><td class="pct">18.1%</td></tr><tr><td class="step grand">5-4-ii. 주문건 특정 불가 · 상품문의 유형</td><td>상품문의 유형인가? → 예</td><td>연결된 주문번호가 없고, 문의유형이 상품문의·상품정보 오류임 (구매 전 상품 문의 등)</td><td class="ex">"이 소파 사이즈가 어떻게 되나요?"</td><td><span class="res ai">AI 자동답변</span> — 상품문의 경로 안내</td><td class="pct">2.6% (추정)</td></tr><tr><td class="step grand">5-4-ii. 주문건 특정 불가 · 그 외 유형</td><td>상품문의 유형인가? → 아니오</td><td>연결된 주문번호가 없고, 상품문의 외 유형(배송·반품·교환·취소·AS 등)이라 주문건을 특정할 수 없어 판매자 안내가 불가함</td><td class="ex">주문번호 없이 "배송 언제 오나요?"</td><td><span class="res agent">상담사 인계</span></td><td class="pct">3.3% (추정)</td></tr><tr><td class="step">6. 판매자 확인 불필요</td><td>조회 결과·KMS로 답할 근거가 있나?</td><td>주문 조회 결과와 AI KMS 문구로 답변이 가능한지 판단</td><td class="ex">—</td><td><span class="res next">분기</span></td><td class="pct">—</td></tr><tr><td class="step child">6-1. 근거 있음</td><td>→ 예</td><td>조회 결과와 KMS로 답이 확정되는 문의</td><td class="ex">"환불 언제 되나요?", "쿠폰이 안 보여요", "현금영수증 발급"</td><td><span class="res ai">AI 자동답변</span> — 조회 결과 + KMS 답변</td><td class="pct">18.8%</td></tr><tr><td class="step child">6-2. 근거 없음</td><td>→ 아니오</td><td>판매자 확인은 필요 없지만 상담사가 답해야 하는 건. 다음 중 하나에 해당함<ul><li>유형 고정: 앱·웹 오류처럼 재현·조사가 필요함 / 의도 불명·특정 상담사 지목 / 정보도용·유출 / 리뷰·서베이·제휴 등</li><li>답변 시점 판단: KMS에 없거나 조회로 조건을 확인할 수 없음 / 조회 결과와 고객 말이 다름 / 규정 밖 요청</li></ul></td><td class="ex">"로그인이 안 돼요", "지난번 상담사분과 통화하고 싶어요", "환불 완료로 나오는데 아직 못 받았어요"</td><td><span class="res agent">상담사 인계</span></td><td class="pct">2.4%</td></tr><tr class="total"><td colspan="5">합계</td><td class="pct">자동 55.6% / 상담사 44.4%</td></tr></tbody>
+    </table></div>
+    <h3 class="sub">문의유형별 분기 (4단계 기준표)</h3>
+    <p class="lead">10건 미만 소분류와 미분류는 상위 중분류의 기준을 따릅니다. 「6. 판매자 확인 불필요」 유형 중 앱·웹 오류, 이전 상담사 지목, CS 기타, 정보도용·유출처럼 상담사가 답해야 하는 유형은 6-2로 인계됩니다.</p>
+    <div class="tbl-wrap"><table class="bt types">
+      <thead><tr><th>문의유형(대)</th><th>문의유형(중)</th><th>문의유형(소)</th><th>분기</th></tr></thead>
+      <tbody><tr><td class="step">배송</td><td>배송문의</td><td>배송일정 확인 요청, 배송일정 변경 요청, 지정일 배송 요청, 배송기사 연락처 문의, 배송 방법 문의, 배송 요청사항 전달, 해피콜 문의, 오늘출발 배송 문의, 배송문의 기타</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>배송불만</td><td>출고지연, 배송지연, 송장오류, 상품 오배송, 배송비 불만, 배송기사불만, 택배사 불만, 배송불만 기타, 오늘출발 배송 불만, 포장/배송상태 불만</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step">반품/교환/AS</td><td>반품</td><td>반품 문의, 반품 회수 문의, 반품 배송비 확인, 반품 처리지연, 반품 철회, 반품 회수지연, 부분반품 문의, 구매확정건 반품 문의</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>교환</td><td>교환 문의, 교환 회수 문의, 교환 배송비 확인, 교환 철회, 교환 회수지연, 교환 출고 문의, 교환 처리지연, 부분교환 문의, 구매확정건 교환 문의</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>AS</td><td>AS 문의, AS 소요일정, AS 비용, AS 지연</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step">상품</td><td>상품문의</td><td>상품 정보 문의, 상품 옵션 문의, 상품 배송비 문의, 상품 구성품 문의, 상품 사은품 문의, 품절/재입고 문의, 상품문의 기타</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>상품문의</td><td>미입점 상품 문의</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>상품정보 오류</td><td>상품명 오류, 상품 이미지 오류, 상품 가격 오류, 상품 혜택 오류, 파트너사 정보 오류, 상품정보 오류 기타</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>상품불만</td><td>내구성 불만, 사이즈 불만, 상품/구성품 누락 불만, 이물질/오염 불만, 상해 불만, 냄새 불만, 유통기한/제조일자 불만, 상품불만 기타</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step">주문/결제</td><td>주문/결제 방법</td><td>배송 관련 문의, 주문 관련 문의, 결제방법 문의, 주문/결제 방법 기타</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>주문/결제 내역확인</td><td>주문내역 확인, 결제내역 확인, 주문/결제 내역확인 기타</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>주문/결제 정보변경</td><td>상품 변경, 옵션 변경, 배송정보 변경, 주문 상태 변경, 주문/결제 정보변경 기타</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>주문/결제 정보변경</td><td>결제수단 변경 (파트너도 처리 불가 → 취소 후 재구매 안내)</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">주문취소/환불</td><td>주문취소</td><td>주문취소 문의, 주문취소 지연, 주문취소 철회, 부분취소 문의</td><td>5. 판매자 확인 필요</td></tr><tr><td class="step"></td><td>환불</td><td>환불 문의, 환불일정 문의, 환불내역 확인 요청, 환불 지연</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">이벤트/쿠폰/포인트</td><td>이벤트/프로모션, 쿠폰, 포인트</td><td>전체</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">회원관리</td><td>회원정보, 회원등급</td><td>전체</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>정보도용/유출</td><td>정보 도용/유출 문의, 광고/알림톡 오전송</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">영수증/거래명세서/서류요청</td><td>영수증/거래명세서</td><td>현금영수증, 카드매출전표</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>영수증/거래명세서</td><td>거래명세서, 세금계산서</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr><tr><td class="step"></td><td>서류 요청</td><td>견적서, 사업자등록증, 기타 서류 요청</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr><tr><td class="step">시스템이용/오류</td><td>앱/웹 이용문의</td><td>앱 이용문의, 앱/웹 이용문의 기타</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>앱/웹 오류</td><td>로그인 오류, 앱 접속 오류, 웹 접속 오류, 주문/결제 오류, 문자/알림톡 오류, 포인트/쿠폰 오류, 이벤트/프로모션 오류, 앱/웹 오류 기타</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step"></td><td>시스템 개선요청</td><td>앱 개선 요청, 시스템 개선요청 기타</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">서비스이용문의</td><td>콘텐츠, 상품 리뷰, 파트너사, 주문문의, 파트너센터, 상품제안/제휴, 정책, 고객센터</td><td>전체</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">오늘의집멤버십 · 오늘의집페이</td><td>전체</td><td>전체</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">CS 기타</td><td>이전상담사지목, CS 기타, 파일전달, 무응답/단선, 테스트</td><td>전체</td><td>6. 판매자 확인 불필요 (조회 결과에 따라 AI 답변 / 상담사)</td></tr><tr><td class="step">VOC · O2O VOC</td><td>전체</td><td>전체</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr><tr><td class="step">O2O (시공 · 시공업체 · 제품설치 · 청소 · 이사서비스)</td><td>전체</td><td>전체</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr><tr><td class="step">CS OB CRM</td><td>해피콜, 환불계좌획득, 예약호, 이슈 대응</td><td>전체</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr><tr><td class="step">언론/대외기관</td><td>전체</td><td>전체</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr><tr><td class="step">그 외 대분류</td><td>3P·1P·식품 상품 리뷰, 1P 배송 서베이, 오감리뷰, 제휴, 렌탈, 호전환</td><td>전체</td><td>4-1. AI 상담 미지원 (상담사 인계)</td></tr></tbody>
+    </table></div>
+  </section>
+</div>
+
+<script>
+const NPS = { bot: "챗봇", call: "콜봇", agent: "상담사", ai: "AI답변", none: "미발송" };
+const TOTAL = { call: 29984, chat: 9398, board: 13439 };
+
+const E = (o) => Object.assign({ t: "end" }, o);
+const S = (label, children) => ({ t: "step", label, children });
+const C = (label, children) => ({ t: "cond", label, children });
+
+// 공통 경로
+const chatHours = () => [
+  S("문의 영역 선택", [
+    C("1번 커머스", [
+      S("챗봇 응대", [
+        C("챗봇이 해결", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"], n: 4429, ch: "chat" })]),
+        C("상담사 연결 요청", [E({ label: "인앱/웹 > 챗봇 > 상담사", nps: ["bot", "agent"], n: 3394, ch: "chat" })]),
+      ]),
+    ]),
+    C("2번 O2O · 3번 콘텐츠", [
+      S("상담사 직연결", [E({ label: "인앱/웹 > 상담사", nps: ["agent"], n: 1575, ch: "chat" })]),
+    ]),
+  ]),
+];
+
+const phone = () => [
+  { t: "entry", label: "대표번호로 전화", children: [
+    C("평일 09~18시", [
+    S("IVR 메뉴 선택", [
+      C("1번 커머스 · 3번 기타", [
+        S("콜봇 응대", [
+          C("콜봇이 해결", [E({ label: "콜봇", nps: ["call"], n: 6689, ch: "call" })]),
+          C("상담사 연결", [E({ label: "콜봇 > 상담사", nps: ["call", "agent"], n: 14285, ch: "call" })]),
+        ]),
+      ]),
+      C("2번 O2O", [
+        S("상담사 직연결", [
+          E({ label: "상담사", nps: ["agent"], n: 7416, ch: "call" }),
+          C("다른 상담사로 호전환", [E({ label: "상담사 > 상담사(호전환)", nps: ["agent"], n: 1594, ch: "call" })]),
+        ]),
+      ]),
+    ]),
+    ]),
+    C("토·공휴일", [
+      S("원하는날도착 구매 고객만 상담 가능 안내 · 연락처 접수", [
+        C("연락처 남김", [E({ t: "noticket", label: "콜백 접수", note: "센터가 콜백 리스트를 조회해 원하는날도착 구매가 확인된 고객에게만 상담사가 OB 진행 (IB 티켓 없음)" })]),
+        C("남기지 않고 종료", [E({ t: "noticket", label: "운영시간 안내 후 종료" })]),
+      ]),
+    ]),
+    C("그 외 시간 (평일 야간·일요일)", [E({ t: "noticket", label: "운영시간 안내 후 종료" })]),
+  ]},
+];
+
+const SHEETS = {
+  asis: [
+    { title: "전화", note: "평일 09~18시 운영(토·공휴일은 원하는날도착 구매 고객 콜백만), IVR 1번 커머스 · 2번 O2O · 3번 기타", tree: phone() },
+    { title: "인앱/웹 채팅", note: "평일 09~18시만 운영", tree: [
+      { t: "entry", label: "고객센터 > 채팅 상담 진입", children: [
+        C("평일 09~18시", chatHours()),
+        C("운영시간 외 (야간·주말·공휴일)", [E({ t: "noticket", label: "채팅 상담 미운영" })]),
+      ]},
+    ]},
+    { title: "게시판 (1:1 문의)", note: "24시간 접수, 답변은 영업일 09~18시", tree: [
+      { t: "entry", label: "고객이 1:1 문의 작성", children: [
+        S("영업일 09시 상담사 자동 배정", [
+          C("상담사 답변", [E({ label: "게시판", nps: ["agent"], n: 13439, ch: "board" })]),
+        ]),
+      ]},
+    ]},
+  ],
+  tobe: [
+    { title: "전화", note: "현재와 같음", tree: phone() },
+    { title: "인앱/웹 채팅", note: "24시간 운영, 상담사 연결은 평일 09~18시", tree: [
+      { t: "entry", label: "고객센터 > 채팅 상담 진입", children: [
+        C("평일 09~18시 (현재와 같음)", chatHours()),
+        C("운영시간 외 (야간·주말·공휴일)", [
+          S("문의 영역 선택", [
+            C("1번 커머스", [
+              S("챗봇 응대", [
+                C("챗봇이 해결", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"] })]),
+                C("비회원이 주문 조회 등 로그인이 필요한 문의", [
+                  S("회원·비회원 선택 안내 후 로그인 유도", [
+                    C("로그인", [{ t: "cond", label: "→ 회원과 같은 흐름으로 이어짐" }]),
+                    C("로그인하지 않음", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"], note: "평일 09~18시 재문의를 안내하고 종료" })]),
+                  ]),
+                ]),
+                C("상담사가 필요함", [
+                  C("1:1 문의 접수", [E({ label: "인앱/웹 > 챗봇 > 게시판", nps: ["none"], isNew: true, from: "night", note: "채팅 티켓은 바로 종결되고 게시판 티켓이 새로 생깁니다(티켓 2건). 챗봇 NPS는 게시판 티켓이 종결될 때 함께 발송합니다." })]),
+                  C("접수하지 않고 종료", [E({ label: "인앱/웹 > 챗봇", nps: ["bot"] })]),
+                ]),
+              ]),
+            ]),
+            C("2번 O2O · 3번 콘텐츠", [E({ t: "noticket", label: "운영시간 안내 후 종료" })]),
+          ]),
+        ]),
+      ]},
+    ]},
+    { title: "게시판 (1:1 문의)", note: "AI 자동답변은 답변완료로 종결", tree: [
+      { t: "entry", label: "① 고객이 1:1 문의 직접 작성", children: [
+        S("AI 분기 판정 (1→6단계 순서로 확인, 처음 해당하는 단계에서 결정)", [
+          C("1 Critical 키워드 · 2 48시간 내 재문의 · 4-1 AI 상담 미지원 · 5-2 판매자 거절·불만 · 5-4-i 2주 내 판매자 문의 이력 있음 · 5-4-ii 주문건 특정 불가 · 6-2 답변 근거 없음", [
+            E({ label: "게시판 > 상담사", nps: ["agent"] }),
+          ]),
+          C("3 같은 주문번호를 다른 채널에서 상담사가 처리 중", [
+            S("AI 시간양해 안내", [
+              E({ label: "게시판 > AI답변", nps: ["none"], isNew: true, note: "선행 티켓에서 상담사 NPS가 나가므로 중복 발송하지 않음" }),
+            ]),
+          ]),
+          C("5-1 단순 접수 요청 · 5-3 문의내용 부정확 · 5-4-i 판매자 첫 문의 · 5-4-ii 상품문의 · 6-1 조회 결과·KMS 근거 있음", [
+            S("AI 자동답변 안내", [
+              E({ label: "게시판 > AI답변", nps: ["ai"], isNew: true }),
+            ]),
+          ]),
+          C("AI 판정 실패·오류", [
+            E({ label: "게시판 > 상담사", nps: ["agent"] }),
+          ]),
+        ]),
+      ]},
+      { t: "entry", label: "② 야간 챗봇에서 넘어온 1:1 문의", to: "night", children: [
+        C("1차 · 11/2 오픈 시 (전부 상담사)", [
+          E({ label: "인앱/웹 > 챗봇 > 게시판 > 상담사", nps: ["bot", "agent"], isNew: true }),
+        ]),
+        C("2차 · 모니터링 후 전환 (①과 같은 분기)", [
+          C("AI 답변", [E({ label: "인앱/웹 > 챗봇 > 게시판 > AI답변", nps: ["bot", "ai"], isNew: true })]),
+          C("상담사 답변", [E({ label: "인앱/웹 > 챗봇 > 게시판 > 상담사", nps: ["bot", "agent"], isNew: true })]),
+        ]),
+      ]},
+    ]},
+  ],
+};
+
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmt = (n) => n.toLocaleString("ko-KR");
+const chips = (nps) => nps.map((k) => `<span class="chip ${k}">${NPS[k]}</span>`).join('<span class="plus">+</span>');
+
+function nodeHTML(n, hideNum) {
+  const attr = (n.from ? ` data-from="${n.from}"` : "") + (n.to ? ` data-to="${n.to}"` : "");
+  if (n.t !== "end" && n.t !== "noticket") {
+    return `<div class="node ${n.t}"${attr}><span class="lbl">${esc(n.label)}</span></div>`;
+  }
+  const cls = ["node", "end"];
+  if (n.t === "noticket") cls.push("noticket");
+  if (n.isNew) cls.push("new");
+  const tags = [];
+  if (n.isNew) tags.push('<span class="chip newtag">신설</span>');
+  if (n.nps) tags.push(chips(n.nps));
+  let num = "";
+  if (hideNum) {
+    // TO-BE는 건수를 표시하지 않음
+  } else if (n.n != null) {
+    num = `<span class="num">${fmt(n.n)}건 · <span class="pct">${(n.n / TOTAL[n.ch] * 100).toFixed(1)}%</span></span>`;
+  } else if (n.est) {
+    num = `<span class="num"><span class="est">추정</span> ${esc(n.est)}</span>`;
+  }
+  const note = n.note ? `<span class="note">${esc(n.note)}</span>` : "";
+  const warn = n.warn ? `<span><span class="chip warn">⚠ ${esc(n.warn)}</span></span>` : "";
+  const meta = tags.length || num ? `<span class="meta">${tags.join(" ")}${num ? " " + num : ""}</span>` : "";
+  return `<div class="${cls.join(" ")}"${attr}><span class="lbl">${esc(n.label)}</span>${meta}${note}${warn}</div>`;
+}
+
+const treeHTML = (list, root, hideNum) =>
+  `<ul class="tree${root ? " root" : ""}">${list.map((n) => `<li>${nodeHTML(n, hideNum)}${n.children ? treeHTML(n.children, false, hideNum) : ""}</li>`).join("")}</ul>`;
+const countEnds = (list) =>
+  list.reduce((a, n) => a + (n.t === "end" || n.t === "noticket" ? 1 : 0) + (n.children ? countEnds(n.children) : 0), 0);
+
+const SVGNS = "http://www.w3.org/2000/svg";
+function drawArrows(box) {
+  let svg = box.querySelector("svg.arrows");
+  const pairs = [...box.querySelectorAll("[data-from]")].map((a) => [a, box.querySelector(`[data-to="${a.dataset.from}"]`)]).filter((p) => p[1]);
+  if (!pairs.length) return;
+  if (!svg) {
+    svg = document.createElementNS(SVGNS, "svg");
+    svg.setAttribute("class", "arrows");
+    svg.setAttribute("aria-hidden", "true");
+    box.appendChild(svg);
+  }
+  const b = box.getBoundingClientRect();
+  let html = `<defs><marker id="ah-${box.id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--accent)"/></marker></defs>`;
+  for (const [a, z] of pairs) {
+    const s = a.getBoundingClientRect(), t = z.getBoundingClientRect();
+    let d;
+    if (t.left > s.right + 4) {
+      const x1 = s.right - b.left, y1 = s.top + s.height / 2 - b.top;
+      const x2 = t.left - b.left - 2, y2 = t.top + t.height / 2 - b.top;
+      const dx = Math.max(40, (x2 - x1) / 2);
+      d = `M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}`;
+    } else {
+      const x1 = s.left + 30 - b.left, y1 = s.bottom - b.top;
+      const x2 = t.left + 30 - b.left, y2 = t.top - b.top - 2;
+      const dy = Math.max(40, (y2 - y1) / 2);
+      d = `M${x1},${y1} C${x1},${y1 + dy} ${x2},${y2 - dy} ${x2},${y2}`;
+    }
+    html += `<path d="${d}" fill="none" style="stroke:var(--accent)" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah-${box.id})"/>`;
+  }
+  svg.innerHTML = html;
+}
+
+for (const [key, lanes] of Object.entries(SHEETS)) {
+  const box = document.getElementById(`lanes-${key}`);
+  box.innerHTML = lanes.map((l) =>
+    `<div class="lane"><h3>${esc(l.title)}</h3><p class="lane-note">${esc(l.note)}</p>${treeHTML(l.tree, true, key === "tobe")}</div>`
+  ).join("");
+  const counts = lanes.map((l) => `${l.title.split(" ")[0]} ${countEnds(l.tree)}`);
+  const total = lanes.reduce((a, l) => a + countEnds(l.tree), 0);
+  document.querySelector(`[data-count="${key}"]`).textContent = `종결 지점 ${total}개 · ${counts.join(" · ")}`;
+  drawArrows(box);
+  if (window.ResizeObserver) new ResizeObserver(() => drawArrows(box)).observe(box);
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => document.querySelectorAll(".lanes").forEach(drawArrows));
+</script>
+</body>
+</html>
