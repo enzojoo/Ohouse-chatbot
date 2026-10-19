@@ -73,7 +73,7 @@ header.top p{margin:0;color:var(--sub)}
 .chip.sel{border-color:var(--brand);background:var(--brand-bg);color:var(--brand-d);font-weight:600}
 .phone .chip{border:1.5px solid #6FB5FF;background:#fff;color:#3D93F5;font-size:13px;padding:6px 13px}
 .phone .chip.sel{background:#4A9CFF;border-color:#4A9CFF;color:#fff}
-.reset{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:6px 14px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.reset{white-space:nowrap;flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:6px 14px;font:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
 .reset:hover{border-color:var(--brand);color:var(--brand-d)}
 .cardhead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 /* survey card */
@@ -195,8 +195,8 @@ tr.clk:hover td{background:var(--brand-bg)}
 <section class="panel on" id="p1">
 <div class="grid g2">
   <div class="card">
-    <div class="cardhead"><div><h3>AI 답변 단위 평가 + 상담 종료 평가 <span class="badge brand">AI 단독 종결</span></h3>
-    <p class="desc">AI가 KMS로 답한 말풍선에만 「도움이 됐어요 / 아쉬워요」를 붙이고, 상담이 끝나면 대화창 안에 평가 카드를 띄웁니다. 직접 눌러 보세요.</p></div>
+    <div class="cardhead"><div><h3>상담 종료 평가 <span class="badge brand">AI 단독 종결</span></h3>
+    <p class="desc">상담이 끝나면 대화창 안에 평가 카드를 띄웁니다. 직접 눌러 보세요.</p></div>
     <button class="reset" id="resetChat">↺ 처음부터</button></div>
     <div class="phone">
       <div class="ph-head"><span class="ph-logo"><i></i>파트너센터</span><span class="ph-x">×</span></div>
@@ -206,8 +206,6 @@ tr.clk:hover td{background:var(--brand-bg)}
         <div class="m-meta"><i></i>AI 상담원 · 오전 10:02</div>
         <div class="m-user"><span>반품 배송비는 어떻게 차감되나요?</span></div>
         <div class="m-bot">반품 사유에 따라 다릅니다.<br>• 구매자 귀책(단순 변심 등): 왕복 배송비를 환불 금액에서 차감합니다<br>• 판매자 귀책(불량·오배송 등): 배송비를 차감하지 않습니다<br>차감 금액은 오로라 &gt; 취소/반품/교환 &gt; 반품관리에서 확인하실 수 있습니다.</div>
-        <div class="fb" data-fb="1"><button data-v="up">👍 도움이 됐어요</button><button data-v="down">👎 아쉬워요</button></div>
-        <div class="fbr" data-fbr="1"><button class="chip">틀린 정보</button><button class="chip">질문과 다른 답</button><button class="chip">너무 길어요</button><button class="chip">기타</button></div>
         <div class="m-meta"><i></i>AI 상담원 · 오전 10:02</div>
         <div class="m-user"><span>네 알겠어요</span></div>
         <div class="m-bot">더 궁금하신 점이 있으실까요?</div>
@@ -285,15 +283,13 @@ tr.clk:hover td{background:var(--brand-bg)}
 <div class="grid g2">
   <div class="card">
     <div class="cardhead"><h3>게시판 답변 하단 평가 <span class="badge brand">AI 자동답변</span></h3><button class="reset" data-reset>↺ 처음부터</button></div>
-    <p class="desc">답변이 「답변완료」로 바뀐 뒤에만 평가 영역이 보입니다. 확인중·후처리 상태에서는 보이지 않습니다. AI 답변 본문에는 답변 단위 평가 버튼도 함께 붙습니다.</p>
+    <p class="desc">답변이 「답변완료」로 바뀐 뒤에만 평가 영역이 보입니다. 확인중·후처리 상태에서는 보이지 않습니다.</p>
     <div class="board">
       <div class="bh"><div class="t"><span class="st done">답변완료</span>세금계산서는 언제 발행되나요?</div><div class="m">정산 &gt; 세금계산서 / 부가세신고 · 10월 20일 10:12 접수</div></div>
       <div class="q">이번 달 세금계산서가 언제 발행되는지, 어디서 확인할 수 있는지 궁금합니다.</div>
       <div class="a">
         <div class="who2">오늘의집 파트너센터 AI 상담원 · 10:12</div>
         세금계산서는 한 달 동안 구매확정된 주문의 수수료를 합쳐 다음 달 1일~10일 사이에 발행됩니다. 오로라에 등록된 회계담당자 이메일로 발송되며, 매월 1일 이후 오로라 &gt; 정산관리 &gt; 세금계산서에서도 확인하실 수 있습니다.
-        <div class="fb" data-fb="2" style="max-width:260px"><button data-v="up">도움이 됐어요</button><button data-v="down">아쉬워요</button></div>
-        <div class="fbr" data-fbr="2"><button class="chip">틀린 정보</button><button class="chip">질문과 다른 답</button><button class="chip">너무 길어요</button><button class="chip">기타</button></div>
       </div>
       <div class="rate" id="boardRate">
         <div class="qn" style="font-size:11px;color:var(--brand-d);font-weight:700">답변 평가</div>
@@ -325,7 +321,7 @@ tr.clk:hover td{background:var(--brand-bg)}
 <!-- ③ 대시보드 -->
 <section class="panel" id="p3">
 <div class="console">
-  <div class="cbar"><b>AICX 콘솔</b><span class="on">만족도 대시보드</span><span>응답 목록</span><span>AI 답변 평가</span><span>설문 설정</span></div>
+  <div class="cbar"><b>AICX 콘솔</b><span class="on">만족도 대시보드</span><span>응답 목록</span><span>설문 설정</span></div>
   <div class="cbody">
     <div class="filters">
       <select class="sel2"><option>서비스: 파트너센터</option><option>고객센터</option></select>
@@ -339,7 +335,7 @@ tr.clk:hover td{background:var(--brand-bg)}
       <div class="kpi"><div class="l">NPS</div><div class="v">42</div><div class="d">추천 58% · 보통 26% · 비추천 16%</div></div>
       <div class="kpi"><div class="l">해결률 (Q2)</div><div class="v">71%</div><div class="d">AI 단독 63% · 상담원 79%</div></div>
       <div class="kpi"><div class="l">응답률</div><div class="v">24%</div><div class="d">노출 2,310건 중 응답 554건</div></div>
-      <div class="kpi"><div class="l">AI 답변 평가</div><div class="v">81%</div><div class="d">도움이 됐어요 비율 (말풍선 1,920개)</div></div>
+      <div class="kpi"><div class="l">저평가 건</div><div class="v">93</div><div class="d">비추천 또는 미해결 · 의견 있음 41건</div></div>
     </div>
     <div class="split">
       <div class="box">
@@ -355,7 +351,7 @@ tr.clk:hover td{background:var(--brand-bg)}
     <div class="box">
       <h4>상담유형별</h4>
       <table>
-        <thead><tr><th>상담유형 (중 &gt; 소)</th><th class="num">응답</th><th class="num">NPS</th><th class="num">해결률</th><th class="num">AI 단독 비중</th><th class="num">AI 답변 평가</th></tr></thead>
+        <thead><tr><th>상담유형 (중 &gt; 소)</th><th class="num">응답</th><th class="num">NPS</th><th class="num">해결률</th><th class="num">AI 단독 비중</th></tr></thead>
         <tbody id="bytype"></tbody>
       </table>
     </div>
@@ -367,7 +363,7 @@ tr.clk:hover td{background:var(--brand-bg)}
 <!-- ④ 응답 목록 -->
 <section class="panel" id="p4">
 <div class="console">
-  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span class="on">응답 목록</span><span>AI 답변 평가</span><span>설문 설정</span></div>
+  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span class="on">응답 목록</span><span>설문 설정</span></div>
   <div class="cbody">
     <div class="filters">
       <select class="sel2"><option>평가: 저평가만 (보통·비추천 또는 미해결)</option><option>전체</option></select>
@@ -383,27 +379,12 @@ tr.clk:hover td{background:var(--brand-bg)}
     <div class="note">행을 누르면 응답 상세와 대화 원문 바로가기가 열립니다. 같은 샵이 최근 30일 안에 저평가를 2번 이상 남기면 표시합니다.</div>
   </div>
 </div>
-<div class="console" style="margin-top:18px">
-  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span>응답 목록</span><span class="on">AI 답변 평가</span><span>설문 설정</span></div>
-  <div class="cbody">
-    <p class="desc" style="color:var(--sub);margin:0 0 12px;font-size:13px">「아쉬워요」가 많은 KMS 문서 순서입니다. 어떤 KMS 답변을 먼저 고쳐야 하는지 바로 보는 화면입니다.</p>
-    <table>
-      <thead><tr><th>근거 KMS 문서</th><th class="num">답변 수</th><th class="num">도움이 됐어요</th><th class="num">아쉬워요</th><th>많이 고른 사유</th></tr></thead>
-      <tbody>
-        <tr><td>배송 &gt; 배송상태 변경</td><td class="num">214</td><td class="num">61%</td><td class="num"><span class="pill b">39%</span></td><td>질문과 다른 답</td></tr>
-        <tr><td>취소 &gt; 대량취소 기준</td><td class="num">96</td><td class="num">68%</td><td class="num"><span class="pill b">32%</span></td><td>틀린 정보</td></tr>
-        <tr><td>상품 검수 &gt; 검수 기간</td><td class="num">158</td><td class="num">77%</td><td class="num"><span class="pill m">23%</span></td><td>너무 길어요</td></tr>
-        <tr><td>정산 &gt; 세금계산서</td><td class="num">121</td><td class="num">90%</td><td class="num"><span class="pill g">10%</span></td><td>-</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 </section>
 
 <!-- ⑤ 설문 설정 -->
 <section class="panel" id="p5">
 <div class="console">
-  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span>응답 목록</span><span>AI 답변 평가</span><span class="on">설문 설정</span></div>
+  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span>응답 목록</span><span class="on">설문 설정</span></div>
   <div class="cbody form">
     <div class="fl"><b>설문 템플릿</b><div><select class="sel2"><option>partner_v1 · 파트너센터 상담 평가 (사용 중)</option><option>cs_v1 · 고객센터 상담 평가 (예정)</option></select> <span class="badge">버전 1 · 10월 20일 저장</span></div></div>
     <div class="fl"><b>적용 서비스</b><div><span class="toggle"><span class="on">파트너센터</span><span>고객센터</span></span></div></div>
@@ -414,7 +395,6 @@ tr.clk:hover td{background:var(--brand-bg)}
       <div class="qrow"><span class="no">Q4</span><div>더 하고 싶은 말씀<div class="meta">자유 입력 500자 · 선택</div></div><span class="badge">수정</span></div>
       <span class="badge brand">+ 문항 추가</span>
     </div></div>
-    <div class="fl"><b>AI 답변 단위 평가</b><div><span class="toggle"><span class="on">사용</span><span>사용 안 함</span></span> <span class="hint">선택지: 틀린 정보 / 질문과 다른 답 / 너무 길어요 / 기타</span></div></div>
     <div class="fl"><b>흐름별 노출</b><div>
       <table class="matrix">
         <thead><tr><th>채널 · 흐름</th><th>상담원 평가</th><th>AI 평가</th><th>노출 시점</th></tr></thead>
@@ -460,7 +440,6 @@ tr.clk:hover td{background:var(--brand-bg)}
         <tr><td><b>설문</b></td><td>템플릿 ID·버전</td></tr>
         <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트</td></tr>
         <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용)</td></tr>
-        <tr><td><b>AI 답변 평가</b></td><td>말풍선 ID, 좋아요/아쉬워요, 사유, 근거 KMS 문서</td></tr>
       </tbody>
     </table>
   </div>
@@ -470,7 +449,6 @@ tr.clk:hover td{background:var(--brand-bg)}
   <ol>
     <li>메인 척도: 고객센터와 같은 3단계 추천 NPS로 갈지 (제안: 3단계)</li>
     <li>Q1 문구: 「다른 파트너에게 추천」으로 갈지, 만족도 질문으로 바꿀지</li>
-    <li>AI 답변 단위 평가(도움이 됐어요/아쉬워요)를 1차에 넣을지 (제안: 넣음)</li>
     <li>중복 노출 제한: 같은 샵 1일 1회 / 3일 1회</li>
     <li>게시판 응답 기한 (제안: 답변완료 후 7일)</li>
   </ol>
@@ -483,15 +461,7 @@ document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id===b.dataset.t));
 });
-// 말풍선 평가
-document.querySelectorAll('.fb').forEach(fb=>{
-  fb.querySelectorAll('button').forEach(b=>b.onclick=()=>{
-    fb.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));
-    const r=document.querySelector(`.fbr[data-fbr="${fb.dataset.fb}"]`);
-    r.classList.toggle('on',b.dataset.v==='down');
-  });
-});
-document.querySelectorAll('.fbr .chip, #q3 .chip').forEach(c=>c.onclick=()=>c.classList.toggle('sel'));
+document.querySelectorAll('#q3 .chip').forEach(c=>c.onclick=()=>c.classList.toggle('sel'));
 // 설문 흐름
 const sv=document.getElementById('sv'); let q1=null,q2=null;
 const show=n=>sv.querySelector(`[data-s="${n}"]`).classList.add('on');
@@ -514,8 +484,7 @@ function resetAll(){
   q1=q2=null;
   [2,3,4].forEach(hide); show(1);
   document.getElementById('svDone').classList.remove('on');
-  document.querySelectorAll('#sv .sel, .fb .sel, .fbr .sel, #boardRate .sel').forEach(x=>x.classList.remove('sel'));
-  document.querySelectorAll('.fbr').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('#sv .sel, #boardRate .sel').forEach(x=>x.classList.remove('sel'));
   sv.querySelector('textarea').value='';
   const cb=document.getElementById('chatBody'); cb.scrollTop=cb.scrollHeight;
 }
@@ -534,7 +503,7 @@ const rs=[['원하는 처리를 못 했어요',41],['다시 설명해야 했어�
 document.getElementById('reasons').innerHTML=rs.map(([n,v])=>`<div class="hbar"><span class="n">${n}</span><span class="t"><i style="width:${v*2.2}%"></i></span><span class="c">${v}%</span></div>`).join('');
 const bt=[['취소/반품/교환 > 품절·재고부족 취소',142,31,58,'12%','74%'],['배송 > 배송상태 변경',88,38,66,'41%','63%'],['상품 > 상품등록검수',51,47,72,'55%','80%'],['정산 > 정산/매출 현황',33,52,79,'61%','88%'],['취소/반품/교환 > 취소/반품/교환 기타',40,55,83,'78%','86%']];
 const pc=v=>v>=45?'g':v>=35?'m':'b';
-document.getElementById('bytype').innerHTML=bt.map(r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num"><span class="pill ${pc(r[2])}">${r[2]}</span></td><td class="num">${r[3]}%</td><td class="num">${r[4]}</td><td class="num">${r[5]}</td></tr>`).join('');
+document.getElementById('bytype').innerHTML=bt.map(r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num"><span class="pill ${pc(r[2])}">${r[2]}</span></td><td class="num">${r[3]}%</td><td class="num">${r[4]}</td></tr>`).join('');
 const rp=[
  ['10/17 15:02','채팅','AI 단독','배송 > 배송상태 변경','-',3,'N','셀프로 바꾸라는데 메뉴에 버튼이 없어요','오로라 > 주문/배송 메뉴 경로 안내 후 종료'],
  ['10/17 11:40','채팅','AI → 상담원','취소/반품/교환 > 품절·재고부족 취소','상담원 A',2,'Y','정보를 두 번 물어봤어요','필수 정보 수집 후 인계, 상담원이 취소 접수'],
