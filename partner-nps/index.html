@@ -313,6 +313,15 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 #exPanel.on{display:grid}
 .exg{display:grid;gap:5px;font-size:11.5px;align-content:start}
 .exg b{font-size:11.5px;color:var(--c-sub)}
+/* 받는 사람 */
+.rcp{display:flex;flex-wrap:wrap;gap:4px;align-items:center;max-width:460px}
+.rchip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--c-line);border-radius:99px;padding:2px 4px 2px 3px;font-size:11.5px;background:#fff;white-space:nowrap}
+.rchip i{font-style:normal;font-size:9.5px;font-weight:700;border-radius:99px;padding:1px 6px}
+.rchip i.console{background:var(--c-blue-bg);color:var(--c-blue)}.rchip i.slack{background:#EFEAFE;color:var(--c-pur)}.rchip i.email{background:var(--c-green-bg);color:var(--c-green)}
+.rchip button{border:0;background:none;color:var(--c-mute);font-size:13px;line-height:1;padding:0 2px}
+.radd{border:1px dashed #C5CAD3;background:#fff;border-radius:99px;padding:2px 9px;font-size:11px;color:var(--c-sub)}
+.rform{display:none;gap:4px;width:100%;margin-top:4px}.rform.on{display:flex}
+.rform .cx-inp{flex:1;min-width:120px}
 /* toast */
 .cx-toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:#1A1D24;color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;transition:.2s;z-index:40;pointer-events:none;white-space:nowrap}
 .cx-toast.on{opacity:1;transform:translateX(-50%)}
@@ -739,7 +748,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
   </div>
   <div class="cx-st">빈도와 기한</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
-    <label class="cx-check" style="justify-content:space-between">중복 노출 제한 <select class="cx-sel"><option>같은 샵 1일 1회</option><option>같은 샵 3일 1회 (고객센터 기준)</option><option>제한 없음</option></select></label>
+    <label class="cx-check" style="justify-content:space-between">중복 노출 제한 <select class="cx-sel"><option>기존 NPS 규칙 동일하게 적용</option><option>같은 샵 1일 1회</option><option>제한 없음</option></select></label>
     <label class="cx-check" style="justify-content:space-between">게시판·이메일 응답 기한 <select class="cx-sel"><option>답변완료 후 7일</option><option>3일</option><option>14일</option></select></label>
     <label class="cx-check" style="justify-content:space-between">노출 비율 (응답 피로도 조절) <select class="cx-sel"><option>100% (모든 상담)</option><option>50% 무작위</option><option>20% 무작위</option></select></label>
   </div>
@@ -764,21 +773,21 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
   <div class="cx-st">알림 규칙</div>
   <div class="cx-card cx-tw" style="padding:6px 8px">
     <table class="cx-tbl">
-      <thead><tr><th>사용</th><th class="l">조건</th><th>받는 곳</th><th>받는 사람</th><th>최근 30일</th></tr></thead>
+      <thead><tr><th>사용</th><th class="l">조건</th><th class="l">받는 사람 <i class="q" title="콘솔 ID는 콘솔 알림, 슬랙은 슬랙 메시지, 이메일은 메일로 보냅니다">?</i></th><th>최근 30일</th></tr></thead>
       <tbody>
-        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">비추천이면서 의견(Q4)이 있는 응답</td><td><select class="cx-sel"><option>콘솔 알림 + 슬랙</option><option>콘솔 알림</option><option>이메일</option></select></td><td>서비스운영팀</td><td>37건</td></tr>
-        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">같은 샵이 30일 안에 저평가를 2번 이상 남김</td><td><select class="cx-sel"><option>콘솔 알림</option><option>콘솔 알림 + 슬랙</option></select></td><td>센터 매니저</td><td>6건</td></tr>
-        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">하루 NPS가 목표보다 위험 범위로 떨어짐 (응답 30건 이상인 날만)</td><td><select class="cx-sel"><option>이메일</option><option>콘솔 알림 + 슬랙</option></select></td><td>서비스운영팀 리더</td><td>1건</td></tr>
-        <tr><td><label class="sw"><input type="checkbox"><span></span></label></td><td class="l wrap">특정 상담유형의 비추천 비율이 전주보다 10%p 이상 오름</td><td><select class="cx-sel"><option>슬랙</option></select></td><td>-</td><td>-</td></tr>
+        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">비추천이면서 의견(Q4)이 있는 응답</td><td class="l"><div class="rcp" data-r="a0"></div></td><td>37건</td></tr>
+        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">같은 샵이 30일 안에 저평가를 2번 이상 남김</td><td class="l"><div class="rcp" data-r="a1"></div></td><td>6건</td></tr>
+        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">하루 NPS가 목표보다 위험 범위로 떨어짐 (응답 30건 이상인 날만)</td><td class="l"><div class="rcp" data-r="a2"></div></td><td>1건</td></tr>
+        <tr><td><label class="sw"><input type="checkbox"><span></span></label></td><td class="l wrap">특정 상담유형의 비추천 비율이 전주보다 10%p 이상 오름</td><td class="l"><div class="rcp" data-r="a3"></div></td><td>-</td></tr>
       </tbody>
     </table>
-    <div class="cx-note" style="padding:8px 4px 2px">슬랙은 웹훅 주소를 등록해 받는 방식입니다. 알림에는 샵 ID를 가린 값만 담습니다.</div>
+    <div class="cx-note" style="padding:8px 4px 2px">받는 사람은 콘솔 ID·슬랙(채널 또는 멤버 ID)·이메일 중 골라 여러 명 넣을 수 있고, 종류에 따라 콘솔 알림·슬랙 메시지·메일로 보냅니다. 알림에는 샵 ID를 가린 값만 담습니다.</div>
   </div>
   <div class="cx-st">정기 리포트</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
     <label class="cx-check" style="justify-content:space-between">주간 NPS 리포트 메일 <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매주 월요일 09:00</option><option>매주 금요일 17:00</option></select><label class="sw"><input type="checkbox" checked><span></span></label></span></label>
     <label class="cx-check" style="justify-content:space-between">월간 리포트 (흐름별·상담유형별 표 엑셀 첨부) <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매월 1일 09:00</option></select><label class="sw"><input type="checkbox" checked><span></span></label></span></label>
-    <label class="cx-check" style="justify-content:space-between">받는 사람 <input class="cx-inp" value="서비스운영팀 4명, 유베이스 센터 매니저 2명" style="width:300px"></label>
+    <div class="cx-check" style="justify-content:space-between;align-items:flex-start">받는 사람 <div class="rcp" data-r="rep" style="justify-content:flex-end"></div></div>
   </div>
   <div class="cx-st">조회 API</div>
   <div class="cx-card" style="font-size:12px">
@@ -830,7 +839,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <tr><td>무응답으로 자동 종료된 채팅</td></tr>
         <tr><td>오접수·용건 없음 (기타 &gt; 무응답·오접수)</td></tr>
         <tr><td>게시판 답변이 확인중·후처리 상태일 때</td></tr>
-        <tr><td>같은 샵이 기준 기간 안에 이미 평가했을 때 (1일 또는 3일, 결정 필요)</td></tr>
+        <tr><td>같은 샵이 기준 기간 안에 이미 평가했을 때 (기존 NPS 규칙 동일하게 적용)</td></tr>
         <tr><td>운영시간 밖 게시판 안내로 끝난 채팅 (상담이 이루어지지 않음)</td></tr>
         <tr><td>제외 상담유형으로 분류된 상담 (콘솔 「노출 규칙」에서 설정)</td></tr>
       </tbody>
@@ -1245,6 +1254,27 @@ function renderEx(){
 }
 $('#exAdd').onclick=()=>{const p=$('#exPanel');p.classList.toggle('on');$('#exAdd').textContent=p.classList.contains('on')?'선택 닫기':'+ 상담유형 선택'};
 $('#exQ').oninput=renderEx;
+
+// ----- 받는 사람 -----
+const RT={console:'콘솔 ID',slack:'슬랙',email:'이메일'};
+const RCP={a0:[['slack','#cs-nps-alert'],['console','enzo'],['console','svcops.lead']],a1:[['console','ub.manager1'],['email','center-manager@(회사 도메인)']],a2:[['email','svcops-lead@(회사 도메인)']],a3:[],
+ rep:[['email','svcops@(회사 도메인)'],['console','ub.manager1'],['console','ub.manager2']]};
+const PH={console:'콘솔 ID (예: enzo)',slack:'#채널 또는 멤버 ID (예: U012AB3CD)',email:'이메일 주소'};
+function renderRcp(el){const k=el.dataset.r,L=RCP[k];
+  el.innerHTML=L.map(([t,v],i)=>`<span class="rchip"><i class="${t}">${RT[t]}</i>${v}<button data-del="${i}" title="빼기">×</button></span>`).join('')+(L.length?'':'<span class="cx-note">받는 사람 없음</span>')+
+   `<button class="radd">+ 추가</button><div class="rform"><select class="cx-sel">${Object.entries(RT).map(([a,b])=>`<option value="${a}">${b}</option>`).join('')}</select><input class="cx-inp" placeholder="${PH.console}"><button class="cx-btn pri" style="padding:4px 10px">추가</button></div>`;
+  el.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{L.splice(+b.dataset.del,1);renderRcp(el)});
+  const f=el.querySelector('.rform'),sel=f.querySelector('select'),inp=f.querySelector('input');
+  el.querySelector('.radd').onclick=()=>{f.classList.toggle('on');inp.focus()};
+  sel.onchange=()=>inp.placeholder=PH[sel.value];
+  const add=()=>{const v=inp.value.trim(),t=sel.value;if(!v)return;
+    if(t==='email'&&!/^[^@\s]+@[^@\s]+$/.test(v)){toast('이메일 형식을 확인해 주세요');return}
+    if(t==='slack'&&!/^(#\S+|[UW][A-Z0-9]{6,})$/.test(v)){toast('슬랙은 #채널 이름이나 멤버 ID(U로 시작)를 넣어 주세요');return}
+    if(L.some(([a,b])=>a===t&&b===v)){toast('이미 들어 있는 받는 사람입니다');return}
+    L.push([t,v]);renderRcp(el);toast(`${RT[t]} ${v}을(를) 추가했습니다`)};
+  f.querySelector('.cx-btn').onclick=add;inp.onkeydown=e=>{if(e.key==='Enter')add()};
+}
+$$('.rcp').forEach(renderRcp);
 
 renderDash();renderRaw();selectTpl(tpl);renderTgt();renderRule();renderEx();
 })();
