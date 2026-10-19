@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>파트너센터 AI 챗봇 커버리지 검토</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --bg:#f5f6f8;--card:#fff;--ink:#1b1f24;--sub:#5d6672;--line:#e2e5e9;--soft:#eef1f4;
+  --ans:#2f9e6b;--look:#2f74c0;--xfer:#8a56c6;--proc:#d08a1e;--judge:#9aa1aa;
+  --ans-bg:#e6f5ee;--look-bg:#e5eef9;--xfer-bg:#f1eaf9;--proc-bg:#fbf1e1;--judge-bg:#eff1f3;
+  --o:#2f9e6b;--x:#c4453a;--warn:#b5651d;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121417;--card:#1b1e23;--ink:#e8eaed;--sub:#9aa3ad;--line:#2c3138;--soft:#23272d;
+  --ans-bg:#173326;--look-bg:#172a40;--xfer-bg:#2b2040;--proc-bg:#3a2c14;--judge-bg:#262a30;}}
+:root[data-theme="dark"]{
+  --bg:#121417;--card:#1b1e23;--ink:#e8eaed;--sub:#9aa3ad;--line:#2c3138;--soft:#23272d;
+  --ans-bg:#173326;--look-bg:#172a40;--xfer-bg:#2b2040;--proc-bg:#3a2c14;--judge-bg:#262a30;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 16px 72px}
+h1{font-size:22px;margin:0 0 4px}
+.sub{color:var(--sub);font-size:13px;margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px}
+.top{display:grid;grid-template-columns:300px 1fr;gap:12px;margin-bottom:12px}
+@media (max-width:900px){.top{grid-template-columns:1fr}}
+.kpi{padding:18px}
+.kpi .l{font-size:12px;color:var(--sub)}
+.kpi .big{font-size:40px;font-weight:800;line-height:1.1;margin:6px 0}
+.kpi .big small{font-size:16px;font-weight:600;color:var(--sub)}
+.meter{height:10px;border-radius:5px;background:var(--soft);overflow:hidden;display:flex;margin:10px 0 6px}
+.meter i{display:block;height:100%}
+.caps{padding:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media (max-width:900px){.caps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.caps{grid-template-columns:1fr}}
+.cap{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:6px}
+.cap .h{display:flex;align-items:center;gap:8px;font-weight:700}
+.dot{width:10px;height:10px;border-radius:3px;flex:none}
+.cap .d{font-size:12px;color:var(--sub);flex:1}
+.cap .gain{font-size:12px}
+.ox{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex:none}
+.ox button{border:0;background:var(--card);color:var(--sub);font:700 13px inherit;padding:5px 12px;cursor:pointer}
+.ox button.on.o{background:var(--o);color:#fff}
+.ox button.on.x{background:var(--x);color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--sub);margin:14px 2px 8px}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px;background:var(--c)}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:13px}
+th{position:sticky;top:0;background:var(--soft);text-align:left;font-size:12px;color:var(--sub);padding:9px 10px;border-bottom:1px solid var(--line);z-index:2}
+td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.off td{opacity:.45}
+tr.off td.dec{opacity:1}
+.nm{font-weight:700}
+.est{font-size:11px;color:var(--warn);font-weight:700;margin-left:4px}
+.vol{font-weight:800;font-size:15px;white-space:nowrap}
+.vol small{display:block;font-weight:500;font-size:11px;color:var(--sub)}
+.flow{display:flex;flex-direction:column;gap:3px}
+.flow div{display:grid;grid-template-columns:42px 1fr;gap:6px}
+.flow b{font-size:11px;color:var(--sub);font-weight:700;padding-top:1px}
+.bar{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--soft);min-width:120px}
+.bar i{display:block;height:100%}
+.need{display:flex;flex-direction:column;gap:3px;margin-top:6px}
+.chip{display:inline-block;font-size:11.5px;border-radius:5px;padding:1px 7px;line-height:1.6}
+.chip.ans{background:var(--ans-bg);color:var(--ans)}.chip.look{background:var(--look-bg);color:var(--look)}
+.chip.xfer{background:var(--xfer-bg);color:var(--xfer)}.chip.proc{background:var(--proc-bg);color:var(--proc)}.chip.judge{background:var(--judge-bg);color:var(--sub)}
+.cov{font-weight:800;white-space:nowrap}
+.cov small{display:block;font-weight:500;font-size:11px;color:var(--sub)}
+.tblwrap{overflow-x:auto}
+.foot{font-size:12px;color:var(--sub);margin-top:14px;line-height:1.7}
+.tools{display:flex;gap:8px;margin:14px 0 0}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;font-size:12.5px;cursor:pointer}
+#summary{display:none;white-space:pre-wrap;font:12.5px/1.6 ui-monospace,Menlo,monospace;padding:14px;margin-top:10px}
+.theme{position:fixed;right:14px;bottom:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>파트너센터 AI 챗봇 커버리지 검토</h1>
+<p class="sub">유형별로 얼마나 들어오고, 지금 누가 어떤 전산으로 처리하는지 정리했습니다. 위에서 챗봇에 줄 권한 4개를, 아래에서 챗봇이 받을 유형을 O/X로 고르면, 챗봇이 맡을 수 있는 월 건수가 바로 다시 계산됩니다.</p>
+
+<div class="top">
+  <div class="card kpi">
+    <div class="l">현재 선택 기준 챗봇이 끝낼 수 있는 문의 (상한)</div>
+    <div class="big" id="covPct">0%</div>
+    <div class="l" id="covN">월 0건 / 전체 월 0건</div>
+    <div class="meter" id="meter"></div>
+    <div class="l">답할 수 있는 문의의 크기이며, 실제 종결률은 답변 정확도와 상담원 재요청에 따라 더 낮아질 수 있습니다. 상담원 판단 건(분쟁, 재검토 등)은 어떤 권한을 줘도 상담원이 맡습니다.</div>
+  </div>
+  <div class="card caps" id="caps"></div>
+</div>
+
+<div class="legend" id="legend"></div>
+<div class="card tblwrap">
+<table>
+<thead><tr><th style="width:190px">유형</th><th style="width:80px">월평균</th><th>지금 처리 방식</th><th style="width:270px">이 유형 안의 구성 (월 건수)</th><th style="width:90px">챗봇 처리</th><th style="width:120px">챗봇이 받을 유형<br><span style="font-weight:400">X = 전부 상담원</span></th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+
+<div class="tools"><button class="btn" id="sumBtn">결정 내용 요약 보기</button><button class="btn" id="copyBtn">요약 복사</button><button class="btn" id="resetBtn">처음 상태로</button></div>
+<pre class="card" id="summary"></pre>
+
+<div class="foot">
+<b>읽는 법</b><br>
+- 월평균은 2026년 7~9월 Zendesk 채팅·게시판 25,110건 전수 분류를 3으로 나눈 값입니다. 노션 [위클리 공유] 페이지 수치와 같은 기준입니다.<br>- 처리 흐름(접수·처리·이관·답변)은 노션 「파트너센터 문의 유형별 처리 흐름 (As-Is)」 기준입니다. "추정" 표시는 문서로 확인되지 않은 내용입니다.<br>- 단순 안내형에는 방법·정책 문의와 함께 주문·검수·노출·담당 MD 같은 상태 확인 문의가 들어 있습니다. 권리보호(월 18건)는 권리보호센터 신고 양식으로 따로 들어오는 건이라 As-Is 수치를 쓰고 전체 합계에서 뺐습니다.<br>
+- 막대와 "챗봇이 하려면"의 비율은 7~9월 전수 분류 25,110건 가운데 유형별로 뽑은 상담을 KMS 원문과 대조한 판정입니다. 유형마다 ±10%p 안팎의 오차가 있습니다.<br>
+- 챗봇 처리 = 월평균 × (켠 권한으로 해결되는 비율의 합)입니다. 예를 들어 Write 권한을 끄면 취소·반품 같은 처리 건은 챗봇이 정보를 받아 상담원에게 넘기는 데까지만 하므로, 처리 건수에 넣지 않습니다.<br>
+- 클레임 상태 변경의 "교환→반품 전환"은 KMS 기준(오로라 기능 미지원, 어드민 교환관리에서 교환불가 처리 후 반품 접수)으로 고쳐 적었습니다.
+</div>
+</div>
+<button class="btn theme" id="themeBtn">테마</button>
+
+<script>
+const LV=[
+ {k:'ans', nm:'KMS로 끝', short:'KMS로 끝',c:'var(--ans)'},
+ {k:'look',nm:'조회 API 필요',short:'조회 필요',c:'var(--look)'},
+ {k:'xfer',nm:'이관 연동 필요',short:'이관 연동',c:'var(--xfer)'},
+ {k:'proc',nm:'Write 권한 필요',short:'Write 필요',c:'var(--proc)'},
+ {k:'judge',nm:'상담원 판단',short:'상담원',c:'var(--judge)'}
+];
+const CAPS=[
+ {k:'ans', nm:'KMS로 답할 수 있는 몫 (상한)', d:'KMS·헬프센터로 정책·방법 문의에 답변. 전제: KMS 보강(근거 부족 상담 약 31%)과 서로 다른 기준 6건 정리'},
+ {k:'look',nm:'조회 API (Read)', d:'오로라·어드민에서 주문·배송유형·검수·샵MD·정산·입점심사 상태를 조회해 답변'},
+ {k:'xfer',nm:'이관 자동 작성', d:'관리자·고객센터(ECA)·정책·리스크 이관 양식을 챗봇이 채워 티켓 생성'},
+ {k:'proc',nm:'처리 권한 (Write)', d:'취소·반품 접수, 배송상태 변경, 클레임 변경을 챗봇이 직접 실행(파트너 확인 후)'}
+];
+/* mix: [안내, 조회, 이관, 처리, 판단] — 7~9월 KMS 대조 판정 비율 */
+const T=[
+ {id:'t1',nm:'품절·재고부족 취소 대리처리',m:2271,mix:[0,0,.042,.958,0],
+  get:'채팅·게시판 → 1차 상담원(유베이스)',sys:'어드민 취소 접수 + 고객 문자 (ECA 고객 문의 확인)',to:'30건↑·오등록·리콜 → 고객센터 지연관리팀(ECA, 1영업일)',end:'파트너 오로라 [취소승인] → 안내·종료',
+  need:{look:'주문 상태',xfer:'대량취소 ECA 이관',proc:'취소 접수·고객 문자'}},
+ {id:'t2',nm:'기타 사유 취소 (변심·오주문·가격오등록)',m:559,mix:[.042,0,.042,.833,.083],
+  get:'채팅·게시판 → 1차 상담원',sys:'어드민 취소 접수 + 고객 문자',to:'오등록·리콜 → 지연관리팀(ECA) / 리셀러 의심 → 고객센터(슬랙)',end:'파트너 [취소승인] 또는 지연관리팀 처리 → 안내·종료',
+  need:{xfer:'오등록 ECA 이관',proc:'취소 접수',judge:'리셀러 판단'}},
+ {id:'t3',nm:'배송상태 변경 대리처리',m:796,mix:[.208,.25,0,.417,.125],
+  get:'채팅·게시판 → 1차 상담원',sys:'원칙은 파트너가 오로라에서 직접 / 배송방식이 다르거나 역방향이면 어드민 배송상태관리 변경 + 문자 + 이슈 시트',to:'없음 (상담원 직접 처리)',end:'변경 완료 안내 → 종료',
+  need:{ans:'셀프 변경 경로 안내',look:'배송유형 조회 (절반가량은 셀프 처리 대상)',proc:'배송상태 변경'}},
+ {id:'t4',nm:'반품 대리접수',m:640,mix:[0,.083,.042,.792,.083],
+  get:'채팅·게시판 → 1차 상담원',sys:'어드민 반품 접수(귀책 지정) + 고객 문자',to:'고객 미수긍·부재 → 고객센터(ECA, 1영업일)',end:'파트너 회수 후 오로라 [반품승인] → 안내·종료',
+  need:{look:'주문 상태',proc:'반품 접수'}},
+ {id:'t5',nm:'클레임 상태 변경 (교환↔반품·귀책·철회)',m:230,est:true,mix:[.167,.125,.042,.625,.042],
+  get:'채팅·게시판 → 1차 상담원',sys:'교환→반품은 어드민 교환관리에서 교환불가 처리 후 반품 접수, 귀책 변경은 재접수 + 문자',to:'분쟁 → 고객센터 담당팀장(ECA, 3시간)',end:'상담원 처리 또는 고객센터 중재 결과 안내 → 종료',
+  need:{ans:'가능 여부 안내',look:'클레임 진행 상태',proc:'클레임 변경·재접수'}},
+ {id:'t6',nm:'구매확정 후 취소·환불',m:264,mix:[.208,.25,.458,0,.083],
+  get:'채팅·게시판 → 1차 상담원',sys:'정산 마이너스 양식 + 구매확정 취소 리스트(시트)',to:'파트너센터 관리자(팀장)',end:'관리자 처리 → 상담원 결과 안내·종료',
+  need:{ans:'귀책별 배송비 안내',look:'귀책·회수 여부',xfer:'정산 마이너스 양식 이관'}},
+ {id:'t7',nm:'고객 연락 대행·고객정보 요청',m:274,mix:[.208,.083,.25,.333,.125],
+  get:'채팅·게시판 → 1차 상담원',sys:'상담원이 고객에게 전화(ECA 기록)',to:'고객정보 요청 → 고객센터(ECA, 1영업일)',end:'고객 동의 시 암호 파일 전달 → 안내·종료',
+  need:{ans:'정보 제공 불가·댓글 안내',xfer:'ECA 리뷰 관련 요청',proc:'고객 연락(사람 전화)'}},
+ {id:'t8',nm:'리뷰 답글·블라인드·비구매 리뷰',m:321,mix:[.227,.201,.446,.068,.057],
+  get:'채팅·게시판 → 1차 상담원',sys:'리뷰 이관 양식 작성',to:'고객센터 리뷰 담당(ECA, 1영업일) / 리뷰이관 → 커머스정책',end:'처리 결과 확인 후 안내·종료',
+  need:{ans:'삭제 불가·노출 기준',look:'리뷰 신청 이력',xfer:'ECA 리뷰 요청 이관'}},
+ {id:'t9',nm:'검수 반려·판매정지 재검토',m:175,mix:[.042,.208,.375,0,.375],
+  get:'채팅·게시판 → 1차 상담원',sys:'어드민 상품 상태 확인 → 리스크 매크로',to:'리스크팀 / 5영업일↑ 지연은 담당 MD',end:'담당 부서 회신 안내 → 종료',
+  need:{look:'상품 판매 상태',xfer:'리스크팀·검수팀 이관',judge:'반려 기준 판단'}},
+ {id:'t10',nm:'상품명·옵션명 수정',m:119,mix:[.167,.042,.792,0,0],
+  get:'채팅·게시판 → 1차 상담원',sys:'옵션명 추가/수정/삭제 양식 (검수 중이면 불가 안내)',to:'파트너센터 관리자(팀장) / 브랜드명은 서비스운영팀',end:'관리자 수정 → 상담원 안내·종료',
+  need:{ans:'상품명 셀프 수정 안내',xfer:'옵션명 양식 이관'}},
+ {id:'t11',nm:'입점 (예비 파트너)',m:144,mix:[.268,.268,.133,.183,.147],
+  get:'예비파트너 문의 양식 → 1차 상담원',sys:'어드민 입점심사 조회 → 정책 매크로',to:'커머스정책 / 계약 조항은 법무팀',end:'정책 담당 회신 → 안내·종료',
+  need:{ans:'신청 자격·서류',look:'사업자번호로 심사 상태(비회원)',xfer:'정책 이관',proc:'신청서 수정'}},
+ {id:'t12',nm:'권리보호 (지재권·콘텐츠·위조)',m:18,mix:[0,0,0,0,1],na:true,
+  get:'권리보호센터 신고 양식 3종 → 접수',sys:'후속 티켓 생성',to:'법무팀 (지재권은 커머스정책 병행)',end:'법무 처리 결과 회신 → 종료',
+  need:{judge:'법무 판단 (챗봇 대상 아님)'}},
+ {id:'t13',nm:'정산 (일정·금액·세금계산서)',m:170,est:true,mix:[.339,.517,.144,0,0],
+  get:'채팅·게시판 → 1차 상담원',sys:'정산 가이드 템플릿 안내',to:'입금·가상계좌 → FBS팀 / 과거 내역 → 서비스운영팀',end:'안내 또는 담당 회신 전달 → 종료',
+  need:{ans:'정산 일정·기준',look:'정산 내역·샵MD',xfer:'정산 담당 안내'}},
+ {id:'t14',nm:'단순 안내형 (방법·정책)',m:2408,mix:[.412,.334,.099,.027,.128],
+  get:'채팅·게시판 → 1차 상담원',sys:'KMS 기준 답변 직접 작성',to:'자체 불가 → 서비스운영팀(심층문의) / 관리자',end:'답변 후 종료',
+  need:{ans:'정책·등록 방법·문의처',look:'검수·노출·담당 MD 조회',xfer:'심층문의·영업 이관'}}
+];
+const DEF={caps:{ans:true,look:false,xfer:false,proc:false},rows:{}};
+let S;
+try{S=JSON.parse(localStorage.getItem('pc_decision'))||null}catch(e){S=null}
+if(!S)S=JSON.parse(JSON.stringify(DEF));
+T.forEach(t=>{if(S.rows[t.id]===undefined)S.rows[t.id]=!t.na});
+const save=()=>{try{localStorage.setItem('pc_decision',JSON.stringify(S))}catch(e){}};
+const fmt=v=>Math.round(v).toLocaleString('ko-KR');
+const total=T.reduce((a,t)=>a+(t.na?0:t.m),0);
+const IDX={ans:0,look:1,xfer:2,proc:3};
+function covOf(t,caps){if(!S.rows[t.id])return 0;let s=0;for(const k in IDX)if(caps[k])s+=t.mix[IDX[k]];return t.m*s}
+function covAll(caps){return T.reduce((a,t)=>a+covOf(t,caps),0)}
+function ox(on,cb){const w=document.createElement('span');w.className='ox';
+  ['O','X'].forEach((l,i)=>{const b=document.createElement('button');b.textContent=l;b.className=(i?'x':'o')+((on?i===0:i===1)?' on':'');b.onclick=()=>cb(i===0);w.appendChild(b)});return w}
+
+function render(){
+  const cv=covAll(S.caps);
+  document.getElementById('covPct').innerHTML=(cv/total*100).toFixed(1)+'%';
+  document.getElementById('covN').textContent=`월 약 ${fmt(cv)}건 / 전체 월 ${fmt(total)}건`;
+  const me=document.getElementById('meter');me.innerHTML='';
+  LV.slice(0,4).forEach((l,i)=>{if(!S.caps[l.k])return;const v=T.reduce((a,t)=>a+(S.rows[t.id]?t.m*t.mix[i]:0),0);me.insertAdjacentHTML('beforeend',`<i style="width:${v/total*100}%;background:${l.c}" title="${l.nm} 월 ${fmt(v)}건"></i>`)});
+  const cp=document.getElementById('caps');cp.innerHTML='';
+  CAPS.forEach((c,i)=>{const on=S.caps[c.k];const with_={...S.caps,[c.k]:true},wo={...S.caps,[c.k]:false};const gain=covAll(with_)-covAll(wo);
+    const d=document.createElement('div');d.className='cap';
+    d.innerHTML=`<div class="h"><span class="dot" style="background:${LV[i].c}"></span>${c.nm}</div><div class="d">${c.d}</div><div class="gain">켜면 <b>+월 ${fmt(gain)}건</b> (${(gain/total*100).toFixed(1)}%p)</div>`;
+    const row=document.createElement('div');row.appendChild(ox(on,v=>{S.caps[c.k]=v;save();render()}));d.appendChild(row);cp.appendChild(d)});
+  const tb=document.getElementById('rows');tb.innerHTML='';
+  [...T].sort((a,b)=>b.m-a.m).forEach(t=>{
+    const tr=document.createElement('tr');if(!S.rows[t.id])tr.className='off';
+    const bar=LV.map((l,i)=>t.mix[i]?`<i style="width:${t.mix[i]*100}%;background:${l.c}" title="${l.nm} ${fmt(t.m*t.mix[i])}건 (${(t.mix[i]*100).toFixed(0)}%)"></i>`:'').join('');
+    const need=t.na?`<div><span class="chip judge">${t.need.judge}</span></div>`:LV.map((l,i)=>t.mix[i]>0?`<div><span class="chip ${l.k}">${l.short} ${fmt(t.m*t.mix[i])}건</span> ${t.need[l.k]||(l.k==='judge'?'분쟁·재검토 등 사람 판단':'')}</div>`:'').join('');
+    const c=covOf(t,S.caps);
+    tr.innerHTML=`<td><span class="nm">${t.nm}</span>${t.est?'<span class="est">추정 포함</span>':''}</td>
+      <td class="vol">${fmt(t.m)}<small>${t.na?'건/월 · 별도 집계':'건/월 · '+(t.m/total*100).toFixed(1)+'%'}</small></td>
+      <td><div class="flow"><div><b>접수</b><span>${t.get}</span></div><div><b>처리</b><span>${t.sys}</span></div><div><b>이관</b><span>${t.to}</span></div><div><b>답변</b><span>${t.end}</span></div></div></td>
+      <td><div class="bar">${bar}</div><div class="need">${need}</div></td>
+      <td class="cov">${t.na?'-':fmt(c)}<small>${t.na?'대상 아님':'건/월'}</small></td>
+      <td class="dec"></td>`;
+    if(!t.na)tr.querySelector('.dec').appendChild(ox(S.rows[t.id],v=>{S.rows[t.id]=v;save();render()}));
+    else tr.querySelector('.dec').innerHTML='<span class="chip judge">법무팀 유지</span>';
+    tb.appendChild(tr)});
+  document.getElementById('summary').textContent=summary();
+}
+function summary(){
+  const cv=covAll(S.caps);
+  let s=`[파트너센터 AI 챗봇 커버리지 검토]\n권한: `+CAPS.map(c=>`${c.nm} ${S.caps[c.k]?'O':'X'}`).join(' / ')+`\n챗봇 처리 가능: 월 약 ${fmt(cv)}건 (${(cv/total*100).toFixed(1)}%) / 전체 월 ${fmt(total)}건\n\n유형별 적용\n`;
+  [...T].sort((a,b)=>b.m-a.m).forEach(t=>{if(t.na)return;s+=`- ${t.nm} (월 ${fmt(t.m)}): ${S.rows[t.id]?'챗봇이 받음':'전부 상담원'}${S.rows[t.id]?` → 챗봇 처리 월 ${fmt(covOf(t,S.caps))}건`:''}\n`});
+  return s;
+}
+document.getElementById('legend').innerHTML=LV.map(l=>`<span style="--c:${l.c}">${l.nm}</span>`).join('')+'<span style="--c:transparent">한 유형 안에도 KMS로 끝나는 상담과 API·권한이 필요한 상담이 섞여 있음. 막대와 건수는 그 구성</span>';
+document.getElementById('sumBtn').onclick=()=>{const p=document.getElementById('summary');p.style.display=p.style.display==='block'?'none':'block'};
+document.getElementById('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText(summary());document.getElementById('copyBtn').textContent='복사됨'}catch(e){const p=document.getElementById('summary');p.style.display='block'}};
+document.getElementById('resetBtn').onclick=()=>{S=JSON.parse(JSON.stringify(DEF));T.forEach(t=>S.rows[t.id]=!t.na);save();render()};
+document.getElementById('themeBtn').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
+render();
+</script>
+</body>
+</html>
