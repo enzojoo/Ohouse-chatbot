@@ -123,15 +123,15 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .theme{position:fixed;right:16px;bottom:16px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:8px 14px;font:inherit;font-size:12px;cursor:pointer}
 /* ===== AICX console ===== */
 /* AICX 콘솔 셸: 실제 콘솔(종합 현황·정산 대시보드) 톤 그대로, 라이트 고정 */
-.panel#p3{position:relative;left:50%;transform:translateX(-50%);width:min(1480px,calc(100vw - 32px))}
+.panel#p3{width:min(1480px,calc(100vw - 32px));margin-left:calc(50% - min(740px,50vw - 16px))}
 .cx{--c-side:#1E2332;--c-side2:#2A3142;--c-side-t:#A3AAB8;--c-bg:#F3F5F8;--c-card:#fff;--c-line:#E8EBF0;--c-line2:#F0F2F5;--c-t:#1A1D24;--c-sub:#5E6573;--c-mute:#9AA0AC;
   --c-blue:#2E5BE6;--c-blue-bg:#EAF0FE;--c-green:#16A34A;--c-green-bg:#DDF6E4;--c-red:#E5484D;--c-red-bg:#FBE1E1;--c-yel:#B7791F;--c-yel-bg:#FFF2C6;--c-org:#F59E0B;--c-pur:#7C5CFA;
-  display:grid;grid-template-columns:208px 1fr;height:900px;border-radius:12px;overflow:hidden;border:1px solid #D9DDE4;background:var(--c-bg);color:var(--c-t);font-size:13px;box-shadow:0 10px 40px rgba(20,30,60,.10);text-align:left}
+  display:grid;grid-template-columns:208px 1fr;min-height:900px;align-items:start;border-radius:12px;overflow:clip;border:1px solid #D9DDE4;background:linear-gradient(90deg,var(--c-side) 208px,var(--c-bg) 208px);color:var(--c-t);font-size:13px;box-shadow:0 10px 40px rgba(20,30,60,.10);text-align:left}
 .cx *{letter-spacing:-.1px}
 .cx button{font:inherit;cursor:pointer}
 .cx input,.cx select,.cx textarea{font:inherit;color:var(--c-t)}
 /* sidebar */
-.cx-side{background:var(--c-side);color:var(--c-side-t);display:flex;flex-direction:column;padding:10px 8px;overflow-y:auto}
+.cx-side{background:var(--c-side);color:var(--c-side-t);display:flex;flex-direction:column;padding:10px 8px;overflow-y:auto;position:sticky;top:0;height:100vh;max-height:100vh}
 .cx-org{display:flex;align-items:center;gap:9px;background:var(--c-side2);border-radius:10px;padding:9px 10px;color:#fff}
 .cx-org .ic{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#3D6BFF,#2546C9);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
 .cx-org b{display:block;font-size:12.5px}.cx-org small{font-size:11px;color:#8A92A3}
@@ -150,7 +150,7 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .cx-user i{width:26px;height:26px;border-radius:50%;background:#6C7DF5;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;font-size:12px}
 .cx-user small{color:#8A92A3;font-size:11px;margin-left:2px}
 /* main */
-.cx-main{display:flex;flex-direction:column;min-width:0;overflow:clip}
+.cx-main{display:flex;flex-direction:column;min-width:0;min-height:900px;overflow:clip}
 .cx-head{background:linear-gradient(#fff,#FAFBFC);border-bottom:1px solid var(--c-line);padding:12px 22px 12px;display:flex;justify-content:space-between;align-items:flex-start}
 .cx-head .crumb{font-size:11px;color:var(--c-mute)}
 .cx-head h2{margin:2px 0 0;font-size:18px;font-weight:700;letter-spacing:-.4px}
@@ -160,7 +160,7 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .cx-bell-pop.on{display:block}
 .cx-bell-pop div{padding:10px 12px;border-bottom:1px solid var(--c-line2);font-size:12px;color:var(--c-t)}
 .cx-bell-pop small{display:block;color:var(--c-mute);font-size:11px;margin-top:2px}
-.cx-body{flex:1;overflow-y:auto;padding:14px 22px 24px}
+.cx-body{flex:1;padding:14px 22px 24px}
 .cx-foot{border-top:1px solid var(--c-line);background:#fff;padding:7px 22px;font-size:10.5px;color:var(--c-mute);display:flex;justify-content:space-between}
 .cx-page{display:none}.cx-page.on{display:block}
 /* toolbar */
@@ -253,10 +253,10 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .cx-pager button{border:1px solid var(--c-line);background:#fff;border-radius:6px;min-width:26px;height:26px;font-size:11.5px;color:var(--c-sub)}
 .cx-pager button.on{background:var(--c-blue);border-color:var(--c-blue);color:#fff;font-weight:700}
 /* drawer & modal */
-.cx-ov{position:absolute;inset:0;background:rgba(15,20,30,.35);display:none;z-index:30}
+.cx-ov{position:fixed;inset:0;background:rgba(15,20,30,.35);display:none;z-index:30}
 .cx-ov.on{display:block}
 .cx-main{position:relative}
-.cx-drawer{position:absolute;top:0;right:0;bottom:0;width:420px;max-width:100%;background:#fff;box-shadow:-10px 0 30px rgba(0,0,0,.12);z-index:31;transform:translateX(105%);transition:transform .2s,visibility .2s;display:flex;flex-direction:column;visibility:hidden}
+.cx-drawer{position:fixed;top:0;right:0;bottom:0;width:420px;max-width:100%;background:#fff;box-shadow:-10px 0 30px rgba(0,0,0,.12);z-index:31;transform:translateX(105%);transition:transform .2s,visibility .2s;display:flex;flex-direction:column;visibility:hidden}
 .cx-drawer.on{transform:none;visibility:visible}
 .cx-dh{padding:14px 18px;border-bottom:1px solid var(--c-line);display:flex;justify-content:space-between;align-items:center;font-weight:700}
 .cx-db{padding:14px 18px;overflow-y:auto;flex:1}
@@ -264,7 +264,7 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .cx-kv{display:grid;grid-template-columns:100px 1fr;gap:6px 10px;font-size:12px}
 .cx-kv b{color:var(--c-sub);font-weight:600}
 .cx-quote{background:#F7F8FA;border-radius:8px;padding:10px 12px;font-size:12px;margin-top:6px}
-.cx-modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;max-width:calc(100% - 32px);max-height:calc(100% - 40px);background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.2);z-index:31;display:none;flex-direction:column}
+.cx-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;max-width:calc(100vw - 32px);max-height:calc(100vh - 40px);background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.2);z-index:31;display:none;flex-direction:column}
 .cx-modal.on{display:flex}
 .cx-fr{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--c-line2);font-size:12px}
 .cx-fr>b{color:var(--c-sub);font-weight:600;padding-top:4px}
@@ -305,12 +305,21 @@ td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
 .cx-pv .po.multi span{flex:none;padding:5px 9px}
 .cx-pv .po.n11 span{min-width:18px;flex:1 0 18px;padding:5px 0}
 .cx-pv .pt{background:#fff;border:1px solid #E1E5EA;border-radius:8px;height:40px;color:#B4BAC2;font-size:11px;padding:6px}
+/* 노출 규칙 */
+.cx-tbl tr.off td:not(:first-child){opacity:.42}
+.cx-xchip{display:inline-flex;align-items:center;gap:4px;background:var(--c-blue-bg);color:var(--c-blue);border-radius:99px;padding:3px 6px 3px 10px;font-size:11.5px;font-weight:600}
+.cx-xchip button{border:0;background:none;color:var(--c-blue);font-size:14px;line-height:1;padding:0 2px}
+#exPanel{display:none;grid-template-columns:repeat(4,1fr);gap:12px 18px;margin-top:12px;border-top:1px solid var(--c-line2);padding-top:12px}
+#exPanel.on{display:grid}
+.exg{display:grid;gap:5px;font-size:11.5px;align-content:start}
+.exg b{font-size:11.5px;color:var(--c-sub)}
 /* toast */
-.cx-toast{position:absolute;left:50%;bottom:48px;transform:translateX(-50%) translateY(20px);background:#1A1D24;color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;transition:.2s;z-index:40;pointer-events:none;white-space:nowrap}
+.cx-toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);background:#1A1D24;color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;transition:.2s;z-index:40;pointer-events:none;white-space:nowrap}
 .cx-toast.on{opacity:1;transform:translateX(-50%)}
 .cx-mtop{display:none}
 @media(max-width:900px){
-  .cx{grid-template-columns:1fr;height:auto;min-height:760px}
+  .cx{grid-template-columns:1fr;min-height:760px;background:var(--c-bg)}
+  #exPanel.on{grid-template-columns:1fr 1fr}
   .cx-side{display:none}
   .cx-mtop{display:flex;gap:6px;overflow-x:auto;background:var(--c-side);padding:8px}
   .cx-mtop button{flex:none;border:0;background:var(--c-side2);color:#C9CED8;border-radius:6px;padding:5px 9px;font-size:11.5px}
@@ -368,6 +377,13 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 .bd-rate .rdone{text-align:center;padding:10px 0;display:none}
 .bd-rate.sent .rbody{display:none}.bd-rate.sent .rdone{display:block}
 .bd-rate .rhint{font-size:12px;color:#9AA1AB;margin-top:10px}
+.rstep{display:none;margin-bottom:16px}.rstep.on{display:block}
+.rtag{font-size:11px;color:#9AA1AB;font-weight:500;margin-left:4px}
+.rchips{display:flex;flex-wrap:wrap;gap:6px}
+.rchips button{border:1px solid #6FB5FF;background:#fff;color:#3D93F5;border-radius:99px;padding:6px 12px;font:inherit;font-size:12.5px;cursor:pointer}
+.rchips button.sel{background:#4A9CFF;color:#fff;border-color:#4A9CFF}
+.rta{width:100%;border:1px solid #DADDE2;border-radius:10px;padding:10px;font:inherit;font-size:13px;min-height:70px;resize:vertical;background:#fff;color:#2F3438}
+.lstep{display:none}.lstep.on{display:block}
 .bd-go{width:100%;margin-top:4px;border:0;border-radius:10px;padding:12px;background:#4A9CFF;color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .bd-go:disabled{background:#D5DAE1;cursor:not-allowed}
 /* 앱 프레임 */
@@ -447,7 +463,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
       <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다.</p>
       <pre class="rec" id="chRec"></pre>
     </div>
-    <div class="note"><b>평가 카드 공통 규칙</b><br>• 한 상담에 한 번만 응답하고, 응답 후에는 수정할 수 없습니다<br>• Q1·Q2를 고르면 다음 문항이 열리고, Q3은 Q1이 「보통·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 보입니다<br>• 카드를 닫거나 무시해도 상담 이용에는 영향이 없고, 미응답은 응답률 계산에만 쓰입니다</div>
+    <div class="note"><b>평가 카드 공통 규칙</b><br>• 한 상담에 한 번만 응답하고, 응답 후에는 수정할 수 없습니다<br>• Q1·Q2를 고르면 다음 문항이 열리고, Q3은 Q1이 「보통·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 보입니다<br>• 다시 「추천해요」와 「해결됐어요」로 바꾸면 Q3은 닫히고 골랐던 값도 지워집니다 (Q3은 빈 값으로 저장)<br>• 카드를 닫거나 무시해도 상담 이용에는 영향이 없고, 미응답은 응답률 계산에만 쓰입니다</div>
   </div>
 </div>
 </section>
@@ -471,44 +487,37 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 <div class="grid g2" style="margin-top:22px;align-items:start">
   <div class="card">
     <h3>예비파트너 · 이메일 답변 <span class="badge">비회원</span></h3>
-    <p class="desc">예비파트너는 게시판 이력이 없어 답변 이메일 안의 버튼으로 받습니다. 버튼은 바로 저장하지 않고, 선택값이 미리 눌린 응답 페이지를 엽니다.</p>
+    <p class="desc">예비파트너는 게시판 이력이 없어서, 고객센터 NPS 문자처럼 답변 메일 끝에 설문 링크를 붙입니다. 링크를 누르면 설문 페이지가 열리고, 그 안에서 Q1~Q4를 받습니다.</p>
     <div class="mail">
       <div class="from">보낸 사람: 오늘의집 파트너센터<br>제목: [오늘의집 파트너센터] 문의하신 내용에 답변드립니다</div>
       안녕하세요. 오늘의집 파트너센터입니다.<br><br>문의하신 입점 심사 진행 상황을 확인했습니다. 현재 자료심사 단계이며, 제출하신 서류 확인 후 결과를 이메일로 안내드리겠습니다.<br><br>감사합니다.
-      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line)">
-        <b style="font-size:13px">이번 답변으로 다른 분께 파트너센터를 추천하시겠어요?</b>
-        <div class="btns"><a href="#" data-mv="1">추천해요</a><a href="#" data-mv="2">보통이에요</a><a href="#" data-mv="3">추천하지 않아요</a></div>
-        <div class="hint" style="margin-top:8px">버튼을 누르면 응답 페이지가 열립니다 (7일 동안 유효)</div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px">
+        답변이 도움이 되셨는지 의견을 남겨 주세요.<br><br>
+        ▷ 오늘의집 파트너센터 설문조사 링크<br>
+        <a href="#" class="link" id="mailLink">https://(설문 주소)/partner#ticketid=5812301</a>
       </div>
     </div>
-    <div class="flowarrow">↓ 버튼 링크: https://(AICX 도메인)/s/<b>1회용 토큰</b>?v=1</div>
+    <div class="hint" style="margin-top:8px">링크 끝에 문의 번호(ticketid)를 붙여 어느 문의의 평가인지 구분합니다. 고객센터 NPS 문자와 같은 형식입니다.</div>
+  </div>
+  <div class="card">
+    <h3>링크를 누르면 열리는 설문 페이지</h3>
+    <p class="desc">메일의 링크를 누르면 이 화면이 새 창으로 열립니다. 문항은 게시판 답변 평가와 같습니다.</p>
     <div class="land" id="land">
       <div class="lh">오늘의집 파트너센터 · 답변 평가</div>
-      <div class="lb">
+      <div class="lb" id="landBody">
         <p class="q2">이번 답변으로 다른 분께 파트너센터를 추천하시겠어요?</p>
-        <div class="lopt" id="landQ1"><button data-v="1">추천해요</button><button data-v="2">보통이에요</button><button data-v="3">추천하지 않아요</button></div>
+        <div class="lopt" data-k="q1"><button data-v="1">추천해요</button><button data-v="2">보통이에요</button><button data-v="3">추천하지 않아요</button></div>
         <p class="q2">문의하신 내용은 해결되었나요?</p>
-        <div class="lopt" id="landQ2"><button data-v="Y">해결됐어요</button><button data-v="N">해결되지 않았어요</button></div>
-        <button class="submit" id="landGo">평가 보내기</button>
-        <div class="hint" id="landMsg">메일에서 누른 값이 미리 선택됩니다. 「평가 보내기」를 눌러야 저장됩니다.</div>
+        <div class="lopt" data-k="q2"><button data-v="Y">해결됐어요</button><button data-v="N">해결되지 않았어요</button></div>
+        <div class="lstep" data-s="q3"><p class="q2">어떤 점이 아쉬우셨나요? <span class="hint">여러 개 선택</span></p><div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px"><button class="chip">답변이 정확하지 않아요</button><button class="chip">원하는 처리를 못 했어요</button><button class="chip">답변이 늦었어요</button><button class="chip">안내가 어려웠어요</button><button class="chip">기타</button></div></div>
+        <div class="lstep" data-s="q4"><p class="q2">더 하고 싶은 말씀이 있으면 적어 주세요. <span class="hint">선택</span></p><textarea maxlength="500" placeholder="자유롭게 적어 주세요"></textarea></div>
+        <button class="submit" id="landGo" disabled>평가 보내기</button>
       </div>
+      <div class="done" id="landDone"><b>의견 감사합니다</b><div class="hint">더 나은 답변을 위해 참고하겠습니다.</div><button class="reset" style="margin-top:12px" id="landAgain">↺ 처음부터</button></div>
     </div>
-  </div>
-  <div>
-    <div class="card">
-      <h3>이메일 버튼으로 NPS를 기록할 수 있나</h3>
-      <p class="desc" style="margin-bottom:8px"><b>가능합니다.</b> 설문 링크 방식과 원리가 같습니다. 다만 아래 조건이 필요해서 AICX에 확인해야 합니다.</p>
-      <table class="kv"><tbody>
-        <tr><td>구조</td><td>답변 메일을 보낼 때 문의 1건마다 1회용 토큰을 만들어 버튼 링크에 넣습니다. 버튼을 누르면 AICX가 받는 공개 페이지가 열리고, 토큰으로 어떤 문의의 평가인지 찾아 저장합니다.</td></tr>
-        <tr><td>필요한 것</td><td>① 로그인 없이 열리는 AICX 응답 페이지와 저장 API<br>② 메일 발송 시 토큰을 만들어 넣는 기능<br>③ 토큰의 유효 기간(7일)과 1회 사용 처리</td></tr>
-        <tr><td>주의할 점</td><td><b>링크를 여는 것만으로 저장하면 안 됩니다.</b> 회사 메일의 보안 검사기가 메일 속 링크를 미리 열어 보는 경우가 있어, 아무도 누르지 않았는데 응답이 저장될 수 있습니다. 그래서 링크는 응답 페이지만 열고, 「평가 보내기」를 눌렀을 때 저장하는 방식으로 제안했습니다.</td></tr>
-        <tr><td>AICX 확인 사항</td><td>예비파트너 답변 메일을 AICX가 보내는지 (다른 시스템이 보내면 토큰을 넣을 수 없음), 공개 응답 페이지를 만들 수 있는지, 개발 공수</td></tr>
-        <tr><td>안 될 때 대안</td><td>메일에는 버튼 대신 「답변 평가하기」 링크 하나만 넣고 같은 응답 페이지로 연결합니다. 그것도 어려우면 예비파트너는 1차 NPS 대상에서 뺍니다.</td></tr>
-      </tbody></table>
-    </div>
-    <div class="note"><b>게시판 규칙</b><br>• 평가 영역은 「답변완료」에서만 보이고, 확인중·후처리 상태에서는 보이지 않습니다<br>• AI 자동답변 후 상담원 확인으로 넘어간 건은 상담원 최종 답변 때 한 번만 받고, 데이터에 「AI 1차 답변 있음」을 표시합니다<br>• 답변 아래에 추가 글을 달 수 없어서, 해결되지 않은 건은 새 문의로 안내합니다<br>• 답변완료 후 7일이 지나면 평가 영역을 닫습니다</div>
   </div>
 </div>
+<div class="note"><b>게시판·이메일 규칙</b><br>• 평가 영역은 「답변완료」에서만 보이고, 확인중·후처리 상태에서는 보이지 않습니다<br>• Q3(아쉬운 점)은 Q1이 「보통이에요·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 열립니다. 다시 「추천해요」와 「해결됐어요」로 바꾸면 닫히고 골랐던 값도 지워집니다<br>• AI 자동답변 후 상담원 확인으로 넘어간 건은 상담원 최종 답변 때 한 번만 받고, 데이터에 「AI 1차 답변 있음」을 표시합니다<br>• 답변 아래에 추가 글을 달 수 없어서, 해결되지 않은 건은 새 문의로 안내합니다<br>• 답변완료 후 7일이 지나면 평가 영역과 설문 링크를 닫습니다</div>
 </section>
 
 <!-- ③ AICX 콘솔 · 만족도 -->
@@ -571,61 +580,45 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <select class="cx-sel"><option>서비스: 파트너센터</option><option>서비스: 고객센터</option><option>서비스: 전체</option></select>
     <div class="cx-seg" data-seg><button>오늘</button><button>이번 주</button><button class="on">이번 달</button><button>직접 입력</button></div>
   </div>
-  <div class="cx-tabs" data-tabs><button class="on">전체</button><button>채팅</button><button>게시판</button></div>
+  <div class="cx-tabs" id="dTabs"><button class="on" data-v="all">전체</button><button data-v="chat">채팅</button><button data-v="board">게시판</button></div>
   <div class="cx-banner">ⓘ 응답 기한(게시판 7일)이 남은 건이 있어 이 달 수치는 확정 전입니다. 노출 후 응답하지 않은 건은 응답률에만 반영됩니다.</div>
 
   <div class="cx-st">NPS 요약 <span class="cx-chip"><span class="dot"></span>2026년 10월 · 집계 중 <i class="q" title="매일 07시에 전날까지 응답을 다시 집계합니다">?</i></span></div>
   <div class="cx-card">
     <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:flex-end">
-      <div><div class="cx-lbl">2026년 10월 파트너센터 NPS</div><div class="cx-big" id="dNps">42</div><div class="cx-note">추천 비율 58% − 비추천 비율 16% · 전월 37 대비 <span class="up">+5</span></div></div>
+      <div><div class="cx-lbl" id="dNpsLbl"></div><div class="cx-big" id="dNps"></div><div class="cx-note" id="dNpsNote"></div></div>
       <div style="flex:1;min-width:260px">
-        <div class="cx-lbl" style="display:flex;justify-content:space-between"><span>목표 <b id="dTarget">45</b> 대비</span><span id="dGap" class="cx-b y">주의 −3</span></div>
+        <div class="cx-lbl" style="display:flex;justify-content:space-between"><span>목표 <b id="dTarget">45</b> 대비</span><span id="dGap" class="cx-b y"></span></div>
         <div style="position:relative;height:10px;background:#EEF0F3;border-radius:99px;margin-top:8px;overflow:visible">
-          <i style="position:absolute;left:0;top:0;bottom:0;width:71%;background:var(--c-blue);border-radius:99px" id="dBar"></i>
-          <i style="position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--c-t);left:72.5%" id="dTick"></i>
+          <i style="position:absolute;left:0;top:0;bottom:0;background:var(--c-blue);border-radius:99px;transition:width .3s" id="dBar"></i>
+          <i style="position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--c-t)" id="dTick"></i>
         </div>
         <div class="cx-note" style="display:flex;justify-content:space-between;margin-top:4px"><span>−100</span><span>0</span><span>100</span></div>
       </div>
     </div>
     <div class="cx-hr2"></div>
     <div class="cx-lbl" style="margin-bottom:8px">응답 구성 · 누르면 아래 응답 데이터로 이동</div>
-    <div class="cx-kgrid k5">
-      <div class="cx-k" data-go="raw"><div class="l"><span class="d" style="background:var(--c-green)"></span>추천</div><div class="v">321<small>건 (58%)</small></div><div class="s">추천해요</div></div>
-      <div class="cx-k" data-go="raw"><div class="l"><span class="d" style="background:var(--c-org)"></span>보통</div><div class="v">144<small>건 (26%)</small></div><div class="s">보통이에요</div></div>
-      <div class="cx-k" data-go="raw" data-low="1"><div class="l"><span class="d" style="background:var(--c-red)"></span>비추천</div><div class="v" style="color:var(--c-red)">89<small>건 (16%)</small></div><div class="s">추천하지 않아요</div></div>
-      <div class="cx-k"><div class="l">해결률 <i class="q" title="Q2 「해결됐어요」 비율">?</i></div><div class="v">71%</div><div class="s">전월 68% 대비 <span class="up">+3%p</span></div></div>
-      <div class="cx-k"><div class="l">응답률 <i class="q" title="응답 ÷ 평가 카드 노출">?</i></div><div class="v">24%</div><div class="s">노출 2,310건 중 554건</div></div>
-    </div>
+    <div class="cx-kgrid k5" id="dK5"></div>
   </div>
 
   <div class="cx-st">응대 흐름별 <i class="q" title="누가 상담을 마무리했는지 기준">?</i></div>
-  <div class="cx-kgrid k3">
-    <div class="cx-k"><div class="l"><span class="d" style="background:var(--c-blue)"></span>AI 단독 종결</div><div class="v">36<small>NPS</small></div><div class="s">응답 248건 · 해결률 63% · 목표 40</div></div>
-    <div class="cx-k"><div class="l"><span class="d" style="background:var(--c-pur)"></span>AI → 상담원</div><div class="v">45<small>NPS</small></div><div class="s">응답 186건 · 해결률 79% · AI 응대 「좋았어요」 41%</div></div>
-    <div class="cx-k"><div class="l"><span class="d" style="background:#7C8798"></span>상담원 직접</div><div class="v">51<small>NPS</small></div><div class="s">응답 120건 · 해결률 80% · 목표 50</div></div>
-  </div>
+  <div class="cx-kgrid k3" id="dK3"></div>
 
   <div class="cx-st">추이 <span class="r"><span class="cx-seg" data-seg><button>일</button><button class="on">주</button><button>월</button></span></span></div>
   <div class="cx-2col">
     <div class="cx-card cx-chart"><div class="cx-lbl" style="margin-bottom:4px">주별 NPS (최근 8주)</div><div id="dChart"></div>
-      <div class="cx-leg"><span><i style="background:var(--c-t)"></i>전체</span><span><i style="background:var(--c-blue)"></i>AI 단독</span><span><i style="background:#9AA3B2"></i>상담원 응대</span><span><i style="background:none;border-top:2px dashed var(--c-red);height:0"></i>목표</span></div></div>
-    <div class="cx-card"><div class="cx-lbl" style="margin-bottom:8px">채널별</div>
-      <table class="cx-tbl"><thead><tr><th>채널</th><th>응답</th><th>NPS</th><th>해결률</th><th>응답률</th></tr></thead>
-      <tbody><tr><td>채팅</td><td>402</td><td>41</td><td>69%</td><td>31%</td></tr><tr><td>게시판</td><td>131</td><td>45</td><td>77%</td><td>14%</td></tr><tr><td>예비파트너 이메일</td><td>21</td><td><span class="cx-b n">표본 부족</span></td><td>71%</td><td>9%</td></tr></tbody></table>
-      <div class="cx-note" style="margin-top:8px">응답이 최소 응답 수(지표 기준 관리)보다 적으면 NPS 대신 「표본 부족」으로 표시합니다.</div>
-    </div>
+      <div class="cx-leg"><span><i style="background:var(--c-t)"></i>전체</span><span><i style="background:var(--c-blue)"></i>AI 응대</span><span><i style="background:#9AA3B2"></i>상담원 응대</span><span><i style="background:none;border-top:2px dashed var(--c-red);height:0"></i>목표</span></div></div>
+    <div class="cx-card"><div class="cx-lbl" style="margin-bottom:8px" id="dSideT"></div><table class="cx-tbl" id="dSide"></table><div class="cx-note" style="margin-top:8px" id="dSideN"></div></div>
   </div>
 
-  <div class="cx-st">저평가 사유 상세 <span class="cx-chip">Q3 · 응답 247건</span></div>
+  <div class="cx-st">저평가 사유 상세 <span class="cx-chip" id="dQ3c"></span></div>
   <div class="cx-grp">
-    <div class="cx-gh"><span class="d" style="background:var(--c-red)"></span>아쉬운 점 <span class="tag">복수 선택</span><span class="r">247건</span></div>
+    <div class="cx-gh"><span class="d" style="background:var(--c-red)"></span>아쉬운 점 <span class="tag">복수 선택</span><span class="r" id="dQ3n"></span></div>
     <div id="dReasons"></div>
   </div>
-  <div class="cx-grp">
-    <div class="cx-gh"><span class="d" style="background:var(--c-org)"></span>AI 응대 평가 <span class="tag">AI → 상담원 1문항</span><span class="r">186건</span></div>
-    <div class="cx-row"><span>좋았어요</span><span>76건 <small>(40.9%)</small></span><i class="fill" style="width:40.9%;background:var(--c-green-bg)"></i></div>
-    <div class="cx-row"><span>보통이에요</span><span>63건 <small>(33.9%)</small></span><i class="fill" style="width:33.9%;background:var(--c-yel-bg)"></i></div>
-    <div class="cx-row"><span>아쉬워요</span><span>47건 <small>(25.3%)</small></span><i class="fill" style="width:25.3%;background:var(--c-red-bg)"></i></div>
+  <div class="cx-grp" id="dAiGrp">
+    <div class="cx-gh"><span class="d" style="background:var(--c-org)"></span>AI 응대 평가 <span class="tag">AI → 상담원 1문항</span><span class="r" id="dAiN"></span></div>
+    <div id="dAiRows"></div>
   </div>
 
   <div class="cx-st">상세 분석 <span class="r"><span class="cx-seg" data-seg id="dDim"><button class="on" data-v="type">상담유형별</button><button data-v="agent">상담원별</button></span></span></div>
@@ -667,23 +660,18 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <div>
       <div class="cx-tpl">
         <div class="h">설문 템플릿 <button class="cx-btn ghost" style="padding:0" data-toast="새 템플릿을 만들었습니다 (데모)">+ 추가</button></div>
-        <div class="it on">partner_v1 · 파트너센터 상담 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
-        <div class="it">partner_board_v1 · 게시판 답변 평가<small><span class="cx-b g">사용 중</span> Q1·Q2만</small></div>
-        <div class="it">cs_v3 · 고객센터 상담 평가<small><span class="cx-b n">예정</span> 고객센터 이관 시</small></div>
-        <div class="it">partner_v0 · 초안<small><span class="cx-b n">보관</span> 10/14</small></div>
+        <div class="it on" data-tpl="partner_v1">partner_v1 · 파트너센터 상담 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
+        <div class="it" data-tpl="partner_board_v1">partner_board_v1 · 게시판 답변 평가<small><span class="cx-b g">사용 중</span> 버전 2 · 10/20 저장</small></div>
+        <div class="it" data-tpl="cs_v3">cs_v3 · 고객센터 상담 평가<small><span class="cx-b n">예정</span> 고객센터 이관 시</small></div>
+        <div class="it" data-tpl="partner_v0">partner_v0 · 초안<small><span class="cx-b n">보관</span> 10/14</small></div>
       </div>
       <div class="cx-tpl" style="margin-top:10px">
         <div class="h">적용 대상</div>
-        <div style="padding:10px 12px;font-size:12px;display:grid;gap:8px">
-          <label class="cx-check" style="justify-content:space-between">파트너센터 채팅 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-          <label class="cx-check" style="justify-content:space-between">파트너센터 게시판 <span class="sw"><input type="checkbox"><span></span></span></label>
-          <label class="cx-check" style="justify-content:space-between">고객센터 <span class="sw"><input type="checkbox"><span></span></span></label>
-        </div>
+        <div style="padding:10px 12px;font-size:12px;display:grid;gap:8px" id="qTarget"></div>
       </div>
       <div class="cx-tpl" style="margin-top:10px">
         <div class="h">버전 이력</div>
-        <div class="it" style="cursor:default">v1 · 10/20 · Enzo Joo<small>Q3 선택지 6개로 정리</small></div>
-        <div class="it" style="cursor:default">v0 · 10/14 · Enzo Joo<small>최초 작성</small></div>
+        <div id="qHist"></div>
       </div>
     </div>
     <div>
@@ -733,43 +721,40 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 
   <div class="cx-st">집계 기준</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
-    <label class="cx-check" style="justify-content:space-between">내부 테스트 상담 제외 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">오접수·용건 없음(기타 &gt; 무응답·오접수) 제외 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">같은 상담에 응답이 2건 이상이면 첫 응답만 집계 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">해결률은 Q2 응답 기준 (응답하지 않은 건은 분모에서 제외) <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">내부 테스트 상담 제외 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+    <label class="cx-check" style="justify-content:space-between">오접수·용건 없음(기타 &gt; 무응답·오접수) 제외 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+    <label class="cx-check" style="justify-content:space-between">같은 상담에 응답이 2건 이상이면 첫 응답만 집계 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+    <label class="cx-check" style="justify-content:space-between">해결률은 Q2 응답 기준 (응답하지 않은 건은 분모에서 제외) <label class="sw"><input type="checkbox" checked><span></span></label></label>
     <label class="cx-check" style="justify-content:space-between">집계 기준일 <select class="cx-sel"><option>응답 시각 기준</option><option>상담 종료 시각 기준</option></select></label>
   </div>
 </div>
 
 <!-- ===== 노출 규칙 ===== -->
 <div class="cx-page" id="pg-rule">
-  <div class="cx-tool between"><div class="cx-note">어느 상담에 어떤 평가를 띄울지 정합니다. 칸을 눌러 켜고 끌 수 있습니다.</div><button class="cx-btn pri" data-toast="노출 규칙을 저장했습니다 · 다음 상담부터 적용">저장</button></div>
-  <div class="cx-st">흐름별 노출</div>
+  <div class="cx-tool between"><div class="cx-note" id="ruSum"></div><button class="cx-btn pri" data-toast="노출 규칙을 저장했습니다 · 다음 상담부터 적용">저장</button></div>
+  <div class="cx-st">응대 흐름별 노출 <i class="q" title="상담을 누가 마무리했는지(AI·상담원·둘 다)에 따라 평가를 띄울지, 어떤 템플릿을 쓸지 정합니다">?</i></div>
   <div class="cx-card cx-tw" style="padding:6px 8px">
-    <table class="cx-tbl">
-      <thead><tr><th>채널 · 응대 흐름</th><th>상담원 평가</th><th>AI 평가</th><th>템플릿</th><th>노출 시점</th></tr></thead>
-      <tbody>
-        <tr><td>채팅 · AI 단독</td><td>-</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1~Q4</td><td>partner_v1</td><td>종료 직후</td></tr>
-        <tr><td>채팅 · AI → 상담원</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1~Q4</td><td><span class="sw"><input type="checkbox" checked><span></span></span> 1문항</td><td>partner_v1</td><td>상담원 종료 직후</td></tr>
-        <tr><td>채팅 · 상담원 직접</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1~Q4</td><td>-</td><td>partner_v1</td><td>상담원 종료 직후</td></tr>
-        <tr><td>게시판 · AI 자동답변</td><td>-</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1·Q2</td><td>partner_board_v1</td><td>답변완료 직후</td></tr>
-        <tr><td>게시판 · 상담원 답변</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1·Q2</td><td>-</td><td>partner_board_v1</td><td>답변완료 직후</td></tr>
-        <tr><td>게시판 · 예비파트너 이메일</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1·Q2</td><td>-</td><td>partner_board_v1</td><td>답변 메일 안</td></tr>
-      </tbody>
-    </table>
+    <table class="cx-tbl"><thead><tr><th>사용</th><th class="l">채널 · 응대 흐름</th><th>평가 대상</th><th>템플릿</th><th class="l">추가 문항 · 표시</th><th>노출 시점</th></tr></thead><tbody id="ruBody"></tbody></table>
+    <div class="cx-note" style="padding:8px 4px 2px">스위치를 끄면 그 흐름에서는 평가를 띄우지 않습니다. 템플릿을 바꾸면 문항이 그 템플릿 것으로 바뀌고, 「문항 보기」를 누르면 문항 관리에서 바로 확인할 수 있습니다.</div>
   </div>
   <div class="cx-st">빈도와 기한</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
     <label class="cx-check" style="justify-content:space-between">중복 노출 제한 <select class="cx-sel"><option>같은 샵 1일 1회</option><option>같은 샵 3일 1회 (고객센터 기준)</option><option>제한 없음</option></select></label>
-    <label class="cx-check" style="justify-content:space-between">게시판 응답 기한 <select class="cx-sel"><option>답변완료 후 7일</option><option>3일</option><option>14일</option></select></label>
+    <label class="cx-check" style="justify-content:space-between">게시판·이메일 응답 기한 <select class="cx-sel"><option>답변완료 후 7일</option><option>3일</option><option>14일</option></select></label>
     <label class="cx-check" style="justify-content:space-between">노출 비율 (응답 피로도 조절) <select class="cx-sel"><option>100% (모든 상담)</option><option>50% 무작위</option><option>20% 무작위</option></select></label>
   </div>
   <div class="cx-st">노출하지 않는 경우</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
-    <label class="cx-check" style="justify-content:space-between">무응답으로 자동 종료된 채팅 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">운영시간 밖 게시판 안내로 끝난 채팅 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">게시판 답변이 확인중·후처리 상태일 때 <span class="sw"><input type="checkbox" checked><span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">상담 중 욕설·위협으로 종료된 건 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">무응답으로 자동 종료된 채팅 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+    <label class="cx-check" style="justify-content:space-between">운영시간 밖 게시판 안내로 끝난 채팅 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+    <label class="cx-check" style="justify-content:space-between">게시판 답변이 확인중·후처리 상태일 때 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+    <label class="cx-check" style="justify-content:space-between">상담 중 욕설·위협으로 종료된 건 <label class="sw"><input type="checkbox" checked><span></span></label></label>
+  </div>
+  <div class="cx-st">노출하지 않는 상담유형 <span class="cx-chip">ECA 상담유형 (중 &gt; 소)</span></div>
+  <div class="cx-card">
+    <div style="display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap"><div id="exChips" style="display:flex;gap:6px;flex-wrap:wrap;flex:1;min-height:26px;align-items:center"></div><button class="cx-btn" id="exAdd">+ 상담유형 선택</button></div>
+    <div id="exPanel"><input class="cx-inp" id="exQ" placeholder="상담유형 검색 (예: 입점, 취소)" style="grid-column:1/-1;max-width:280px"><div id="exList" style="display:contents"></div></div>
+    <div class="cx-note" style="margin-top:10px">상담이 끝날 때 분류된 상담유형으로 판단합니다. 여기 넣은 유형으로 분류된 상담에는 평가를 띄우지 않고, 응답률 계산에서도 뺍니다.</div>
   </div>
 </div>
 
@@ -781,18 +766,18 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <table class="cx-tbl">
       <thead><tr><th>사용</th><th class="l">조건</th><th>받는 곳</th><th>받는 사람</th><th>최근 30일</th></tr></thead>
       <tbody>
-        <tr><td><span class="sw"><input type="checkbox" checked><span></span></span></td><td class="l wrap">비추천이면서 의견(Q4)이 있는 응답</td><td><select class="cx-sel"><option>콘솔 알림 + 슬랙</option><option>콘솔 알림</option><option>이메일</option></select></td><td>서비스운영팀</td><td>37건</td></tr>
-        <tr><td><span class="sw"><input type="checkbox" checked><span></span></span></td><td class="l wrap">같은 샵이 30일 안에 저평가를 2번 이상 남김</td><td><select class="cx-sel"><option>콘솔 알림</option><option>콘솔 알림 + 슬랙</option></select></td><td>센터 매니저</td><td>6건</td></tr>
-        <tr><td><span class="sw"><input type="checkbox" checked><span></span></span></td><td class="l wrap">하루 NPS가 목표보다 위험 범위로 떨어짐 (응답 30건 이상인 날만)</td><td><select class="cx-sel"><option>이메일</option><option>콘솔 알림 + 슬랙</option></select></td><td>서비스운영팀 리더</td><td>1건</td></tr>
-        <tr><td><span class="sw"><input type="checkbox"><span></span></span></td><td class="l wrap">특정 상담유형의 비추천 비율이 전주보다 10%p 이상 오름</td><td><select class="cx-sel"><option>슬랙</option></select></td><td>-</td><td>-</td></tr>
+        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">비추천이면서 의견(Q4)이 있는 응답</td><td><select class="cx-sel"><option>콘솔 알림 + 슬랙</option><option>콘솔 알림</option><option>이메일</option></select></td><td>서비스운영팀</td><td>37건</td></tr>
+        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">같은 샵이 30일 안에 저평가를 2번 이상 남김</td><td><select class="cx-sel"><option>콘솔 알림</option><option>콘솔 알림 + 슬랙</option></select></td><td>센터 매니저</td><td>6건</td></tr>
+        <tr><td><label class="sw"><input type="checkbox" checked><span></span></label></td><td class="l wrap">하루 NPS가 목표보다 위험 범위로 떨어짐 (응답 30건 이상인 날만)</td><td><select class="cx-sel"><option>이메일</option><option>콘솔 알림 + 슬랙</option></select></td><td>서비스운영팀 리더</td><td>1건</td></tr>
+        <tr><td><label class="sw"><input type="checkbox"><span></span></label></td><td class="l wrap">특정 상담유형의 비추천 비율이 전주보다 10%p 이상 오름</td><td><select class="cx-sel"><option>슬랙</option></select></td><td>-</td><td>-</td></tr>
       </tbody>
     </table>
     <div class="cx-note" style="padding:8px 4px 2px">슬랙은 웹훅 주소를 등록해 받는 방식입니다. 알림에는 샵 ID를 가린 값만 담습니다.</div>
   </div>
   <div class="cx-st">정기 리포트</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
-    <label class="cx-check" style="justify-content:space-between">주간 NPS 리포트 메일 <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매주 월요일 09:00</option><option>매주 금요일 17:00</option></select><span class="sw"><input type="checkbox" checked><span></span></span></span></label>
-    <label class="cx-check" style="justify-content:space-between">월간 리포트 (흐름별·상담유형별 표 엑셀 첨부) <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매월 1일 09:00</option></select><span class="sw"><input type="checkbox" checked><span></span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">주간 NPS 리포트 메일 <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매주 월요일 09:00</option><option>매주 금요일 17:00</option></select><label class="sw"><input type="checkbox" checked><span></span></label></span></label>
+    <label class="cx-check" style="justify-content:space-between">월간 리포트 (흐름별·상담유형별 표 엑셀 첨부) <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매월 1일 09:00</option></select><label class="sw"><input type="checkbox" checked><span></span></label></span></label>
     <label class="cx-check" style="justify-content:space-between">받는 사람 <input class="cx-inp" value="서비스운영팀 4명, 유베이스 센터 매니저 2명" style="width:300px"></label>
   </div>
   <div class="cx-st">조회 API</div>
@@ -847,6 +832,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <tr><td>게시판 답변이 확인중·후처리 상태일 때</td></tr>
         <tr><td>같은 샵이 기준 기간 안에 이미 평가했을 때 (1일 또는 3일, 결정 필요)</td></tr>
         <tr><td>운영시간 밖 게시판 안내로 끝난 채팅 (상담이 이루어지지 않음)</td></tr>
+        <tr><td>제외 상담유형으로 분류된 상담 (콘솔 「노출 규칙」에서 설정)</td></tr>
       </tbody>
     </table>
   </div>
@@ -952,6 +938,7 @@ render();
 // ===== ② 게시판: 앱/웹 · 답변 상태별 =====
 (()=>{
 const $=id=>document.getElementById(id);let mode='app',sc='ai';
+const Q3B=['답변이 정확하지 않아요','원하는 처리를 못 했어요','답변이 늦었어요','안내가 어려웠어요','기타'];
 const ANS={ai:['AI 상담원','2026.10.20 10:12','파트너님, 품절로 인한 취소는 오로라 &gt; 주문/배송 &gt; 주문관리에서 해당 주문을 선택한 뒤 「품절 취소」를 누르시면 바로 접수됩니다. 취소가 접수되면 고객에게 품절 안내가 자동으로 발송됩니다.',true],
  hu:['상담원','2026.10.20 14:31','파트너님, 요청하신 주문 2건(20261019-0012, 20261019-0047)의 품절 취소 접수를 완료했습니다. 고객에게는 품절 안내 문자가 발송되었습니다.',false],
  chk:['AI 상담원','2026.10.20 10:12','문의 내용을 확인하고 있습니다. 담당 상담원이 확인 후 답변드리겠습니다.',true]};
@@ -959,8 +946,10 @@ function view(){
   const a=ANS[sc],done=sc!=='chk',web=mode==='web';
   const ans=`<div class="bd-ans">${web?`<div class="hd"><div class="who">${a[0]}${a[3]?'<em>AI 답변</em>':''}</div><div class="dt">${a[1]}</div></div><div style="height:8px"></div>`:`<div class="who">${a[0]}${a[3]?'<em>AI 답변</em>':''}</div><div class="dt">${a[1]}</div>`}<div class="tx">${a[2]}</div></div>`;
   const rate=done?`<div class="bd-card bd-rate" id="bdRate"><div class="rbody"><div class="bd-h">답변 평가</div>
-    <p class="rq">이번 답변으로 다른 파트너에게 파트너센터를 추천하시겠어요?</p><div class="ropt" data-k="q1"><button>추천해요</button><button>보통이에요</button><button>추천하지 않아요</button></div>
-    <p class="rq">문의하신 내용은 해결되었나요?</p><div class="ropt two" data-k="q2"><button>해결됐어요</button><button>해결되지 않았어요</button></div>
+    <p class="rq">이번 답변으로 다른 파트너에게 파트너센터를 추천하시겠어요?</p><div class="ropt" data-k="q1"><button data-v="1">추천해요</button><button data-v="2">보통이에요</button><button data-v="3">추천하지 않아요</button></div>
+    <p class="rq">문의하신 내용은 해결되었나요?</p><div class="ropt two" data-k="q2"><button data-v="Y">해결됐어요</button><button data-v="N">해결되지 않았어요</button></div>
+    <div class="rstep" data-s="q3"><p class="rq">어떤 점이 아쉬우셨나요?<span class="rtag">여러 개 선택</span></p><div class="rchips">${Q3B.map(q=>`<button>${q}</button>`).join('')}</div></div>
+    <div class="rstep" data-s="q4"><p class="rq">더 하고 싶은 말씀이 있으면 적어 주세요.<span class="rtag">선택</span></p><textarea class="rta" maxlength="500" placeholder="자유롭게 적어 주세요"></textarea></div>
     <button class="bd-go" disabled>평가 보내기</button><div class="rhint">답변완료 후 7일까지 평가할 수 있습니다. 해결되지 않았다면 새 문의로 남겨 주세요.</div></div>
     <div class="rdone"><b>평가해 주셔서 감사합니다</b><div class="rhint">더 나은 답변을 위해 참고하겠습니다.</div></div></div>`:'';
   const inner=`<div class="bd-card"><div class="bd-top"><span class="bd-back">‹</span><span class="bd-title">품절 상품 주문 취소 요청</span><span class="bd-st ${done?'done':'chk'}">${done?'답변완료':'확인중'}</span></div>
@@ -971,17 +960,23 @@ function view(){
   $('bdView').innerHTML=web?`<div class="bd-web"><div class="bar"><i></i><i></i><i></i><span>(파트너센터 웹 주소)/inquiries/58123</span></div><div class="gnb"><span class="lg"></span>오늘의집<small>파트너센터</small></div><div class="sc bd"><div class="in">${inner}</div></div></div>`
     :`<div class="bd-app"><div class="sb"><span>10:12</span><span>LTE ▮</span></div><div class="nav"><i>←</i>파트너센터</div><div class="sc bd">${inner}</div></div>`;
   $('bdNote').textContent=done?(sc==='ai'?'AI 자동답변이 「답변완료」로 끝난 건은 답변 아래에 평가 영역이 열립니다. 평가 대상은 AI 응대입니다.':'상담원이 답변을 마치면 평가 영역이 열립니다. AI 1차 답변이 있었다면 데이터에 「AI 1차 답변 있음」을 함께 저장합니다.'):'확인중·후처리 상태에서는 평가 영역을 보여 주지 않습니다. 상담원 답변이 끝나 「답변완료」가 되면 열립니다.';
-  const r=$('bdRate');if(!r)return;const ans2={};
-  r.querySelectorAll('.ropt').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));ans2[g.dataset.k]=1;r.querySelector('.bd-go').disabled=!(ans2.q1&&ans2.q2)}));
+  const r=$('bdRate');if(!r)return;const A={},st=k=>r.querySelector(`[data-s="${k}"]`);
+  r.querySelectorAll('.ropt').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));A[g.dataset.k]=b.dataset.v;
+    if(!(A.q1&&A.q2))return;const low=A.q1!=='1'||A.q2==='N';st('q3').classList.toggle('on',low);if(!low)st('q3').querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'));st('q4').classList.add('on');r.querySelector('.bd-go').disabled=false}));
+  r.querySelectorAll('.rchips button').forEach(b=>b.onclick=()=>b.classList.toggle('sel'));
   r.querySelector('.bd-go').onclick=()=>r.classList.add('sent');
 }
 const seg=(id,fn)=>$(id).querySelectorAll('button').forEach(b=>b.onclick=()=>{$(id).querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);view()});
 seg('bdMode',v=>mode=v);seg('bdScn',v=>sc=v);$('bdReset').onclick=view;view();
-// 이메일 → 응답 페이지
-const land=(q1)=>{document.querySelectorAll('#landQ1 button').forEach(b=>b.classList.toggle('sel',b.dataset.v===q1));document.querySelectorAll('.mail .btns a').forEach(a=>a.classList.toggle('sel',a.dataset.mv===q1));$('landMsg').textContent='메일에서 누른 값이 미리 선택됩니다. 「평가 보내기」를 눌러야 저장됩니다.';$('landMsg').style.color=''};
-document.querySelectorAll('.mail .btns a').forEach(a=>a.onclick=e=>{e.preventDefault();land(a.dataset.mv);$('land').scrollIntoView({behavior:'smooth',block:'nearest'})});
-['landQ1','landQ2'].forEach(id=>document.querySelectorAll('#'+id+' button').forEach(b=>b.onclick=()=>document.querySelectorAll('#'+id+' button').forEach(x=>x.classList.toggle('sel',x===b))));
-$('landGo').onclick=()=>{const ok=document.querySelector('#landQ1 .sel');$('landMsg').textContent=ok?'저장했습니다. 같은 링크로는 다시 평가할 수 없습니다 (토큰 사용 완료)':'추천 여부를 골라 주세요';$('landMsg').style.color=ok?'var(--good)':'var(--bad)'};
+// 이메일 설문 링크 → 설문 페이지
+const LB=$('landBody'),LS=k=>LB.querySelector(`[data-s="${k}"]`),LA={};
+LB.querySelectorAll('.lopt').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));LA[g.dataset.k]=b.dataset.v;
+  if(!(LA.q1&&LA.q2))return;const low=LA.q1!=='1'||LA.q2==='N';LS('q3').classList.toggle('on',low);if(!low)LS('q3').querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'));LS('q4').classList.add('on');$('landGo').disabled=false}));
+LB.querySelectorAll('.chip').forEach(c=>c.onclick=()=>c.classList.toggle('sel'));
+$('landGo').onclick=()=>{LB.style.display='none';$('landDone').classList.add('on')};
+const landReset=()=>{LB.style.display='';$('landDone').classList.remove('on');LB.querySelectorAll('.sel').forEach(x=>x.classList.remove('sel'));['q3','q4'].forEach(k=>LS(k).classList.remove('on'));LB.querySelector('textarea').value='';delete LA.q1;delete LA.q2;$('landGo').disabled=true};
+$('landAgain').onclick=landReset;
+$('mailLink').onclick=e=>{e.preventDefault();landReset();const l=$('land');l.scrollIntoView({behavior:'smooth',block:'nearest'});l.style.boxShadow='0 0 0 3px var(--brand)';setTimeout(()=>l.style.boxShadow='',900)};
 })();
 
 // ===== AICX 콘솔 · 만족도 =====
@@ -1009,9 +1004,9 @@ $('#cxMtop').innerHTML=Object.entries(TITLE).map(([k,v])=>`<button data-go="${k}
 function go(p,opt={}){
   $$('.cx-page').forEach(x=>x.classList.toggle('on',x.id==='pg-'+p));
   $$('[data-go]').forEach(x=>{if(x.classList.contains('cx-it')||x.parentElement.id==='cxMtop')x.classList.toggle('on',x.dataset.go===p)});
-  $('#cxTitle').textContent=TITLE[p]; $('.cx-body').scrollTop=0;
+  $('#cxTitle').textContent=TITLE[p]; const rt=cx.getBoundingClientRect().top; if(rt<0)window.scrollTo({top:scrollY+rt-8});
   if(opt.low){$('#fQ1').value='low';page=1;renderRaw()}
-  if(p==='dash')renderDash(); if(p==='metric')renderTgt();
+  if(p==='dash')renderDash(); if(p==='metric')renderTgt(); if(p==='rule')renderRule();
 }
 cx.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go,{low:g.dataset.low})});
 $('#cxBell').addEventListener('click',e=>{e.stopPropagation();$('#cxBellPop').classList.toggle('on')});
@@ -1033,44 +1028,74 @@ $('#mWarn').addEventListener('change',e=>{M.warn=+e.target.value;renderTgt()});
 $('#mMin').addEventListener('change',e=>{M.min=+e.target.value;renderTgt()});
 
 // ----- 대시보드 -----
-const RS=[['원하는 처리를 못 했어요',101],['다시 설명해야 했어요',57],['답변이 정확하지 않아요',44],['답변이 늦었어요',25],['안내가 어려웠어요',15],['기타',5]];
-$('#dReasons').innerHTML=RS.map(([n,v])=>{const p=(v/247*100).toFixed(1);return `<div class="cx-row"><span>${n}</span><span>${v}건 <small>(${p}%)</small></span><i class="fill" style="width:${p}%;background:var(--c-red-bg)"></i></div>`}).join('');
+const RS=[['원하는 처리를 못 했어요',.409],['다시 설명해야 했어요',.231],['답변이 정확하지 않아요',.178],['답변이 늦었어요',.101],['안내가 어려웠어요',.061],['기타',.02]];
+const DS={
+ all:{lbl:'파트너센터',nps:42,prev:37,g:321,m:144,b:89,res:71,rprev:68,rr:24,shown:'2,310',q3:247,ai:186,r:1,dl:0,
+  fl:[['AI 단독 종결','ai',36,248,63,'var(--c-blue)'],['AI → 상담원','ag',45,186,79,'var(--c-pur)'],['상담원 직접','hu',51,120,80,'#7C8798']],
+  ch:{A:[29,31,30,34,34,37,39,44],H:[47,49,46,51,51,49,53,52],T:[37,39,37,41,41,42,45,47]},
+  side:['채널별',['채널','응답','NPS','해결률','응답률'],[['채팅',402,41,'69%','31%'],['게시판',131,45,'77%','14%'],['예비파트너 이메일',21,38,'71%','9%']],'응답이 최소 응답 수(지표 기준 관리)보다 적으면 NPS 대신 「표본 부족」으로 표시합니다.']},
+ chat:{lbl:'파트너센터 채팅',nps:41,prev:36,g:230,m:106,b:66,res:69,rprev:66,rr:31,shown:'1,297',q3:188,ai:152,r:.73,dl:-1,
+  fl:[['AI 단독 종결','ai',35,170,61,'var(--c-blue)'],['AI → 상담원','ag',45,152,78,'var(--c-pur)'],['상담원 직접','hu',49,80,77,'#7C8798']],
+  ch:{A:[28,30,29,33,33,36,38,43],H:[46,48,45,50,50,48,52,51],T:[36,38,36,40,40,41,44,46]},
+  side:['상담 시간대별',['시간대','응답','NPS','해결률','AI 단독 비중'],[['오전 09~12시',158,42,'70%','38%'],['점심 12~13시 (AI만 응대)',41,30,'56%','100%'],['오후 13~18시',203,43,'71%','35%']],'점심시간에는 AI만 응대하고, 상담원 연결이 필요하면 게시판으로 안내합니다.']},
+ board:{lbl:'파트너센터 게시판',nps:45,prev:39,g:91,m:38,b:23,res:77,rprev:72,rr:14,shown:'1,086',q3:59,ai:0,r:.27,dl:3,
+  fl:[['AI 자동답변','ai',43,78,74,'var(--c-blue)'],['AI 답변 후 상담원 확인','ag',44,34,79,'var(--c-pur)'],['상담원 답변','hu',53,40,84,'#7C8798']],
+  ch:{A:[33,35,36,38,37,40,42,45],H:[48,50,47,52,53,50,54,55],T:[39,41,40,44,44,44,47,49]},
+  side:['답변 소요 시간별',['답변까지','응답','NPS','해결률','AI 답변 비중'],[['1시간 이내',84,52,'81%','88%'],['당일',41,41,'75%','24%'],['다음 영업일 이후',27,29,'68%','4%']],'게시판 응답에는 예비파트너 이메일 설문 21건이 포함됩니다.']}};
+let dtab='all';
+const COL={g:'var(--c-green)',y:'var(--c-yel)',r:'var(--c-red)',n:''};
 const TY=[['취소/반품/교환',[['품절·재고부족 취소',142,50,24,26,58,12],['취소/반품/교환 기타',40,68,19,13,83,78]]],
- ['배송',[['배송상태 변경',88,54,27,19,66,41],['송장·택배사 오류',36,58,26,16,72,52]]],
- ['상품',[['상품등록검수',51,60,26,14,72,55],['옵션·가격 수정',29,63,24,13,76,69]]],
- ['정산',[['정산/매출 현황',33,66,20,14,79,61],['세금계산서',22,72,18,10,86,82]]],
- ['입점',[['입점 심사 진행',18,50,30,20,61,33]]],
- ['기타',[['기타 문의',95,70,20,10,69,47]]]];
+ ['배송',[['배송상태 변경',88,54,27,19,66,41],['배송기타',36,58,26,16,72,52]]],
+ ['상품',[['상품등록검수',51,60,26,14,72,55],['상품 관리',29,63,24,13,76,69]]],
+ ['정산',[['정산/매출 현황',33,66,20,14,79,61],['세금계산서 / 부가세신고',22,72,18,10,86,82]]],
+ ['입점',[['입점 현황',18,50,30,20,61,33]]],
+ ['기타',[['기타',95,70,20,10,69,47]]]];
 const AG=[['상담원 A',58,66,22,12,84],['상담원 B',51,61,25,14,80],['상담원 C',44,59,25,16,77],['상담원 D',37,57,24,19,75],['상담원 E',22,64,23,13,82]];
 const open=new Set(['취소/반품/교환']);
 const stack=(g,m,b)=>`<span class="stack" title="추천 ${g}% · 보통 ${m}% · 비추천 ${b}%"><i style="width:${g}%;background:var(--c-green)"></i><i style="width:${m}%;background:#F5C451"></i><i style="width:${b}%;background:var(--c-red)"></i></span>`;
+function drawChart({A,H,T}){const W=['8/25','9/1','9/8','9/15','9/22','9/29','10/6','10/13'],tg=M.tg.all[0];
+ const w=620,h=220,pl=30,pr=10,pt=12,pb=26,x=i=>pl+i*(w-pl-pr)/(W.length-1),y=v=>pt+(70-v)*(h-pt-pb)/50;
+ const ln=(d,c,wd)=>`<polyline fill="none" stroke="${c}" stroke-width="${wd}" points="${d.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>`+d.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="#fff" stroke="${c}" stroke-width="1.6"><title>${W[i]} · ${v}</title></circle>`).join('');
+ let g='';[20,30,40,50,60,70].forEach(v=>g+=`<line x1="${pl}" x2="${w-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#EEF0F3"/><text x="${pl-6}" y="${y(v)+3}" font-size="10" fill="#9AA0AC" text-anchor="end">${v}</text>`);
+ W.forEach((d,i)=>g+=`<text x="${x(i)}" y="${h-8}" font-size="10" fill="#9AA0AC" text-anchor="middle">${d}</text>`);
+ g+=`<line x1="${pl}" x2="${w-pr}" y1="${y(tg)}" y2="${y(tg)}" stroke="#E5484D" stroke-dasharray="4 4"/>`;
+ $('#dChart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${g}${ln(H,'#9AA3B2',2)}${ln(A,'#2E5BE6',2)}${ln(T,'#1A1D24',2.4)}</svg>`;}
 function renderDash(){
-  const t=M.tg.all[0],v=42,[c,l]=stat(v,t,554);
-  $('#dTarget').textContent=t;const gp=$('#dGap');gp.className='cx-b '+c;gp.textContent=`${l} ${v-t>=0?'+':''}${v-t}`;
-  $('#dTick').style.left=((t+100)/2)+'%';
-  const k=$$('#pg-dash .k3 .cx-k');[['ai',36,248],['ag',45,186],['hu',51,120]].forEach(([kk,vv,n],i)=>{const[cc]=stat(vv,M.tg[kk][0],n);k[i].querySelector('.v').style.color={g:'var(--c-green)',y:'var(--c-yel)',r:'var(--c-red)',n:''}[cc]});
+  const D=DS[dtab],t=M.tg.all[0],n=D.g+D.m+D.b,P=x=>Math.round(x/n*100),[c,l]=stat(D.nps,t,n);
+  $('#dNpsLbl').textContent=`2026년 10월 ${D.lbl} NPS`;$('#dNps').textContent=D.nps;
+  $('#dNpsNote').innerHTML=`추천 비율 ${P(D.g)}% − 비추천 비율 ${P(D.b)}% · 전월 ${D.prev} 대비 <span class="up">+${D.nps-D.prev}</span>`;
+  $('#dTarget').textContent=t;const gp=$('#dGap');gp.className='cx-b '+c;gp.textContent=`${l} ${D.nps-t>=0?'+':''}${D.nps-t}`;
+  $('#dBar').style.width=((D.nps+100)/2)+'%';$('#dTick').style.left=((t+100)/2)+'%';
+  $('#dK5').innerHTML=`<div class="cx-k" data-go="raw"><div class="l"><span class="d" style="background:var(--c-green)"></span>추천</div><div class="v">${D.g}<small>건 (${P(D.g)}%)</small></div><div class="s">추천해요</div></div>
+    <div class="cx-k" data-go="raw"><div class="l"><span class="d" style="background:var(--c-org)"></span>보통</div><div class="v">${D.m}<small>건 (${P(D.m)}%)</small></div><div class="s">보통이에요</div></div>
+    <div class="cx-k" data-go="raw" data-low="1"><div class="l"><span class="d" style="background:var(--c-red)"></span>비추천</div><div class="v" style="color:var(--c-red)">${D.b}<small>건 (${P(D.b)}%)</small></div><div class="s">추천하지 않아요</div></div>
+    <div class="cx-k"><div class="l">해결률 <i class="q" title="Q2 「해결됐어요」 비율">?</i></div><div class="v">${D.res}%</div><div class="s">전월 ${D.rprev}% 대비 <span class="up">+${D.res-D.rprev}%p</span></div></div>
+    <div class="cx-k"><div class="l">응답률 <i class="q" title="응답 ÷ 평가 노출">?</i></div><div class="v">${D.rr}%</div><div class="s">노출 ${D.shown}건 중 ${n}건</div></div>`;
+  $('#dK3').innerHTML=D.fl.map(([nm,k,v,cnt,res,col])=>{const[cc]=stat(v,M.tg[k][0],cnt);return `<div class="cx-k"><div class="l"><span class="d" style="background:${col}"></span>${nm}</div><div class="v" style="color:${COL[cc]}">${v}<small>NPS</small></div><div class="s">응답 ${cnt}건 · 해결률 ${res}% · 목표 ${M.tg[k][0]}</div></div>`}).join('');
+  drawChart(D.ch);
+  $('#dSideT').textContent=D.side[0];$('#dSideN').textContent=D.side[3];
+  $('#dSide').innerHTML=`<thead><tr>${D.side[1].map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${D.side[2].map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${npsPill(r[2],t,r[1])}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')}</tbody>`;
+  $('#dQ3c').textContent=`Q3 · 응답 ${D.q3}건`;$('#dQ3n').textContent=D.q3+'건';
+  $('#dReasons').innerHTML=RS.map(([nm,p])=>{const v=Math.round(D.q3*p);return `<div class="cx-row"><span>${nm}</span><span>${v}건 <small>(${(p*100).toFixed(1)}%)</small></span><i class="fill" style="width:${p*100}%;background:var(--c-red-bg)"></i></div>`}).join('');
+  $('#dAiGrp').style.display=D.ai?'':'none';$('#dAiN').textContent=D.ai+'건';
+  $('#dAiRows').innerHTML=[['좋았어요',.409,'var(--c-green-bg)'],['보통이에요',.339,'var(--c-yel-bg)'],['아쉬워요',.252,'var(--c-red-bg)']].map(([nm,p,bg])=>`<div class="cx-row"><span>${nm}</span><span>${Math.round(D.ai*p)}건 <small>(${(p*100).toFixed(1)}%)</small></span><i class="fill" style="width:${p*100}%;background:${bg}"></i></div>`).join('');
   const dim=$('#dDim .on').dataset.v,T=$('#dTable');
+  const adj=r=>{const nn=Math.max(1,Math.round(r[1]*D.r)),g=r[2]+Math.ceil(D.dl/2),b=r[4]-Math.floor(D.dl/2);return [r[0],nn,g,100-g-b,b,r[5],r[6]]};
   if(dim==='type'){
     let rows='',tot=0;
-    TY.forEach(([g,ch])=>{const n=ch.reduce((a,r)=>a+r[1],0);tot+=n;const w=i=>Math.round(ch.reduce((a,r)=>a+r[i]*r[1],0)/n);
-      const gg=w(2),mm=w(3),bb=100-gg-mm,np=gg-bb;
-      rows+=`<tr class="grp" data-g="${g}"><td><span class="tri">${ch.length>1?(open.has(g)?'▾':'▸'):''}</span>${g}</td><td>${n}</td><td>${stack(gg,mm,bb)}</td><td>${npsPill(np,t,n)}</td><td>${w(5)}%</td><td>${w(6)}%</td></tr>`;
+    TY.forEach(([g,ch0])=>{const ch=ch0.map(adj),nn=ch.reduce((a,r)=>a+r[1],0);tot+=nn;const w=i=>Math.round(ch.reduce((a,r)=>a+r[i]*r[1],0)/nn);
+      const gg=w(2),bb=w(4),mm=100-gg-bb;
+      rows+=`<tr class="grp" data-g="${g}"><td><span class="tri">${ch.length>1?(open.has(g)?'▾':'▸'):''}</span>${g}</td><td>${nn}</td><td>${stack(gg,mm,bb)}</td><td>${npsPill(gg-bb,t,nn)}</td><td>${w(5)}%</td><td>${w(6)}%</td></tr>`;
       if(ch.length>1&&open.has(g))ch.forEach(r=>rows+=`<tr class="ch"><td>${r[0]}</td><td>${r[1]}</td><td>${stack(r[2],r[3],r[4])}</td><td>${npsPill(r[2]-r[4],t,r[1])}</td><td>${r[5]}%</td><td>${r[6]}%</td></tr>`)});
-    T.innerHTML=`<thead><tr><th>상담유형 (중 &gt; 소)</th><th>응답</th><th>추천·보통·비추천</th><th>NPS <i class="q" title="색은 지표 기준 관리의 목표·주의 범위를 따릅니다">?</i></th><th>해결률</th><th>AI 단독 비중</th></tr></thead><tbody>${rows}<tr class="tot"><td>합계</td><td>${tot}</td><td>${stack(58,26,16)}</td><td>${npsPill(42,t,554)}</td><td>71%</td><td>45%</td></tr></tbody>`;
+    T.innerHTML=`<thead><tr><th>상담유형 (중 &gt; 소)</th><th>응답</th><th>추천·보통·비추천</th><th>NPS <i class="q" title="색은 지표 기준 관리의 목표·주의 범위를 따릅니다">?</i></th><th>해결률</th><th>AI 단독 비중</th></tr></thead><tbody>${rows}<tr class="tot"><td>합계</td><td>${tot}</td><td>${stack(P(D.g),P(D.m),P(D.b))}</td><td>${npsPill(D.nps,t,n)}</td><td>${D.res}%</td><td>${Math.round(D.fl[0][3]/n*100)}%</td></tr></tbody>`;
     T.querySelectorAll('tr.grp').forEach(r=>r.onclick=()=>{const g=r.dataset.g;open.has(g)?open.delete(g):open.add(g);renderDash()});
   }else{
-    T.innerHTML=`<thead><tr><th>상담원</th><th>응답</th><th>추천·보통·비추천</th><th>NPS</th><th>해결률</th><th>저평가 의견</th></tr></thead><tbody>${AG.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${stack(r[2],r[3],r[4])}</td><td>${npsPill(r[2]-r[4],M.tg.hu[0],r[1])}</td><td>${r[5]}%</td><td><a href="#" class="cx-btn ghost" style="padding:0;font-size:11.5px" data-go="raw" onclick="return false">보기 →</a></td></tr>`).join('')}</tbody>`;
+    const k=dtab==='board'?.3:dtab==='chat'?.75:1;
+    T.innerHTML=`<thead><tr><th>상담원</th><th>응답</th><th>추천·보통·비추천</th><th>NPS</th><th>해결률</th><th>저평가 의견</th></tr></thead><tbody>${AG.map(r=>{const nn=Math.round(r[1]*k);return `<tr><td>${r[0]}</td><td>${nn}</td><td>${stack(r[2],r[3],r[4])}</td><td>${npsPill(r[2]-r[4],M.tg.hu[0],nn)}</td><td>${r[5]}%</td><td><a href="#" class="cx-btn ghost" style="padding:0;font-size:11.5px" data-go="raw" onclick="return false">보기 →</a></td></tr>`}).join('')}</tbody>`;
   }
 }
 $$('#dDim button').forEach(b=>b.addEventListener('click',()=>setTimeout(renderDash)));
-// 추이 차트 (SVG)
-(()=>{const W=['8/25','9/1','9/8','9/15','9/22','9/29','10/6','10/13'],A=[29,31,30,34,34,37,39,44],H=[47,49,46,51,51,49,53,52],T=[37,39,37,41,41,42,45,47];
- const w=620,h=220,pl=30,pr=10,pt=12,pb=26,x=i=>pl+i*(w-pl-pr)/(W.length-1),y=v=>pt+(70-v)*(h-pt-pb)/50;
- const ln=(d,c,wd,da='')=>`<polyline fill="none" stroke="${c}" stroke-width="${wd}" ${da} points="${d.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>`+d.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="#fff" stroke="${c}" stroke-width="1.6"><title>${W[i]} · ${v}</title></circle>`).join('');
- let g='';[20,30,40,50,60,70].forEach(v=>g+=`<line x1="${pl}" x2="${w-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#EEF0F3"/><text x="${pl-6}" y="${y(v)+3}" font-size="10" fill="#9AA0AC" text-anchor="end">${v}</text>`);
- W.forEach((d,i)=>g+=`<text x="${x(i)}" y="${h-8}" font-size="10" fill="#9AA0AC" text-anchor="middle">${d}</text>`);
- g+=`<line x1="${pl}" x2="${w-pr}" y1="${y(45)}" y2="${y(45)}" stroke="#E5484D" stroke-dasharray="4 4"/>`;
- $('#dChart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${g}${ln(H,'#9AA3B2',2)}${ln(A,'#2E5BE6',2)}${ln(T,'#1A1D24',2.4)}</svg>`;})();
+$$('#dTabs button').forEach(b=>b.addEventListener('click',()=>{$$('#dTabs button').forEach(x=>x.classList.toggle('on',x===b));dtab=b.dataset.v;renderDash()}));
 
 // ----- 응답 데이터 -----
 const TYP=TY.flatMap(([g,ch])=>ch.map(r=>g+' > '+r[0]));
@@ -1139,14 +1164,35 @@ $('#dlGo').onclick=()=>{
 // ----- 문항 관리 -----
 const TYPES={nps3:'3단계 추천',csat5:'5점 만족도',nps11:'11점 (0~10)',yn:'예 / 아니오',multi:'복수 선택',text:'자유 입력'};
 const DEF={nps3:'추천해요,보통이에요,추천하지 않아요',csat5:'매우 불만족,불만족,보통,만족,매우 만족',nps11:'',yn:'해결됐어요,해결되지 않았어요',multi:'선택지 1,선택지 2',text:''};
-const QS=[{t:'nps3',q:'오늘 상담 경험을 바탕으로 오늘의집 파트너센터 상담을 다른 파트너에게 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
- {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
- {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,다시 설명해야 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},
- {t:'text',q:'더 하고 싶은 말씀이 있으면 적어 주세요.',o:'',req:0,cond:'항상'}];
+const Q4T={t:'text',q:'더 하고 싶은 말씀이 있으면 적어 주세요.',o:'',req:0,cond:'항상'};
+const TPL={
+ partner_v1:{qs:[{t:'nps3',q:'오늘 상담 경험을 바탕으로 오늘의집 파트너센터 상담을 다른 파트너에게 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
+  {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
+  {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,다시 설명해야 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
+  tg:[['파트너센터 채팅',1],['파트너센터 게시판',0],['고객센터',0]],hist:[['v1 · 10/20 · Enzo Joo','Q3 선택지 6개로 정리'],['v0 · 10/14 · Enzo Joo','최초 작성']]},
+ partner_board_v1:{qs:[{t:'nps3',q:'이번 답변으로 다른 파트너에게 파트너센터를 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
+  {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
+  {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
+  tg:[['파트너센터 채팅',0],['파트너센터 게시판',1],['고객센터',0]],hist:[['v2 · 10/20 · Enzo Joo','Q3·Q4 추가 (저평가 사유 수집)'],['v1 · 10/19 · Enzo Joo','Q1·Q2만']]},
+ cs_v3:{qs:[{t:'nps3',q:'오늘 상담 경험을 바탕으로 오늘의집 고객센터를 지인에게 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
+  {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
+  {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,연결까지 오래 걸렸어요,다시 설명해야 했어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
+  tg:[['파트너센터 채팅',0],['파트너센터 게시판',0],['고객센터',1]],hist:[['v3 · 예정','고객센터 이관 시 지금의 문자 설문을 대체']]},
+ partner_v0:{qs:[{t:'csat5',q:'오늘 상담에 얼마나 만족하셨나요?',o:DEF.csat5,req:1,cond:'항상'},
+  {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
+  {t:'text',q:'불편했던 점이 있으면 적어 주세요.',o:'',req:0,cond:'항상'}],
+  tg:[['파트너센터 채팅',0],['파트너센터 게시판',0],['고객센터',0]],hist:[['v0 · 10/14 · Enzo Joo','5점 만족도안 (보관)']]}};
+let tpl='partner_v1',QS=TPL[tpl].qs;
+function selectTpl(k){tpl=k;QS=TPL[k].qs;
+  $$('#pg-qm [data-tpl]').forEach(x=>x.classList.toggle('on',x.dataset.tpl===k));
+  $('#qTarget').innerHTML=TPL[k].tg.map(([n,on],i)=>`<label class="cx-check" style="justify-content:space-between">${n} <label class="sw"><input type="checkbox" data-tg="${i}" ${on?'checked':''}><span></span></label></label>`).join('');
+  $$('#qTarget input').forEach(c=>c.onchange=()=>TPL[k].tg[+c.dataset.tg][1]=c.checked?1:0);
+  $('#qHist').innerHTML=TPL[k].hist.map(([a,b])=>`<div class="it" style="cursor:default">${a}<small>${b}</small></div>`).join('');
+  renderQ();}
 const esc2=s=>s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 function renderQ(){
   $('#qList').innerHTML=QS.map((x,i)=>`<div class="cx-qc"><div class="top"><span class="no">Q${i+1}</span><select class="cx-sel" data-f="t" data-i="${i}">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k===x.t?'selected':''}>${v}</option>`).join('')}</select>
-    <label class="cx-check" style="font-size:11px">필수 <span class="sw"><input type="checkbox" data-f="req" data-i="${i}" ${x.req?'checked':''}><span></span></span></label>
+    <label class="cx-check" style="font-size:11px">필수 <label class="sw"><input type="checkbox" data-f="req" data-i="${i}" ${x.req?'checked':''}><span></span></label></label>
     <span class="sp"><button class="mini" data-mv="-1" data-i="${i}" title="위로">▲</button><button class="mini" data-mv="1" data-i="${i}" title="아래로">▼</button><button class="mini" data-del="${i}" title="삭제">✕</button></span></div>
     <input class="cx-inp w" data-f="q" data-i="${i}" value="${esc2(x.q)}" maxlength="80">
     <div class="grid3"><label style="grid-column:span 2">선택지 (쉼표로 구분)<input class="cx-inp w" data-f="o" data-i="${i}" value="${esc2(x.o)}" ${x.t==='text'||x.t==='nps11'?'disabled placeholder="선택지 없음"':''}></label>
@@ -1165,10 +1211,42 @@ function renderPv(){
     return `<div class="pn">Q${i+1}${x.req?'':' · 선택'}${x.cond!=='항상'?' · 조건부':''}</div><div class="pq">${esc2(x.q)||'(문구 없음)'}</div>${body}`}).join('')+'<div style="margin-top:12px;background:#4A9CFF;color:#fff;text-align:center;border-radius:8px;padding:8px;font-weight:700">평가 보내기</div>';
 }
 $('#qAdd').onclick=()=>{QS.push({t:'text',q:'새 문항',o:'',req:0,cond:'항상'});renderQ()};
-$('#qSave').onclick=()=>toast('partner_v2로 저장했습니다 · 다음 상담부터 적용 (데모)');
-$$('#pg-qm .cx-tpl .it').forEach(it=>{if(it.style.cursor)return;it.addEventListener('click',()=>{$$('#pg-qm .cx-tpl .it').forEach(x=>{if(!x.style.cursor)x.classList.toggle('on',x===it)})})});
+$('#qSave').onclick=()=>{const nv=TPL[tpl].hist.length;toast(`${tpl} 버전 ${nv+1}로 저장했습니다 · 다음 상담부터 적용 (데모)`)};
+$$('#pg-qm [data-tpl]').forEach(it=>it.addEventListener('click',()=>selectTpl(it.dataset.tpl)));
 
-renderDash();renderRaw();renderQ();renderTgt();
+// ----- 노출 규칙 -----
+const RU=[['채팅','AI 단독','AI 응대','partner_v1','ai','종료 직후',1],
+ ['채팅','AI → 상담원','상담원 응대 + AI 응대','partner_v1','aiq','상담원 종료 직후',1],
+ ['채팅','상담원 직접','상담원 응대','partner_v1','','상담원 종료 직후',1],
+ ['게시판','AI 자동답변','AI 응대','partner_board_v1','','답변완료 직후',1],
+ ['게시판','AI 답변 후 상담원 확인','상담원 응대','partner_board_v1','mark','상담원 답변완료 직후',1],
+ ['게시판','상담원 답변','상담원 응대','partner_board_v1','','답변완료 직후',1],
+ ['이메일','예비파트너 답변','상담원 응대','partner_board_v1','','답변 메일에 설문 링크',1]];
+let aiQ=1;
+function renderRule(){
+  $('#ruBody').innerHTML=RU.map((r,i)=>{const on=r[6],ex=r[4]==='aiq'?`<label class="cx-check"><label class="sw"><input type="checkbox" data-rx ${aiQ?'checked':''} ${on?'':'disabled'}><span></span></label> AI 응대 평가 1문항 추가</label>`:r[4]==='mark'?'<span class="cx-note">데이터에 「AI 1차 답변 있음」 표시</span>':'<span class="cx-note">-</span>';
+    return `<tr class="${on?'':'off'}"><td><label class="sw"><input type="checkbox" data-ru="${i}" ${on?'checked':''}><span></span></label></td><td class="l"><b>${r[0]}</b> · ${r[1]}</td><td>${r[4]==='aiq'&&!aiQ?'상담원 응대':r[2]}</td>
+    <td><select class="cx-sel" data-rt="${i}" ${on?'':'disabled'}>${Object.keys(TPL).filter(k=>k!=='partner_v0').map(k=>`<option ${k===r[3]?'selected':''}>${k}</option>`).join('')}</select> <a href="#" class="cx-btn ghost" style="padding:0 4px;font-size:11px" data-rq="${i}">문항 보기</a></td>
+    <td class="l">${ex}</td><td>${on?r[5]:'<span style="color:var(--c-red);font-weight:600">띄우지 않음</span>'}</td></tr>`}).join('');
+  const n=RU.filter(r=>r[6]).length;$('#ruSum').innerHTML=`${RU.length}개 응대 흐름 중 <b style="color:var(--c-t)">${n}개</b>에서 평가를 띄웁니다`;
+  $$('#ruBody [data-ru]').forEach(c=>c.onchange=()=>{RU[+c.dataset.ru][6]=c.checked?1:0;renderRule()});
+  $$('#ruBody [data-rt]').forEach(c=>c.onchange=()=>{RU[+c.dataset.rt][3]=c.value;toast(`${RU[+c.dataset.rt][1]} → ${c.value} 템플릿으로 바꿨습니다`)});
+  $$('#ruBody [data-rx]').forEach(c=>c.onchange=()=>{aiQ=c.checked?1:0;renderRule()});
+  $$('#ruBody [data-rq]').forEach(a=>a.onclick=e=>{e.preventDefault();go('qm');selectTpl(RU[+a.dataset.rq][3])});
+}
+const ECA=[["배송", ["배송기타", "배송상태 변경"]], ["취소/반품/교환", ["취소/반품/교환 기타", "주문·결제 금액 조회", "부분취소 처리", "대량취소 처리", "품절·재고부족 취소", "기타 사유 취소", "반품 대리접수", "클레임 상태 변경", "구매확정 후 취소·환불"]], ["상품", ["상품등록검수", "상품 관리", "지식재산권 및 도용", "검수 반려·판매정지 사유", "상품명·옵션명 수정 요청", "상품 미노출·수정 미반영", "카테고리 추가·변경"]], ["문의/리뷰", ["문의게시판", "고객리뷰"]], ["입점", ["입점 문의", "입점 현황", "입점 이슈"]], ["시스템", ["스토어관리 문의", "스토어관리 이슈", "연동프로그램"]], ["정산", ["정산 수수료", "세금계산서 / 부가세신고", "정산/매출 현황"]], ["정보변경", ["단순 정보변경", "서류 정보변경"]], ["고객 OB", ["고객 OB"]], ["기타", ["기타"]], ["운영", ["담당 MD 관련", "표준 수수료", "프로모션·광고"]]];
+const EX=new Set(['상품 > 지식재산권 및 도용']);
+function renderEx(){
+  $('#exChips').innerHTML=[...EX].map(x=>`<span class="cx-xchip">${x}<button data-exd="${x}" title="빼기">×</button></span>`).join('')||'<span class="cx-note">제외한 상담유형이 없습니다</span>';
+  $$('#exChips [data-exd]').forEach(b=>b.onclick=()=>{EX.delete(b.dataset.exd);renderEx()});
+  const q=$('#exQ').value.trim();
+  $('#exList').innerHTML=ECA.map(([m,ss])=>{const it=ss.filter(x=>!q||(m+x).includes(q));return it.length?`<div class="exg"><b>${m}</b>${it.map(x=>{const k=m+' > '+x;return `<label class="cx-check"><input type="checkbox" value="${k}" ${EX.has(k)?'checked':''}> ${x}</label>`}).join('')}</div>`:''}).join('')||'<span class="cx-note">검색 결과가 없습니다</span>';
+  $$('#exList input').forEach(c=>c.onchange=()=>{c.checked?EX.add(c.value):EX.delete(c.value);renderEx()});
+}
+$('#exAdd').onclick=()=>{const p=$('#exPanel');p.classList.toggle('on');$('#exAdd').textContent=p.classList.contains('on')?'선택 닫기':'+ 상담유형 선택'};
+$('#exQ').oninput=renderEx;
+
+renderDash();renderRaw();selectTpl(tpl);renderTgt();renderRule();renderEx();
 })();
 
 document.getElementById('themeBtn').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
