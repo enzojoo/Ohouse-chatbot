@@ -113,82 +113,229 @@ textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px
 .mail .from{font-size:12px;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px}
 .mail .btns{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
 .mail .btns a{flex:1;min-width:90px;text-align:center;border:1px solid var(--line);border-radius:10px;padding:10px 0;text-decoration:none;color:var(--text);font-weight:600}
-/* console */
-.console{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--card)}
-.cbar{background:var(--console);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:14px;font-size:13px;flex-wrap:wrap}
-.cbar b{font-size:14px}
-.cbar span{opacity:.6}
-.cbar span.on{opacity:1;font-weight:700;border-bottom:2px solid var(--brand);padding-bottom:2px}
-.cbody{padding:18px}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
-.sel2{border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12.5px;background:var(--card);color:var(--text)}
-.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}}
-.kpi{border:1px solid var(--line);border-radius:12px;padding:12px}
-.kpi .l{font-size:12px;color:var(--sub)}
-.kpi .v{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-top:2px}
-.kpi .d{font-size:11.5px;color:var(--mute)}
-.split{display:grid;grid-template-columns:1.3fr 1fr;gap:12px;margin-bottom:16px}
-@media(max-width:900px){.split{grid-template-columns:1fr}}
-.box{border:1px solid var(--line);border-radius:12px;padding:12px}
-.box h4{margin:0 0 10px;font-size:13px}
-.trend{display:flex;align-items:flex-end;gap:6px;height:130px;padding-top:6px}
-.trend .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%;justify-content:flex-end}
-.trend .b2{width:100%;display:flex;gap:2px;align-items:flex-end;height:100%}
-.trend .b2 i{flex:1;border-radius:4px 4px 0 0}
-.trend small{font-size:10.5px;color:var(--mute)}
-.legend{display:flex;gap:12px;font-size:11.5px;color:var(--sub);margin-top:6px}
-.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px;vertical-align:-1px}
-.hbar{display:flex;align-items:center;gap:8px;margin:7px 0;font-size:12.5px}
-.hbar .n{width:150px;flex:none;color:var(--sub)}
-.hbar .t{flex:1;height:10px;background:var(--tag);border-radius:99px;overflow:hidden}
-.hbar .t i{display:block;height:100%;background:var(--bad);border-radius:99px}
-.hbar .c{width:44px;text-align:right;font-variant-numeric:tabular-nums}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:middle}
 th{font-size:11.5px;color:var(--sub);font-weight:600;background:var(--bg)}
 td.num,th.num{text-align:center;font-variant-numeric:tabular-nums}
-tr.clk{cursor:pointer}
-tr.clk:hover td{background:var(--brand-bg)}
-.pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px}
-.pill.g{background:var(--good-bg);color:var(--good)}.pill.m{background:var(--mid-bg);color:var(--mid)}.pill.b{background:var(--bad-bg);color:var(--bad)}
-.pill.ai{background:var(--brand-bg);color:var(--brand-d)}.pill.ag{background:var(--tag);color:var(--sub)}
-.drawer{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px;display:none;background:var(--bg)}
-.drawer.on{display:block}
-.drawer .row{display:grid;grid-template-columns:110px 1fr;gap:6px;font-size:12.5px;margin:4px 0}
-.drawer .row b{color:var(--sub);font-weight:600}
-.link{color:var(--brand-d);font-weight:600;text-decoration:none}
-.form .fl{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:start;padding:10px 0;border-bottom:1px solid var(--line)}
-.form .fl>b{font-size:12.5px;color:var(--sub);padding-top:6px}
-.qrow{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;background:var(--card)}
-.qrow .no{font-weight:800;color:var(--brand-d)}
-.qrow .meta{font-size:11.5px;color:var(--mute)}
-.toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.toggle span{padding:4px 10px;font-size:12px}
-.toggle span.on{background:var(--brand);color:#fff;font-weight:700}
-.matrix td,.matrix th{text-align:center}
-.matrix td:first-child,.matrix th:first-child{text-align:left}
-.ok{color:var(--good);font-weight:700}.no2{color:var(--mute)}
 .sectitle{font-size:17px;font-weight:800;margin:26px 0 10px;letter-spacing:-.2px}
 .decide{border-left:4px solid var(--mid);background:var(--mid-bg);border-radius:10px;padding:12px 14px;font-size:13px}
 .decide ol{margin:6px 0 0;padding-left:18px}
 .theme{position:fixed;right:16px;bottom:16px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:8px 14px;font:inherit;font-size:12px;cursor:pointer}
+/* ===== AICX console ===== */
+/* AICX 콘솔 셸: 실제 콘솔(종합 현황·정산 대시보드) 톤 그대로, 라이트 고정 */
+.panel#p3{position:relative;left:50%;transform:translateX(-50%);width:min(1480px,calc(100vw - 32px))}
+.cx{--c-side:#1E2332;--c-side2:#2A3142;--c-side-t:#A3AAB8;--c-bg:#F3F5F8;--c-card:#fff;--c-line:#E8EBF0;--c-line2:#F0F2F5;--c-t:#1A1D24;--c-sub:#5E6573;--c-mute:#9AA0AC;
+  --c-blue:#2E5BE6;--c-blue-bg:#EAF0FE;--c-green:#16A34A;--c-green-bg:#DDF6E4;--c-red:#E5484D;--c-red-bg:#FBE1E1;--c-yel:#B7791F;--c-yel-bg:#FFF2C6;--c-org:#F59E0B;--c-pur:#7C5CFA;
+  display:grid;grid-template-columns:208px 1fr;height:900px;border-radius:12px;overflow:hidden;border:1px solid #D9DDE4;background:var(--c-bg);color:var(--c-t);font-size:13px;box-shadow:0 10px 40px rgba(20,30,60,.10);text-align:left}
+.cx *{letter-spacing:-.1px}
+.cx button{font:inherit;cursor:pointer}
+.cx input,.cx select,.cx textarea{font:inherit;color:var(--c-t)}
+/* sidebar */
+.cx-side{background:var(--c-side);color:var(--c-side-t);display:flex;flex-direction:column;padding:10px 8px;overflow-y:auto}
+.cx-org{display:flex;align-items:center;gap:9px;background:var(--c-side2);border-radius:10px;padding:9px 10px;color:#fff}
+.cx-org .ic{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#3D6BFF,#2546C9);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+.cx-org b{display:block;font-size:12.5px}.cx-org small{font-size:11px;color:#8A92A3}
+.cx-org .chev{margin-left:auto;color:#6F7889;font-size:10px}
+.cx-search{margin:10px 2px 6px;background:#272E3E;border:1px solid #343C4E;border-radius:8px;padding:6px 10px;font-size:11.5px;color:#6F7889}
+.cx-sec{color:#fff;font-weight:700;font-size:11.5px;margin:16px 8px 6px}
+.cx-it{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;color:var(--c-side-t);border:1.5px solid transparent;width:100%;background:none;text-align:left}
+.cx-it svg{width:15px;height:15px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7}
+.cx-it .new{margin-left:auto;font-size:9.5px;font-weight:800;color:#fff;background:var(--c-blue);border-radius:4px;padding:0 4px;line-height:15px}
+.cx-it .cv{margin-left:auto;font-size:9px;color:#6F7889}
+.cx-it.nps:hover{background:#262D3D;color:#fff}
+.cx-it.on{background:var(--c-side2);color:#fff;border-color:#3D6BFF}
+.cx-it.dim{cursor:default;opacity:.75}
+.cx-hr{border-top:1px solid #2C3343;margin:10px 6px 0}
+.cx-user{margin-top:auto;display:flex;align-items:center;gap:8px;background:var(--c-side2);border-radius:10px;padding:8px 10px;color:#fff;font-size:12.5px}
+.cx-user i{width:26px;height:26px;border-radius:50%;background:#6C7DF5;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;font-size:12px}
+.cx-user small{color:#8A92A3;font-size:11px;margin-left:2px}
+/* main */
+.cx-main{display:flex;flex-direction:column;min-width:0;overflow:clip}
+.cx-head{background:linear-gradient(#fff,#FAFBFC);border-bottom:1px solid var(--c-line);padding:12px 22px 12px;display:flex;justify-content:space-between;align-items:flex-start}
+.cx-head .crumb{font-size:11px;color:var(--c-mute)}
+.cx-head h2{margin:2px 0 0;font-size:18px;font-weight:700;letter-spacing:-.4px}
+.cx-bell{position:relative;border:1px solid var(--c-line);background:#fff;border-radius:8px;padding:5px 10px;font-size:11.5px;color:var(--c-sub);display:flex;gap:6px;align-items:center}
+.cx-bell b{color:var(--c-red)}
+.cx-bell-pop{position:absolute;right:0;top:34px;width:320px;background:#fff;border:1px solid var(--c-line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.12);z-index:20;display:none;text-align:left}
+.cx-bell-pop.on{display:block}
+.cx-bell-pop div{padding:10px 12px;border-bottom:1px solid var(--c-line2);font-size:12px;color:var(--c-t)}
+.cx-bell-pop small{display:block;color:var(--c-mute);font-size:11px;margin-top:2px}
+.cx-body{flex:1;overflow-y:auto;padding:14px 22px 24px}
+.cx-foot{border-top:1px solid var(--c-line);background:#fff;padding:7px 22px;font-size:10.5px;color:var(--c-mute);display:flex;justify-content:space-between}
+.cx-page{display:none}.cx-page.on{display:block}
+/* toolbar */
+.cx-tool{display:flex;justify-content:flex-end;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.cx-tool.between{justify-content:space-between}
+.cx-pill{border:1px solid var(--c-line);background:#fff;border-radius:8px;padding:5px 10px;font-size:11.5px;color:var(--c-sub);display:inline-flex;align-items:center;gap:5px}
+.cx-ibtn{border:1px solid var(--c-line);background:#fff;border-radius:8px;width:28px;height:28px;display:inline-flex;align-items:center;justify-content:center;color:var(--c-t)}
+.cx-ibtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8}
+.cx-seg{display:inline-flex;border:1px solid var(--c-line);background:#fff;border-radius:8px;padding:2px;gap:2px}
+.cx-seg button{border:0;background:none;padding:3px 10px;border-radius:6px;font-size:11.5px;color:var(--c-sub)}
+.cx-seg button.on{background:var(--c-blue);color:#fff;font-weight:700}
+.cx-sel{border:1px solid var(--c-line);background:#fff;border-radius:8px;padding:5px 8px;font-size:11.5px;color:var(--c-t)}
+.cx-btn{border:1px solid var(--c-line);background:#fff;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--c-t);display:inline-flex;align-items:center;gap:5px}
+.cx-btn.pri{background:var(--c-blue);border-color:var(--c-blue);color:#fff}
+.cx-btn.ghost{border-color:transparent;background:none;color:var(--c-blue)}
+.cx-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.9}
+.cx-tabs{display:flex;gap:22px;border-bottom:1px solid var(--c-line);margin:0 0 14px}
+.cx-tabs button{border:0;background:none;padding:8px 2px;font-size:12.5px;color:var(--c-sub);border-bottom:2px solid transparent;margin-bottom:-1px}
+.cx-tabs button.on{color:var(--c-blue);border-bottom-color:var(--c-blue);font-weight:700}
+.cx-banner{background:var(--c-blue-bg);border-radius:8px;padding:8px 12px;font-size:11.5px;color:#3B4252;margin-bottom:14px;display:flex;gap:6px;align-items:center}
+/* section */
+.cx-st{display:flex;align-items:center;gap:8px;margin:20px 0 9px;font-weight:700;font-size:13.5px}
+.cx-st:first-child{margin-top:4px}
+.cx-st::before{content:"";width:3px;height:14px;background:var(--c-blue);border-radius:2px}
+.cx-st .r{margin-left:auto;font-weight:500}
+.cx-chip{border:1px solid var(--c-line);background:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;color:var(--c-sub);font-weight:500;display:inline-flex;align-items:center;gap:4px}
+.cx-chip .dot{width:5px;height:5px;border-radius:50%;background:var(--c-org)}
+.cx-sub{font-weight:700;font-size:12.5px;margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+.cx-card{background:var(--c-card);border:1px solid var(--c-line);border-radius:10px;padding:14px 16px}
+.cx-card+.cx-card{margin-top:10px}
+.cx .q{display:inline-flex;width:12px;height:12px;border-radius:50%;border:1px solid #C5CAD3;color:#9AA0AC;font-size:8.5px;align-items:center;justify-content:center;font-weight:700;vertical-align:1px;margin-left:2px;cursor:help;font-style:normal}
+.cx-hr2{border-top:1px solid var(--c-line2);margin:14px 0}
+.cx-lbl{font-size:11.5px;color:var(--c-sub)}
+.cx-big{font-size:26px;font-weight:800;letter-spacing:-.6px;color:var(--c-blue);line-height:1.25}
+.cx-note{font-size:11px;color:var(--c-mute)}
+.cx-kgrid{display:grid;gap:10px}
+.cx .k4{grid-template-columns:repeat(4,1fr)}.k3{grid-template-columns:repeat(3,1fr)}.k5{grid-template-columns:repeat(5,1fr)}
+.cx-k{border:1px solid var(--c-line);border-radius:8px;padding:10px 12px;background:#fff}
+.cx-k.sel{border-color:var(--c-blue);box-shadow:0 0 0 1px var(--c-blue) inset}
+.cx-k .l{font-size:11.5px;color:var(--c-t);display:flex;align-items:center;gap:5px}
+.cx-k .l .d{width:6px;height:6px;border-radius:50%}
+.cx-k .v{font-size:19px;font-weight:800;letter-spacing:-.4px;margin-top:2px}
+.cx-k .v small{font-size:11px;font-weight:500;color:var(--c-sub);margin-left:2px}
+.cx-k .s{font-size:10.5px;color:var(--c-mute)}
+.cx .up{color:var(--c-green);font-weight:700}.down{color:var(--c-red);font-weight:700}
+/* tinted rows (정산 단계 종료 상세와 같은 표현) */
+.cx-grp{background:#fff;border:1px solid var(--c-line);border-radius:10px;overflow:hidden}
+.cx-grp+.cx-grp{margin-top:8px}
+.cx-gh{display:flex;align-items:center;gap:8px;padding:10px 14px;font-weight:700;font-size:12.5px;border-bottom:1px solid var(--c-line2)}
+.cx-gh .d{width:7px;height:7px;border-radius:50%}
+.cx-gh .tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:#F1F3F6;color:var(--c-sub)}
+.cx-gh .tag.g{background:var(--c-green-bg);color:var(--c-green)}
+.cx-gh .r{margin-left:auto;font-size:11.5px}
+.cx-gh .r small{color:var(--c-mute);font-weight:500}
+.cx-row{position:relative;display:grid;grid-template-columns:220px 1fr;padding:7px 14px;font-size:12px}
+.cx-row .fill{position:absolute;left:0;top:0;bottom:0;z-index:0}
+.cx-row>span{position:relative;z-index:1}
+.cx-row small{color:var(--c-mute)}
+/* table */
+.cx-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.cx-tbl th{background:#F7F8FA;color:var(--c-sub);font-weight:600;font-size:11px;padding:8px 8px;border-bottom:1px solid var(--c-line);text-align:center;white-space:nowrap}
+.cx-tbl td{padding:8px 8px;border-bottom:1px solid var(--c-line2);text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cx-tbl th:first-child,.cx-tbl td:first-child{text-align:left}
+.cx-tbl td.l,.cx-tbl th.l{text-align:left}
+.cx-tbl td.wrap{white-space:normal;min-width:180px}
+.cx-tbl tr.grp td{font-weight:700}
+.cx-tbl tr.grp td:first-child{cursor:pointer}
+.cx-tbl tr.ch td:first-child{padding-left:26px;color:var(--c-sub)}
+.cx-tbl tr.tot td{font-weight:800;background:#FAFBFC}
+.cx-tbl tr.clk{cursor:pointer}.cx-tbl tr.clk:hover td{background:#F5F8FF}
+.cx-tbl tr.pick td{background:#EEF3FF}
+.cx-tw{overflow-x:auto}
+.cx .tri{display:inline-block;width:10px;color:var(--c-mute);font-size:9px}
+.cx-b{display:inline-block;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px}
+.cx-b.g{background:var(--c-green-bg);color:var(--c-green)}.cx-b.y{background:var(--c-yel-bg);color:var(--c-yel)}.cx-b.r{background:var(--c-red-bg);color:var(--c-red)}
+.cx-b.n{background:#F1F3F6;color:var(--c-sub)}.cx-b.bl{background:var(--c-blue-bg);color:var(--c-blue)}.cx-b.p{background:#EFEAFE;color:var(--c-pur)}
+.cx .stack{display:inline-flex;width:110px;height:8px;border-radius:99px;overflow:hidden;background:#EEF0F3;vertical-align:middle}
+.cx .stack i{display:block;height:100%}
+/* chart */
+.cx-chart svg{width:100%;height:220px;display:block}
+.cx-leg{display:flex;gap:14px;font-size:11px;color:var(--c-sub);margin-top:4px;flex-wrap:wrap}
+.cx-leg i{display:inline-block;width:12px;height:3px;border-radius:2px;margin-right:5px;vertical-align:3px}
+.cx-2col{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+/* filters */
+.cx-filter{background:#fff;border:1px solid var(--c-line);border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.cx-filter label{font-size:11px;color:var(--c-sub);display:flex;align-items:center;gap:5px}
+.cx-inp{border:1px solid var(--c-line);border-radius:8px;padding:5px 9px;font-size:11.5px;background:#fff;min-width:0}
+.cx-check{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--c-t)}
+.cx-pager{display:flex;justify-content:center;gap:4px;margin-top:10px}
+.cx-pager button{border:1px solid var(--c-line);background:#fff;border-radius:6px;min-width:26px;height:26px;font-size:11.5px;color:var(--c-sub)}
+.cx-pager button.on{background:var(--c-blue);border-color:var(--c-blue);color:#fff;font-weight:700}
+/* drawer & modal */
+.cx-ov{position:absolute;inset:0;background:rgba(15,20,30,.35);display:none;z-index:30}
+.cx-ov.on{display:block}
+.cx-main{position:relative}
+.cx-drawer{position:absolute;top:0;right:0;bottom:0;width:420px;max-width:100%;background:#fff;box-shadow:-10px 0 30px rgba(0,0,0,.12);z-index:31;transform:translateX(105%);transition:transform .2s,visibility .2s;display:flex;flex-direction:column;visibility:hidden}
+.cx-drawer.on{transform:none;visibility:visible}
+.cx-dh{padding:14px 18px;border-bottom:1px solid var(--c-line);display:flex;justify-content:space-between;align-items:center;font-weight:700}
+.cx-db{padding:14px 18px;overflow-y:auto;flex:1}
+.cx-df{padding:12px 18px;border-top:1px solid var(--c-line);display:flex;gap:8px;justify-content:flex-end}
+.cx-kv{display:grid;grid-template-columns:100px 1fr;gap:6px 10px;font-size:12px}
+.cx-kv b{color:var(--c-sub);font-weight:600}
+.cx-quote{background:#F7F8FA;border-radius:8px;padding:10px 12px;font-size:12px;margin-top:6px}
+.cx-modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:560px;max-width:calc(100% - 32px);max-height:calc(100% - 40px);background:#fff;border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.2);z-index:31;display:none;flex-direction:column}
+.cx-modal.on{display:flex}
+.cx-fr{display:grid;grid-template-columns:110px 1fr;gap:10px;align-items:start;padding:9px 0;border-bottom:1px solid var(--c-line2);font-size:12px}
+.cx-fr>b{color:var(--c-sub);font-weight:600;padding-top:4px}
+.cx-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 10px}
+.cx .x{border:0;background:none;font-size:18px;color:var(--c-mute);line-height:1}
+/* switch */
+.cx .sw{position:relative;display:inline-block;width:32px;height:18px;flex:none}
+.cx .sw input{opacity:0;width:0;height:0}
+.cx .sw span{position:absolute;inset:0;background:#D5D9E0;border-radius:99px;transition:.15s;cursor:pointer}
+.cx .sw span::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.cx .sw input:checked+span{background:var(--c-blue)}
+.cx .sw input:checked+span::after{transform:translateX(14px)}
+/* 문항 관리 */
+.cx-qm{display:grid;grid-template-columns:220px 1fr 300px;gap:10px;align-items:start}
+.cx-tpl{background:#fff;border:1px solid var(--c-line);border-radius:10px;overflow:hidden}
+.cx-tpl .h{padding:10px 12px;font-weight:700;font-size:12px;border-bottom:1px solid var(--c-line2);display:flex;justify-content:space-between;align-items:center}
+.cx-tpl .it{padding:10px 12px;border-bottom:1px solid var(--c-line2);font-size:12px;cursor:pointer}
+.cx-tpl .it.on{background:#F3F6FF;box-shadow:inset 3px 0 0 var(--c-blue)}
+.cx-tpl .it small{display:block;color:var(--c-mute);font-size:10.5px;margin-top:2px}
+.cx-qc{background:#fff;border:1px solid var(--c-line);border-radius:10px;padding:12px 14px}
+.cx-qc+.cx-qc{margin-top:8px}
+.cx-qc .top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.cx-qc .no{font-weight:800;color:var(--c-blue);width:26px}
+.cx-qc .top .sp{margin-left:auto;display:flex;gap:2px}
+.cx-qc .mini{border:1px solid var(--c-line);background:#fff;border-radius:6px;width:24px;height:24px;color:var(--c-sub);font-size:11px}
+.cx-qc .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+.cx-qc .grid3 label{font-size:10.5px;color:var(--c-sub);display:flex;flex-direction:column;gap:3px}
+.cx-qc input.w{width:100%}
+.cx-opts{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.cx-opts span{font-size:11px;border:1px solid var(--c-line);border-radius:99px;padding:2px 9px;background:#FAFBFC;color:var(--c-sub)}
+.cx-pv{position:sticky;top:0;background:#fff;border:1px solid var(--c-line);border-radius:10px;padding:12px}
+.cx-pv .ph2{background:#F6F8FA;border-radius:14px;padding:12px;font-size:12px;color:#2F3438}
+.cx-pv .pq{font-weight:600;margin:10px 0 6px}
+.cx-pv .pq:first-child{margin-top:0}
+.cx-pv .pn{font-size:10px;color:#3D93F5;font-weight:700}
+.cx-pv .po{display:flex;flex-wrap:wrap;gap:4px}
+.cx-pv .po span{flex:1;min-width:46px;text-align:center;background:#fff;border:1px solid #E1E5EA;border-radius:8px;padding:6px 2px;font-size:11px}
+.cx-pv .po.multi span{flex:none;padding:5px 9px}
+.cx-pv .po.n11 span{min-width:18px;flex:1 0 18px;padding:5px 0}
+.cx-pv .pt{background:#fff;border:1px solid #E1E5EA;border-radius:8px;height:40px;color:#B4BAC2;font-size:11px;padding:6px}
+/* toast */
+.cx-toast{position:absolute;left:50%;bottom:48px;transform:translateX(-50%) translateY(20px);background:#1A1D24;color:#fff;border-radius:8px;padding:9px 16px;font-size:12px;opacity:0;transition:.2s;z-index:40;pointer-events:none;white-space:nowrap}
+.cx-toast.on{opacity:1;transform:translateX(-50%)}
+.cx-mtop{display:none}
+@media(max-width:900px){
+  .cx{grid-template-columns:1fr;height:auto;min-height:760px}
+  .cx-side{display:none}
+  .cx-mtop{display:flex;gap:6px;overflow-x:auto;background:var(--c-side);padding:8px}
+  .cx-mtop button{flex:none;border:0;background:var(--c-side2);color:#C9CED8;border-radius:6px;padding:5px 9px;font-size:11.5px}
+  .cx-mtop button.on{background:var(--c-blue);color:#fff}
+  .cx-body{max-height:none;overflow:visible}
+  .cx-main{overflow:visible}
+  .cx .k4,.cx .k5,.cx .k3,.cx-2col,.cx-qm{grid-template-columns:1fr}
+  .cx-cols{grid-template-columns:1fr 1fr}
+  .cx-row{grid-template-columns:1fr auto}
+}
+
 </style>
 </head>
 <body>
 <div class="wrap">
 <header class="top">
   <h1>파트너센터 만족도 화면 구성안</h1>
-  <p>채팅·게시판 화면 안에서 만족도를 받고, AICX 콘솔에서 집계하는 구성입니다. 파트너센터에 먼저 적용하고 고객센터에도 같은 부품을 쓰는 것을 전제로 했습니다. <span class="badge">초안 · 화면의 숫자는 모두 예시</span></p>
+  <p>채팅·게시판 화면 안에서 만족도를 받고, AICX 콘솔에서 문항·기준을 관리하고 집계하는 구성입니다. 파트너센터에 먼저 적용하고 고객센터에도 같은 부품을 쓰는 것을 전제로 했습니다. <span class="badge">초안 · 화면의 숫자는 모두 예시</span></p>
 </header>
 
 <div class="tabs" role="tablist">
   <button class="on" data-t="p1">① 파트너 화면 · 채팅</button>
   <button data-t="p2">② 파트너 화면 · 게시판</button>
-  <button data-t="p3">③ 콘솔 · 대시보드</button>
-  <button data-t="p4">④ 콘솔 · 응답 목록</button>
-  <button data-t="p5">⑤ 콘솔 · 설문 설정</button>
-  <button data-t="p6">⑥ 노출 규칙·데이터</button>
+  <button data-t="p3">③ AICX 콘솔 · 만족도</button>
+  <button data-t="p6">④ 노출 규칙·데이터</button>
 </div>
 
 <!-- ① 채팅 -->
@@ -318,104 +465,331 @@ tr.clk:hover td{background:var(--brand-bg)}
 </div>
 </section>
 
-<!-- ③ 대시보드 -->
+<!-- ③ AICX 콘솔 · 만족도 -->
 <section class="panel" id="p3">
-<div class="console">
-  <div class="cbar"><b>AICX 콘솔</b><span class="on">만족도 대시보드</span><span>응답 목록</span><span>설문 설정</span></div>
-  <div class="cbody">
-    <div class="filters">
-      <select class="sel2"><option>서비스: 파트너센터</option><option>고객센터</option></select>
-      <select class="sel2"><option>기간: 최근 4주</option></select>
-      <select class="sel2"><option>채널: 전체</option><option>채팅</option><option>게시판</option></select>
-      <select class="sel2"><option>응대 흐름: 전체</option><option>AI 단독</option><option>AI → 상담원</option><option>상담원 직접</option></select>
-      <select class="sel2"><option>상담유형: 전체</option></select>
-      <select class="sel2"><option>상담원: 전체</option></select>
+<p class="desc" style="color:var(--sub);font-size:13px;margin:0 0 12px">실제 AICX 콘솔(종합 현황·정산 대시보드)과 같은 틀에 만족도 메뉴를 붙인 안입니다. 왼쪽 메뉴의 <b>만족도</b> 아래 6개 화면을 눌러 볼 수 있고, 다른 메뉴는 자리만 표시했습니다. 숫자는 모두 예시입니다.</p>
+<div class="cx" id="cx">
+  <aside class="cx-side">
+    <div class="cx-org"><span class="ic">A</span><div><b>AICX Console</b><small>오늘의집</small></div><span class="chev">▼</span></div>
+    <div class="cx-search">⌕ 메뉴 검색</div>
+    <div class="cx-sec">현황</div>
+    <div class="cx-it dim" data-i="grid">종합 현황</div>
+    <div class="cx-it dim" data-i="pulse">상담사 운영 현황</div>
+    <div class="cx-it dim" data-i="coin">정산 대시보드</div>
+    <div class="cx-hr"></div>
+    <div class="cx-sec">만족도</div>
+    <button class="cx-it nps on" data-go="dash" data-i="bar">NPS 대시보드<span class="new">NEW</span></button>
+    <button class="cx-it nps" data-go="raw" data-i="table">응답 데이터<span class="new">NEW</span></button>
+    <button class="cx-it nps" data-go="qm" data-i="list">문항 관리<span class="new">NEW</span></button>
+    <button class="cx-it nps" data-go="metric" data-i="slider">지표 기준 관리<span class="new">NEW</span></button>
+    <button class="cx-it nps" data-go="rule" data-i="send">노출 규칙<span class="new">NEW</span></button>
+    <button class="cx-it nps" data-go="alert" data-i="bell">저평가 알림·리포트<span class="new">NEW</span></button>
+    <div class="cx-hr"></div>
+    <div class="cx-sec">운영</div>
+    <div class="cx-it dim" data-i="chat">챗봇 응대</div>
+    <div class="cx-it dim" data-i="chat">콜봇 응대</div>
+    <div class="cx-it dim" data-i="chat">상담사 응대</div>
+    <div class="cx-it dim" data-i="doc">템플릿 관리</div>
+    <div class="cx-hr"></div>
+    <div class="cx-sec">설정</div>
+    <div class="cx-it dim" data-i="box">챗봇 설정<span class="cv">▼</span></div>
+    <div class="cx-it dim" data-i="doc">게시판 설정<span class="cv">▼</span></div>
+    <div class="cx-it dim" data-i="tag">문의유형 설정</div>
+    <div class="cx-hr"></div>
+    <div class="cx-sec">보안 및 감사</div>
+    <div class="cx-it dim" data-i="hist">감사 로그</div>
+    <div style="height:14px"></div>
+    <div class="cx-user"><i>E</i>Enzo Joo<small>리더</small></div>
+  </aside>
+
+  <div class="cx-main">
+    <div class="cx-mtop" id="cxMtop"></div>
+    <div class="cx-head">
+      <div><div class="crumb">만족도</div><h2 id="cxTitle">NPS 대시보드</h2></div>
+      <button class="cx-bell" id="cxBell"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>알림 <b>3</b>
+        <div class="cx-bell-pop" id="cxBellPop">
+          <div>비추천 + 의견: 배송 &gt; 배송상태 변경<small>10/17 15:02 · 응답 데이터에서 보기</small></div>
+          <div>같은 샵 30일 안 저평가 2회 (샵 12***89)<small>10/17 11:40</small></div>
+          <div>주간 NPS 리포트 발송 완료<small>10/13 09:00 · 서비스운영팀 4명</small></div>
+        </div>
+      </button>
     </div>
-    <div class="kpis">
-      <div class="kpi"><div class="l">NPS</div><div class="v">42</div><div class="d">추천 58% · 보통 26% · 비추천 16%</div></div>
-      <div class="kpi"><div class="l">해결률 (Q2)</div><div class="v">71%</div><div class="d">AI 단독 63% · 상담원 79%</div></div>
-      <div class="kpi"><div class="l">응답률</div><div class="v">24%</div><div class="d">노출 2,310건 중 응답 554건</div></div>
-      <div class="kpi"><div class="l">저평가 건</div><div class="v">93</div><div class="d">비추천 또는 미해결 · 의견 있음 41건</div></div>
-    </div>
-    <div class="split">
-      <div class="box">
-        <h4>주별 NPS · AI 응대와 상담원 응대 비교</h4>
-        <div class="trend" id="trend"></div>
-        <div class="legend"><span><i style="background:var(--brand)"></i>AI 응대</span><span><i style="background:#7C8798"></i>상담원 응대</span></div>
+    <div class="cx-body">
+
+<!-- ===== NPS 대시보드 ===== -->
+<div class="cx-page on" id="pg-dash">
+  <div class="cx-tool">
+    <span class="cx-pill">업데이트 시간: 07:12</span>
+    <button class="cx-ibtn" title="새로고침" data-toast="최신 응답까지 다시 집계했습니다"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg></button>
+    <button class="cx-ibtn" title="화면 데이터 다운로드" data-toast="대시보드 표를 엑셀로 내려받았습니다 (데모)"><svg viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg></button>
+    <select class="cx-sel"><option>서비스: 파트너센터</option><option>서비스: 고객센터</option><option>서비스: 전체</option></select>
+    <div class="cx-seg" data-seg><button>오늘</button><button>이번 주</button><button class="on">이번 달</button><button>직접 입력</button></div>
+  </div>
+  <div class="cx-tabs" data-tabs><button class="on">전체</button><button>채팅</button><button>게시판</button></div>
+  <div class="cx-banner">ⓘ 응답 기한(게시판 7일)이 남은 건이 있어 이 달 수치는 확정 전입니다. 노출 후 응답하지 않은 건은 응답률에만 반영됩니다.</div>
+
+  <div class="cx-st">NPS 요약 <span class="cx-chip"><span class="dot"></span>2026년 10월 · 집계 중 <i class="q" title="매일 07시에 전날까지 응답을 다시 집계합니다">?</i></span></div>
+  <div class="cx-card">
+    <div style="display:flex;gap:30px;flex-wrap:wrap;align-items:flex-end">
+      <div><div class="cx-lbl">2026년 10월 파트너센터 NPS</div><div class="cx-big" id="dNps">42</div><div class="cx-note">추천 비율 58% − 비추천 비율 16% · 전월 37 대비 <span class="up">+5</span></div></div>
+      <div style="flex:1;min-width:260px">
+        <div class="cx-lbl" style="display:flex;justify-content:space-between"><span>목표 <b id="dTarget">45</b> 대비</span><span id="dGap" class="cx-b y">주의 −3</span></div>
+        <div style="position:relative;height:10px;background:#EEF0F3;border-radius:99px;margin-top:8px;overflow:visible">
+          <i style="position:absolute;left:0;top:0;bottom:0;width:71%;background:var(--c-blue);border-radius:99px" id="dBar"></i>
+          <i style="position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--c-t);left:72.5%" id="dTick"></i>
+        </div>
+        <div class="cx-note" style="display:flex;justify-content:space-between;margin-top:4px"><span>−100</span><span>0</span><span>100</span></div>
       </div>
-      <div class="box">
-        <h4>아쉬운 점 (Q3, 저평가 응답 기준)</h4>
-        <div id="reasons"></div>
-      </div>
     </div>
-    <div class="box">
-      <h4>상담유형별</h4>
-      <table>
-        <thead><tr><th>상담유형 (중 &gt; 소)</th><th class="num">응답</th><th class="num">NPS</th><th class="num">해결률</th><th class="num">AI 단독 비중</th></tr></thead>
-        <tbody id="bytype"></tbody>
-      </table>
+    <div class="cx-hr2"></div>
+    <div class="cx-lbl" style="margin-bottom:8px">응답 구성 · 누르면 아래 응답 데이터로 이동</div>
+    <div class="cx-kgrid k5">
+      <div class="cx-k" data-go="raw"><div class="l"><span class="d" style="background:var(--c-green)"></span>추천</div><div class="v">321<small>건 (58%)</small></div><div class="s">추천해요</div></div>
+      <div class="cx-k" data-go="raw"><div class="l"><span class="d" style="background:var(--c-org)"></span>보통</div><div class="v">144<small>건 (26%)</small></div><div class="s">보통이에요</div></div>
+      <div class="cx-k" data-go="raw" data-low="1"><div class="l"><span class="d" style="background:var(--c-red)"></span>비추천</div><div class="v" style="color:var(--c-red)">89<small>건 (16%)</small></div><div class="s">추천하지 않아요</div></div>
+      <div class="cx-k"><div class="l">해결률 <i class="q" title="Q2 「해결됐어요」 비율">?</i></div><div class="v">71%</div><div class="s">전월 68% 대비 <span class="up">+3%p</span></div></div>
+      <div class="cx-k"><div class="l">응답률 <i class="q" title="응답 ÷ 평가 카드 노출">?</i></div><div class="v">24%</div><div class="s">노출 2,310건 중 554건</div></div>
     </div>
-    <div class="note">상단 숫자를 누르면 해당 조건으로 「응답 목록」이 열립니다. 모든 표는 엑셀 다운로드와 조회 API로 내보낼 수 있어야 합니다 (서비스운영팀 대시보드 연동).</div>
+  </div>
+
+  <div class="cx-st">응대 흐름별 <i class="q" title="누가 상담을 마무리했는지 기준">?</i></div>
+  <div class="cx-kgrid k3">
+    <div class="cx-k"><div class="l"><span class="d" style="background:var(--c-blue)"></span>AI 단독 종결</div><div class="v">36<small>NPS</small></div><div class="s">응답 248건 · 해결률 63% · 목표 40</div></div>
+    <div class="cx-k"><div class="l"><span class="d" style="background:var(--c-pur)"></span>AI → 상담원</div><div class="v">45<small>NPS</small></div><div class="s">응답 186건 · 해결률 79% · AI 응대 「좋았어요」 41%</div></div>
+    <div class="cx-k"><div class="l"><span class="d" style="background:#7C8798"></span>상담원 직접</div><div class="v">51<small>NPS</small></div><div class="s">응답 120건 · 해결률 80% · 목표 50</div></div>
+  </div>
+
+  <div class="cx-st">추이 <span class="r"><span class="cx-seg" data-seg><button>일</button><button class="on">주</button><button>월</button></span></span></div>
+  <div class="cx-2col">
+    <div class="cx-card cx-chart"><div class="cx-lbl" style="margin-bottom:4px">주별 NPS (최근 8주)</div><div id="dChart"></div>
+      <div class="cx-leg"><span><i style="background:var(--c-t)"></i>전체</span><span><i style="background:var(--c-blue)"></i>AI 단독</span><span><i style="background:#9AA3B2"></i>상담원 응대</span><span><i style="background:none;border-top:2px dashed var(--c-red);height:0"></i>목표</span></div></div>
+    <div class="cx-card"><div class="cx-lbl" style="margin-bottom:8px">채널별</div>
+      <table class="cx-tbl"><thead><tr><th>채널</th><th>응답</th><th>NPS</th><th>해결률</th><th>응답률</th></tr></thead>
+      <tbody><tr><td>채팅</td><td>402</td><td>41</td><td>69%</td><td>31%</td></tr><tr><td>게시판</td><td>131</td><td>45</td><td>77%</td><td>14%</td></tr><tr><td>예비파트너 이메일</td><td>21</td><td><span class="cx-b n">표본 부족</span></td><td>71%</td><td>9%</td></tr></tbody></table>
+      <div class="cx-note" style="margin-top:8px">응답이 최소 응답 수(지표 기준 관리)보다 적으면 NPS 대신 「표본 부족」으로 표시합니다.</div>
+    </div>
+  </div>
+
+  <div class="cx-st">저평가 사유 상세 <span class="cx-chip">Q3 · 응답 247건</span></div>
+  <div class="cx-grp">
+    <div class="cx-gh"><span class="d" style="background:var(--c-red)"></span>아쉬운 점 <span class="tag">복수 선택</span><span class="r">247건</span></div>
+    <div id="dReasons"></div>
+  </div>
+  <div class="cx-grp">
+    <div class="cx-gh"><span class="d" style="background:var(--c-org)"></span>AI 응대 평가 <span class="tag">AI → 상담원 1문항</span><span class="r">186건</span></div>
+    <div class="cx-row"><span>좋았어요</span><span>76건 <small>(40.9%)</small></span><i class="fill" style="width:40.9%;background:var(--c-green-bg)"></i></div>
+    <div class="cx-row"><span>보통이에요</span><span>63건 <small>(33.9%)</small></span><i class="fill" style="width:33.9%;background:var(--c-yel-bg)"></i></div>
+    <div class="cx-row"><span>아쉬워요</span><span>47건 <small>(25.3%)</small></span><i class="fill" style="width:25.3%;background:var(--c-red-bg)"></i></div>
+  </div>
+
+  <div class="cx-st">상세 분석 <span class="r"><span class="cx-seg" data-seg id="dDim"><button class="on" data-v="type">상담유형별</button><button data-v="agent">상담원별</button></span></span></div>
+  <div class="cx-card cx-tw" style="padding:6px 8px">
+    <table class="cx-tbl" id="dTable"></table>
+  </div>
+  <div class="cx-note" style="margin-top:8px">상담유형은 ECA 상담유형(중 &gt; 소) 기준입니다. 중분류 행을 누르면 소분류가 펼쳐집니다.</div>
+</div>
+
+<!-- ===== 응답 데이터 ===== -->
+<div class="cx-page" id="pg-raw">
+  <div class="cx-tool between">
+    <div class="cx-tabs" style="margin:0;border:0" data-tabs><button class="on">전체 응답</button><button>후속 조치 필요 <span class="cx-b r" id="rTodo">0</span></button></div>
+    <div style="display:flex;gap:6px"><button class="cx-btn" id="rHist"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 3"/></svg>다운로드 이력</button><button class="cx-btn pri" id="rDl"><svg viewBox="0 0 24 24"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14"/></svg>Raw 데이터 다운로드</button></div>
+  </div>
+  <div class="cx-filter">
+    <label>기간 <input class="cx-inp" type="text" value="2026-10-01 ~ 2026-10-20" style="width:170px"></label>
+    <select class="cx-sel" id="fCh"><option value="">채널 전체</option><option>채팅</option><option>게시판</option><option>이메일</option></select>
+    <select class="cx-sel" id="fFl"><option value="">응대 흐름 전체</option><option>AI 단독</option><option>AI → 상담원</option><option>상담원 직접</option></select>
+    <select class="cx-sel" id="fQ1"><option value="">평가 전체</option><option value="low">저평가만 (비추천 또는 미해결)</option><option value="1">추천</option><option value="2">보통</option><option value="3">비추천</option></select>
+    <label class="cx-check"><input type="checkbox" id="fCm"> 의견 있는 건만</label>
+    <input class="cx-inp" id="fQ" placeholder="상담 ID · 샵 ID · 의견 검색" style="width:190px">
+    <button class="cx-btn ghost" id="fReset">초기화</button>
+  </div>
+  <div class="cx-card cx-tw" style="padding:4px 6px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 4px 8px;font-size:11.5px;color:var(--c-sub)"><span>조회 결과 <b id="rCnt" style="color:var(--c-t)">0</b>건</span><span>행을 누르면 상세와 대화 원문이 열립니다</span></div>
+    <table class="cx-tbl"><thead><tr><th>응답 시각</th><th>채널</th><th>응대 흐름</th><th class="l">상담유형</th><th>상담원</th><th>샵 ID</th><th>Q1</th><th>Q2</th><th class="l">의견</th><th>후속 조치</th></tr></thead><tbody id="rBody"></tbody></table>
+    <div class="cx-pager" id="rPager"></div>
   </div>
 </div>
-</section>
 
-<!-- ④ 응답 목록 -->
-<section class="panel" id="p4">
-<div class="console">
-  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span class="on">응답 목록</span><span>설문 설정</span></div>
-  <div class="cbody">
-    <div class="filters">
-      <select class="sel2"><option>평가: 저평가만 (보통·비추천 또는 미해결)</option><option>전체</option></select>
-      <select class="sel2"><option>의견 있는 건만</option><option>전체</option></select>
-      <select class="sel2"><option>채널: 전체</option></select>
-      <select class="sel2"><option>응대 흐름: 전체</option></select>
+<!-- ===== 문항 관리 ===== -->
+<div class="cx-page" id="pg-qm">
+  <div class="cx-tool between">
+    <div class="cx-note">문항을 고치면 새 버전으로 저장되고, 이전 응답은 이전 버전으로 따로 집계됩니다.</div>
+    <div style="display:flex;gap:6px"><button class="cx-btn" data-toast="미리보기 링크를 복사했습니다 (데모)">미리보기 링크</button><button class="cx-btn pri" id="qSave">새 버전으로 저장</button></div>
+  </div>
+  <div class="cx-qm">
+    <div>
+      <div class="cx-tpl">
+        <div class="h">설문 템플릿 <button class="cx-btn ghost" style="padding:0" data-toast="새 템플릿을 만들었습니다 (데모)">+ 추가</button></div>
+        <div class="it on">partner_v1 · 파트너센터 상담 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
+        <div class="it">partner_board_v1 · 게시판 답변 평가<small><span class="cx-b g">사용 중</span> Q1·Q2만</small></div>
+        <div class="it">cs_v3 · 고객센터 상담 평가<small><span class="cx-b n">예정</span> 고객센터 이관 시</small></div>
+        <div class="it">partner_v0 · 초안<small><span class="cx-b n">보관</span> 10/14</small></div>
+      </div>
+      <div class="cx-tpl" style="margin-top:10px">
+        <div class="h">적용 대상</div>
+        <div style="padding:10px 12px;font-size:12px;display:grid;gap:8px">
+          <label class="cx-check" style="justify-content:space-between">파트너센터 채팅 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+          <label class="cx-check" style="justify-content:space-between">파트너센터 게시판 <span class="sw"><input type="checkbox"><span></span></span></label>
+          <label class="cx-check" style="justify-content:space-between">고객센터 <span class="sw"><input type="checkbox"><span></span></span></label>
+        </div>
+      </div>
+      <div class="cx-tpl" style="margin-top:10px">
+        <div class="h">버전 이력</div>
+        <div class="it" style="cursor:default">v1 · 10/20 · Enzo Joo<small>Q3 선택지 6개로 정리</small></div>
+        <div class="it" style="cursor:default">v0 · 10/14 · Enzo Joo<small>최초 작성</small></div>
+      </div>
     </div>
-    <table>
-      <thead><tr><th>응답 시각</th><th>채널</th><th>응대 흐름</th><th>상담유형</th><th>상담원</th><th class="num">Q1</th><th class="num">Q2</th><th>의견</th></tr></thead>
-      <tbody id="resp"></tbody>
+    <div>
+      <div id="qList"></div>
+      <button class="cx-btn" style="width:100%;justify-content:center;margin-top:8px;border-style:dashed" id="qAdd">+ 문항 추가</button>
+    </div>
+    <div class="cx-pv">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><b style="font-size:12px">채팅 화면 미리보기</b><span class="cx-note">입력하면 바로 바뀝니다</span></div>
+      <div class="ph2" id="qPv"></div>
+      <div class="cx-note" style="margin-top:8px">노출 조건이 있는 문항도 미리보기에서는 모두 보여 줍니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 지표 기준 관리 ===== -->
+<div class="cx-page" id="pg-metric">
+  <div class="cx-tool between"><div class="cx-note">여기서 정한 기준이 대시보드·리포트·알림에 똑같이 쓰입니다. 바꾸면 대시보드 색 표시가 바로 바뀝니다.</div><button class="cx-btn pri" data-toast="지표 기준을 저장했습니다 · 감사 로그에 기록됨">저장</button></div>
+  <div class="cx-st">NPS 계산식</div>
+  <div class="cx-card">
+    <div style="font-size:14px;font-weight:700">NPS = 추천 비율(%) − 비추천 비율(%)<span class="cx-note" style="font-weight:500;margin-left:8px">범위 −100 ~ 100</span></div>
+    <div class="cx-hr2"></div>
+    <div class="cx-lbl" style="margin-bottom:6px">척도별 응답값 구분 · 문항 관리에서 고른 척도에 맞춰 적용</div>
+    <table class="cx-tbl">
+      <thead><tr><th>척도</th><th>추천</th><th>보통 (중립)</th><th>비추천</th><th>사용 템플릿</th></tr></thead>
+      <tbody>
+        <tr><td>3단계 버튼</td><td><span class="cx-b g">1 추천해요</span></td><td><span class="cx-b y">2 보통이에요</span></td><td><span class="cx-b r">3 추천하지 않아요</span></td><td>partner_v1, cs_v3</td></tr>
+        <tr><td>11점 (0~10)</td><td><input class="cx-inp" value="9 ~ 10" style="width:70px;text-align:center"></td><td><input class="cx-inp" value="7 ~ 8" style="width:70px;text-align:center"></td><td><input class="cx-inp" value="0 ~ 6" style="width:70px;text-align:center"></td><td>-</td></tr>
+        <tr><td>5점 만족도</td><td><input class="cx-inp" value="5" style="width:70px;text-align:center"></td><td><input class="cx-inp" value="4" style="width:70px;text-align:center"></td><td><input class="cx-inp" value="1 ~ 3" style="width:70px;text-align:center"></td><td>-</td></tr>
+      </tbody>
     </table>
-    <div class="drawer" id="drawer"></div>
-    <div class="note">행을 누르면 응답 상세와 대화 원문 바로가기가 열립니다. 같은 샵이 최근 30일 안에 저평가를 2번 이상 남기면 표시합니다.</div>
+    <div class="cx-note" style="margin-top:8px">3단계는 고객센터 ECA 설문(1=추천 / 2=보통 / 3=비추천)과 같은 값으로 저장해 두 센터를 같은 기준으로 비교합니다.</div>
+  </div>
+
+  <div class="cx-st">목표와 경고 기준</div>
+  <div class="cx-card">
+    <table class="cx-tbl" id="mTgt">
+      <thead><tr><th>구분</th><th>목표 NPS</th><th>목표 해결률</th><th>현재 NPS</th><th>상태</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <div class="cx-hr2"></div>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;font-size:12px;align-items:center">
+      <label class="cx-check">「주의」 범위: 목표보다 <input class="cx-inp" id="mWarn" type="number" value="10" style="width:56px;text-align:center"> 이내로 낮을 때</label>
+      <label class="cx-check">최소 응답 수 <input class="cx-inp" id="mMin" type="number" value="30" style="width:56px;text-align:center"> 건 미만이면 「표본 부족」</label>
+    </div>
+    <div class="cx-note" style="margin-top:8px"><span class="cx-b g">달성</span> 목표 이상 · <span class="cx-b y">주의</span> 목표보다 낮지만 주의 범위 안 · <span class="cx-b r">위험</span> 주의 범위보다 더 낮음</div>
+  </div>
+
+  <div class="cx-st">집계 기준</div>
+  <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
+    <label class="cx-check" style="justify-content:space-between">내부 테스트 상담 제외 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">오접수·용건 없음(기타 &gt; 무응답·오접수) 제외 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">같은 상담에 응답이 2건 이상이면 첫 응답만 집계 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">해결률은 Q2 응답 기준 (응답하지 않은 건은 분모에서 제외) <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">집계 기준일 <select class="cx-sel"><option>응답 시각 기준</option><option>상담 종료 시각 기준</option></select></label>
+  </div>
+</div>
+
+<!-- ===== 노출 규칙 ===== -->
+<div class="cx-page" id="pg-rule">
+  <div class="cx-tool between"><div class="cx-note">어느 상담에 어떤 평가를 띄울지 정합니다. 칸을 눌러 켜고 끌 수 있습니다.</div><button class="cx-btn pri" data-toast="노출 규칙을 저장했습니다 · 다음 상담부터 적용">저장</button></div>
+  <div class="cx-st">흐름별 노출</div>
+  <div class="cx-card cx-tw" style="padding:6px 8px">
+    <table class="cx-tbl">
+      <thead><tr><th>채널 · 응대 흐름</th><th>상담원 평가</th><th>AI 평가</th><th>템플릿</th><th>노출 시점</th></tr></thead>
+      <tbody>
+        <tr><td>채팅 · AI 단독</td><td>-</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1~Q4</td><td>partner_v1</td><td>종료 직후</td></tr>
+        <tr><td>채팅 · AI → 상담원</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1~Q4</td><td><span class="sw"><input type="checkbox" checked><span></span></span> 1문항</td><td>partner_v1</td><td>상담원 종료 직후</td></tr>
+        <tr><td>채팅 · 상담원 직접</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1~Q4</td><td>-</td><td>partner_v1</td><td>상담원 종료 직후</td></tr>
+        <tr><td>게시판 · AI 자동답변</td><td>-</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1·Q2</td><td>partner_board_v1</td><td>답변완료 직후</td></tr>
+        <tr><td>게시판 · 상담원 답변</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1·Q2</td><td>-</td><td>partner_board_v1</td><td>답변완료 직후</td></tr>
+        <tr><td>게시판 · 예비파트너 이메일</td><td><span class="sw"><input type="checkbox" checked><span></span></span> Q1·Q2</td><td>-</td><td>partner_board_v1</td><td>답변 메일 안</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="cx-st">빈도와 기한</div>
+  <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
+    <label class="cx-check" style="justify-content:space-between">중복 노출 제한 <select class="cx-sel"><option>같은 샵 1일 1회</option><option>같은 샵 3일 1회 (고객센터 기준)</option><option>제한 없음</option></select></label>
+    <label class="cx-check" style="justify-content:space-between">게시판 응답 기한 <select class="cx-sel"><option>답변완료 후 7일</option><option>3일</option><option>14일</option></select></label>
+    <label class="cx-check" style="justify-content:space-between">노출 비율 (응답 피로도 조절) <select class="cx-sel"><option>100% (모든 상담)</option><option>50% 무작위</option><option>20% 무작위</option></select></label>
+  </div>
+  <div class="cx-st">노출하지 않는 경우</div>
+  <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
+    <label class="cx-check" style="justify-content:space-between">무응답으로 자동 종료된 채팅 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">운영시간 밖 게시판 안내로 끝난 채팅 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">게시판 답변이 확인중·후처리 상태일 때 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">상담 중 욕설·위협으로 종료된 건 <span class="sw"><input type="checkbox" checked><span></span></span></label>
+  </div>
+</div>
+
+<!-- ===== 저평가 알림·리포트 ===== -->
+<div class="cx-page" id="pg-alert">
+  <div class="cx-tool between"><div class="cx-note">나쁜 평가를 빨리 보고 조치하기 위한 알림과, 정기 리포트를 설정합니다.</div><button class="cx-btn pri" data-toast="알림 설정을 저장했습니다">저장</button></div>
+  <div class="cx-st">알림 규칙</div>
+  <div class="cx-card cx-tw" style="padding:6px 8px">
+    <table class="cx-tbl">
+      <thead><tr><th>사용</th><th class="l">조건</th><th>받는 곳</th><th>받는 사람</th><th>최근 30일</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sw"><input type="checkbox" checked><span></span></span></td><td class="l wrap">비추천이면서 의견(Q4)이 있는 응답</td><td><select class="cx-sel"><option>콘솔 알림 + 슬랙</option><option>콘솔 알림</option><option>이메일</option></select></td><td>서비스운영팀</td><td>37건</td></tr>
+        <tr><td><span class="sw"><input type="checkbox" checked><span></span></span></td><td class="l wrap">같은 샵이 30일 안에 저평가를 2번 이상 남김</td><td><select class="cx-sel"><option>콘솔 알림</option><option>콘솔 알림 + 슬랙</option></select></td><td>센터 매니저</td><td>6건</td></tr>
+        <tr><td><span class="sw"><input type="checkbox" checked><span></span></span></td><td class="l wrap">하루 NPS가 목표보다 위험 범위로 떨어짐 (응답 30건 이상인 날만)</td><td><select class="cx-sel"><option>이메일</option><option>콘솔 알림 + 슬랙</option></select></td><td>서비스운영팀 리더</td><td>1건</td></tr>
+        <tr><td><span class="sw"><input type="checkbox"><span></span></span></td><td class="l wrap">특정 상담유형의 비추천 비율이 전주보다 10%p 이상 오름</td><td><select class="cx-sel"><option>슬랙</option></select></td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
+    <div class="cx-note" style="padding:8px 4px 2px">슬랙은 웹훅 주소를 등록해 받는 방식입니다. 알림에는 샵 ID를 가린 값만 담습니다.</div>
+  </div>
+  <div class="cx-st">정기 리포트</div>
+  <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
+    <label class="cx-check" style="justify-content:space-between">주간 NPS 리포트 메일 <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매주 월요일 09:00</option><option>매주 금요일 17:00</option></select><span class="sw"><input type="checkbox" checked><span></span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">월간 리포트 (흐름별·상담유형별 표 엑셀 첨부) <span style="display:flex;gap:6px;align-items:center"><select class="cx-sel"><option>매월 1일 09:00</option></select><span class="sw"><input type="checkbox" checked><span></span></span></span></label>
+    <label class="cx-check" style="justify-content:space-between">받는 사람 <input class="cx-inp" value="서비스운영팀 4명, 유베이스 센터 매니저 2명" style="width:300px"></label>
+  </div>
+  <div class="cx-st">조회 API</div>
+  <div class="cx-card" style="font-size:12px">
+    서비스운영팀 대시보드에서 직접 가져갈 수 있도록 응답 데이터와 같은 항목을 조회 API로 제공합니다.
+    <div class="cx-quote" style="font-family:ui-monospace,Menlo,monospace;font-size:11px">GET /api/v1/survey/responses?service=partner&amp;from=2026-10-01&amp;to=2026-10-20&amp;page=1</div>
+    <div class="cx-note" style="margin-top:6px">API 키는 「계정·권한」에서 발급하고, 호출 기록은 감사 로그에 남깁니다.</div>
+  </div>
+</div>
+
+    </div><!-- /cx-body -->
+    <div class="cx-foot"><span>© 2026 AICX. All rights reserved.</span><span>AICX 문의하기 · 사용자 가이드 · 개인정보 처리방침</span></div>
+
+    <!-- 응답 상세 drawer -->
+    <div class="cx-ov" id="cxOv"></div>
+    <div class="cx-drawer" id="cxDrawer">
+      <div class="cx-dh"><span>응답 상세</span><button class="x" data-close>×</button></div>
+      <div class="cx-db" id="cxDb"></div>
+      <div class="cx-df"><button class="cx-btn" data-close>닫기</button><button class="cx-btn pri" id="dSave">조치 저장</button></div>
+    </div>
+    <!-- 다운로드 모달 -->
+    <div class="cx-modal" id="cxDl">
+      <div class="cx-dh"><span>Raw 데이터 다운로드</span><button class="x" data-close>×</button></div>
+      <div class="cx-db">
+        <div class="cx-fr"><b>범위</b><div style="display:grid;gap:4px"><label class="cx-check"><input type="radio" name="dlr" value="f" checked> 현재 필터 결과 (<span id="dlCnt">0</span>건)</label><label class="cx-check"><input type="radio" name="dlr" value="a"> 기간 전체 응답</label></div></div>
+        <div class="cx-fr"><b>파일 형식</b><div style="display:flex;gap:12px"><label class="cx-check"><input type="radio" name="dlf" value="csv" checked> CSV (엑셀에서 열림)</label><label class="cx-check"><input type="radio" name="dlf" value="xlsx" disabled> XLSX</label></div></div>
+        <div class="cx-fr"><b>포함할 항목</b><div class="cx-cols" id="dlCols"></div></div>
+        <div class="cx-fr"><b>개인정보</b><div style="display:grid;gap:4px"><label class="cx-check"><input type="checkbox" id="dlMask" checked> 샵 ID·파트너 ID 가리기</label><label class="cx-check"><input type="checkbox" id="dlTxt" checked> 의견(Q4) 원문 포함</label><span class="cx-note">가리지 않은 원본은 「계정·권한」에서 다운로드 권한이 있는 사람만 받을 수 있습니다.</span></div></div>
+        <div class="cx-fr" style="border:0"><b>다운로드 사유</b><div><input class="cx-inp" id="dlWhy" placeholder="예: 10월 주간 보고용" style="width:100%"><div class="cx-note" style="margin-top:4px">사유와 받은 사람·시각은 감사 로그에 남습니다.</div></div></div>
+      </div>
+      <div class="cx-df"><button class="cx-btn" data-close>취소</button><button class="cx-btn pri" id="dlGo">다운로드</button></div>
+    </div>
+    <div class="cx-modal" id="cxHist">
+      <div class="cx-dh"><span>다운로드 이력</span><button class="x" data-close>×</button></div>
+      <div class="cx-db"><table class="cx-tbl"><thead><tr><th>시각</th><th>받은 사람</th><th>건수</th><th>가리기</th><th class="l">사유</th></tr></thead><tbody id="histBody"></tbody></table></div>
+      <div class="cx-df"><button class="cx-btn" data-close>닫기</button></div>
+    </div>
+    <div class="cx-toast" id="cxToast"></div>
   </div>
 </div>
 </section>
 
-<!-- ⑤ 설문 설정 -->
-<section class="panel" id="p5">
-<div class="console">
-  <div class="cbar"><b>AICX 콘솔</b><span>만족도 대시보드</span><span>응답 목록</span><span class="on">설문 설정</span></div>
-  <div class="cbody form">
-    <div class="fl"><b>설문 템플릿</b><div><select class="sel2"><option>partner_v1 · 파트너센터 상담 평가 (사용 중)</option><option>cs_v1 · 고객센터 상담 평가 (예정)</option></select> <span class="badge">버전 1 · 10월 20일 저장</span></div></div>
-    <div class="fl"><b>적용 서비스</b><div><span class="toggle"><span class="on">파트너센터</span><span>고객센터</span></span></div></div>
-    <div class="fl"><b>문항</b><div>
-      <div class="qrow"><span class="no">Q1</span><div>다른 파트너에게 추천하시겠어요?<div class="meta">3단계 버튼 · 필수 · 항상 노출</div></div><span class="badge">수정</span></div>
-      <div class="qrow"><span class="no">Q2</span><div>문의하신 내용은 해결되었나요?<div class="meta">예/아니오 · 필수 · 항상 노출</div></div><span class="badge">수정</span></div>
-      <div class="qrow"><span class="no">Q3</span><div>어떤 점이 아쉬우셨나요?<div class="meta">복수 선택 6개 · 조건: Q1 ≥ 2 또는 Q2 = 아니오</div></div><span class="badge">수정</span></div>
-      <div class="qrow"><span class="no">Q4</span><div>더 하고 싶은 말씀<div class="meta">자유 입력 500자 · 선택</div></div><span class="badge">수정</span></div>
-      <span class="badge brand">+ 문항 추가</span>
-    </div></div>
-    <div class="fl"><b>흐름별 노출</b><div>
-      <table class="matrix">
-        <thead><tr><th>채널 · 흐름</th><th>상담원 평가</th><th>AI 평가</th><th>노출 시점</th></tr></thead>
-        <tbody>
-          <tr><td>채팅 · AI 단독</td><td class="no2">-</td><td class="ok">Q1~Q4</td><td>종료 직후</td></tr>
-          <tr><td>채팅 · AI → 상담원</td><td class="ok">Q1~Q4</td><td class="ok">1문항</td><td>상담원 종료 직후</td></tr>
-          <tr><td>채팅 · 상담원 직접</td><td class="ok">Q1~Q4</td><td class="no2">-</td><td>상담원 종료 직후</td></tr>
-          <tr><td>게시판 · AI 자동답변</td><td class="no2">-</td><td class="ok">Q1·Q2</td><td>답변완료 직후</td></tr>
-          <tr><td>게시판 · 상담원 답변</td><td class="ok">Q1·Q2</td><td class="no2">-</td><td>답변완료 직후</td></tr>
-          <tr><td>게시판 · 예비파트너 이메일</td><td class="ok">Q1·Q2</td><td class="no2">-</td><td>답변 메일 안</td></tr>
-        </tbody>
-      </table>
-    </div></div>
-    <div class="fl"><b>중복 노출 제한</b><div><select class="sel2"><option>같은 샵 1일 1회</option><option>3일 1회 (고객센터 기준)</option></select></div></div>
-    <div class="fl"><b>게시판 응답 기한</b><div><select class="sel2"><option>답변완료 후 7일</option></select></div></div>
-    <div class="fl" style="border-bottom:0"><b></b><div><span class="badge brand">미리보기</span> <span class="badge">새 버전으로 저장</span> <span class="hint">문항을 바꾸면 새 버전으로 저장되고, 이전 응답은 이전 버전으로 구분해 집계합니다.</span></div></div>
-  </div>
-</div>
-</section>
-
-<!-- ⑥ 노출 규칙·데이터 -->
+<!-- ④ 노출 규칙·데이터 -->
 <section class="panel" id="p6">
 <div class="grid g2">
   <div class="card">
@@ -497,25 +871,193 @@ document.getElementById('sendSv').onclick=()=>{
 };
 requestAnimationFrame(()=>{const cb=document.getElementById('chatBody');cb.scrollTop=cb.scrollHeight;document.querySelectorAll('.ph-body').forEach(b=>b.scrollTop=b.scrollHeight)});
 // 대시보드 예시 데이터
-const wk=[['9/22',34,51],['9/29',37,49],['10/6',39,53],['10/13',44,52]];
-document.getElementById('trend').innerHTML=wk.map(([w,a,h])=>`<div class="col"><div class="b2"><i style="height:${a*1.6}%;background:var(--brand)" title="AI ${a}"></i><i style="height:${h*1.6}%;background:#7C8798" title="상담원 ${h}"></i></div><small>${w}<br>${a} · ${h}</small></div>`).join('');
-const rs=[['원하는 처리를 못 했어요',41],['다시 설명해야 했어요',23],['답변이 정확하지 않아요',18],['답변이 늦었어요',10],['안내가 어려웠어요',6],['기타',2]];
-document.getElementById('reasons').innerHTML=rs.map(([n,v])=>`<div class="hbar"><span class="n">${n}</span><span class="t"><i style="width:${v*2.2}%"></i></span><span class="c">${v}%</span></div>`).join('');
-const bt=[['취소/반품/교환 > 품절·재고부족 취소',142,31,58,'12%','74%'],['배송 > 배송상태 변경',88,38,66,'41%','63%'],['상품 > 상품등록검수',51,47,72,'55%','80%'],['정산 > 정산/매출 현황',33,52,79,'61%','88%'],['취소/반품/교환 > 취소/반품/교환 기타',40,55,83,'78%','86%']];
-const pc=v=>v>=45?'g':v>=35?'m':'b';
-document.getElementById('bytype').innerHTML=bt.map(r=>`<tr><td>${r[0]}</td><td class="num">${r[1]}</td><td class="num"><span class="pill ${pc(r[2])}">${r[2]}</span></td><td class="num">${r[3]}%</td><td class="num">${r[4]}</td></tr>`).join('');
-const rp=[
- ['10/17 15:02','채팅','AI 단독','배송 > 배송상태 변경','-',3,'N','셀프로 바꾸라는데 메뉴에 버튼이 없어요','오로라 > 주문/배송 메뉴 경로 안내 후 종료'],
- ['10/17 11:40','채팅','AI → 상담원','취소/반품/교환 > 품절·재고부족 취소','상담원 A',2,'Y','정보를 두 번 물어봤어요','필수 정보 수집 후 인계, 상담원이 취소 접수'],
- ['10/16 16:21','게시판','AI 자동답변','상품 > 상품등록검수','-',3,'N','','검수 기간 일반 안내 자동답변'],
- ['10/16 10:05','채팅','상담원 직접','정산 > 정산/매출 현황','상담원 B',2,'N','보류 사유를 정확히 모르겠어요','정산 담당 메일 안내']];
-const fl=v=>v==='AI 단독'||v==='AI 자동답변'?'ai':'ag';
-document.getElementById('resp').innerHTML=rp.map((r,i)=>`<tr class="clk" data-i="${i}"><td>${r[0]}</td><td>${r[1]}</td><td><span class="pill ${fl(r[2])}">${r[2]}</span></td><td>${r[3]}</td><td>${r[4]}</td><td class="num"><span class="pill ${r[5]==1?'g':r[5]==2?'m':'b'}">${['','추천','보통','비추천'][r[5]]}</span></td><td class="num">${r[6]==='Y'?'해결':'미해결'}</td><td>${r[7]||'-'}</td></tr>`).join('');
-document.querySelectorAll('#resp tr').forEach(tr=>tr.onclick=()=>{
-  const r=rp[tr.dataset.i]; const d=document.getElementById('drawer');
-  d.innerHTML=`<div class="row"><b>응답 시각</b><span>${r[0]}</span></div><div class="row"><b>채널 · 흐름</b><span>${r[1]} · ${r[2]}</span></div><div class="row"><b>상담유형</b><span>${r[3]}</span></div><div class="row"><b>Q3 아쉬운 점</b><span>${r[5]>1||r[6]==='N'?'원하는 처리를 못 했어요':'-'}</span></div><div class="row"><b>Q4 의견</b><span>${r[7]||'-'}</span></div><div class="row"><b>상담 요약</b><span>${r[8]}</span></div><div class="row"><b></b><span><a class="link" href="#" onclick="return false">대화 원문 보기 →</a></span></div>`;
-  d.classList.add('on');
-});
+// ===== AICX 콘솔 · 만족도 =====
+(()=>{
+const cx=document.getElementById('cx'), $=s=>cx.querySelector(s), $$=s=>[...cx.querySelectorAll(s)];
+const IC={grid:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>',
+ pulse:'<path d="M3 12h4l3-7 4 14 3-7h4"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M8 9l2 6 2-5 2 5 2-6"/>',
+ bar:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',table:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>',
+ list:'<path d="M9 6h12M9 12h12M9 18h12"/><path d="M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/>',
+ slider:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+ send:'<path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/>',bell:'<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+ chat:'<path d="M4 5h16v11H9l-5 4z"/>',doc:'<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+ box:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V4h8v3"/>',tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8" r="1.3"/>',
+ hist:'<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 3"/>'};
+$$('.cx-it[data-i]').forEach(e=>e.insertAdjacentHTML('afterbegin',`<svg viewBox="0 0 24 24">${IC[e.dataset.i]}</svg>`));
+
+const toast=m=>{const t=$('#cxToast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),1800)};
+$$('[data-toast]').forEach(b=>b.addEventListener('click',()=>toast(b.dataset.toast)));
+$$('[data-seg]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)))));
+$$('[data-tabs]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>g.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b)))));
+
+// 페이지 이동
+const TITLE={dash:'NPS 대시보드',raw:'응답 데이터',qm:'문항 관리',metric:'지표 기준 관리',rule:'노출 규칙',alert:'저평가 알림·리포트'};
+$('#cxMtop').innerHTML=Object.entries(TITLE).map(([k,v])=>`<button data-go="${k}" class="${k==='dash'?'on':''}">${v}</button>`).join('');
+function go(p,opt={}){
+  $$('.cx-page').forEach(x=>x.classList.toggle('on',x.id==='pg-'+p));
+  $$('[data-go]').forEach(x=>{if(x.classList.contains('cx-it')||x.parentElement.id==='cxMtop')x.classList.toggle('on',x.dataset.go===p)});
+  $('#cxTitle').textContent=TITLE[p]; $('.cx-body').scrollTop=0;
+  if(opt.low){$('#fQ1').value='low';page=1;renderRaw()}
+  if(p==='dash')renderDash(); if(p==='metric')renderTgt();
+}
+cx.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)go(g.dataset.go,{low:g.dataset.low})});
+$('#cxBell').addEventListener('click',e=>{e.stopPropagation();$('#cxBellPop').classList.toggle('on')});
+cx.addEventListener('click',e=>{if(!e.target.closest('#cxBell'))$('#cxBellPop').classList.remove('on')});
+$('#cxBellPop').firstElementChild.addEventListener('click',()=>{go('raw');openDrawer(0)});
+
+// ----- 지표 기준(대시보드와 공유) -----
+const M={warn:10,min:30,tg:{all:[45,75],ai:[40,70],ag:[45,80],hu:[50,80]}};
+const CUR={all:[42,554,71],ai:[36,248,63],ag:[45,186,79],hu:[51,120,80]};
+const LBL={all:'파트너센터 전체',ai:'AI 단독 종결',ag:'AI → 상담원',hu:'상담원 직접'};
+const stat=(v,t,n)=>n<M.min?['n','표본 부족']:v>=t?['g','달성']:v>=t-M.warn?['y','주의']:['r','위험'];
+const npsPill=(v,t,n)=>{const[c,l]=stat(v,t,n);return c==='n'?`<span class="cx-b n" title="응답 ${n}건">표본 부족</span>`:`<span class="cx-b ${c}">${v}</span>`};
+function renderTgt(){
+  $('#mTgt tbody').innerHTML=Object.keys(LBL).map(k=>{const[v,n]=CUR[k];const[c,l]=stat(v,M.tg[k][0],n);
+    return `<tr><td>${LBL[k]}</td><td><input class="cx-inp" type="number" data-k="${k}" data-j="0" value="${M.tg[k][0]}" style="width:64px;text-align:center"></td><td><input class="cx-inp" type="number" data-k="${k}" data-j="1" value="${M.tg[k][1]}" style="width:64px;text-align:center"> %</td><td>${v}</td><td><span class="cx-b ${c}">${l}</span></td></tr>`}).join('');
+  $$('#mTgt input').forEach(i=>i.addEventListener('change',()=>{M.tg[i.dataset.k][+i.dataset.j]=+i.value;renderTgt()}));
+}
+$('#mWarn').addEventListener('change',e=>{M.warn=+e.target.value;renderTgt()});
+$('#mMin').addEventListener('change',e=>{M.min=+e.target.value;renderTgt()});
+
+// ----- 대시보드 -----
+const RS=[['원하는 처리를 못 했어요',101],['다시 설명해야 했어요',57],['답변이 정확하지 않아요',44],['답변이 늦었어요',25],['안내가 어려웠어요',15],['기타',5]];
+$('#dReasons').innerHTML=RS.map(([n,v])=>{const p=(v/247*100).toFixed(1);return `<div class="cx-row"><span>${n}</span><span>${v}건 <small>(${p}%)</small></span><i class="fill" style="width:${p}%;background:var(--c-red-bg)"></i></div>`}).join('');
+const TY=[['취소/반품/교환',[['품절·재고부족 취소',142,50,24,26,58,12],['취소/반품/교환 기타',40,68,19,13,83,78]]],
+ ['배송',[['배송상태 변경',88,54,27,19,66,41],['송장·택배사 오류',36,58,26,16,72,52]]],
+ ['상품',[['상품등록검수',51,60,26,14,72,55],['옵션·가격 수정',29,63,24,13,76,69]]],
+ ['정산',[['정산/매출 현황',33,66,20,14,79,61],['세금계산서',22,72,18,10,86,82]]],
+ ['입점',[['입점 심사 진행',18,50,30,20,61,33]]],
+ ['기타',[['기타 문의',95,70,20,10,69,47]]]];
+const AG=[['상담원 A',58,66,22,12,84],['상담원 B',51,61,25,14,80],['상담원 C',44,59,25,16,77],['상담원 D',37,57,24,19,75],['상담원 E',22,64,23,13,82]];
+const open=new Set(['취소/반품/교환']);
+const stack=(g,m,b)=>`<span class="stack" title="추천 ${g}% · 보통 ${m}% · 비추천 ${b}%"><i style="width:${g}%;background:var(--c-green)"></i><i style="width:${m}%;background:#F5C451"></i><i style="width:${b}%;background:var(--c-red)"></i></span>`;
+function renderDash(){
+  const t=M.tg.all[0],v=42,[c,l]=stat(v,t,554);
+  $('#dTarget').textContent=t;const gp=$('#dGap');gp.className='cx-b '+c;gp.textContent=`${l} ${v-t>=0?'+':''}${v-t}`;
+  $('#dTick').style.left=((t+100)/2)+'%';
+  const k=$$('#pg-dash .k3 .cx-k');[['ai',36,248],['ag',45,186],['hu',51,120]].forEach(([kk,vv,n],i)=>{const[cc]=stat(vv,M.tg[kk][0],n);k[i].querySelector('.v').style.color={g:'var(--c-green)',y:'var(--c-yel)',r:'var(--c-red)',n:''}[cc]});
+  const dim=$('#dDim .on').dataset.v,T=$('#dTable');
+  if(dim==='type'){
+    let rows='',tot=0;
+    TY.forEach(([g,ch])=>{const n=ch.reduce((a,r)=>a+r[1],0);tot+=n;const w=i=>Math.round(ch.reduce((a,r)=>a+r[i]*r[1],0)/n);
+      const gg=w(2),mm=w(3),bb=100-gg-mm,np=gg-bb;
+      rows+=`<tr class="grp" data-g="${g}"><td><span class="tri">${ch.length>1?(open.has(g)?'▾':'▸'):''}</span>${g}</td><td>${n}</td><td>${stack(gg,mm,bb)}</td><td>${npsPill(np,t,n)}</td><td>${w(5)}%</td><td>${w(6)}%</td></tr>`;
+      if(ch.length>1&&open.has(g))ch.forEach(r=>rows+=`<tr class="ch"><td>${r[0]}</td><td>${r[1]}</td><td>${stack(r[2],r[3],r[4])}</td><td>${npsPill(r[2]-r[4],t,r[1])}</td><td>${r[5]}%</td><td>${r[6]}%</td></tr>`)});
+    T.innerHTML=`<thead><tr><th>상담유형 (중 &gt; 소)</th><th>응답</th><th>추천·보통·비추천</th><th>NPS <i class="q" title="색은 지표 기준 관리의 목표·주의 범위를 따릅니다">?</i></th><th>해결률</th><th>AI 단독 비중</th></tr></thead><tbody>${rows}<tr class="tot"><td>합계</td><td>${tot}</td><td>${stack(58,26,16)}</td><td>${npsPill(42,t,554)}</td><td>71%</td><td>45%</td></tr></tbody>`;
+    T.querySelectorAll('tr.grp').forEach(r=>r.onclick=()=>{const g=r.dataset.g;open.has(g)?open.delete(g):open.add(g);renderDash()});
+  }else{
+    T.innerHTML=`<thead><tr><th>상담원</th><th>응답</th><th>추천·보통·비추천</th><th>NPS</th><th>해결률</th><th>저평가 의견</th></tr></thead><tbody>${AG.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${stack(r[2],r[3],r[4])}</td><td>${npsPill(r[2]-r[4],M.tg.hu[0],r[1])}</td><td>${r[5]}%</td><td><a href="#" class="cx-btn ghost" style="padding:0;font-size:11.5px" data-go="raw" onclick="return false">보기 →</a></td></tr>`).join('')}</tbody>`;
+  }
+}
+$$('#dDim button').forEach(b=>b.addEventListener('click',()=>setTimeout(renderDash)));
+// 추이 차트 (SVG)
+(()=>{const W=['8/25','9/1','9/8','9/15','9/22','9/29','10/6','10/13'],A=[29,31,30,34,34,37,39,44],H=[47,49,46,51,51,49,53,52],T=[37,39,37,41,41,42,45,47];
+ const w=620,h=220,pl=30,pr=10,pt=12,pb=26,x=i=>pl+i*(w-pl-pr)/(W.length-1),y=v=>pt+(70-v)*(h-pt-pb)/50;
+ const ln=(d,c,wd,da='')=>`<polyline fill="none" stroke="${c}" stroke-width="${wd}" ${da} points="${d.map((v,i)=>x(i)+','+y(v)).join(' ')}"/>`+d.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="#fff" stroke="${c}" stroke-width="1.6"><title>${W[i]} · ${v}</title></circle>`).join('');
+ let g='';[20,30,40,50,60,70].forEach(v=>g+=`<line x1="${pl}" x2="${w-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#EEF0F3"/><text x="${pl-6}" y="${y(v)+3}" font-size="10" fill="#9AA0AC" text-anchor="end">${v}</text>`);
+ W.forEach((d,i)=>g+=`<text x="${x(i)}" y="${h-8}" font-size="10" fill="#9AA0AC" text-anchor="middle">${d}</text>`);
+ g+=`<line x1="${pl}" x2="${w-pr}" y1="${y(45)}" y2="${y(45)}" stroke="#E5484D" stroke-dasharray="4 4"/>`;
+ $('#dChart').innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">${g}${ln(H,'#9AA3B2',2)}${ln(A,'#2E5BE6',2)}${ln(T,'#1A1D24',2.4)}</svg>`;})();
+
+// ----- 응답 데이터 -----
+const TYP=TY.flatMap(([g,ch])=>ch.map(r=>g+' > '+r[0]));
+const CM=['셀프로 바꾸라는데 메뉴에 버튼이 없어요','정보를 두 번 물어봤어요','','보류 사유를 정확히 모르겠어요','','빠르게 처리해 주셔서 좋았어요','','답변이 너무 길어요','','','상담원 연결까지 오래 걸렸어요','',''];
+const SUM=['오로라 > 주문/배송 메뉴 경로 안내 후 종료','필수 정보 수집 후 인계, 상담원이 취소 접수','검수 기간 일반 안내 자동답변','정산 담당 메일 안내','세금계산서 발행일 안내'];
+let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+const DATA=Array.from({length:64},(_,i)=>{
+  const ch=i>1&&i%9===0?'게시판':i>1&&i%23===0?'이메일':'채팅',fl=ch==='채팅'?['AI 단독','AI → 상담원','상담원 직접'][Math.floor(rnd()*3)]:(rnd()<.6?'AI 단독':'상담원 직접');
+  const r=rnd(),q1=r<.55?1:r<.8?2:3,q2=(q1===1?rnd()<.88:rnd()<.45)?'Y':'N',cm=i<4?CM[i]:(q1>1||q2==='N')?CM[Math.floor(rnd()*CM.length)]:'';
+  const d=20-Math.floor(i/3.4),hh=9+Math.floor(rnd()*9),mm=Math.floor(rnd()*60);
+  const ag=fl==='AI 단독'?'-':'상담원 '+'ABCDE'[Math.floor(rnd()*5)];
+  return{id:'R'+(26102000-i),t:`10/${String(Math.max(d,1)).padStart(2,'0')} ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`,ch,fl,type:i===0?'배송 > 배송상태 변경':i===1?'취소/반품/교환 > 품절·재고부족 취소':TYP[Math.floor(rnd()*TYP.length)],
+    fl:i===0?'AI 단독':i===1?'AI → 상담원':fl,ag:i===0?'-':i===1?'상담원 A':ag,shop:String(120000+Math.floor(rnd()*880000)),sid:'C'+(88123400+i*7),tk:'T'+(5512300+i*3),q1:i<2?[3,2][i]:q1,q2:i<2?['N','Y'][i]:q2,
+    q3:(q1>1||q2==='N')?RS[Math.floor(rnd()*5)][0]:'',cm,ver:'partner_v1',sum:SUM[i%SUM.length],st:(i<2?'확인 필요':(q1===3&&cm?(rnd()<.5?'확인 필요':'조치 완료'):'-')),memo:''}});
+const Q1L=['','추천','보통','비추천'],Q1C=['','g','y','r'];
+const low=r=>r.q1===3||r.q2==='N';
+const mask=s=>s.slice(0,2)+'***'+s.slice(-2);
+let page=1,todoOnly=false,cur=null;
+function filtered(){const ch=$('#fCh').value,fl=$('#fFl').value,q1=$('#fQ1').value,cm=$('#fCm').checked,q=$('#fQ').value.trim();
+  return DATA.filter(r=>(!ch||r.ch===ch)&&(!fl||r.fl===fl)&&(!q1||(q1==='low'?low(r):r.q1==+q1))&&(!cm||r.cm)&&(!todoOnly||r.st==='확인 필요')&&(!q||(r.sid+r.shop+r.cm+r.id).includes(q)))}
+const stB=s=>s==='확인 필요'?'<span class="cx-b r">확인 필요</span>':s==='조치 완료'?'<span class="cx-b g">조치 완료</span>':s==='개선 반영'?'<span class="cx-b bl">개선 반영</span>':'<span style="color:var(--c-mute)">-</span>';
+function renderRaw(){
+  const L=filtered(),P=Math.max(1,Math.ceil(L.length/10));page=Math.min(page,P);
+  $('#rCnt').textContent=L.length;$('#rTodo').textContent=DATA.filter(r=>r.st==='확인 필요').length;
+  $('#rBody').innerHTML=L.slice((page-1)*10,page*10).map(r=>`<tr class="clk" data-id="${r.id}"><td>${r.t}</td><td>${r.ch}</td><td><span class="cx-b ${r.fl==='AI 단독'?'bl':r.fl==='AI → 상담원'?'p':'n'}">${r.fl}</span></td><td class="l">${r.type}</td><td>${r.ag}</td><td>${mask(r.shop)}</td><td><span class="cx-b ${Q1C[r.q1]}">${Q1L[r.q1]}</span></td><td>${r.q2==='Y'?'해결':'<span style="color:var(--c-red)">미해결</span>'}</td><td class="l" style="max-width:220px;overflow:hidden;text-overflow:ellipsis">${r.cm||'<span style="color:var(--c-mute)">-</span>'}</td><td>${stB(r.st)}</td></tr>`).join('')||'<tr><td colspan="10" style="text-align:center;color:var(--c-mute);padding:30px">조건에 맞는 응답이 없습니다</td></tr>';
+  $('#rPager').innerHTML=Array.from({length:P},(_,i)=>`<button class="${i+1===page?'on':''}">${i+1}</button>`).join('');
+  $$('#rPager button').forEach((b,i)=>b.onclick=()=>{page=i+1;renderRaw()});
+  $$('#rBody tr.clk').forEach(tr=>tr.onclick=()=>openDrawer(DATA.findIndex(r=>r.id===tr.dataset.id)));
+}
+['#fCh','#fFl','#fQ1','#fCm'].forEach(s=>$(s).addEventListener('change',()=>{page=1;renderRaw()}));
+$('#fQ').addEventListener('input',()=>{page=1;renderRaw()});
+$('#fReset').onclick=()=>{['#fCh','#fFl','#fQ1','#fQ'].forEach(s=>$(s).value='');$('#fCm').checked=false;page=1;renderRaw()};
+$$('#pg-raw [data-tabs] button').forEach((b,i)=>b.addEventListener('click',()=>{todoOnly=i===1;page=1;renderRaw()}));
+const ov=$('#cxOv'),closeAll=()=>{ov.classList.remove('on');$$('.cx-drawer,.cx-modal').forEach(x=>x.classList.remove('on'))};
+ov.onclick=closeAll;$$('[data-close]').forEach(b=>b.onclick=closeAll);
+function openDrawer(i){const r=DATA[i];cur=r;
+  $('#cxDb').innerHTML=`<div class="cx-kv"><b>응답 ID</b><span>${r.id} · ${r.ver}</span><b>응답 시각</b><span>2026-${r.t.replace('/','-')}</span><b>채널 · 흐름</b><span>${r.ch} · ${r.fl}</span><b>상담유형</b><span>${r.type}</span><b>상담원</b><span>${r.ag}</span><b>상담 · 티켓</b><span>${r.sid} · ${r.tk}</span><b>샵 ID</b><span>${mask(r.shop)}</span></div>
+  <div class="cx-hr2"></div><div class="cx-kv"><b>Q1 추천</b><span><span class="cx-b ${Q1C[r.q1]}">${Q1L[r.q1]}</span></span><b>Q2 해결</b><span>${r.q2==='Y'?'해결됐어요':'해결되지 않았어요'}</span><b>Q3 아쉬운 점</b><span>${r.q3||'-'}</span></div>
+  <div class="cx-lbl" style="margin-top:10px">Q4 의견</div><div class="cx-quote">${r.cm||'의견 없음'}</div>
+  <div class="cx-lbl" style="margin-top:10px">상담 요약 (AI)</div><div class="cx-quote">${r.sum} <a href="#" onclick="return false" style="color:var(--c-blue);font-weight:600;margin-left:4px">대화 원문 →</a></div>
+  <div class="cx-hr2"></div><div class="cx-lbl" style="margin-bottom:6px">후속 조치</div>
+  <div class="cx-seg" id="dSt">${['-','확인 필요','조치 완료','개선 반영'].map(s=>`<button class="${s===r.st?'on':''}">${s==='-'?'해당 없음':s}</button>`).join('')}</div>
+  <textarea class="cx-inp" id="dMemo" style="width:100%;margin-top:8px;min-height:60px" placeholder="조치 내용 메모 (예: KMS 「셀프 배송상태 변경」 경로 수정 요청)">${r.memo}</textarea>
+  ${DATA.filter(x=>x.shop===r.shop&&low(x)).length>1?'<div class="cx-banner" style="margin:10px 0 0;background:var(--c-red-bg)">이 샵은 최근 30일 안에 저평가를 2번 이상 남겼습니다</div>':''}`;
+  $$('#dSt button').forEach(b=>b.onclick=()=>$$('#dSt button').forEach(x=>x.classList.toggle('on',x===b)));
+  ov.classList.add('on');$('#cxDrawer').classList.add('on');
+}
+$('#dSave').onclick=()=>{const s=$('#dSt .on').textContent;cur.st=s==='해당 없음'?'-':s;cur.memo=$('#dMemo').value;closeAll();renderRaw();toast('후속 조치를 저장했습니다')};
+// 다운로드
+const COLS=[['id','응답 ID',1],['t','응답 시각',1],['ch','채널',1],['fl','응대 흐름',1],['type','상담유형',1],['ag','상담원',1],['sid','상담 ID',1],['tk','티켓 ID',1],['shop','샵 ID',1],['ver','템플릿 버전',1],['q1','Q1 추천',1],['q2','Q2 해결',1],['q3','Q3 아쉬운 점',1],['cm','Q4 의견',1],['st','후속 조치',0],['memo','조치 메모',0]];
+$('#dlCols').innerHTML=COLS.map(([k,l,on])=>`<label class="cx-check"><input type="checkbox" value="${k}" ${on?'checked':''}> ${l}</label>`).join('');
+const HIST=[['10/17 09:12','Enzo Joo',412,'예','주간 보고용'],['10/13 10:40','센터 매니저',96,'예','저평가 건 코칭']];
+const renderHist=()=>$('#histBody').innerHTML=HIST.map(h=>`<tr><td>${h[0]}</td><td>${h[1]}</td><td>${h[2]}</td><td>${h[3]}</td><td class="l">${h[4]}</td></tr>`).join('');
+$('#rDl').onclick=()=>{$('#dlCnt').textContent=filtered().length;ov.classList.add('on');$('#cxDl').classList.add('on')};
+$('#rHist').onclick=()=>{renderHist();ov.classList.add('on');$('#cxHist').classList.add('on')};
+$('#dlGo').onclick=()=>{
+  const why=$('#dlWhy').value.trim();if(!why){$('#dlWhy').focus();toast('다운로드 사유를 적어 주세요');return}
+  const rows=cx.querySelector('[name=dlr]:checked').value==='f'?filtered():DATA,ks=$$('#dlCols input:checked').map(i=>i.value),mk=$('#dlMask').checked,tx=$('#dlTxt').checked;
+  const val=(r,k)=>k==='shop'&&mk?mask(r.shop):k==='q1'?Q1L[r.q1]:k==='q2'?(r.q2==='Y'?'해결':'미해결'):k==='cm'&&!tx?'':k==='t'?'2026-'+r.t.replace('/','-'):r[k];
+  const esc=v=>`"${String(v??'').replace(/"/g,'""')}"`;
+  const csv='﻿'+[ks.map(k=>COLS.find(c=>c[0]===k)[1]).map(esc).join(','),...rows.map(r=>ks.map(k=>esc(val(r,k))).join(','))].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='nps_responses_partner_20261001_20261020.csv';a.click();
+  HIST.unshift(['10/20 '+new Date().toTimeString().slice(0,5),'Enzo Joo',rows.length,mk?'예':'아니오',why]);closeAll();toast(`${rows.length}건을 내려받았습니다 · 감사 로그 기록 (예시 데이터)`);
+};
+
+// ----- 문항 관리 -----
+const TYPES={nps3:'3단계 추천',csat5:'5점 만족도',nps11:'11점 (0~10)',yn:'예 / 아니오',multi:'복수 선택',text:'자유 입력'};
+const DEF={nps3:'추천해요,보통이에요,추천하지 않아요',csat5:'매우 불만족,불만족,보통,만족,매우 만족',nps11:'',yn:'해결됐어요,해결되지 않았어요',multi:'선택지 1,선택지 2',text:''};
+const QS=[{t:'nps3',q:'오늘 상담 경험을 바탕으로 오늘의집 파트너센터 상담을 다른 파트너에게 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
+ {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
+ {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,다시 설명해야 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},
+ {t:'text',q:'더 하고 싶은 말씀이 있으면 적어 주세요.',o:'',req:0,cond:'항상'}];
+const esc2=s=>s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+function renderQ(){
+  $('#qList').innerHTML=QS.map((x,i)=>`<div class="cx-qc"><div class="top"><span class="no">Q${i+1}</span><select class="cx-sel" data-f="t" data-i="${i}">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${k===x.t?'selected':''}>${v}</option>`).join('')}</select>
+    <label class="cx-check" style="font-size:11px">필수 <span class="sw"><input type="checkbox" data-f="req" data-i="${i}" ${x.req?'checked':''}><span></span></span></label>
+    <span class="sp"><button class="mini" data-mv="-1" data-i="${i}" title="위로">▲</button><button class="mini" data-mv="1" data-i="${i}" title="아래로">▼</button><button class="mini" data-del="${i}" title="삭제">✕</button></span></div>
+    <input class="cx-inp w" data-f="q" data-i="${i}" value="${esc2(x.q)}" maxlength="80">
+    <div class="grid3"><label style="grid-column:span 2">선택지 (쉼표로 구분)<input class="cx-inp w" data-f="o" data-i="${i}" value="${esc2(x.o)}" ${x.t==='text'||x.t==='nps11'?'disabled placeholder="선택지 없음"':''}></label>
+    <label>노출 조건<select class="cx-sel" data-f="cond" data-i="${i}">${['항상','Q1이 보통·비추천 또는 Q2가 아니오','Q1이 비추천일 때','Q2가 아니오일 때'].map(c=>`<option ${c===x.cond?'selected':''}>${c}</option>`).join('')}</select></label></div></div>`).join('');
+  $$('#qList [data-f]').forEach(e=>e.addEventListener(e.tagName==='SELECT'||e.type==='checkbox'?'change':'input',()=>{const x=QS[e.dataset.i],f=e.dataset.f;
+    if(f==='req')x.req=e.checked?1:0;else x[f]=e.value; if(f==='t'){x.o=DEF[x.t];renderQ()}else renderPv()}));
+  $$('#qList [data-mv]').forEach(b=>b.onclick=()=>{const i=+b.dataset.i,j=i+ +b.dataset.mv;if(j<0||j>=QS.length)return;[QS[i],QS[j]]=[QS[j],QS[i]];renderQ()});
+  $$('#qList [data-del]').forEach(b=>b.onclick=()=>{if(QS.length<=1)return;QS.splice(+b.dataset.del,1);renderQ()});
+  renderPv();
+}
+function renderPv(){
+  $('#qPv').innerHTML=QS.map((x,i)=>{const op=x.o.split(',').map(s=>s.trim()).filter(Boolean);let body='';
+    if(x.t==='nps11')body=`<div class="po n11">${Array.from({length:11},(_,k)=>`<span>${k}</span>`).join('')}</div>`;
+    else if(x.t==='text')body='<div class="pt">자유롭게 적어 주세요</div>';
+    else body=`<div class="po${x.t==='multi'?' multi':''}">${op.map(s=>`<span>${esc2(s)}</span>`).join('')}</div>`;
+    return `<div class="pn">Q${i+1}${x.req?'':' · 선택'}${x.cond!=='항상'?' · 조건부':''}</div><div class="pq">${esc2(x.q)||'(문구 없음)'}</div>${body}`}).join('')+'<div style="margin-top:12px;background:#4A9CFF;color:#fff;text-align:center;border-radius:8px;padding:8px;font-weight:700">평가 보내기</div>';
+}
+$('#qAdd').onclick=()=>{QS.push({t:'text',q:'새 문항',o:'',req:0,cond:'항상'});renderQ()};
+$('#qSave').onclick=()=>toast('partner_v2로 저장했습니다 · 다음 상담부터 적용 (데모)');
+$$('#pg-qm .cx-tpl .it').forEach(it=>{if(it.style.cursor)return;it.addEventListener('click',()=>{$$('#pg-qm .cx-tpl .it').forEach(x=>{if(!x.style.cursor)x.classList.toggle('on',x===it)})})});
+
+renderDash();renderRaw();renderQ();renderTgt();
+})();
+
 document.getElementById('themeBtn').onclick=()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=dark?'light':'dark'};
 </script>
 </body>
