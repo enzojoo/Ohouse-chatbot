@@ -432,7 +432,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 <div class="wrap">
 <header class="top">
   <h1>파트너센터 만족도 화면 구성안</h1>
-  <p>채팅·게시판 화면 안에서 만족도를 받고, AICX 콘솔에서 문항·기준을 관리하고 집계하는 구성입니다. 파트너센터에 먼저 적용하고 고객센터에도 같은 부품을 쓰는 것을 전제로 했습니다. <span class="badge">초안 · 화면의 숫자는 모두 예시</span></p>
+  <p>채팅·게시판 화면 안에서 만족도를 받고, AICX 콘솔에서 문항·기준을 관리하고 집계하는 구성입니다. 파트너센터에 먼저 적용하고 고객센터에도 같은 부품을 쓰는 것을 전제로 했습니다. <span class="badge">초안 · 화면의 숫자와 답변 문구는 모두 예시</span></p>
 </header>
 
 <div class="tabs" role="tablist">
@@ -574,7 +574,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <div class="cx-bell-pop" id="cxBellPop">
           <div>비추천 + 의견: 배송 &gt; 배송상태 변경<small>10/17 15:02 · 응답 데이터에서 보기</small></div>
           <div>같은 샵 30일 안 저평가 2회 (샵 12***89)<small>10/17 11:40</small></div>
-          <div>주간 NPS 리포트 발송 완료<small>10/13 09:00 · 서비스운영팀 4명</small></div>
+          <div>주간 NPS 리포트 발송 완료<small>10/13 09:00 · 받는 사람 3명</small></div>
         </div>
       </button>
     </div>
@@ -671,6 +671,8 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <div class="h">설문 템플릿 <button class="cx-btn ghost" style="padding:0" data-toast="새 템플릿을 만들었습니다 (데모)">+ 추가</button></div>
         <div class="it on" data-tpl="partner_v1">partner_v1 · 파트너센터 상담 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
         <div class="it" data-tpl="partner_board_v1">partner_board_v1 · 게시판 답변 평가<small><span class="cx-b g">사용 중</span> 버전 2 · 10/20 저장</small></div>
+        <div class="it" data-tpl="prepartner_v1">prepartner_v1 · 예비파트너 이메일 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
+        <div class="it" data-tpl="ai_rating_v1">ai_rating_v1 · AI 응대 평가 (1문항)<small><span class="cx-b g">사용 중</span> AI → 상담원 흐름에 덧붙임</small></div>
         <div class="it" data-tpl="cs_v3">cs_v3 · 고객센터 상담 평가<small><span class="cx-b n">예정</span> 고객센터 이관 시</small></div>
         <div class="it" data-tpl="partner_v0">partner_v0 · 초안<small><span class="cx-b n">보관</span> 10/14</small></div>
       </div>
@@ -711,7 +713,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <tr><td>5점 만족도</td><td><input class="cx-inp" value="5" style="width:70px;text-align:center"></td><td><input class="cx-inp" value="4" style="width:70px;text-align:center"></td><td><input class="cx-inp" value="1 ~ 3" style="width:70px;text-align:center"></td><td>-</td></tr>
       </tbody>
     </table>
-    <div class="cx-note" style="margin-top:8px">3단계는 고객센터 ECA 설문(1=추천 / 2=보통 / 3=비추천)과 같은 값으로 저장해 두 센터를 같은 기준으로 비교합니다.</div>
+    <div class="cx-note" style="margin-top:8px">3단계는 고객센터 문자 설문(1=추천한다 / 2=모르겠다 / 3=추천하지 않는다)과 같은 숫자로 저장해 두 센터를 비교합니다. 가운데 보기 문구는 다릅니다 (파트너센터 「보통이에요」, 고객센터 「모르겠다」).</div>
   </div>
 
   <div class="cx-st">목표와 경고 기준</div>
@@ -754,6 +756,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
   </div>
   <div class="cx-st">노출하지 않는 경우</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
+    <label class="cx-check" style="justify-content:space-between">오접수·용건 없음으로 끝난 상담 <label class="sw"><input type="checkbox" checked><span></span></label></label>
     <label class="cx-check" style="justify-content:space-between">무응답으로 자동 종료된 채팅 <label class="sw"><input type="checkbox" checked><span></span></label></label>
     <label class="cx-check" style="justify-content:space-between">운영시간 밖 게시판 안내로 끝난 채팅 <label class="sw"><input type="checkbox" checked><span></span></label></label>
     <label class="cx-check" style="justify-content:space-between">게시판 답변이 확인중·후처리 상태일 때 <label class="sw"><input type="checkbox" checked><span></span></label></label>
@@ -841,6 +844,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <tr><td>게시판 답변이 확인중·후처리 상태일 때</td></tr>
         <tr><td>같은 샵이 기준 기간 안에 이미 평가했을 때 (기존 NPS 규칙 동일하게 적용)</td></tr>
         <tr><td>운영시간 밖 게시판 안내로 끝난 채팅 (상담이 이루어지지 않음)</td></tr>
+        <tr><td>상담 중 욕설·위협으로 종료된 건</td></tr>
         <tr><td>제외 상담유형으로 분류된 상담 (콘솔 「노출 규칙」에서 설정)</td></tr>
       </tbody>
     </table>
@@ -850,22 +854,26 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <table>
       <tbody>
         <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원)</td></tr>
-        <tr><td><b>연결값</b></td><td>상담 ID, 티켓 ID, 샵ID, 파트너ID, 상담원 ID</td></tr>
+        <tr><td><b>연결값</b></td><td>상담 ID, 티켓 ID(이메일 설문은 링크의 문의 번호), 샵ID, 파트너ID, 상담원 ID</td></tr>
         <tr><td><b>유형</b></td><td>ECA 상담유형 중분류·소분류</td></tr>
         <tr><td><b>설문</b></td><td>템플릿 ID·버전</td></tr>
-        <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트</td></tr>
+        <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트, AI 응대 평가(1/2/3, AI → 상담원 흐름만)</td></tr>
+        <tr><td><b>표시</b></td><td>AI 1차 답변 있음 (게시판에서 AI 자동답변 후 상담원이 답변한 건)</td></tr>
         <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용)</td></tr>
       </tbody>
     </table>
   </div>
 </div>
+<div class="note" style="margin-top:18px"><b>확정</b><br>• 같은 샵 중복 노출 제한: 기존 NPS 규칙 동일하게 적용 (10/20)</div>
 <div class="sectitle">결정 필요</div>
 <div class="decide">
   <ol>
     <li>메인 척도: 고객센터와 같은 3단계 추천 NPS로 갈지 (제안: 3단계)</li>
     <li>Q1 문구: 「다른 파트너에게 추천」으로 갈지, 만족도 질문으로 바꿀지</li>
-    <li>중복 노출 제한: 같은 샵 1일 1회 / 3일 1회</li>
-    <li>게시판 응답 기한 (제안: 답변완료 후 7일)</li>
+    <li>가운데 보기 문구: 파트너센터 「보통이에요」와 고객센터 「모르겠다」가 다름. 두 센터를 나란히 비교하려면 맞출지 결정 필요</li>
+    <li>게시판·이메일 응답 기한 (제안: 답변완료 후 7일)</li>
+    <li>노출 제외 상담유형 초기값</li>
+    <li>추가 제안 기능(후속 조치, 알림, 정기 리포트, 노출 비율)을 1차 범위에 넣을지</li>
   </ol>
 </div>
 </section>
@@ -932,7 +940,7 @@ function rec(){
   const S=SC[sc],v=x=>x==null||x===''?'<span class="n">null</span>':`<span class="s">"${String(x).replace(/</g,'&lt;')}"</span>`;
   const row=(k,x)=>`  <span class="k">${k}</span>: ${x}`;
   const lines=[row('service',v('partner')),row('channel',v('chat')),row('flow',v(S.flow)),row('consult_id',v(sc==='ag'?'C88123517':sc==='hu'?'C88123522':'C88123501')),
-   row('agent',v(S.agent)),row('eca_type',v(sc==='ag'?'취소/반품/교환 > 품절·재고부족 취소':sc==='hu'?'정산 > 정산/매출 현황':'취소/반품/교환 > 반품 배송비')),row('template',v('partner_v1')),
+   row('agent',v(S.agent)),row('eca_type',v(sc==='ag'?'취소/반품/교환 > 품절·재고부족 취소':sc==='hu'?'정산 > 정산/매출 현황':'취소/반품/교환 > 취소/반품/교환 기타')),row('template',v('partner_v1')),
    row('q1',A.q1?`${A.q1} <span class="n">// ${L1[A.q1]}</span>`:v(null)),row('q2',v(A.q2))];
   if(sc==='ag')lines.push(row('ai_rating',A.ai?`${A.ai} <span class="n">// ${LA[A.ai]}</span>`:v(null)));
   lines.push(row('q3',A.q3.length?'['+A.q3.map(x=>v(x)).join(', ')+']':'[]'),row('q4',v(A.q4)),row('shown_at',v('2026-10-20T10:03:12')),row('answered_at',A.sent?v('2026-10-20T10:03:40'):v(null)));
@@ -1048,7 +1056,7 @@ const DS={
   ch:{A:[28,30,29,33,33,36,38,43],H:[46,48,45,50,50,48,52,51],T:[36,38,36,40,40,41,44,46]},
   side:['상담 시간대별',['시간대','응답','NPS','해결률','AI 단독 비중'],[['오전 09~12시',158,42,'70%','38%'],['점심 12~13시 (AI만 응대)',41,30,'56%','100%'],['오후 13~18시',203,43,'71%','35%']],'점심시간에는 AI만 응대하고, 상담원 연결이 필요하면 게시판으로 안내합니다.']},
  board:{lbl:'파트너센터 게시판',nps:45,prev:39,g:91,m:38,b:23,res:77,rprev:72,rr:14,shown:'1,086',q3:59,ai:0,r:.27,dl:3,
-  fl:[['AI 자동답변','ai',43,78,74,'var(--c-blue)'],['AI 답변 후 상담원 확인','ag',44,34,79,'var(--c-pur)'],['상담원 답변','hu',53,40,84,'#7C8798']],
+  fl:[['AI 단독 (자동답변)','ai',43,78,74,'var(--c-blue)'],['AI → 상담원 (자동답변 후 상담원 확인)','ag',44,34,79,'var(--c-pur)'],['상담원 직접 (상담원 답변)','hu',53,40,84,'#7C8798']],
   ch:{A:[33,35,36,38,37,40,42,45],H:[48,50,47,52,53,50,54,55],T:[39,41,40,44,44,44,47,49]},
   side:['답변 소요 시간별',['답변까지','응답','NPS','해결률','AI 답변 비중'],[['1시간 이내',84,52,'81%','88%'],['당일',41,41,'75%','24%'],['다음 영업일 이후',27,29,'68%','4%']],'게시판 응답에는 예비파트너 이메일 설문 21건이 포함됩니다.']}};
 let dtab='all';
@@ -1112,7 +1120,7 @@ const CM=['셀프로 바꾸라는데 메뉴에 버튼이 없어요','정보를 �
 const SUM=['오로라 > 주문/배송 메뉴 경로 안내 후 종료','필수 정보 수집 후 인계, 상담원이 취소 접수','검수 기간 일반 안내 자동답변','정산 담당 메일 안내','세금계산서 발행일 안내'];
 let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
 const DATA=Array.from({length:64},(_,i)=>{
-  const ch=i>1&&i%9===0?'게시판':i>1&&i%23===0?'이메일':'채팅',fl=ch==='채팅'?['AI 단독','AI → 상담원','상담원 직접'][Math.floor(rnd()*3)]:(rnd()<.6?'AI 단독':'상담원 직접');
+  const ch=i>1&&i%9===0?'게시판':i>1&&i%23===0?'이메일':'채팅',fl=ch==='채팅'?['AI 단독','AI → 상담원','상담원 직접'][Math.floor(rnd()*3)]:(ch==='이메일'?'상담원 직접':(r0=>r0<.5?'AI 단독':r0<.72?'AI → 상담원':'상담원 직접')(rnd()));
   const r=rnd(),q1=r<.55?1:r<.8?2:3,q2=(q1===1?rnd()<.88:rnd()<.45)?'Y':'N',cm=i<4?CM[i]:(q1>1||q2==='N')?CM[Math.floor(rnd()*CM.length)]:'';
   const d=20-Math.floor(i/3.4),hh=9+Math.floor(rnd()*9),mm=Math.floor(rnd()*60);
   const ag=fl==='AI 단독'?'-':'상담원 '+'ABCDE'[Math.floor(rnd()*5)];
@@ -1183,6 +1191,12 @@ const TPL={
   {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
   {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
   tg:[['파트너센터 채팅',0],['파트너센터 게시판',1],['고객센터',0]],hist:[['v2 · 10/20 · Enzo Joo','Q3·Q4 추가 (저평가 사유 수집)'],['v1 · 10/19 · Enzo Joo','Q1·Q2만']]},
+ prepartner_v1:{qs:[{t:'nps3',q:'이번 답변으로 다른 분께 파트너센터를 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
+  {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
+  {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
+  tg:[['예비파트너 이메일 (설문 링크)',1]],hist:[['v1 · 10/20 · Enzo Joo','아직 파트너가 아니라 Q1을 「다른 분께」로 바꿈']]},
+ ai_rating_v1:{qs:[{t:'nps3',q:'처음 응대한 AI 상담원은 어떠셨나요?',o:'좋았어요,보통이에요,아쉬워요',req:0,cond:'항상'}],
+  tg:[['AI → 상담원 흐름에 덧붙임',1]],hist:[['v1 · 10/20 · Enzo Joo','고객센터 「챗봇 → 상담사」 설문의 챗봇 문항과 같은 구조']]},
  cs_v3:{qs:[{t:'nps3',q:'오늘 상담 경험을 바탕으로 오늘의집 고객센터를 지인에게 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
   {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
   {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,연결까지 오래 걸렸어요,다시 설명해야 했어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
@@ -1227,20 +1241,21 @@ $$('#pg-qm [data-tpl]').forEach(it=>it.addEventListener('click',()=>selectTpl(it
 const RU=[['채팅','AI 단독','AI 응대','partner_v1','ai','종료 직후',1],
  ['채팅','AI → 상담원','상담원 응대 + AI 응대','partner_v1','aiq','상담원 종료 직후',1],
  ['채팅','상담원 직접','상담원 응대','partner_v1','','상담원 종료 직후',1],
- ['게시판','AI 자동답변','AI 응대','partner_board_v1','','답변완료 직후',1],
- ['게시판','AI 답변 후 상담원 확인','상담원 응대','partner_board_v1','mark','상담원 답변완료 직후',1],
- ['게시판','상담원 답변','상담원 응대','partner_board_v1','','답변완료 직후',1],
- ['이메일','예비파트너 답변','상담원 응대','partner_board_v1','','답변 메일에 설문 링크',1]];
+ ['게시판','AI 단독 (자동답변)','AI 응대','partner_board_v1','','답변완료 직후',1],
+ ['게시판','AI → 상담원 (자동답변 후 상담원 확인)','상담원 응대','partner_board_v1','mark','상담원 답변완료 직후',1],
+ ['게시판','상담원 직접 (상담원 답변)','상담원 응대','partner_board_v1','','답변완료 직후',1],
+ ['이메일','예비파트너 답변','상담원 응대','prepartner_v1','','답변 메일에 설문 링크',1]];
 let aiQ=1;
 function renderRule(){
-  $('#ruBody').innerHTML=RU.map((r,i)=>{const on=r[6],ex=r[4]==='aiq'?`<label class="cx-check"><label class="sw"><input type="checkbox" data-rx ${aiQ?'checked':''} ${on?'':'disabled'}><span></span></label> AI 응대 평가 1문항 추가</label>`:r[4]==='mark'?'<span class="cx-note">데이터에 「AI 1차 답변 있음」 표시</span>':'<span class="cx-note">-</span>';
+  $('#ruBody').innerHTML=RU.map((r,i)=>{const on=r[6],ex=r[4]==='aiq'?`<label class="cx-check"><label class="sw"><input type="checkbox" data-rx ${aiQ?'checked':''} ${on?'':'disabled'}><span></span></label> AI 응대 평가 1문항 추가 <a href="#" class="cx-btn ghost" style="padding:0 2px;font-size:11px" data-rqa>ai_rating_v1</a></label>`:r[4]==='mark'?'<span class="cx-note">데이터에 「AI 1차 답변 있음」 표시</span>':'<span class="cx-note">-</span>';
     return `<tr class="${on?'':'off'}"><td><label class="sw"><input type="checkbox" data-ru="${i}" ${on?'checked':''}><span></span></label></td><td class="l"><b>${r[0]}</b> · ${r[1]}</td><td>${r[4]==='aiq'&&!aiQ?'상담원 응대':r[2]}</td>
-    <td><select class="cx-sel" data-rt="${i}" ${on?'':'disabled'}>${Object.keys(TPL).filter(k=>k!=='partner_v0').map(k=>`<option ${k===r[3]?'selected':''}>${k}</option>`).join('')}</select> <a href="#" class="cx-btn ghost" style="padding:0 4px;font-size:11px" data-rq="${i}">문항 보기</a></td>
+    <td><select class="cx-sel" data-rt="${i}" ${on?'':'disabled'}>${Object.keys(TPL).filter(k=>k!=='partner_v0'&&k!=='ai_rating_v1').map(k=>`<option ${k===r[3]?'selected':''}>${k}</option>`).join('')}</select> <a href="#" class="cx-btn ghost" style="padding:0 4px;font-size:11px" data-rq="${i}">문항 보기</a></td>
     <td class="l">${ex}</td><td>${on?r[5]:'<span style="color:var(--c-red);font-weight:600">띄우지 않음</span>'}</td></tr>`}).join('');
   const n=RU.filter(r=>r[6]).length;$('#ruSum').innerHTML=`${RU.length}개 응대 흐름 중 <b style="color:var(--c-t)">${n}개</b>에서 평가를 띄웁니다`;
   $$('#ruBody [data-ru]').forEach(c=>c.onchange=()=>{RU[+c.dataset.ru][6]=c.checked?1:0;renderRule()});
   $$('#ruBody [data-rt]').forEach(c=>c.onchange=()=>{RU[+c.dataset.rt][3]=c.value;toast(`${RU[+c.dataset.rt][1]} → ${c.value} 템플릿으로 바꿨습니다`)});
   $$('#ruBody [data-rx]').forEach(c=>c.onchange=()=>{aiQ=c.checked?1:0;renderRule()});
+  $$('#ruBody [data-rqa]').forEach(a=>a.onclick=e=>{e.preventDefault();go('qm');selectTpl('ai_rating_v1')});
   $$('#ruBody [data-rq]').forEach(a=>a.onclick=e=>{e.preventDefault();go('qm');selectTpl(RU[+a.dataset.rq][3])});
 }
 const ECA=[["배송", ["배송기타", "배송상태 변경"]], ["취소/반품/교환", ["취소/반품/교환 기타", "주문·결제 금액 조회", "부분취소 처리", "대량취소 처리", "품절·재고부족 취소", "기타 사유 취소", "반품 대리접수", "클레임 상태 변경", "구매확정 후 취소·환불"]], ["상품", ["상품등록검수", "상품 관리", "지식재산권 및 도용", "검수 반려·판매정지 사유", "상품명·옵션명 수정 요청", "상품 미노출·수정 미반영", "카테고리 추가·변경"]], ["문의/리뷰", ["문의게시판", "고객리뷰"]], ["입점", ["입점 문의", "입점 현황", "입점 이슈"]], ["시스템", ["스토어관리 문의", "스토어관리 이슈", "연동프로그램"]], ["정산", ["정산 수수료", "세금계산서 / 부가세신고", "정산/매출 현황"]], ["정보변경", ["단순 정보변경", "서류 정보변경"]], ["고객 OB", ["고객 OB"]], ["기타", ["기타"]], ["운영", ["담당 MD 관련", "표준 수수료", "프로모션·광고"]]];
