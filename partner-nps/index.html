@@ -469,7 +469,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     </div>
     <div class="card" style="margin-top:14px">
       <h3>AICX에 저장되는 값 <span class="badge" id="recState">응답 대기</span></h3>
-      <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다. 필드는 구현 요건 시트 「3. 저장 데이터」와 같습니다. 상담유형은 ECA에 등록된 이름과 똑같은 대·중·소 텍스트로 저장하고, ECA가 티켓을 만들 때 같은 이름의 코드로 바꿉니다. 채팅에 해당하지 않는 token(이메일 설문)·ai_first_answer(게시판)와 콘솔에서 입력하는 후속 조치는 빠져 있습니다.</p>
+      <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다. 필드는 구현 요건 시트 「3. 저장 데이터」와 같습니다. 상담유형은 ECA에 등록된 이름과 똑같은 대·중·소 텍스트로 저장하고, ECA가 티켓을 만들 때 같은 이름의 코드로 바꿉니다. 채팅에 해당하지 않는 token(링크형 설문)·ai_first_answer(게시판)와 콘솔에서 입력하는 후속 조치는 빠져 있습니다.</p>
       <pre class="rec" id="chRec"></pre>
     </div>
     <div class="note"><b>평가 카드 공통 규칙</b><br>• 한 상담에 한 번만 응답하고, 응답 후에는 수정할 수 없습니다<br>• Q1·Q2를 고르면 다음 문항이 열리고, Q3은 Q1이 「보통·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 보입니다<br>• 다시 「추천해요」와 「해결됐어요」로 바꾸면 Q3은 닫히고 골랐던 값도 지워집니다 (Q3은 빈 값으로 저장)<br>• 카드를 닫거나 무시해도 상담 이용에는 영향이 없고, 미응답은 응답률 계산에만 쓰입니다<br>• 평가 카드는 본인 상담 화면에서만 보이고, 제출 후에는 고른 점수를 다시 보여 주지 않습니다</div>
@@ -495,24 +495,24 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 
 <div class="grid g2" style="margin-top:22px;align-items:start">
   <div class="card">
-    <h3>예비파트너 · 이메일 답변 <span class="badge">비회원</span></h3>
-    <p class="desc">예비파트너는 게시판 이력이 없어서, 고객센터 NPS 문자처럼 답변 메일 끝에 설문 링크를 붙입니다. 링크를 누르면 설문 페이지가 열리고, 그 안에서 Q1~Q4를 받습니다.</p>
+    <h3>링크형 설문 · 확장용 예시 <span class="badge">1차 미사용</span></h3>
+    <p class="desc">예비파트너 이메일 창구는 없앴습니다(비회원은 게시판을 쓸 수 없고 채팅만 이용). 링크형 설문은 구조만 만들어 두고, 이후 고객센터 콜 종료 후 문자 설문처럼 상담이 끝난 뒤 보내는 메시지에 설문 링크를 붙일 때 씁니다. 링크를 누르면 설문 페이지가 열리고, 그 안에서 Q1~Q4를 받습니다.</p>
     <div class="mail">
-      <div class="from">보낸 사람: 오늘의집 파트너센터<br>제목: [오늘의집 파트너센터] 문의하신 내용에 답변드립니다</div>
-      안녕하세요. 오늘의집 파트너센터입니다.<br><br>문의하신 내용에 답변드립니다.<br><br><span style="color:var(--mute)">(상담원 답변 내용)</span><br><br>감사합니다.
+      <div class="from">문자(LMS) 예시 · 보낸 번호: 오늘의집 고객센터 (확장 시 예: 콜 종료 후 발송)</div>
+      [오늘의집] 상담은 만족스러우셨나요?<br><br>방금 받으신 상담에 대한 의견을 남겨 주시면 더 나은 서비스를 위해 참고하겠습니다.
       <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--line);font-size:13px">
         답변이 도움이 되셨는지 의견을 남겨 주세요.<br><br>
         ▷ 오늘의집 파트너센터 설문조사 링크<br>
         <a href="#" class="link" id="mailLink">https://(설문 주소)/partner#ticketid=5812301</a>
       </div>
     </div>
-    <div class="hint" style="margin-top:8px">링크 끝에 문의 번호(ticketid)를 붙여 어느 문의의 평가인지 구분합니다. 고객센터 NPS 문자와 같은 형식입니다.</div>
+    <div class="hint" style="margin-top:8px">링크 끝에 상담 번호(ticketid)를 붙여 어느 상담의 평가인지 구분합니다. 지금 고객센터 NPS 문자와 같은 형식입니다.</div>
   </div>
   <div class="card">
     <h3>링크를 누르면 열리는 설문 페이지</h3>
-    <p class="desc">메일의 링크를 누르면 이 화면이 새 창으로 열립니다. 문항은 게시판 답변 평가와 같습니다.</p>
+    <p class="desc">메시지의 링크를 누르면 이 화면이 새 창으로 열립니다. 문항은 link_v1 템플릿을 따릅니다.</p>
     <div class="land" id="land">
-      <div class="lh">오늘의집 파트너센터 · 답변 평가</div>
+      <div class="lh">오늘의집 · 상담 평가</div>
       <div class="lb" id="landBody">
         <p class="q2">이번 답변으로 다른 분께 파트너센터를 추천하시겠어요?</p>
         <div class="lopt" data-k="q1"><button data-v="1">추천해요</button><button data-v="2">보통이에요</button><button data-v="3">추천하지 않아요</button></div>
@@ -526,7 +526,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     </div>
   </div>
 </div>
-<div class="note"><b>게시판·이메일 규칙</b><br>• 평가 영역은 「답변완료」에서만 보이고, 확인중·후처리 상태에서는 보이지 않습니다<br>• Q3(아쉬운 점)은 Q1이 「보통이에요·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 열립니다. 다시 「추천해요」와 「해결됐어요」로 바꾸면 닫히고 골랐던 값도 지워집니다<br>• AI 자동답변 후 상담원 확인으로 넘어간 건은 상담원 최종 답변 때 한 번만 받고, 데이터에 「AI 1차 답변 있음」을 표시합니다<br>• 답변 아래에 추가 글을 달 수 없어서, 해결되지 않은 건은 새 문의로 안내합니다<br>• 답변완료 후 7일이 지나면 평가 영역과 설문 링크를 닫습니다<br>• 평가 영역은 본인 1:1 문의 상세에서만 보이고, 제출 후에는 고른 점수를 다시 보여 주지 않습니다</div>
+<div class="note"><b>게시판·링크형 설문 규칙</b><br>• 평가 영역은 「답변완료」에서만 보이고, 확인중·후처리 상태에서는 보이지 않습니다<br>• Q3(아쉬운 점)은 Q1이 「보통이에요·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 열립니다. 다시 「추천해요」와 「해결됐어요」로 바꾸면 닫히고 골랐던 값도 지워집니다<br>• AI 자동답변 후 상담원 확인으로 넘어간 건은 상담원 최종 답변 때 한 번만 받고, 데이터에 「AI 1차 답변 있음」을 표시합니다<br>• 답변 아래에 추가 글을 달 수 없어서, 해결되지 않은 건은 새 문의로 안내합니다<br>• 답변완료 후 7일이 지나면 평가 영역과 설문 링크를 닫습니다<br>• 평가 영역은 본인 1:1 문의 상세에서만 보이고, 제출 후에는 고른 점수를 다시 보여 주지 않습니다</div>
 </section>
 
 <!-- ③ AICX 콘솔 · 만족도 -->
@@ -645,7 +645,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
   </div>
   <div class="cx-filter">
     <label>기간 <input class="cx-inp" type="text" value="2026-10-01 ~ 2026-10-20" style="width:170px"></label>
-    <select class="cx-sel" id="fCh"><option value="">채널 전체</option><option>채팅</option><option>게시판</option><option>이메일</option></select>
+    <select class="cx-sel" id="fCh"><option value="">채널 전체</option><option>채팅</option><option>게시판</option><option>링크형</option></select>
     <select class="cx-sel" id="fFl"><option value="">응대 흐름 전체</option><option>AI 단독</option><option>AI → 상담원</option><option>상담원 직접</option></select>
     <select class="cx-sel" id="fQ1"><option value="">평가 전체</option><option value="low">저평가만 (비추천 또는 미해결)</option><option value="1">추천</option><option value="2">보통</option><option value="3">비추천</option></select>
     <label class="cx-check"><input type="checkbox" id="fCm"> 의견 있는 건만</label>
@@ -671,7 +671,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <div class="h">설문 템플릿 <button class="cx-btn ghost" style="padding:0" data-toast="새 템플릿을 만들었습니다 (데모)">+ 추가</button></div>
         <div class="it on" data-tpl="partner_v1">partner_v1 · 파트너센터 상담 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
         <div class="it" data-tpl="partner_board_v1">partner_board_v1 · 게시판 답변 평가<small><span class="cx-b g">사용 중</span> 버전 2 · 10/20 저장</small></div>
-        <div class="it" data-tpl="prepartner_v1">prepartner_v1 · 예비파트너 이메일 평가<small><span class="cx-b g">사용 중</span> 버전 1 · 10/20 저장</small></div>
+        <div class="it" data-tpl="link_v1">link_v1 · 링크형 설문 평가<small><span class="cx-b n">예정</span> 1차 미사용 · 확장용</small></div>
         <div class="it" data-tpl="ai_rating_v1">ai_rating_v1 · AI 응대 평가 (1문항)<small><span class="cx-b g">사용 중</span> AI → 상담원 흐름에 덧붙임</small></div>
         <div class="it" data-tpl="cs_v3">cs_v3 · 고객센터 상담 평가<small><span class="cx-b n">예정</span> 고객센터 이관 시</small></div>
         <div class="it" data-tpl="partner_v0">partner_v0 · 초안<small><span class="cx-b n">보관</span> 10/14</small></div>
@@ -751,7 +751,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
   <div class="cx-st">빈도와 기한</div>
   <div class="cx-card" style="display:grid;gap:10px;font-size:12px">
     <label class="cx-check" style="justify-content:space-between">중복 노출 제한 <select class="cx-sel"><option>기존 NPS 규칙 동일하게 적용</option><option>같은 샵 1일 1회</option><option>제한 없음</option></select></label>
-    <label class="cx-check" style="justify-content:space-between">게시판·이메일 응답 기한 <select class="cx-sel"><option>답변완료 후 7일</option><option>3일</option><option>14일</option></select></label>
+    <label class="cx-check" style="justify-content:space-between">게시판·링크형 설문 응답 기한 <select class="cx-sel"><option>답변완료 후 7일</option><option>3일</option><option>14일</option></select></label>
     <label class="cx-check" style="justify-content:space-between">노출 비율 (응답 피로도 조절) <select class="cx-sel"><option>100% (모든 상담)</option><option>50% 무작위</option><option>20% 무작위</option></select></label>
   </div>
   <div class="cx-st">노출하지 않는 경우</div>
@@ -853,8 +853,8 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <h3>저장할 데이터 (응답 1건 기준)</h3>
     <table>
       <tbody>
-        <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원), 발송 채널(링크형 설문: 이메일·문자·알림톡)</td></tr>
-        <tr><td style="white-space:nowrap"><b>연결값</b></td><td>상담 ID, 티켓 ID(ECA 티켓 ID), 설문 링크 토큰(이메일 설문), 샵ID, 파트너ID, 상담원 ID</td></tr>
+        <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원), 발송 채널(링크형 설문: 문자·알림톡·이메일 등)</td></tr>
+        <tr><td style="white-space:nowrap"><b>연결값</b></td><td>상담 ID, 티켓 ID(ECA 티켓 ID), 설문 링크 토큰(링크형 설문), 샵ID, 파트너ID, 상담원 ID</td></tr>
         <tr><td><b>유형</b></td><td>상담유형 대·중·소 텍스트 (ECA에 등록된 이름과 띄어쓰기까지 똑같이, 상담 종료 시점 기준). ECA가 티켓을 만들 때 이름이 같은 유형의 코드로 바꾸고, 다르면 기타로 넣음</td></tr>
         <tr><td><b>설문</b></td><td>템플릿 ID·버전</td></tr>
         <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트, AI 응대 평가(1/2/3, AI → 상담원 흐름만)</td></tr>
@@ -868,7 +868,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 <div class="card" style="margin-top:18px">
   <h3>노출 범위와 조회 권한 <span class="badge">요건 NPS-07</span></h3>
   <table><tbody>
-    <tr><td style="white-space:nowrap"><b>파트너 화면</b></td><td>평가 카드는 본인 상담 화면(채팅 대화창, 본인 1:1 문의 상세, 이메일 설문 페이지)에서만 보입니다. 제출하면 「평가해 주셔서 감사합니다」로 바뀌고, 고른 점수와 의견은 파트너 화면에 다시 보여 주지 않습니다. 상담 이력에 응답 결과를 붙이지 않습니다.</td></tr>
+    <tr><td style="white-space:nowrap"><b>파트너 화면</b></td><td>평가 카드는 본인 상담 화면(채팅 대화창, 본인 1:1 문의 상세, 링크형 설문 페이지)에서만 보입니다. 제출하면 「평가해 주셔서 감사합니다」로 바뀌고, 고른 점수와 의견은 파트너 화면에 다시 보여 주지 않습니다. 상담 이력에 응답 결과를 붙이지 않습니다.</td></tr>
     <tr><td style="white-space:nowrap"><b>AICX 콘솔</b></td><td>응답 점수와 의견은 권한이 있는 계정만 조회합니다. 범위(서비스운영팀 / 센터 매니저 / 상담원은 본인 상담만 등)는 결정 필요입니다.</td></tr>
   </tbody></table>
 </div>
@@ -876,7 +876,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
   <h3>확장 계획 <span class="badge">요건 NPS-33</span></h3>
   <p class="desc">ECA를 종료하면 고객센터 NPS도 이 체계로 옮겨 옵니다. 그래서 처음부터 화면 안 평가와 링크형 설문을 같은 템플릿·같은 저장 형식으로 만들고, 발송 채널만 추가할 수 있게 설계합니다.</p>
   <table><tbody>
-    <tr><td style="white-space:nowrap"><b>1차</b></td><td>파트너센터 채팅·게시판(화면 안 평가), 예비파트너 답변 이메일(링크형 설문)</td></tr>
+    <tr><td style="white-space:nowrap"><b>1차</b></td><td>파트너센터 채팅·게시판(화면 안 평가). 링크형 설문은 구조만 만들고 1차 적용 대상 없음 (10/20 예비파트너 이메일 창구 폐지)</td></tr>
     <tr><td style="white-space:nowrap"><b>ECA 종료 후</b></td><td>고객센터 채팅·게시판(화면 안 평가), 고객센터 전화 상담·콜봇 통화 종료 후 문자 설문 링크 (지금 ECA 문자 설문을 대체)</td></tr>
     <tr><td style="white-space:nowrap"><b>이어 보기</b></td><td>점수 1/2/3과 상담유형 이름을 ECA와 같게 저장해, 고객센터를 옮긴 뒤에도 ECA 시절 NPS 이력과 추이가 이어지게 합니다</td></tr>
   </tbody></table>
@@ -888,10 +888,9 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <li>메인 척도: 고객센터와 같은 3단계 추천 NPS로 갈지 (제안: 3단계)</li>
     <li>Q1 문구: 「다른 파트너에게 추천」으로 갈지, 만족도 질문으로 바꿀지</li>
     <li>Q1 선택지(추천 / 중간 / 비추천) 중 중간 답변 문구를 목업처럼 「보통이에요」로 할지, 고객센터 문자 설문처럼 「모르겠다」로 할지</li>
-    <li>게시판·이메일 응답 기한</li>
+    <li>게시판·링크형 설문 응답 기한</li>
     <li>노출 제외 상담유형 초기값</li>
-    <li>예비파트너 이메일 설문을 1차에 받을지 (받지 않더라도 링크형 설문 구조는 1차에 설계)</li>
-    <li>고객센터 적용 시점</li>
+        <li>고객센터 적용 시점</li>
     <li>Q1이 긍정일 때 「좋았던 점」 선택지를 짧게 받을지, 지금처럼 자유 의견(Q4)으로 바로 보낼지</li>
     <li>AICX 콘솔 응답 조회 권한 범위</li>
   </ol>
@@ -1080,7 +1079,7 @@ const DS={
  all:{lbl:'파트너센터',nps:42,prev:37,g:321,m:144,b:89,res:71,rprev:68,rr:24,shown:'2,310',q3:247,ai:186,r:1,dl:0,
   fl:[['AI 단독 종결','ai',36,248,63,'var(--c-blue)'],['AI → 상담원','ag',45,186,79,'var(--c-pur)'],['상담원 직접','hu',51,120,80,'#7C8798']],
   ch:{A:[29,31,30,34,34,37,39,44],H:[47,49,46,51,51,49,53,52],T:[37,39,37,41,41,42,45,47]},
-  side:['채널별',['채널','응답','NPS','해결률','응답률'],[['채팅',402,41,'69%','31%'],['게시판',131,45,'77%','14%'],['예비파트너 이메일',21,38,'71%','9%']],'응답이 최소 응답 수(지표 기준 관리)보다 적으면 NPS 대신 「표본 부족」으로 표시합니다.']},
+  side:['채널별',['채널','응답','NPS','해결률','응답률'],[['채팅',402,41,'69%','31%'],['게시판',131,45,'77%','14%']],'응답이 최소 응답 수(지표 기준 관리)보다 적으면 NPS 대신 「표본 부족」으로 표시합니다.']},
  chat:{lbl:'파트너센터 채팅',nps:41,prev:36,g:230,m:106,b:66,res:69,rprev:66,rr:31,shown:'1,297',q3:188,ai:152,r:.73,dl:-1,
   fl:[['AI 단독 종결','ai',35,170,61,'var(--c-blue)'],['AI → 상담원','ag',45,152,78,'var(--c-pur)'],['상담원 직접','hu',49,80,77,'#7C8798']],
   ch:{A:[28,30,29,33,33,36,38,43],H:[46,48,45,50,50,48,52,51],T:[36,38,36,40,40,41,44,46]},
@@ -1088,7 +1087,7 @@ const DS={
  board:{lbl:'파트너센터 게시판',nps:45,prev:39,g:91,m:38,b:23,res:77,rprev:72,rr:14,shown:'1,086',q3:59,ai:0,r:.27,dl:3,
   fl:[['AI 단독 (자동답변)','ai',43,78,74,'var(--c-blue)'],['AI → 상담원 (자동답변 후 상담원 확인)','ag',44,34,79,'var(--c-pur)'],['상담원 직접 (상담원 답변)','hu',53,40,84,'#7C8798']],
   ch:{A:[33,35,36,38,37,40,42,45],H:[48,50,47,52,53,50,54,55],T:[39,41,40,44,44,44,47,49]},
-  side:['답변 소요 시간별',['답변까지','응답','NPS','해결률','AI 답변 비중'],[['1시간 이내',84,52,'81%','88%'],['당일',41,41,'75%','24%'],['다음 영업일 이후',27,29,'68%','4%']],'게시판 응답에는 예비파트너 이메일 설문 21건이 포함됩니다.']}};
+  side:['답변 소요 시간별',['답변까지','응답','NPS','해결률','AI 답변 비중'],[['1시간 이내',84,52,'81%','88%'],['당일',41,41,'75%','24%'],['다음 영업일 이후',27,29,'68%','4%']],'답변 소요 시간은 문의 접수부터 첫 답변까지입니다.']}};
 let dtab='all';
 const COL={g:'var(--c-green)',y:'var(--c-yel)',r:'var(--c-red)',n:''};
 const TY=[['주문/취소',[['품절·재고부족 취소',142,50,24,26,58,12]]],
@@ -1151,7 +1150,7 @@ const CM=['셀프로 바꾸라는데 메뉴에 버튼이 없어요','정보를 �
 const SUM=['오로라 > 주문/배송 메뉴 경로 안내 후 종료','필수 정보 수집 후 인계, 상담원이 취소 접수','검수 기간 일반 안내 자동답변','정산 담당 메일 안내','세금계산서 발행일 안내'];
 let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
 const DATA=Array.from({length:64},(_,i)=>{
-  const ch=i>1&&i%9===0?'게시판':i>1&&i%23===0?'이메일':'채팅',fl=ch==='채팅'?['AI 단독','AI → 상담원','상담원 직접'][Math.floor(rnd()*3)]:(ch==='이메일'?'상담원 직접':(r0=>r0<.5?'AI 단독':r0<.72?'AI → 상담원':'상담원 직접')(rnd()));
+  const ch=i>1&&i%9===0?'게시판':'채팅',fl=ch==='채팅'?['AI 단독','AI → 상담원','상담원 직접'][Math.floor(rnd()*3)]:(ch==='이메일'?'상담원 직접':(r0=>r0<.5?'AI 단독':r0<.72?'AI → 상담원':'상담원 직접')(rnd()));
   const r=rnd(),q1=r<.55?1:r<.8?2:3,q2=(q1===1?rnd()<.88:rnd()<.45)?'Y':'N',cm=i<4?CM[i]:(q1>1||q2==='N')?CM[Math.floor(rnd()*CM.length)]:'';
   const d=20-Math.floor(i/3.4),hh=9+Math.floor(rnd()*9),mm=Math.floor(rnd()*60);
   const ag=fl==='AI 단독'?'-':'상담원 '+'ABCDE'[Math.floor(rnd()*5)];
@@ -1222,10 +1221,10 @@ const TPL={
   {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
   {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
   tg:[['파트너센터 채팅',0],['파트너센터 게시판',1],['고객센터',0]],hist:[['v2 · 10/20 · Enzo Joo','Q3·Q4 추가 (저평가 사유 수집)'],['v1 · 10/19 · Enzo Joo','Q1·Q2만']]},
- prepartner_v1:{qs:[{t:'nps3',q:'이번 답변으로 다른 분께 파트너센터를 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
+ link_v1:{qs:[{t:'nps3',q:'이번 상담을 다른 분께 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
   {t:'yn',q:'문의하신 내용은 해결되었나요?',o:DEF.yn,req:1,cond:'항상'},
   {t:'multi',q:'어떤 점이 아쉬우셨나요? (여러 개 선택)',o:'답변이 정확하지 않아요,원하는 처리를 못 했어요,답변이 늦었어요,안내가 어려웠어요,기타',req:0,cond:'Q1이 보통·비추천 또는 Q2가 아니오'},{...Q4T}],
-  tg:[['예비파트너 이메일 (설문 링크)',1]],hist:[['v1 · 10/20 · Enzo Joo','아직 파트너가 아니라 Q1을 「다른 분께」로 바꿈']]},
+  tg:[['링크형 설문 (확장 시: 고객센터 콜 종료 후 문자 등)',0]],hist:[['v1 · 10/20 · Enzo Joo','예비파트너 이메일 창구 폐지로 1차 미사용, 확장용으로 남김']]},
  ai_rating_v1:{qs:[{t:'nps3',q:'처음 응대한 AI 상담원은 어떠셨나요?',o:'좋았어요,보통이에요,아쉬워요',req:0,cond:'항상'}],
   tg:[['AI → 상담원 흐름에 덧붙임',1]],hist:[['v1 · 10/20 · Enzo Joo','고객센터 「챗봇 → 상담사」 설문의 챗봇 문항과 같은 구조']]},
  cs_v3:{qs:[{t:'nps3',q:'오늘 상담 경험을 바탕으로 오늘의집 고객센터를 지인에게 추천하시겠어요?',o:DEF.nps3,req:1,cond:'항상'},
@@ -1275,7 +1274,6 @@ const RU=[['채팅','AI 단독','AI 응대','partner_v1','ai','종료 직후',1]
  ['게시판','AI 단독 (자동답변)','AI 응대','partner_board_v1','','답변완료 직후',1],
  ['게시판','AI → 상담원 (자동답변 후 상담원 확인)','상담원 응대','partner_board_v1','mark','상담원 답변완료 직후',1],
  ['게시판','상담원 직접 (상담원 답변)','상담원 응대','partner_board_v1','','답변완료 직후',1],
- ['이메일','예비파트너 답변','상담원 응대','prepartner_v1','','답변 메일에 설문 링크',1],
  ['고객센터','채팅·게시판 (ECA 종료 후)','AI 응대 / 상담원 응대','cs_v3','','상담 종료·답변완료 직후',0,'future'],
  ['고객센터','전화·콜봇 (ECA 종료 후)','AI 응대 / 상담원 응대','cs_v3','','통화 종료 후 문자 링크',0,'future']];
 let aiQ=1;
