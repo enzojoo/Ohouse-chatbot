@@ -853,13 +853,13 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <h3>저장할 데이터 (응답 1건 기준)</h3>
     <table>
       <tbody>
-        <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원)</td></tr>
+        <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원), 발송 채널(링크형 설문: 이메일·문자·알림톡)</td></tr>
         <tr><td style="white-space:nowrap"><b>연결값</b></td><td>상담 ID, 티켓 ID(ECA 티켓 ID), 설문 링크 토큰(이메일 설문), 샵ID, 파트너ID, 상담원 ID</td></tr>
         <tr><td><b>유형</b></td><td>상담유형 대·중·소 텍스트 (ECA에 등록된 이름과 띄어쓰기까지 똑같이, 상담 종료 시점 기준). ECA가 티켓을 만들 때 이름이 같은 유형의 코드로 바꾸고, 다르면 기타로 넣음</td></tr>
         <tr><td><b>설문</b></td><td>템플릿 ID·버전</td></tr>
         <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트, AI 응대 평가(1/2/3, AI → 상담원 흐름만)</td></tr>
         <tr><td><b>표시</b></td><td>AI 1차 답변 있음 (게시판에서 AI 자동답변 후 상담원이 답변한 건), 후속 조치 상태·메모 (콘솔에서 입력)</td></tr>
-        <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용. 조회 기간은 응답 시각 기준)</td></tr>
+        <tr><td><b>시각</b></td><td>노출 시각, 발송 시각(링크형 설문), 응답 시각 (응답률 계산용. 조회 기간은 응답 시각 기준)</td></tr>
       </tbody>
     </table>
     <div class="note">ECA를 종료하면 고객센터 NPS도 이 체계로 옮겨 올 예정이라, 그때 ECA에 쌓인 고객센터 NPS 이력과 끊기지 않고 이어지도록 처음부터 ECA와 같은 형식으로 저장합니다. 추천 점수는 1(추천) / 2 / 3(비추천), 상담유형은 ECA에 등록된 대·중·소 이름 그대로입니다. 각 항목이 ECA 설문 표의 어느 칸과 짝인지는 <a class="link" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2032552144" target="_blank" rel="noopener">구현 요건 시트 「3. 저장 데이터」</a>에 정리했습니다.</div>
@@ -872,13 +872,22 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <tr><td style="white-space:nowrap"><b>AICX 콘솔</b></td><td>응답 점수와 의견은 권한이 있는 계정만 조회합니다. 범위(서비스운영팀 / 센터 매니저 / 상담원은 본인 상담만 등)는 결정 필요입니다.</td></tr>
   </tbody></table>
 </div>
+<div class="card" style="margin-top:18px">
+  <h3>확장 계획 <span class="badge">요건 NPS-33</span></h3>
+  <p class="desc">ECA를 종료하면 고객센터 NPS도 이 체계로 옮겨 옵니다. 그래서 처음부터 화면 안 평가와 링크형 설문을 같은 템플릿·같은 저장 형식으로 만들고, 발송 채널만 추가할 수 있게 설계합니다.</p>
+  <table><tbody>
+    <tr><td style="white-space:nowrap"><b>1차</b></td><td>파트너센터 채팅·게시판(화면 안 평가), 예비파트너 답변 이메일(링크형 설문)</td></tr>
+    <tr><td style="white-space:nowrap"><b>ECA 종료 후</b></td><td>고객센터 채팅·게시판(화면 안 평가), 고객센터 전화 상담·콜봇 통화 종료 후 문자 설문 링크 (지금 ECA 문자 설문을 대체)</td></tr>
+    <tr><td style="white-space:nowrap"><b>이어 보기</b></td><td>점수 1/2/3과 상담유형 이름을 ECA와 같게 저장해, 고객센터를 옮긴 뒤에도 ECA 시절 NPS 이력과 추이가 이어지게 합니다</td></tr>
+  </tbody></table>
+</div>
 <div class="note" style="margin-top:18px"><b>확정</b><br>• 같은 샵 중복 노출 제한: 기존 NPS 규칙 동일하게 적용 (10/20)</div>
 <div class="sectitle">결정 필요</div>
 <div class="decide">
   <ol>
     <li>메인 척도: 고객센터와 같은 3단계 추천 NPS로 갈지 (제안: 3단계)</li>
     <li>Q1 문구: 「다른 파트너에게 추천」으로 갈지, 만족도 질문으로 바꿀지</li>
-    <li>가운데 보기 문구: 파트너센터 「보통이에요」와 고객센터 「모르겠다」가 다름. 두 센터를 나란히 비교하려면 맞출지 결정 필요</li>
+    <li>가운데 보기 문구: 파트너센터 「보통이에요」와 고객센터 문자 설문 「모르겠다」가 다름. ECA 종료 후 고객센터 NPS를 이 체계로 옮길 때 문구가 바뀌면 응답 분포가 달라져 이력이 끊기므로 맞출지</li>
     <li>게시판·이메일 응답 기한 (제안: 답변완료 후 7일)</li>
     <li>노출 제외 상담유형 초기값</li>
     <li>추가 제안 기능(후속 조치, 알림, 정기 리포트, 노출 비율)을 1차 범위에 넣을지</li>
@@ -1264,14 +1273,16 @@ const RU=[['채팅','AI 단독','AI 응대','partner_v1','ai','종료 직후',1]
  ['게시판','AI 단독 (자동답변)','AI 응대','partner_board_v1','','답변완료 직후',1],
  ['게시판','AI → 상담원 (자동답변 후 상담원 확인)','상담원 응대','partner_board_v1','mark','상담원 답변완료 직후',1],
  ['게시판','상담원 직접 (상담원 답변)','상담원 응대','partner_board_v1','','답변완료 직후',1],
- ['이메일','예비파트너 답변','상담원 응대','prepartner_v1','','답변 메일에 설문 링크',1]];
+ ['이메일','예비파트너 답변','상담원 응대','prepartner_v1','','답변 메일에 설문 링크',1],
+ ['고객센터','채팅·게시판 (ECA 종료 후)','AI 응대 / 상담원 응대','cs_v3','','상담 종료·답변완료 직후',0,'future'],
+ ['고객센터','전화·콜봇 (ECA 종료 후)','AI 응대 / 상담원 응대','cs_v3','','통화 종료 후 문자 링크',0,'future']];
 let aiQ=1;
 function renderRule(){
-  $('#ruBody').innerHTML=RU.map((r,i)=>{const on=r[6],ex=r[4]==='aiq'?`<label class="cx-check"><label class="sw"><input type="checkbox" data-rx ${aiQ?'checked':''} ${on?'':'disabled'}><span></span></label> AI 응대 평가 1문항 추가 <a href="#" class="cx-btn ghost" style="padding:0 2px;font-size:11px" data-rqa>ai_rating_v1</a></label>`:r[4]==='mark'?'<span class="cx-note">데이터에 「AI 1차 답변 있음」 표시</span>':'<span class="cx-note">-</span>';
+  $('#ruBody').innerHTML=RU.map((r,i)=>{if(r[7]==='future')return `<tr class="off"><td><span class="cx-b n">확장 예정</span></td><td class="l"><b>${r[0]}</b> · ${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td class="l"><span class="cx-note">같은 체계에 흐름만 추가</span></td><td>${r[5]}</td></tr>`;const on=r[6],ex=r[4]==='aiq'?`<label class="cx-check"><label class="sw"><input type="checkbox" data-rx ${aiQ?'checked':''} ${on?'':'disabled'}><span></span></label> AI 응대 평가 1문항 추가 <a href="#" class="cx-btn ghost" style="padding:0 2px;font-size:11px" data-rqa>ai_rating_v1</a></label>`:r[4]==='mark'?'<span class="cx-note">데이터에 「AI 1차 답변 있음」 표시</span>':'<span class="cx-note">-</span>';
     return `<tr class="${on?'':'off'}"><td><label class="sw"><input type="checkbox" data-ru="${i}" ${on?'checked':''}><span></span></label></td><td class="l"><b>${r[0]}</b> · ${r[1]}</td><td>${r[4]==='aiq'&&!aiQ?'상담원 응대':r[2]}</td>
     <td><select class="cx-sel" data-rt="${i}" ${on?'':'disabled'}>${Object.keys(TPL).filter(k=>k!=='partner_v0'&&k!=='ai_rating_v1').map(k=>`<option ${k===r[3]?'selected':''}>${k}</option>`).join('')}</select> <a href="#" class="cx-btn ghost" style="padding:0 4px;font-size:11px" data-rq="${i}">문항 보기</a></td>
     <td class="l">${ex}</td><td>${on?r[5]:'<span style="color:var(--c-red);font-weight:600">띄우지 않음</span>'}</td></tr>`}).join('');
-  const n=RU.filter(r=>r[6]).length;$('#ruSum').innerHTML=`${RU.length}개 응대 흐름 중 <b style="color:var(--c-t)">${n}개</b>에서 평가를 띄웁니다`;
+  const RA=RU.filter(r=>r[7]!=='future'),n=RA.filter(r=>r[6]).length;$('#ruSum').innerHTML=`${RA.length}개 응대 흐름 중 <b style="color:var(--c-t)">${n}개</b>에서 평가를 띄웁니다`;
   $$('#ruBody [data-ru]').forEach(c=>c.onchange=()=>{RU[+c.dataset.ru][6]=c.checked?1:0;renderRule()});
   $$('#ruBody [data-rt]').forEach(c=>c.onchange=()=>{RU[+c.dataset.rt][3]=c.value;toast(`${RU[+c.dataset.rt][1]} → ${c.value} 템플릿으로 바꿨습니다`)});
   $$('#ruBody [data-rx]').forEach(c=>c.onchange=()=>{aiQ=c.checked?1:0;renderRule()});
