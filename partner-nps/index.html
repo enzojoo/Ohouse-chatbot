@@ -469,7 +469,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     </div>
     <div class="card" style="margin-top:14px">
       <h3>AICX에 저장되는 값 <span class="badge" id="recState">응답 대기</span></h3>
-      <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다.</p>
+      <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다. 필드는 구현 요건 시트 「3. 저장 데이터」와 같고, 채팅에 해당하지 않는 token(이메일 설문)·ai_first_answer(게시판)와 콘솔에서 입력하는 후속 조치는 빠져 있습니다.</p>
       <pre class="rec" id="chRec"></pre>
     </div>
     <div class="note"><b>평가 카드 공통 규칙</b><br>• 한 상담에 한 번만 응답하고, 응답 후에는 수정할 수 없습니다<br>• Q1·Q2를 고르면 다음 문항이 열리고, Q3은 Q1이 「보통·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 보입니다<br>• 다시 「추천해요」와 「해결됐어요」로 바꾸면 Q3은 닫히고 골랐던 값도 지워집니다 (Q3은 빈 값으로 저장)<br>• 카드를 닫거나 무시해도 상담 이용에는 영향이 없고, 미응답은 응답률 계산에만 쓰입니다</div>
@@ -940,8 +940,15 @@ const L1={'1':'추천','2':'보통','3':'비추천'},LA={'1':'좋았어요','2':
 function rec(){
   const S=SC[sc],v=x=>x==null||x===''?'<span class="n">null</span>':`<span class="s">"${String(x).replace(/</g,'&lt;')}"</span>`;
   const row=(k,x)=>`  <span class="k">${k}</span>: ${x}`;
-  const lines=[row('service',v('partner')),row('channel',v('chat')),row('flow',v(S.flow)),row('consult_id',v(sc==='ag'?'C88123517':sc==='hu'?'C88123522':'C88123501')),
-   row('agent',v(S.agent)),row('eca_type',v(sc==='ag'?'취소/반품/교환 > 품절·재고부족 취소':sc==='hu'?'취소/반품/교환 > 클레임 상태 변경':'취소/반품/교환 > 취소/반품/교환 기타')),row('template',v('partner_v1')),
+  const D={ai:['ai',null,'','C88123501','T5512301','PA002002','취소/반품/교환 기타'],
+   hu:['agent','1042','상담원 B','C88123522','T5512322','PA002008','클레임 상태 변경 (추가안 코드)'],
+   ag:['agent','1017','상담원 A','C88123517','T5512317','PA002005','품절·재고부족 취소 (추가안 코드)']}[sc];
+  const c=(x,t)=>`${v(x)} <span class="n">// ${t}</span>`;
+  const lines=[row('service',v('partner')),row('channel',v('chat')),row('flow',v(S.flow)),row('target',v(D[0])),
+   row('consult_id',v(D[3])),row('ticket_id',v(D[4])),row('shop_id',v('1203389')),row('partner_id',v('58211')),
+   row('agent_id',D[1]?c(D[1],D[2]):v(null)),
+   row('eca_type_large',c('PA','파트너센터')),row('eca_type_medium',c('PA002','취소/반품/교환')),row('eca_type_small',c(D[5],D[6])),
+   row('template_id',v('partner_v1')),row('template_version','1'),
    row('q1',A.q1?`${A.q1} <span class="n">// ${L1[A.q1]}</span>`:v(null)),row('q2',v(A.q2))];
   if(sc==='ag')lines.push(row('ai_rating',A.ai?`${A.ai} <span class="n">// ${LA[A.ai]}</span>`:v(null)));
   lines.push(row('q3',A.q3.length?'['+A.q3.map(x=>v(x)).join(', ')+']':'[]'),row('q4',v(A.q4)),row('shown_at',v('2026-10-20T10:03:12')),row('answered_at',A.sent?v('2026-10-20T10:03:40'):v(null)));
