@@ -37,8 +37,8 @@ header.top p{margin:0;color:var(--sub);font-size:13px}
 .tabs .sp{flex:1}
 .tabs .lnk{font-size:12px;color:var(--sub);text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:5px 12px;background:var(--card)}
 .panel{display:none}.panel.on{display:grid}
-.lay{grid-template-columns:270px 400px minmax(0,1fr);gap:16px;align-items:start}
-.lay.wide{grid-template-columns:270px minmax(0,1fr) 360px}
+.lay{grid-template-columns:260px minmax(0,1.45fr) minmax(300px,1fr);gap:16px;align-items:start}
+.lay.wide{grid-template-columns:260px minmax(0,1.45fr) minmax(300px,1fr)}
 @media(max-width:1180px){.lay,.lay.wide{grid-template-columns:1fr}}
 /* left list */
 .side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto}
@@ -70,7 +70,7 @@ header.top p{margin:0;color:var(--sub);font-size:13px}
 .ph-ctl button{border:1px solid #E1E5EA;background:#fff;color:#5B636D;border-radius:99px;padding:4px 11px;font-size:12px;font-weight:600}
 .ph-ctl button:hover{border-color:#4A9CFF;color:#4A9CFF}
 .ph-ctl button:disabled{opacity:.4;cursor:default;border-color:#E1E5EA;color:#5B636D}
-.ph-x{font-size:24px;line-height:1;color:#2F3438;margin-left:6px}
+.ph-ctl .ph-x{border:0;background:none;padding:0;font-size:24px;line-height:1;color:#2F3438;margin-left:6px}
 .ph-body{flex:1;overflow-y:auto;padding:18px 18px 20px}
 .ph-date{text-align:center;color:#9AA1AB;font-size:12.5px;margin:2px 0 16px}
 .b-row{margin:0 0 4px}
@@ -142,43 +142,34 @@ details.more[open] summary{margin-bottom:6px}
 .coll div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;border-bottom:1px solid var(--line);padding:4px 0}
 .coll div span:first-child{color:var(--sub)}
 .empty{color:var(--mute);font-size:12.5px}
-/* board (파트너센터 웹, 라이트 고정) */
-.web{border:1px solid #D8DDE6;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(20,30,60,.10);background:#F5F6F8;color:#2F3438;min-width:0}
-.web .bar{height:34px;background:#EEF0F3;display:flex;align-items:center;gap:6px;padding:0 12px}
-.web .bar i{width:10px;height:10px;border-radius:50%;background:#D0D4DA}
-.web .bar span{margin-left:10px;background:#fff;border-radius:6px;padding:3px 12px;font-size:11px;color:#8A9099;flex:1;max-width:460px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.web .gnb{height:52px;background:#fff;border-bottom:1px solid #E4E7EB;display:flex;align-items:center;padding:0 22px;gap:22px;font-size:13.5px;font-weight:600;color:#5B636D}
-.web .gnb b{color:#2F3438;font-size:15px;margin-right:10px}
-.web .gnb .on{color:#1A9CD8}
-.web .gnb .r{margin-left:auto;font-weight:500;font-size:12.5px;color:#80868E}
-.web .page{padding:22px;max-width:860px;margin:0 auto}
-.bd-card{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:20px}
+/* board (파트너센터 1:1 문의, 라이트 고정) */
+.bd-card{background:#fff;border:1px solid #E4E7EB;border-radius:16px;padding:20px 22px}
 .bd-card+.bd-card{margin-top:14px}
 .bd-h1{font-weight:800;font-size:18px;margin:0 0 4px}
 .bd-desc{color:#80868E;font-size:12.5px;margin:0 0 14px}
 .who-seg{display:flex;gap:6px;margin-bottom:14px}
 .who-seg button{border:1px solid #DADDE2;background:#fff;color:#5B636D;border-radius:99px;padding:6px 14px;font-size:12.5px;font-weight:600}
 .who-seg button.on{background:#2F3438;border-color:#2F3438;color:#fff}
-.fx{margin-bottom:14px}
-.fx>label{display:flex;gap:6px;align-items:center;font-size:13px;font-weight:700;margin-bottom:6px;flex-wrap:wrap}
+.fx{margin-bottom:18px}
+.fx>label{display:flex;gap:6px;align-items:center;font-size:14px;font-weight:700;margin-bottom:6px;flex-wrap:wrap}
 .fx>label em{font-style:normal;font-size:10.5px;font-weight:700;border-radius:4px;padding:0 5px;line-height:17px}
-.fx>label em.req{background:#FCE8EC;color:#D9455F}
+.fx>label em.req{color:#E5484D;font-size:14px;padding:0}
 .fx>label em.opt{background:#F1F3F5;color:#80868E}
 .fx>label em.cond{background:#FFF4D9;color:#A06A00}
 .fx>label small{font-weight:500;color:#9AA1AB;font-size:11.5px}
 .fx .ro{background:#F5F6F8;border-radius:8px;padding:9px 12px;font-size:13px;color:#5B636D}
 .fx input[type=text],.fx textarea,.fx select{width:100%;border:1px solid #DADDE2;border-radius:8px;padding:9px 12px;font:inherit;font-size:13px;background:#fff;color:#2F3438}
-.fx textarea{min-height:76px;resize:vertical}
+.fx textarea{min-height:140px;resize:vertical}
 .fx .ch{display:flex;flex-wrap:wrap;gap:6px}
 .fx .ch button{border:1px solid #DADDE2;background:#fff;color:#2F3438;border-radius:8px;padding:6px 11px;font-size:12.5px;text-align:left}
-.fx .ch button.on{border-color:#35C5F0;background:#F0FAFE;color:#1A7FAE;font-weight:700}
+.fx .ch button.on{border-color:#4A9CFF;background:#F2F8FF;color:#2F7FE0;font-weight:700}
 .fx .file{border:1px dashed #DADDE2;border-radius:8px;padding:10px;font-size:12.5px;color:#9AA1AB;text-align:center}
 .fx .ntc{font-size:11.5px;color:#80868E;margin-top:4px}
 .fx.dim{opacity:.55}
 .box{background:#F5F6F8;border-radius:10px;padding:10px 12px;font-size:12.5px;color:#5B636D;margin-bottom:14px}
 .btnrow{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
 .btn{border:1px solid #DADDE2;background:#fff;color:#2F3438;border-radius:10px;padding:10px 16px;font-weight:700;font-size:13px}
-.btn.pri{background:#35C5F0;border-color:#35C5F0;color:#fff}
+.btn.pri{background:#4A9CFF;border-color:#4A9CFF;color:#fff}
 .bd-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .bd-title{font-weight:800;font-size:17px;flex:1;min-width:0}
 .bd-st{font-size:12px;font-weight:700;border-radius:6px;padding:4px 10px}
@@ -187,7 +178,13 @@ details.more[open] summary{margin-bottom:6px}
 .bd-st.done{background:#E9F7EF;color:#14A05A}
 .bd-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .bd-chips span{background:#F1F3F5;color:#6B727B;border-radius:99px;padding:4px 11px;font-size:12px;font-weight:600}
-.bd-row{display:grid;grid-template-columns:170px 1fr;gap:12px;background:#F5F6F8;border-radius:10px;padding:10px 14px;font-size:13px}
+.bd-row{display:flex;justify-content:space-between;gap:16px;background:#F5F6F8;border-radius:10px;padding:12px 14px;font-size:13.5px}
+.bd-row span{text-align:right;word-break:keep-all;overflow-wrap:anywhere}
+.bd-row b{flex:none;max-width:45%}
+.bd-back{width:40px;height:40px;border-radius:50%;border:1px solid #DADDE2;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;cursor:pointer}
+.bd-h{font-weight:800;font-size:15.5px;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center}
+.bd-h small{background:#F1F3F5;color:#6B727B;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:600}
+.bd-txt{font-size:14px;line-height:1.7;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere}
 .bd-row+.bd-row{margin-top:6px}
 .bd-row b{color:#80868E;font-weight:600}
 .judge{border:1px dashed #9CC3F5;background:#F5F9FF;border-radius:12px;padding:14px;font-size:12.5px;color:#2E4A7A}
@@ -197,21 +194,143 @@ details.more[open] summary{margin-bottom:6px}
 .judge .pth button.on{border-color:#2E62D9;box-shadow:0 0 0 1px #2E62D9 inset}
 .judge .pth button[disabled]{cursor:default;opacity:.7}
 .judge .pth .md{flex:none;margin-top:1px}
-.ans{border:1px solid #E4E7EB;border-radius:14px;padding:16px 18px;background:#FBFBFC}
+.ans{border:1px solid #E4E7EB;border-radius:14px;padding:16px 18px;background:#fff}
 .ans .who{font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px}
-.ans .who em{font-style:normal;font-size:10.5px;font-weight:700;color:#1A9CD8;background:#E3F6FD;border-radius:4px;padding:1px 6px}
+.ans .who em{font-style:normal;font-size:10.5px;font-weight:700;color:#3D93F5;background:#EAF4FF;border-radius:4px;padding:1px 6px}
 .ans .dt{color:#9AA1AB;font-size:12px;margin:2px 0 10px}
 .ans .tx{font-size:13.5px;line-height:1.7;white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere}
 .ans .tx .sec{font-weight:700}
 .ans .tx .gn{color:#9AA1AB;font-size:12px}
 .secpick{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .secpick button{border:1px solid #DADDE2;background:#fff;border-radius:99px;padding:4px 10px;font-size:11.5px;color:#5B636D}
-.secpick button.on{border-color:#35C5F0;color:#1A7FAE;background:#F0FAFE;font-weight:700}
+.secpick button.on{border-color:#4A9CFF;color:#2F7FE0;background:#F2F8FF;font-weight:700}
 .rate{border-top:1px solid #E4E7EB;margin-top:14px;padding-top:12px;font-size:12.5px;color:#5B636D}
 .mail{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:18px;font-size:13.5px}
 .mail .from{font-size:12px;color:#9AA1AB;border-bottom:1px solid #E4E7EB;padding-bottom:10px;margin-bottom:12px}
 .theme{position:fixed;right:16px;bottom:16px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:8px 14px;font-size:12px;z-index:5}
+.mid{min-width:0}
+.stool{display:flex;align-items:center;gap:6px;margin-bottom:8px;font-size:12px;color:var(--sub);font-weight:600}
+.stool .sp{flex:1}
+.stool button{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:4px 11px;font-size:12px;font-weight:600}
+.stool button:disabled{opacity:.4;cursor:default}
+.ticket{margin-top:10px;font-size:12.5px}
+.bm-body .fx input[type=text],.bm-body .fx select{height:46px;padding:0 14px;border-radius:10px;font-size:14px}
+.bm-body .fx textarea{border-radius:10px;padding:12px 14px;font-size:14px}
 .legend{display:flex;gap:10px;flex-wrap:wrap;font-size:11.5px;color:var(--sub);margin-top:8px;align-items:center}
+/* 파트너센터 사이트 틀 (참고: 파트너센터·권리보호센터·안전거래센터 목업, 라이트 고정) */
+.site{position:relative;display:flex;flex-direction:column;overflow:hidden;background:#F3F4F6;color:#2F3438;border:1px solid #D8DDE6;box-shadow:0 8px 30px rgba(20,30,60,.12);font-size:14px;line-height:1.5}
+.site[data-dev="pc"]{height:860px;border-radius:12px}
+.site[data-dev="mo"]{width:390px;max-width:100%;height:844px;margin:0 auto;border-radius:40px}
+.s-top{flex:none;background:#fff}
+.s-status{display:none;height:40px;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:700}
+.s-bar{height:36px;background:#EEF0F3;display:flex;align-items:center;gap:6px;padding:0 12px}
+.s-bar>i{width:10px;height:10px;border-radius:50%;background:#D0D4DA}
+.s-url{margin-left:10px;background:#fff;border-radius:6px;padding:3px 12px;font-size:11px;color:#8A9099;flex:1;max-width:460px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-mb{display:none;width:38px;height:38px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);align-items:center;justify-content:center;font-size:18px;color:#2F3438;flex:none}
+.site[data-dev="mo"] .s-status{display:flex}
+.site[data-dev="mo"] .s-bar{height:56px;background:#F7F7F8;padding:0 12px;gap:8px}
+.site[data-dev="mo"] .s-bar>i{display:none}
+.site[data-dev="mo"] .s-mb{display:flex}
+.site[data-dev="mo"] .s-url{margin:0;max-width:none;border-radius:14px;background:#EDEEF0;padding:9px 14px;font-size:14px;color:#2F3438}
+.s-scr{flex:1;position:relative;min-height:0}
+.s-vp{position:absolute;inset:0;overflow-y:auto}
+.s-bot{display:none;flex:none;height:54px;background:#F7F7F8;border-top:1px solid #E4E7EB;align-items:center;justify-content:space-around;font-size:20px;color:#5B636D}
+.site[data-dev="mo"] .s-bot{display:flex}
+/* 헤더·메뉴 */
+.s-hd{height:64px;background:#fff;display:flex;align-items:center;gap:18px;padding:0 28px}
+.s-logo{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:19px;letter-spacing:-.4px;color:#2F3438}
+.s-house{display:inline-block;width:24px;height:24px;border-radius:6px;background:#4A9CFF;clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%)}
+.s-ctr{border-left:1px solid #E4E7EB;padding-left:18px;font-weight:700;font-size:16px}
+.s-ctr small,.s-shop small{color:#9AA1AB;font-size:12px;margin-left:2px}
+.s-sp{flex:1}
+.s-orora{font-size:22px;font-weight:500;letter-spacing:-.5px;color:#2F3438}
+.s-orora sup{font-size:10px;color:#9AA1AB;margin-left:2px}
+.s-lk{font-size:13px;font-weight:600}
+.s-shop{border:1px solid #DADDE2;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600}
+.s-burger{display:none;font-size:20px}
+.s-nav{height:48px;background:#fff;border-bottom:1px solid #E4E7EB;display:flex;align-items:center;gap:26px;padding:0 28px;font-size:13.5px;font-weight:600;white-space:nowrap}
+.s-nav span{cursor:default}.s-nav [data-go]{cursor:pointer}
+.s-nav .on{color:#4A9CFF}
+.site[data-dev="mo"] .s-hd{height:54px;padding:0 16px;gap:10px}
+.site[data-dev="mo"] .s-logo{font-size:17px}
+.site[data-dev="mo"] .s-ctr{padding-left:10px;font-size:14px}
+.site[data-dev="mo"] .s-orora,.site[data-dev="mo"] .s-lk,.site[data-dev="mo"] .s-shop{display:none}
+.site[data-dev="mo"] .s-burger{display:block}
+.site[data-dev="mo"] .s-nav{height:44px;gap:18px;padding:0 16px;font-size:13px;overflow-x:auto}
+.site[data-dev="mo"] .s-nav .s-sp{flex:none;width:0}
+/* 홈 */
+.s-hero{height:150px;background:linear-gradient(100deg,#73B0E6,#8DC4F0 55%,#79B6EA);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:0 16px}
+.s-hero small{font-size:12.5px;opacity:.9}
+.s-hero b{font-size:25px;letter-spacing:-.6px}
+.s-hero span{font-size:13px;opacity:.95}
+.s-in{max-width:780px;margin:0 auto;padding:22px 24px 36px}
+.s-search{display:flex;gap:8px;margin-bottom:16px}
+.s-search span{flex:1;background:#fff;border:1px solid #DADDE2;border-radius:8px;padding:10px 14px;color:#9AA1AB;font-size:13px}
+.s-search button,.s-cta button{border:1px solid #4A9CFF;background:#4A9CFF;color:#fff;border-radius:8px;padding:0 18px;font:inherit;font-weight:700;font-size:13px}
+.s-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.s-card{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:18px 20px}
+.s-card.new{background:#EAF4FE;border-color:#DCEBFB}
+.s-card small{display:block;color:#3D8BE8;font-size:11.5px;font-weight:700;margin-bottom:6px}
+.s-card b{display:block;font-size:16px;margin-bottom:6px}
+.s-card p{margin:0 0 10px;color:#5B636D;font-size:12.5px}
+.s-card a{color:#3D8BE8;font-weight:700;font-size:13px}
+.s-q{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;font-size:13px;font-weight:600}
+.s-q span{padding:8px 0;border-bottom:1px solid #E4E7EB}
+.s-lh{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px}
+.s-lh b{font-size:17px}.s-lh span{font-size:12px;color:#80868E}
+.s-list{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:0 20px;margin-bottom:26px}
+.s-list div{display:flex;align-items:center;gap:14px;padding:13px 0;font-size:13.5px}
+.s-list div+div{border-top:1px solid #EEF0F3}
+.s-list div span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-list em{font-style:normal;color:#9AA1AB;font-size:12px}.s-list i{font-style:normal;color:#5B636D}
+.s-cta{background:#EAF4FE;border-radius:14px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.s-cta b{display:block;font-size:16px}.s-cta span{font-size:12.5px;color:#5B636D}
+.s-cta>div:last-child{display:flex;gap:8px}
+.s-cta button{padding:11px 16px;cursor:pointer}
+.s-cta button:not(.pri){background:#fff;color:#2F3438;border-color:#DADDE2}
+.s-ft{border-top:1px solid #E4E7EB;margin:10px 24px 0;padding:18px 4px 26px;font-size:12px;color:#80868E}
+.s-ft>div{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.s-ft .s-logo{font-size:15px}.s-ft .s-house{width:18px;height:18px;border-radius:5px}
+.s-ft p{margin:0}
+.site[data-dev="mo"] .s-hero{height:128px}
+.site[data-dev="mo"] .s-hero b{font-size:18px}
+.site[data-dev="mo"] .s-hero span{font-size:12px}
+.site[data-dev="mo"] .s-in{padding:16px 14px 28px}
+.site[data-dev="mo"] .s-cards{grid-template-columns:1fr}
+.site[data-dev="mo"] .s-list{padding:0 14px}
+.site[data-dev="mo"] .s-cta>div:last-child{width:100%}
+.site[data-dev="mo"] .s-cta button{flex:1}
+.site[data-dev="mo"] .s-ft{margin:6px 14px 0}
+/* 채팅 버튼·팝업 */
+.s-fab{position:absolute;right:22px;bottom:26px;width:52px;height:52px;border-radius:50%;border:0;background:#4A9CFF;box-shadow:0 4px 14px rgba(40,110,220,.35);z-index:2;cursor:pointer}
+.s-fab::before{content:"";position:absolute;left:15px;top:15px;width:22px;height:18px;border:2.5px solid #fff;border-radius:9px 9px 9px 3px;box-sizing:border-box}
+.s-dim{display:none;position:absolute;inset:0;background:rgba(20,22,26,.42);z-index:3}
+.s-modal{display:none;position:absolute;z-index:4;background:#fff;border-radius:24px;overflow:hidden;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+.site.open .s-dim{display:block}
+.site.open .s-modal{display:flex}
+.site.open .s-fab{display:none}
+.site[data-dev="pc"] .s-modal{top:26px;bottom:26px;left:50%;transform:translateX(-50%);width:440px;max-width:calc(100% - 40px)}
+.site[data-dev="pc"] .s-modal.wide{width:620px}
+.site[data-dev="mo"] .s-modal{inset:10px}
+.s-modal .phone{width:100%;max-width:none;height:100%;border:0;border-radius:0;box-shadow:none}
+/* 1:1 문의하기 팝업 */
+.bm-hd{flex:none;position:relative;padding:24px 28px 18px;border-bottom:1px solid #E9EBEE}
+.bm-hd small{display:block;color:#4A9CFF;font-size:13px;font-weight:600;margin-bottom:4px}
+.bm-hd b{font-size:22px;letter-spacing:-.4px}
+.bm-x{position:absolute;right:20px;top:20px;width:40px;height:40px;border-radius:50%;border:0;background:#F1F3F5;font-size:18px;font-weight:700;color:#2F3438;cursor:pointer}
+.bm-body{flex:1;overflow-y:auto;padding:0 28px 22px}
+.bm-sec{color:#6B727B;font-size:14px;font-weight:600;padding:22px 2px 12px;border-bottom:1px solid #E4E7EB;margin-bottom:20px}
+.bm-ft{flex:none;display:flex;gap:10px;align-items:center;padding:14px 28px 18px;border-top:1px solid #E9EBEE}
+.bm-ft button{flex:1;height:50px;border-radius:10px;border:1px solid #DADDE2;background:#fff;color:#2F3438;font:inherit;font-size:15px;font-weight:600;cursor:pointer}
+.bm-ft button.pri{background:#4A9CFF;border-color:#4A9CFF;color:#fff}
+.bm-ft button.mock{flex:none;width:auto;height:auto;padding:6px 10px;border-style:dashed;color:#6B727B;font-size:12px;font-weight:500;background:#FAFBFC}
+.bm-ft button:disabled{opacity:.45;cursor:default}
+.site[data-dev="mo"] .bm-hd{padding:20px 20px 14px}
+.site[data-dev="mo"] .bm-body{padding:0 20px 18px}
+.site[data-dev="mo"] .bm-ft{padding:12px 20px 14px}
+/* 나의 문의 내역 상세 */
+.s-page{max-width:780px;margin:0 auto;padding:24px 24px 40px}
+.site[data-dev="mo"] .s-page{padding:14px 14px 28px}
 </style>
 </head>
 <body>
@@ -228,6 +347,7 @@ details.more[open] summary{margin-bottom:6px}
   <button class="on" data-tab="chat">채팅</button>
   <button data-tab="board">게시판</button>
   <span class="sp"></span>
+  <div class="seg" id="devseg"><button data-dev="pc">PC 화면</button><button data-dev="mo">모바일 화면</button></div>
   <a class="lnk" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=304349393" target="_blank" rel="noopener">시트 4-1</a>
   <a class="lnk" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2126007954" target="_blank" rel="noopener">시트 4-2</a>
   <a class="lnk" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=1054385421" target="_blank" rel="noopener">시트 4-3</a>
@@ -240,18 +360,19 @@ details.more[open] summary{margin-bottom:6px}
     <button class="home" id="c-home">첫 인사부터 시작 (버튼 메뉴)</button>
     <div id="c-list"></div>
   </aside>
-  <div>
-    <div class="phone">
+  <div class="mid">
+    <div class="stool"><span>파트너 화면 · 파트너센터 홈에서 채팅 열기</span><span class="sp"></span><button id="c-undo" title="바로 전 동작 취소">이전</button><button id="c-restart" title="이 시나리오를 처음부터">처음부터</button></div>
+    <div id="c-site"><div class="phone">
       <div class="ph-head">
         <div class="ph-logo"><i class="house"></i>오늘의집</div>
-        <div class="ph-ctl"><button id="c-undo" title="바로 전 동작 취소">이전</button><button id="c-restart" title="이 시나리오를 처음부터">처음부터</button><span class="ph-x">✕</span></div>
+        <div class="ph-ctl"><button class="ph-x" id="c-close" aria-label="채팅 닫기">✕</button></div>
       </div>
       <div class="ph-body" id="c-body"></div>
       <div class="ph-input" id="c-inwrap">
         <div class="quick"><button id="c-t1">상담원 연결해 주세요</button></div>
         <div class="inrow" id="c-inrow"><span class="plus">+</span><input id="c-in" placeholder="문의하고 싶은 내용을 말씀해주세요." disabled><button id="c-send" aria-label="보내기">↑</button></div>
       </div>
-    </div>
+    </div></div>
   </div>
   <div class="info">
     <div class="card">
@@ -297,12 +418,11 @@ details.more[open] summary{margin-bottom:6px}
     <input id="b-q" placeholder="유형 이름·코드 검색">
     <div id="b-list"></div>
   </aside>
-  <div class="web">
-    <div class="bar"><i></i><i></i><i></i><span id="b-url">partner.ohou.se/inquiry/new</span></div>
-    <div class="gnb"><b>오늘의집 파트너센터</b><span>공지사항</span><span>자주 묻는 질문</span><span class="on">문의하기</span><span>나의 문의내역</span><span class="r" id="b-login"></span></div>
-    <div class="page" id="b-page"></div>
+  <div class="mid">
+    <div class="stool"><span>파트너 화면 · 1:1 문의하기 → 나의 문의 내역</span></div>
+    <div id="b-site"><div class="bm-hd"><small>파트너센터</small><b>1:1 문의하기</b><button class="bm-x" id="b-x" aria-label="닫기">✕</button></div><div class="bm-body" id="b-page"></div><div class="bm-ft" id="b-ft"></div></div>
   </div>
-  <div class="info" id="b-info"></div>
+  <div class="info"><div class="card" id="b-judge" hidden></div><div class="info" id="b-info"></div></div>
 </section>
 </div>
 <button class="theme" id="theme">화면 밝기 전환</button>
@@ -322,6 +442,54 @@ function fmt(s){
 }
 const $ = s => document.querySelector(s);
 const typeName = c => (DATA.types[c] || DATA.btypes[c] || {}).name || c;
+
+/* ---------- 파트너센터 사이트 틀 (홈 위에 채팅·문의 팝업, PC·모바일 웹) ---------- */
+const SITE_SHOP = '오트밀하우스';
+let SITE_DEV = 'pc';
+try { SITE_DEV = localStorage.getItem('site-dev') || 'pc'; } catch(e) {}
+const SITE_ON = []; // 기기 전환 때 다시 그릴 함수
+const SITE_NOTI = [['[일반] CJ대한통운 풀필먼트 직접 연동 오픈 예정 안내 (사전 안내)','2026-10-12'],['[정책] 오늘의집 글로벌 판매 특약 신설 및 메뉴추가','2026-10-06'],['[정산] 26년 10월 일정산 일정 안내','2026-09-30'],['[일반] 오감리뷰 추석 연휴 캠페인 등록 일정 안내','2026-09-17'],['[일반] [오늘의집] 2026 추석연휴 배송지연 안내','2026-09-16'],['[시스템] 오로라 HTML 보안 패치 배포 안내','2026-09-14']];
+const SITE_GUIDE = [['[오로라] 판매자 정보 기본 안내','2025-08-07'],['[오로라] 신상품 등록 기본 가이드','2025-07-22'],['[오로라] 정산관리 가이드','2026-01-30']];
+const siteList = (t, rows) => `<div class="s-lh"><b>${t}</b><span>전체 보기 →</span></div><div class="s-list">${rows.map(r => `<div><span>${r[0]}</span><em>${r[1]}</em><i>›</i></div>`).join('')}</div>`;
+const siteHome = () => `<div class="s-hero"><small>파트너센터</small><b>판매의 시작부터 운영까지, 함께할게요.</b><span>입점 안내와 판매 가이드를 확인하고 필요한 도움을 받아보세요.</span></div>
+  <div class="s-in">
+    <div class="s-search"><span>궁금한 내용을 검색해 보세요</span><button>검색</button></div>
+    <div class="s-cards"><div class="s-card new"><small>신규 파트너</small><b>오늘의집 입점이 처음이신가요?</b><p>신청부터 자료 제출, 계약까지 단계별로 확인하세요.</p><a>입점 절차 확인 →</a></div>
+      <div class="s-card"><small>판매 중인 파트너</small><b>어떤 업무가 궁금하세요?</b><div class="s-q"><span>상품 ›</span><span>배송·주문 ›</span><span>취소·교환·반품 ›</span><span>정산 ›</span></div></div></div>
+    ${siteList('공지사항', SITE_NOTI)}${siteList('판매 운영 가이드', SITE_GUIDE)}
+    <div class="s-cta"><div><b>가이드로 해결되지 않으셨나요?</b><span>채팅 또는 게시판으로 문의해 주세요.</span></div><div><button class="pri" data-go="chat">채팅 문의하기</button><button data-go="board">게시판 문의하기</button></div></div>
+  </div>`;
+const SITE_SKEL = (modal = '', cls = '') => `<div class="s-top"><div class="s-status"><span>9:41</span><span>LTE ▮</span></div><div class="s-bar"><i></i><i></i><i></i><span class="s-mb">‹</span><span class="s-url"></span><span class="s-mb">⌄</span></div></div>
+  <div class="s-scr"><div class="s-vp"><div class="s-hd"></div><div class="s-nav"></div><div class="s-main"></div><div class="s-ft"></div></div>
+  <div class="s-dim"></div><div class="s-modal ${cls}">${modal}</div><button class="s-fab" data-go="chat" aria-label="채팅 문의"></button></div>
+  <div class="s-bot"><span>←</span><span>→</span><span>↻</span><span>⇪</span></div>`;
+// 기존 내용(채팅창 등)을 팝업 자리로 옮기고 틀을 씌움
+function siteMount(el, cls){
+  const kids = [...el.childNodes];
+  el.classList.add('site'); el.dataset.dev = SITE_DEV; el.innerHTML = SITE_SKEL('', cls);
+  const m = el.querySelector('.s-modal'); kids.forEach(k => m.appendChild(k));
+}
+// o: {url, guest, nav:'ask'|'my', main(없으면 홈)}
+function siteFill(el, o){
+  const q = s => el.querySelector(s);
+  el.dataset.dev = SITE_DEV;
+  q('.s-url').textContent = '🔒 ' + o.url;
+  q('.s-hd').innerHTML = `<span class="s-logo"><i class="s-house"></i>오늘의집</span><span class="s-ctr">파트너센터 <small>⌄</small></span><span class="s-sp"></span><span class="s-orora">o.rora<sup>↗</sup></span>${o.guest ? '<span class="s-lk">로그인</span>' : `<span class="s-lk">로그아웃</span><span class="s-shop">${SITE_SHOP} <small>⌄</small></span>`}<span class="s-burger">☰</span>`;
+  q('.s-nav').innerHTML = ['입점 안내', '공지사항·모집', '가이드·양식', '자주 묻는 질문'].map(x => `<span>${x}</span>`).join('') + `<span class="s-sp"></span><span data-go="board" class="${o.nav === 'ask' ? 'on' : ''}">문의하기</span><span class="${o.nav === 'my' ? 'on' : ''}">나의 문의 내역</span>`;
+  q('.s-main').innerHTML = o.main || siteHome();
+  q('.s-ft').innerHTML = `<div><span class="s-logo"><i class="s-house"></i>오늘의집</span><span>파트너와 이용자를 위한 안내</span></div><p>요구사항 확인 · 권리보호센터 ↗ · 안전거래센터 ↗ · 광고 신청안내 ↗ · 전문가센터 ↗ · 개인정보처리방침 ↗</p>`;
+  el.querySelectorAll('[data-go]').forEach(b => b.onclick = () => el.onGo && el.onGo(b.dataset.go));
+}
+const siteOpen = (el, on) => el.classList.toggle('open', on);
+function siteDevInit(seg){
+  const mark = () => document.querySelectorAll('button[data-dev]').forEach(b => b.classList.toggle('on', b.dataset.dev === SITE_DEV));
+  seg.querySelectorAll('button').forEach(b => b.onclick = () => {
+    SITE_DEV = b.dataset.dev; try { localStorage.setItem('site-dev', SITE_DEV); } catch(e) {}
+    document.querySelectorAll('.site').forEach(s => s.dataset.dev = SITE_DEV);
+    mark(); SITE_ON.forEach(f => f());
+  });
+  mark();
+}
 
 /* ---------- 탭 ---------- */
 document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => showTab(b.dataset.tab));
@@ -606,7 +774,7 @@ $('#c-home').onclick = () => { C.code = null; cList(); greet(); };
 $('#c-who').querySelectorAll('button').forEach(b => b.onclick = () => {
   $('#c-who').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
   visitor = b.dataset.v; $('#c-who-d').textContent = WHO_D[visitor];
-  H.acts = []; replay(); bRender();
+  H.acts = []; replay(); bRender(); cSite();
 });
 $('#c-time').querySelectorAll('button').forEach(b => b.onclick = () => {
   $('#c-time').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
@@ -676,21 +844,22 @@ function openBoard(code){
   bList(); bRender();
 }
 function bRender(){
+  const url = B.step === 'form' || visitor === 'guest' ? 'partner.ohou.se/inquiry/new' : 'partner.ohou.se/inquiry/20261020-000123';
   if (visitor === 'guest') {
-    $('#b-login').textContent = '로그인 안 함'; $('#b-url').textContent = 'partner.ohou.se/inquiry/new';
-    $('#b-page').innerHTML = `<div class="bd-card" style="text-align:center;padding:40px 20px"><p class="bd-h1">로그인이 필요합니다</p><p class="bd-desc" style="margin:8px 0 18px">문의 등록과 나의 문의내역은 오로라에 로그인한 파트너만 이용할 수 있습니다.<br>로그인 계정이 없으시면 채팅으로 문의해 주세요. (10/20, 고객센터 1:1 문의와 같은 방식)</p><div class="btnrow" style="justify-content:center"><button class="btn" id="b-tochat">채팅으로 문의</button><button class="btn pri" id="b-dologin">오로라 로그인</button></div></div>`;
-    $('#b-tochat').onclick = () => showTab('chat');
+    siteFill(bS, {url, guest:true, nav:'ask'});
+    $('#b-page').innerHTML = `<div style="text-align:center;padding:48px 4px 20px"><p class="bd-h1">로그인이 필요합니다</p><p class="bd-desc" style="margin:8px 0 0">문의 등록과 나의 문의내역은 오로라에 로그인한 파트너만 이용할 수 있습니다.<br>로그인 계정이 없으시면 채팅으로 문의해 주세요. (10/20, 고객센터 1:1 문의와 같은 방식)</p></div>`;
+    $('#b-ft').innerHTML = `<button id="b-tochat">채팅으로 문의</button><button class="pri" id="b-dologin">오로라 로그인</button>`;
+    $('#b-tochat').onclick = () => { showTab('chat'); siteOpen(cS, true); };
     $('#b-dologin').onclick = () => { $('#c-who').querySelector('[data-v="member"]').click(); showTab('board'); };
-    bInfo(); return;
+    siteOpen(bS, true); $('#b-judge').hidden = true; bInfo(); return;
   }
-  $('#b-login').textContent = `${SHOP.name} 님 (오로라 로그인)`;
-  $('#b-url').textContent = B.step === 'form' ? (B.who === 'partner' ? 'partner.ohou.se/inquiry/new' : 'partner.ohou.se/inquiry/prepartner') : 'partner.ohou.se/inquiry/20261020-000123';
-  if (B.step === 'form') bForm(); else bDetail();
+  if (B.step === 'form') { siteFill(bS, {url, nav:'ask'}); bForm(); siteOpen(bS, true); $('#b-judge').hidden = true; }
+  else { siteFill(bS, {url, nav:'my', main:'<div class="s-page" id="b-detail"></div>'}); siteOpen(bS, false); bDetail(); }
   bInfo();
 }
 function fieldHtml(f, i){
   const key = 'f' + i, v = B.vals[key];
-  const tag = f.req === 'req' ? '<em class="req">필수</em>' : f.req === 'cond' ? `<em class="cond">조건부${f.cond ? ': ' + esc(f.cond) : ''}</em>` : '<em class="opt">선택</em>';
+  const tag = f.req === 'req' ? '<em class="req">*</em>' : f.req === 'cond' ? `<em class="cond">조건부${f.cond ? ': ' + esc(f.cond) : ''}</em>` : '<em class="opt">선택</em>';
   let ctl = '';
   if (f.kind === 'one' || f.kind === 'multi') ctl = `<div class="ch">${f.opts.map((o, j) => `<button data-k="${key}" data-v="${esc(o)}" class="${(f.kind === 'multi' ? (v||[]).includes(o) : v === o) ? 'on' : ''}">${esc(o)}</button>`).join('')}</div>`;
   else if (f.kind === 'file') ctl = `<div class="file">파일 첨부 (목업)</div>`;
@@ -700,32 +869,34 @@ function fieldHtml(f, i){
 }
 function bForm(){
   const t = B.code ? DATA.btypes[B.code] : null;
-  let h = `<div class="bd-card">`;
+  let h = '';
   if (B.who === 'partner') {
-    h += `<p class="bd-h1">문의 등록</p><p class="bd-desc">오로라 SSO로 로그인한 상태에서만 열립니다 (B-01)</p>
-      <div class="fx"><label>샵 정보 <small>자동 입력, 수정 불가</small></label><div class="ro">${SHOP.name} · 샵ID ${SHOP.id} · 사업자등록번호 ${SHOP.biz} · 계정 ${SHOP.account}</div></div>
-      <div class="fx"><label>연락 가능한 휴대폰번호 <em class="req">필수</em></label><input type="text" value="010-0000-0000"><div class="ntc">추가 확인이 필요하면 파트너센터(1660-0875)에서 연락드릴 수 있습니다.</div></div>
-      <div class="fx"><label>답변 받을 이메일 <em class="req">필수</em></label><input type="text" value="partner@example.com"><div class="ntc">답변 등록 알림과 처리 결과가 이 주소로도 발송됩니다.</div></div>
-      <div class="fx"><label>문의 유형 <em class="req">필수</em></label><select id="b-g"><option value="">선택해 주세요</option>${B_TYPES.map(g => `<option value="${g[1]}" ${B.group === g[1] ? 'selected' : ''}>${esc(g[0])}</option>`).join('')}</select></div>`;
+    h += `<div class="bm-sec">문의자 정보</div>
+      <div class="fx"><label>샵 정보 <small>자동 입력, 수정 불가 · 오로라 SSO로 로그인한 상태에서만 열림 (B-01)</small></label><div class="ro">${SHOP.name} · 샵ID ${SHOP.id} · 사업자등록번호 ${SHOP.biz} · 계정 ${SHOP.account}</div></div>
+      <div class="fx"><label>연락 가능한 휴대폰번호 <em class="req">*</em></label><input type="text" value="010-0000-0000"><div class="ntc">추가 확인이 필요하면 파트너센터(1660-0875)에서 연락드릴 수 있습니다.</div></div>
+      <div class="fx"><label>답변 받을 이메일 <em class="req">*</em></label><input type="text" value="partner@example.com"><div class="ntc">답변 등록 알림과 처리 결과가 이 주소로도 발송됩니다.</div></div>
+      <div class="bm-sec">문의 내용</div>
+      <div class="fx"><label>문의 유형 <em class="req">*</em></label><select id="b-g"><option value="">선택해 주세요</option>${B_TYPES.map(g => `<option value="${g[1]}" ${B.group === g[1] ? 'selected' : ''}>${esc(g[0])}</option>`).join('')}</select></div>`;
     const g = B_TYPES.find(x => x[1] === B.group);
-    if (g) h += `<div class="fx"><label>세부 유형 <em class="req">필수</em></label><select id="b-s"><option value="">선택해 주세요</option>${g[2].map(s => `<option value="${s[1]}" ${B.code === s[1] ? 'selected' : ''}>${esc(s[0])}</option>`).join('')}<option value="unknown" ${B.code === 'unknown' ? 'selected' : ''}>잘 모르겠어요</option></select></div>`;
+    if (g) h += `<div class="fx"><label>세부 유형 <em class="req">*</em></label><select id="b-s"><option value="">선택해 주세요</option>${g[2].map(s => `<option value="${s[1]}" ${B.code === s[1] ? 'selected' : ''}>${esc(s[0])}</option>`).join('')}<option value="unknown" ${B.code === 'unknown' ? 'selected' : ''}>잘 모르겠어요</option></select></div>`;
   } else {
     h += `<p class="bd-h1">예비파트너 문의 등록</p><div class="box">오늘의집에 이미 입점한 파트너님은 오로라에 로그인한 뒤 파트너 문의등록으로 남겨 주세요. 예비파트너 문의는 답변이 입력하신 이메일로만 발송되며, 파트너센터에서 문의 내역을 다시 확인하실 수 없습니다.</div>
-      <div class="fx"><label>문의 유형 <em class="req">필수</em></label><div class="ch">${PRE_TYPES.map(p => `<button data-pre="${p[1]}" class="${B.code === p[1] ? 'on' : ''}">${esc(p[0])}</button>`).join('')}</div></div>
-      <div class="fx"><label>샵명(사업자명) <em class="req">필수</em></label><input type="text" value="새가구공방"></div>
-      <div class="fx"><label>사업자등록번호 <em class="req">필수</em></label><input type="text" value="1234567890"><div class="ntc">숫자 10자리 형식 검사. '해외사업자입니다' 체크 시 형식 검사 해제</div></div>
-      <div class="fx"><label>답변 받을 이메일 <em class="req">필수</em> <small>다시 입력한 값과 같아야 제출됨</small></label><input type="text" value="new@example.com"></div>`;
+      <div class="fx"><label>문의 유형 <em class="req">*</em></label><div class="ch">${PRE_TYPES.map(p => `<button data-pre="${p[1]}" class="${B.code === p[1] ? 'on' : ''}">${esc(p[0])}</button>`).join('')}</div></div>
+      <div class="fx"><label>샵명(사업자명) <em class="req">*</em></label><input type="text" value="새가구공방"></div>
+      <div class="fx"><label>사업자등록번호 <em class="req">*</em></label><input type="text" value="1234567890"><div class="ntc">숫자 10자리 형식 검사. '해외사업자입니다' 체크 시 형식 검사 해제</div></div>
+      <div class="fx"><label>답변 받을 이메일 <em class="req">*</em> <small>다시 입력한 값과 같아야 제출됨</small></label><input type="text" value="new@example.com"></div>`;
   }
   if (t) {
     if (t.notices.length) h += `<div class="box">${t.notices.map(fmt).join('<br>')}</div>`;
     h += t.fields.length ? `<div style="font-size:12px;font-weight:700;color:#80868E;margin:18px 0 8px">유형별 추가 항목 (4-2 「양식 추가 항목」)</div>` + t.fields.map(fieldHtml).join('') : '';
   } else if (B.code === 'unknown') h += `<div class="box">'잘 모르겠어요'를 고르면 추가 항목 없이 공통 항목만 받습니다.</div>`;
   h += `<div class="fx"><label>제목 <em class="opt">선택</em> <small>비우면 "세부 유형명 + 접수일"로 자동 생성</small></label><input type="text" data-k="title" value="${esc(B.vals.title||'')}"></div>
-    <div class="fx"><label>문의 내용 <em class="req">필수</em></label><textarea data-k="body">${esc(B.vals.body||'')}</textarea></div>
+    <div class="fx"><label>문의 내용 <em class="req">*</em></label><textarea data-k="body">${esc(B.vals.body||'')}</textarea></div>
     <div class="fx"><label>첨부파일 <em class="opt">선택</em></label><div class="file">파일 첨부 (목업)</div></div>
-    <div class="box">문의 내용과 첨부파일에 고객님 개인정보(이름, 연락처, 주소, 이메일 등)를 넣지 말아 주세요. 주문번호만 적어 주시면 확인할 수 있습니다.</div>
-    <div class="btnrow"><button class="btn" id="b-fill">예시 값 채우기</button><button class="btn pri" id="b-submit" ${B.code ? '' : 'disabled style="opacity:.5"'}>문의 등록</button></div></div>`;
+    <div class="box">문의 내용과 첨부파일에 고객님 개인정보(이름, 연락처, 주소, 이메일 등)를 넣지 말아 주세요. 주문번호만 적어 주시면 확인할 수 있습니다.</div>`;
   $('#b-page').innerHTML = h;
+  $('#b-ft').innerHTML = `<button class="mock" id="b-fill" title="목업 조작">예시 값 채우기</button><button id="b-cancel">취소</button><button class="pri" id="b-submit" ${B.code ? '' : 'disabled'}>접수하기</button>`;
+  $('#b-cancel').onclick = () => siteOpen(bS, false);
   const pg = $('#b-page');
   pg.querySelectorAll('.who-seg button').forEach(b => b.onclick = () => { B.who = b.dataset.w; B.code = null; B.group = null; B.vals = {}; bList(); bRender(); });
   pg.querySelectorAll('[data-pre]').forEach(b => b.onclick = () => { B.code = b.dataset.pre; B.vals = {}; bList(); bRender(); });
@@ -749,7 +920,7 @@ function bForm(){
     B.vals.body = B.vals.body || ((DATA.types[B.code] && DATA.types[B.code].utter[0]) || `${t.name} 관련 문의드립니다.`);
     bRender();
   };
-  $('#b-submit').onclick = () => { if (!B.code) return; if (B.code === 'unknown') { B.code = 'PA011001'; } B.step = 'detail'; B.path = null; B.sec = null; bRender(); window.scrollTo({top: $('.web').offsetTop - 10, behavior:'smooth'}); };
+  $('#b-submit').onclick = () => { if (!B.code) return; if (B.code === 'unknown') { B.code = 'PA011001'; } B.step = 'detail'; B.path = null; B.sec = null; bRender(); window.scrollTo({top: bS.getBoundingClientRect().top + scrollY - 10, behavior:'smooth'}); };
 }
 function splitMode(m){
   // '조건별: a / b / c' → 경로 목록
@@ -788,29 +959,28 @@ function bDetail(){
   const paths = splitMode(t.mode);
   const st = !B.path ? ['wait', '답변대기'] : B.path === 'assign' ? ['chk', '확인중'] : B.path === 'both' ? ['chk', '확인중'] : ['done', '답변완료'];
   const filled = t.fields.map((f, i) => [f.label, B.vals['f' + i]]).filter(x => x[1] && (x[1].length || x[1] === 0)).map(x => [x[0], Array.isArray(x[1]) ? x[1].join(', ') : x[1]]);
-  let h = `<div class="bd-card"><div class="bd-top"><div class="bd-title">${esc(B.vals.title || `${t.sub || t.name} 2026.10.20`)}</div><span class="bd-st ${st[0]}">${st[1]}</span></div>
-    <div class="bd-chips"><span>${esc(t.mid)}</span><span>${esc(t.sub || t.name)}</span><span>2026.10.20 14:12 접수</span></div></div>
-    <div class="bd-card"><p class="bd-h1" style="font-size:15px">문의 내용</p>${filled.map(r => `<div class="bd-row"><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div>`).join('')}<div class="bd-row"><b>문의 내용</b><span>${esc(B.vals.body || '-')}</span></div></div>
-    <div class="bd-card"><div class="judge"><b>AI 판정 (접수 즉시, 24시간 동작 · B-02)</b>판정 유형: ${esc(t.code)} ${esc(t.name)}<br>1차 AI 처리 방식: ${esc(bModeShort(t.mode))}<div class="pth">${paths.map((p, i) => `<button data-p="${i}" class="${B.pi === i ? 'on' : ''}" ${p.kind === 'note' || p.kind === 'switch' ? 'disabled' : ''}><span class="md ${p.kind === 'auto' ? 'ai' : p.kind === 'assign' ? 'info' : p.kind === 'both' ? 'as' : 'board'}">${p.kind === 'auto' ? '자동답변' : p.kind === 'assign' ? '상담원 배정' : p.kind === 'both' ? '자동답변 + 상담원' : '유형 재판정'}</span><span>${esc(p.s)}</span></button>`).join('')}</div><div style="margin-top:8px;color:#5B7AB0">파트너가 적은 내용에 해당하는 경로를 눌러 결과 화면을 확인하세요.</div></div></div>`;
+  let h = `<div class="bd-card"><div class="bd-top"><span class="bd-back" id="b-back2" title="양식으로 돌아가기">‹</span><div class="bd-title">${esc(B.vals.title || `${t.sub || t.name} 2026.10.20`)}</div><span class="bd-st ${st[0]}">${st[1]}</span></div>
+    <div class="bd-chips"><span>1:1 문의</span><span>2026.10.20 14:12</span></div></div>
+    <div class="bd-card"><div class="bd-h">문의 정보</div><div class="bd-row"><b>카테고리</b><span>${esc(t.mid)}</span></div><div class="bd-row"><b>세부 유형</b><span>${esc(t.sub || t.name)}</span></div>${filled.map(r => `<div class="bd-row"><b>${esc(r[0])}</b><span>${esc(r[1])}</span></div>`).join('')}</div>
+    <div class="bd-card"><div class="bd-h">문의 내용</div><div class="bd-txt">${esc(B.vals.body || '-')}</div></div>`;
+  let j = `<h3>AI 판정 <small>목업 조작 · 파트너에게는 보이지 않음</small></h3><div class="judge"><b>접수 즉시 판정 (24시간 동작 · B-02)</b>판정 유형: ${esc(t.code)} ${esc(t.name)}<br>1차 AI 처리 방식: ${esc(bModeShort(t.mode))}<div class="pth">${paths.map((p, i) => `<button data-p="${i}" class="${B.pi === i ? 'on' : ''}" ${p.kind === 'note' || p.kind === 'switch' ? 'disabled' : ''}><span class="md ${p.kind === 'auto' ? 'ai' : p.kind === 'assign' ? 'info' : p.kind === 'both' ? 'as' : 'board'}">${p.kind === 'auto' ? '자동답변' : p.kind === 'assign' ? '상담원 배정' : p.kind === 'both' ? '자동답변 + 상담원' : '유형 재판정'}</span><span>${esc(p.s)}</span></button>`).join('')}</div><div style="margin-top:8px;color:#5B7AB0">파트너가 적은 내용에 해당하는 경로를 눌러 결과 화면을 확인하세요.</div></div>`;
   if (B.path === 'auto' || B.path === 'both') {
     const secs = splitSections(t.auto); const named = secs.map((s, i) => [s, i]).filter(x => x[0].h);
     const ans = `<div class="ans"><div class="who">오집사 <em>AI 답변</em></div><div class="dt">2026.10.20 14:12</div>
       ${named.length > 1 ? `<div class="secpick"><button data-s="" class="${B.sec == null ? 'on' : ''}">해당 단락 모두</button>${named.map(([s, i]) => `<button data-s="${i}" class="${B.sec === i ? 'on' : ''}">${esc(s.h)}</button>`).join('')}</div>` : ''}
       <div class="tx">${answerText(t, B.sec, B.path === 'both' ? 'B' : null)}</div>
       ${B.path === 'auto' ? `<div class="rate">이어서 만족도 평가 영역이 붙습니다 (AI 답변 NPS · 문항은 NPS 목업 참고)</div>` : ''}</div>`;
-    h += isPre ? `<div class="bd-card"><div class="mail"><div class="from">보낸 사람 오늘의집 파트너센터 · 받는 사람 new@example.com<br>제목 [오늘의집 파트너센터] 문의하신 내용에 답변드립니다</div>${ans}<div class="rate">이 메일은 발신 전용이라 회신하실 수 없습니다. 추가 문의는 파트너센터 홈페이지 우측 상단 [문의 등록] > [예비파트너 문의 등록]으로 새로 남겨 주세요. 이미 입점을 마치셨다면 오로라에 로그인한 뒤 문의해 주세요.</div></div></div>` : `<div class="bd-card">${ans}</div>`;
+    h += isPre ? `<div class="bd-card"><div class="mail"><div class="from">보낸 사람 오늘의집 파트너센터 · 받는 사람 new@example.com<br>제목 [오늘의집 파트너센터] 문의하신 내용에 답변드립니다</div>${ans}<div class="rate">이 메일은 발신 전용이라 회신하실 수 없습니다. 추가 문의는 파트너센터 홈페이지 우측 상단 [문의 등록] > [예비파트너 문의 등록]으로 새로 남겨 주세요. 이미 입점을 마치셨다면 오로라에 로그인한 뒤 문의해 주세요.</div></div></div>` : `<div class="bd-card"><div class="bd-h">상담원 답변 <small>1건</small></div>${ans}</div>`;
   }
-  if (B.path === 'assign' || B.path === 'both') {
-    const one = t.assign;
-    const msg = `<div class="ans"><div class="who">오늘의집 파트너센터 <em>접수 확인</em></div><div class="dt">2026.10.20 14:12 · 공개 답변이 아닌 접수 안내</div><div class="tx">${fmt(ASSIGN(one)).replace(/<br>/g, '\n')}</div></div>`;
-    h += `<div class="bd-card">${B.path === 'assign' ? (isPre ? `<div class="mail"><div class="from">예비파트너는 이메일로 발송</div>${msg}</div>` : msg) : `<div class="judge" style="background:#FFFBF2;border-color:#F0D9A8;color:#8A5A00"><b style="color:#8A5A00">이어서 상담원 확인</b>같은 문의에 상담원 답변이 이어서 붙습니다. 상태는 상담원 답변 전까지 「확인중」입니다.</div>`}
-      <div class="ticket" style="margin:12px 0 0"><b>상담원에게 넘길 정보 (4-2)</b><div style="color:#2F3438">${fmt(t.info)}</div></div></div>`;
-  }
-  h += `<div class="btnrow" style="margin-top:14px"><button class="btn" id="b-back">양식으로 돌아가기</button></div>`;
-  $('#b-page').innerHTML = h;
-  $('#b-page').querySelectorAll('.pth button').forEach(b => b.onclick = () => { if (b.disabled) return; B.pi = +b.dataset.p; B.path = paths[B.pi].kind; B.sec = null; bRender(); });
-  $('#b-page').querySelectorAll('.secpick button').forEach(b => b.onclick = () => { B.sec = b.dataset.s === '' ? null : +b.dataset.s; bRender(); });
-  $('#b-back').onclick = () => { B.step = 'form'; B.path = null; B.pi = null; bRender(); };
+  if (B.path === 'assign') h += `<div class="bd-card"><div class="bd-h">상담원 답변 <small>1건</small></div><div class="ans"><div class="who">오늘의집 파트너센터 <em>접수 확인</em></div><div class="dt">2026.10.20 14:12 · 공개 답변이 아닌 접수 안내</div><div class="tx">${fmt(ASSIGN(t.assign)).replace(/<br>/g, '\n')}</div></div></div>`;
+  if (B.path === 'both') j += `<div class="judge" style="margin-top:10px;background:#FFFBF2;border-color:#F0D9A8;color:#8A5A00"><b style="color:#8A5A00">이어서 상담원 확인</b>같은 문의에 상담원 답변이 이어서 붙습니다. 상태는 상담원 답변 전까지 「확인중」입니다.</div>`;
+  if (B.path === 'assign' || B.path === 'both') j += `<div class="ticket"><b>상담원에게 넘길 정보 (4-2)</b><div class="pre">${fmt(t.info)}</div></div>`;
+  j += `<div class="tbtn" style="margin-top:10px"><button id="b-back">양식으로 돌아가기</button></div>`;
+  $('#b-detail').innerHTML = h;
+  const jd = $('#b-judge'); jd.innerHTML = j; jd.hidden = false;
+  jd.querySelectorAll('.pth button').forEach(b => b.onclick = () => { if (b.disabled) return; B.pi = +b.dataset.p; B.path = paths[B.pi].kind; B.sec = null; bRender(); const a = $('#b-detail .ans'); if (a) bS.querySelector('.s-vp').scrollTop = a.closest('.bd-card').offsetTop - 12; });
+  $('#b-detail').querySelectorAll('.secpick button').forEach(b => b.onclick = () => { B.sec = b.dataset.s === '' ? null : +b.dataset.s; bRender(); });
+  $('#b-back').onclick = $('#b-back2').onclick = () => { B.step = 'form'; B.path = null; B.pi = null; bRender(); };
 }
 function bInfo(){
   const t = B.code && DATA.btypes[B.code];
@@ -827,6 +997,17 @@ function bInfo(){
   h += `<div class="card"><h3>게시판 공통 규칙 <small>4-2 B-01~B-06</small></h3>${Object.entries(DATA.bcommon).map(([k, c]) => `<details class="more"><summary>${esc(k)} ${esc(c.name)}</summary><div class="pre s">${fmt(c.text)}</div>${c.check ? `<div class="pre" style="margin-top:6px"><span class="chk">확인 필요</span> ${fmt(c.check)}</div>` : ''}</details>`).join('')}</div>`;
   $('#b-info').innerHTML = h;
 }
+
+/* ---------- 사이트 틀 ---------- */
+const cS = $('#c-site'), bS = $('#b-site');
+siteMount(cS, ''); siteMount(bS, 'wide');
+function cSite(){ siteFill(cS, {url:'partner.ohou.se', guest: visitor === 'guest'}); }
+cS.onGo = g => g === 'chat' ? siteOpen(cS, true) : (showTab('board'), openBoard(null));
+bS.onGo = g => { if (g === 'chat') { showTab('chat'); siteOpen(cS, true); } else { B.step = 'form'; B.path = null; B.pi = null; bRender(); } };
+$('#c-close').onclick = () => siteOpen(cS, false);
+$('#b-x').onclick = () => siteOpen(bS, false);
+siteDevInit($('#devseg'));
+cSite(); siteOpen(cS, true);
 
 /* ---------- 시작 ---------- */
 cList(); greet(); bList(); bRender();

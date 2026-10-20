@@ -355,6 +355,11 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 @media(max-width:900px){#p1 .grid{grid-template-columns:1fr!important}}
 /* 게시판 상세: 고객센터 1:1 문의 실제 화면과 같은 구조 */
 .bd{background:#F5F6F8;color:#2F3438;letter-spacing:-.2px}
+.s-page.bd{background:none}
+.bd-ans .hd{display:flex;justify-content:space-between}
+.bd-ans .hd .dt{margin:0}
+.site[data-dev="mo"] .bd-card{padding:18px}
+.site[data-dev="mo"] .bd-chips span{font-size:12px}
 .bd-card{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:20px}
 .bd-card+.bd-card{margin-top:14px}
 .bd-top{display:flex;align-items:center;gap:14px}
@@ -396,26 +401,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 .bd-go{width:100%;margin-top:4px;border:0;border-radius:10px;padding:12px;background:#4A9CFF;color:#fff;font:inherit;font-weight:700;cursor:pointer}
 .bd-go:disabled{background:#D5DAE1;cursor:not-allowed}
 /* 앱 프레임 */
-.bd-app{width:390px;max-width:100%;height:780px;margin:0 auto;border-radius:30px;border:1px solid #D8DDE6;box-shadow:0 8px 30px rgba(20,30,60,.12);overflow:hidden;display:flex;flex-direction:column}
-.bd-app .sb{height:40px;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font-size:13px;font-weight:700;flex:none}
-.bd-app .nav{height:50px;background:#fff;display:flex;align-items:center;justify-content:center;position:relative;font-weight:700;font-size:16px;flex:none}
-.bd-app .nav i{position:absolute;left:18px;font-style:normal;font-size:20px}
-.bd-app .sc{flex:1;overflow-y:auto;padding:14px}
-.bd-app .bd-card{padding:18px}
-.bd-app .bd-chips span{font-size:12px}
 /* 웹 프레임 */
-.bd-web{border:1px solid #D8DDE6;border-radius:12px;overflow:hidden;box-shadow:0 8px 30px rgba(20,30,60,.10)}
-.bd-web .bar{height:34px;background:#EEF0F3;display:flex;align-items:center;gap:6px;padding:0 12px}
-.bd-web .bar i{width:10px;height:10px;border-radius:50%;background:#D0D4DA}
-.bd-web .bar span{margin-left:10px;background:#fff;border-radius:6px;padding:3px 12px;font-size:11px;color:#8A9099;flex:1;max-width:420px}
-.bd-web .gnb{background:#fff;border-bottom:1px solid #E4E7EB;height:60px;display:flex;align-items:center;padding:0 28px;gap:10px;font-weight:800;font-size:17px}
-.bd-web .gnb .lg{width:26px;height:26px;border-radius:7px;background:#35C5F0}
-.bd-web .gnb small{font-weight:600;color:#80868E;font-size:13px;margin-left:4px}
-.bd-web .sc{padding:28px 16px 40px;max-height:820px;overflow-y:auto}
-.bd-web .in{max-width:820px;margin:0 auto}
-.bd-web .bd-chips{justify-content:flex-end}
-.bd-web .bd-ans .hd{display:flex;justify-content:space-between}
-.bd-web .bd-ans .dt{margin:0}
 /* 이메일 응답 페이지 */
 .mail .btns a.sel{border-color:var(--brand);background:var(--brand-bg);color:var(--brand-d)}
 .flowarrow{text-align:center;font-size:12px;color:var(--sub);margin:12px 0;font-family:ui-monospace,Menlo,monospace}
@@ -426,6 +412,120 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 .lopt{display:flex;gap:6px;margin-bottom:14px}
 .lopt button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:10px;padding:10px 4px;font:inherit;font-size:12.5px;cursor:pointer}
 .lopt button.sel{border-color:var(--brand);background:var(--brand-bg);color:var(--brand-d);font-weight:700}
+/* 파트너센터 사이트 틀 (참고: 파트너센터·권리보호센터·안전거래센터 목업, 라이트 고정) */
+.site{position:relative;display:flex;flex-direction:column;overflow:hidden;background:#F3F4F6;color:#2F3438;border:1px solid #D8DDE6;box-shadow:0 8px 30px rgba(20,30,60,.12);font-size:14px;line-height:1.5}
+.site[data-dev="pc"]{height:860px;border-radius:12px}
+.site[data-dev="mo"]{width:390px;max-width:100%;height:844px;margin:0 auto;border-radius:40px}
+.s-top{flex:none;background:#fff}
+.s-status{display:none;height:40px;align-items:center;justify-content:space-between;padding:0 30px;font-size:14px;font-weight:700}
+.s-bar{height:36px;background:#EEF0F3;display:flex;align-items:center;gap:6px;padding:0 12px}
+.s-bar>i{width:10px;height:10px;border-radius:50%;background:#D0D4DA}
+.s-url{margin-left:10px;background:#fff;border-radius:6px;padding:3px 12px;font-size:11px;color:#8A9099;flex:1;max-width:460px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-mb{display:none;width:38px;height:38px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);align-items:center;justify-content:center;font-size:18px;color:#2F3438;flex:none}
+.site[data-dev="mo"] .s-status{display:flex}
+.site[data-dev="mo"] .s-bar{height:56px;background:#F7F7F8;padding:0 12px;gap:8px}
+.site[data-dev="mo"] .s-bar>i{display:none}
+.site[data-dev="mo"] .s-mb{display:flex}
+.site[data-dev="mo"] .s-url{margin:0;max-width:none;border-radius:14px;background:#EDEEF0;padding:9px 14px;font-size:14px;color:#2F3438}
+.s-scr{flex:1;position:relative;min-height:0}
+.s-vp{position:absolute;inset:0;overflow-y:auto}
+.s-bot{display:none;flex:none;height:54px;background:#F7F7F8;border-top:1px solid #E4E7EB;align-items:center;justify-content:space-around;font-size:20px;color:#5B636D}
+.site[data-dev="mo"] .s-bot{display:flex}
+/* 헤더·메뉴 */
+.s-hd{height:64px;background:#fff;display:flex;align-items:center;gap:18px;padding:0 28px}
+.s-logo{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:19px;letter-spacing:-.4px;color:#2F3438}
+.s-house{display:inline-block;width:24px;height:24px;border-radius:6px;background:#4A9CFF;clip-path:polygon(50% 0,100% 30%,100% 100%,0 100%,0 30%)}
+.s-ctr{border-left:1px solid #E4E7EB;padding-left:18px;font-weight:700;font-size:16px}
+.s-ctr small,.s-shop small{color:#9AA1AB;font-size:12px;margin-left:2px}
+.s-sp{flex:1}
+.s-orora{font-size:22px;font-weight:500;letter-spacing:-.5px;color:#2F3438}
+.s-orora sup{font-size:10px;color:#9AA1AB;margin-left:2px}
+.s-lk{font-size:13px;font-weight:600}
+.s-shop{border:1px solid #DADDE2;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600}
+.s-burger{display:none;font-size:20px}
+.s-nav{height:48px;background:#fff;border-bottom:1px solid #E4E7EB;display:flex;align-items:center;gap:26px;padding:0 28px;font-size:13.5px;font-weight:600;white-space:nowrap}
+.s-nav span{cursor:default}.s-nav [data-go]{cursor:pointer}
+.s-nav .on{color:#4A9CFF}
+.site[data-dev="mo"] .s-hd{height:54px;padding:0 16px;gap:10px}
+.site[data-dev="mo"] .s-logo{font-size:17px}
+.site[data-dev="mo"] .s-ctr{padding-left:10px;font-size:14px}
+.site[data-dev="mo"] .s-orora,.site[data-dev="mo"] .s-lk,.site[data-dev="mo"] .s-shop{display:none}
+.site[data-dev="mo"] .s-burger{display:block}
+.site[data-dev="mo"] .s-nav{height:44px;gap:18px;padding:0 16px;font-size:13px;overflow-x:auto}
+.site[data-dev="mo"] .s-nav .s-sp{flex:none;width:0}
+/* 홈 */
+.s-hero{height:150px;background:linear-gradient(100deg,#73B0E6,#8DC4F0 55%,#79B6EA);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px;padding:0 16px}
+.s-hero small{font-size:12.5px;opacity:.9}
+.s-hero b{font-size:25px;letter-spacing:-.6px}
+.s-hero span{font-size:13px;opacity:.95}
+.s-in{max-width:780px;margin:0 auto;padding:22px 24px 36px}
+.s-search{display:flex;gap:8px;margin-bottom:16px}
+.s-search span{flex:1;background:#fff;border:1px solid #DADDE2;border-radius:8px;padding:10px 14px;color:#9AA1AB;font-size:13px}
+.s-search button,.s-cta button{border:1px solid #4A9CFF;background:#4A9CFF;color:#fff;border-radius:8px;padding:0 18px;font:inherit;font-weight:700;font-size:13px}
+.s-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.s-card{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:18px 20px}
+.s-card.new{background:#EAF4FE;border-color:#DCEBFB}
+.s-card small{display:block;color:#3D8BE8;font-size:11.5px;font-weight:700;margin-bottom:6px}
+.s-card b{display:block;font-size:16px;margin-bottom:6px}
+.s-card p{margin:0 0 10px;color:#5B636D;font-size:12.5px}
+.s-card a{color:#3D8BE8;font-weight:700;font-size:13px}
+.s-q{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;font-size:13px;font-weight:600}
+.s-q span{padding:8px 0;border-bottom:1px solid #E4E7EB}
+.s-lh{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 10px}
+.s-lh b{font-size:17px}.s-lh span{font-size:12px;color:#80868E}
+.s-list{background:#fff;border:1px solid #E4E7EB;border-radius:14px;padding:0 20px;margin-bottom:26px}
+.s-list div{display:flex;align-items:center;gap:14px;padding:13px 0;font-size:13.5px}
+.s-list div+div{border-top:1px solid #EEF0F3}
+.s-list div span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.s-list em{font-style:normal;color:#9AA1AB;font-size:12px}.s-list i{font-style:normal;color:#5B636D}
+.s-cta{background:#EAF4FE;border-radius:14px;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.s-cta b{display:block;font-size:16px}.s-cta span{font-size:12.5px;color:#5B636D}
+.s-cta>div:last-child{display:flex;gap:8px}
+.s-cta button{padding:11px 16px;cursor:pointer}
+.s-cta button:not(.pri){background:#fff;color:#2F3438;border-color:#DADDE2}
+.s-ft{border-top:1px solid #E4E7EB;margin:10px 24px 0;padding:18px 4px 26px;font-size:12px;color:#80868E}
+.s-ft>div{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.s-ft .s-logo{font-size:15px}.s-ft .s-house{width:18px;height:18px;border-radius:5px}
+.s-ft p{margin:0}
+.site[data-dev="mo"] .s-hero{height:128px}
+.site[data-dev="mo"] .s-hero b{font-size:18px}
+.site[data-dev="mo"] .s-hero span{font-size:12px}
+.site[data-dev="mo"] .s-in{padding:16px 14px 28px}
+.site[data-dev="mo"] .s-cards{grid-template-columns:1fr}
+.site[data-dev="mo"] .s-list{padding:0 14px}
+.site[data-dev="mo"] .s-cta>div:last-child{width:100%}
+.site[data-dev="mo"] .s-cta button{flex:1}
+.site[data-dev="mo"] .s-ft{margin:6px 14px 0}
+/* 채팅 버튼·팝업 */
+.s-fab{position:absolute;right:22px;bottom:26px;width:52px;height:52px;border-radius:50%;border:0;background:#4A9CFF;box-shadow:0 4px 14px rgba(40,110,220,.35);z-index:2;cursor:pointer}
+.s-fab::before{content:"";position:absolute;left:15px;top:15px;width:22px;height:18px;border:2.5px solid #fff;border-radius:9px 9px 9px 3px;box-sizing:border-box}
+.s-dim{display:none;position:absolute;inset:0;background:rgba(20,22,26,.42);z-index:3}
+.s-modal{display:none;position:absolute;z-index:4;background:#fff;border-radius:24px;overflow:hidden;flex-direction:column;box-shadow:0 12px 40px rgba(0,0,0,.18)}
+.site.open .s-dim{display:block}
+.site.open .s-modal{display:flex}
+.site.open .s-fab{display:none}
+.site[data-dev="pc"] .s-modal{top:26px;bottom:26px;left:50%;transform:translateX(-50%);width:440px;max-width:calc(100% - 40px)}
+.site[data-dev="pc"] .s-modal.wide{width:620px}
+.site[data-dev="mo"] .s-modal{inset:10px}
+.s-modal .phone{width:100%;max-width:none;height:100%;border:0;border-radius:0;box-shadow:none}
+/* 1:1 문의하기 팝업 */
+.bm-hd{flex:none;position:relative;padding:24px 28px 18px;border-bottom:1px solid #E9EBEE}
+.bm-hd small{display:block;color:#4A9CFF;font-size:13px;font-weight:600;margin-bottom:4px}
+.bm-hd b{font-size:22px;letter-spacing:-.4px}
+.bm-x{position:absolute;right:20px;top:20px;width:40px;height:40px;border-radius:50%;border:0;background:#F1F3F5;font-size:18px;font-weight:700;color:#2F3438;cursor:pointer}
+.bm-body{flex:1;overflow-y:auto;padding:0 28px 22px}
+.bm-sec{color:#6B727B;font-size:14px;font-weight:600;padding:22px 2px 12px;border-bottom:1px solid #E4E7EB;margin-bottom:20px}
+.bm-ft{flex:none;display:flex;gap:10px;align-items:center;padding:14px 28px 18px;border-top:1px solid #E9EBEE}
+.bm-ft button{flex:1;height:50px;border-radius:10px;border:1px solid #DADDE2;background:#fff;color:#2F3438;font:inherit;font-size:15px;font-weight:600;cursor:pointer}
+.bm-ft button.pri{background:#4A9CFF;border-color:#4A9CFF;color:#fff}
+.bm-ft button.mock{flex:none;width:auto;height:auto;padding:6px 10px;border-style:dashed;color:#6B727B;font-size:12px;font-weight:500;background:#FAFBFC}
+.bm-ft button:disabled{opacity:.45;cursor:default}
+.site[data-dev="mo"] .bm-hd{padding:20px 20px 14px}
+.site[data-dev="mo"] .bm-body{padding:0 20px 18px}
+.site[data-dev="mo"] .bm-ft{padding:12px 20px 14px}
+/* 나의 문의 내역 상세 */
+.s-page{max-width:780px;margin:0 auto;padding:24px 24px 40px}
+.site[data-dev="mo"] .s-page{padding:14px 14px 28px}
 </style>
 </head>
 <body>
@@ -451,15 +551,16 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <button data-v="hu">상담원이 종료 (바로 연결)</button>
     <button data-v="ag">AI → 상담원 인계 후 종료</button>
   </div>
+  <span class="scn-l" style="margin-left:10px">화면</span><div class="scn-seg"><button data-dev="pc">PC 웹</button><button data-dev="mo">모바일 웹</button></div>
   <button class="reset" id="chReset">↺ 처음부터</button>
 </div>
-<div class="grid g2" style="grid-template-columns:400px 1fr;align-items:start">
+<div class="grid g2" style="grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:start">
   <div>
-    <div class="phone">
-      <div class="ph-head"><span class="ph-logo"><i></i>파트너센터</span><span class="ph-x">×</span></div>
+    <div id="chSite"><div class="phone">
+      <div class="ph-head"><span class="ph-logo"><i></i>오늘의집</span><span class="ph-x" id="chX" style="cursor:pointer" title="채팅 닫기">×</span></div>
       <div class="ph-body" id="chBody"></div>
       <div class="ph-input"><span class="plus">+</span><span class="ph">상담이 종료되었습니다</span><span class="send">↑</span></div>
-    </div>
+    </div></div>
   </div>
   <div>
     <div class="card">
@@ -480,14 +581,13 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 <!-- ② 게시판 -->
 <section class="panel" id="p2">
 <div class="scn">
-  <span class="scn-l">화면</span>
-  <div class="scn-seg" id="bdMode"><button class="on" data-v="app">앱</button><button data-v="web">웹</button></div>
-  <span class="scn-l" style="margin-left:10px">답변 상태</span>
+  <span class="scn-l">답변 상태</span>
   <div class="scn-seg" id="bdScn">
     <button class="on" data-v="ai">AI 자동답변 · 답변완료</button>
     <button data-v="hu">상담원 답변 · 답변완료</button>
     <button data-v="chk">확인중 (평가 없음)</button>
   </div>
+  <span class="scn-l" style="margin-left:10px">화면</span><div class="scn-seg"><button data-dev="pc">PC 웹</button><button data-dev="mo">모바일 웹</button></div>
   <button class="reset" id="bdReset">↺ 처음부터</button>
 </div>
 <div id="bdView"></div>
@@ -899,6 +999,53 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
 </div>
 <button class="theme" id="themeBtn">화면 테마 바꾸기</button>
 <script>
+/* ---------- 파트너센터 사이트 틀 (홈 위에 채팅·문의 팝업, PC·모바일 웹) ---------- */
+const SITE_SHOP = '오트밀하우스';
+let SITE_DEV = 'pc';
+try { SITE_DEV = localStorage.getItem('site-dev') || 'pc'; } catch(e) {}
+const SITE_ON = []; // 기기 전환 때 다시 그릴 함수
+const SITE_NOTI = [['[일반] CJ대한통운 풀필먼트 직접 연동 오픈 예정 안내 (사전 안내)','2026-10-12'],['[정책] 오늘의집 글로벌 판매 특약 신설 및 메뉴추가','2026-10-06'],['[정산] 26년 10월 일정산 일정 안내','2026-09-30'],['[일반] 오감리뷰 추석 연휴 캠페인 등록 일정 안내','2026-09-17'],['[일반] [오늘의집] 2026 추석연휴 배송지연 안내','2026-09-16'],['[시스템] 오로라 HTML 보안 패치 배포 안내','2026-09-14']];
+const SITE_GUIDE = [['[오로라] 판매자 정보 기본 안내','2025-08-07'],['[오로라] 신상품 등록 기본 가이드','2025-07-22'],['[오로라] 정산관리 가이드','2026-01-30']];
+const siteList = (t, rows) => `<div class="s-lh"><b>${t}</b><span>전체 보기 →</span></div><div class="s-list">${rows.map(r => `<div><span>${r[0]}</span><em>${r[1]}</em><i>›</i></div>`).join('')}</div>`;
+const siteHome = () => `<div class="s-hero"><small>파트너센터</small><b>판매의 시작부터 운영까지, 함께할게요.</b><span>입점 안내와 판매 가이드를 확인하고 필요한 도움을 받아보세요.</span></div>
+  <div class="s-in">
+    <div class="s-search"><span>궁금한 내용을 검색해 보세요</span><button>검색</button></div>
+    <div class="s-cards"><div class="s-card new"><small>신규 파트너</small><b>오늘의집 입점이 처음이신가요?</b><p>신청부터 자료 제출, 계약까지 단계별로 확인하세요.</p><a>입점 절차 확인 →</a></div>
+      <div class="s-card"><small>판매 중인 파트너</small><b>어떤 업무가 궁금하세요?</b><div class="s-q"><span>상품 ›</span><span>배송·주문 ›</span><span>취소·교환·반품 ›</span><span>정산 ›</span></div></div></div>
+    ${siteList('공지사항', SITE_NOTI)}${siteList('판매 운영 가이드', SITE_GUIDE)}
+    <div class="s-cta"><div><b>가이드로 해결되지 않으셨나요?</b><span>채팅 또는 게시판으로 문의해 주세요.</span></div><div><button class="pri" data-go="chat">채팅 문의하기</button><button data-go="board">게시판 문의하기</button></div></div>
+  </div>`;
+const SITE_SKEL = (modal = '', cls = '') => `<div class="s-top"><div class="s-status"><span>9:41</span><span>LTE ▮</span></div><div class="s-bar"><i></i><i></i><i></i><span class="s-mb">‹</span><span class="s-url"></span><span class="s-mb">⌄</span></div></div>
+  <div class="s-scr"><div class="s-vp"><div class="s-hd"></div><div class="s-nav"></div><div class="s-main"></div><div class="s-ft"></div></div>
+  <div class="s-dim"></div><div class="s-modal ${cls}">${modal}</div><button class="s-fab" data-go="chat" aria-label="채팅 문의"></button></div>
+  <div class="s-bot"><span>←</span><span>→</span><span>↻</span><span>⇪</span></div>`;
+// 기존 내용(채팅창 등)을 팝업 자리로 옮기고 틀을 씌움
+function siteMount(el, cls){
+  const kids = [...el.childNodes];
+  el.classList.add('site'); el.dataset.dev = SITE_DEV; el.innerHTML = SITE_SKEL('', cls);
+  const m = el.querySelector('.s-modal'); kids.forEach(k => m.appendChild(k));
+}
+// o: {url, guest, nav:'ask'|'my', main(없으면 홈)}
+function siteFill(el, o){
+  const q = s => el.querySelector(s);
+  el.dataset.dev = SITE_DEV;
+  q('.s-url').textContent = '🔒 ' + o.url;
+  q('.s-hd').innerHTML = `<span class="s-logo"><i class="s-house"></i>오늘의집</span><span class="s-ctr">파트너센터 <small>⌄</small></span><span class="s-sp"></span><span class="s-orora">o.rora<sup>↗</sup></span>${o.guest ? '<span class="s-lk">로그인</span>' : `<span class="s-lk">로그아웃</span><span class="s-shop">${SITE_SHOP} <small>⌄</small></span>`}<span class="s-burger">☰</span>`;
+  q('.s-nav').innerHTML = ['입점 안내', '공지사항·모집', '가이드·양식', '자주 묻는 질문'].map(x => `<span>${x}</span>`).join('') + `<span class="s-sp"></span><span data-go="board" class="${o.nav === 'ask' ? 'on' : ''}">문의하기</span><span class="${o.nav === 'my' ? 'on' : ''}">나의 문의 내역</span>`;
+  q('.s-main').innerHTML = o.main || siteHome();
+  q('.s-ft').innerHTML = `<div><span class="s-logo"><i class="s-house"></i>오늘의집</span><span>파트너와 이용자를 위한 안내</span></div><p>요구사항 확인 · 권리보호센터 ↗ · 안전거래센터 ↗ · 광고 신청안내 ↗ · 전문가센터 ↗ · 개인정보처리방침 ↗</p>`;
+  el.querySelectorAll('[data-go]').forEach(b => b.onclick = () => el.onGo && el.onGo(b.dataset.go));
+}
+const siteOpen = (el, on) => el.classList.toggle('open', on);
+function siteDevInit(seg){
+  const mark = () => document.querySelectorAll('button[data-dev]').forEach(b => b.classList.toggle('on', b.dataset.dev === SITE_DEV));
+  seg.querySelectorAll('button').forEach(b => b.onclick = () => {
+    SITE_DEV = b.dataset.dev; try { localStorage.setItem('site-dev', SITE_DEV); } catch(e) {}
+    document.querySelectorAll('.site').forEach(s => s.dataset.dev = SITE_DEV);
+    mark(); SITE_ON.forEach(f => f());
+  });
+  mark();
+}
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
   document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('on',p.id===b.dataset.t));
@@ -924,6 +1071,10 @@ const Q3=['답변이 정확하지 않아요','원하는 처리를 못 했어요'
 let sc='ai',A={};
 const $=id=>document.getElementById(id), body=$('chBody');
 const scroll=()=>setTimeout(()=>body.scrollTop=body.scrollHeight,30);
+const chS=$('chSite');siteMount(chS,'');siteFill(chS,{url:'partner.ohou.se'});siteOpen(chS,true);
+$('chX').onclick=()=>siteOpen(chS,false);
+chS.onGo=g=>g==='chat'?siteOpen(chS,true):document.querySelector('.tabs [data-t="p2"]').click();
+document.querySelectorAll('.scn-seg').forEach(s=>{if(s.querySelector('[data-dev]'))siteDevInit(s)});
 function render(){
   const S=SC[sc];A={q1:null,q2:null,ai:null,q3:[],q4:'',sent:false};
   $('chTitle').textContent=S.title;$('chDesc').textContent=S.desc;
@@ -980,7 +1131,7 @@ render();
 
 // ===== ② 게시판: 앱/웹 · 답변 상태별 =====
 (()=>{
-const $=id=>document.getElementById(id);let mode='app',sc='ai';
+const $=id=>document.getElementById(id);let sc='ai';
 const Q3B=['답변이 정확하지 않아요','원하는 처리를 못 했어요','답변이 늦었어요','안내가 어려웠어요','기타'];
 const QI={ai:['반품비 차감 여부 확인','반품/교환 기타','반품 건에서 반품비가 차감됐는지 어디서 확인할 수 있나요?','반품번호 R20261018-0031'],
  hu:['품절 상품 주문 취소 요청','품절·재고부족 취소','재고가 소진되어 주문 2건(20261019-0012, 20261019-0047)을 취소하고 싶습니다. 고객님과는 통화로 협의를 마쳤습니다.','주문번호 20261019-0012']};
@@ -989,7 +1140,7 @@ const ANS={ai:['AI 상담원','2026.10.20 10:12','파트너님, 반품비 차감
  hu:['상담원','2026.10.20 14:31','파트너님, 요청하신 주문 2건(20261019-0012, 20261019-0047)의 취소 처리를 완료했습니다.',false],
  chk:['AI 상담원','2026.10.20 10:12','문의 내용을 확인하고 있습니다. 담당 상담원이 확인 후 답변드리겠습니다.',true]};
 function view(){
-  const a=ANS[sc],q=QI[sc],done=sc!=='chk',web=mode==='web';
+  const a=ANS[sc],q=QI[sc],done=sc!=='chk',web=SITE_DEV==='pc';
   const ans=`<div class="bd-ans">${web?`<div class="hd"><div class="who">${a[0]}${a[3]?'<em>AI 답변</em>':''}</div><div class="dt">${a[1]}</div></div><div style="height:8px"></div>`:`<div class="who">${a[0]}${a[3]?'<em>AI 답변</em>':''}</div><div class="dt">${a[1]}</div>`}<div class="tx">${a[2]}</div></div>`;
   const rate=done?`<div class="bd-card bd-rate" id="bdRate"><div class="rbody"><div class="bd-h">답변 평가</div>
     <p class="rq">이번 답변으로 다른 파트너에게 파트너센터를 추천하시겠어요?</p><div class="ropt" data-k="q1"><button data-v="1">추천해요</button><button data-v="2">보통이에요</button><button data-v="3">추천하지 않아요</button></div>
@@ -1003,8 +1154,7 @@ function view(){
     <div class="bd-card"><div class="bd-h">문의 정보</div><div class="bd-row"><b>카테고리</b><span>${q[1]==='품절·재고부족 취소'?'주문·취소':'반품·교환'}</span></div><div class="bd-row"><b>세부 유형</b><span>${q[1]}</span></div></div>
     <div class="bd-card"><div class="bd-h">문의 내용</div><div class="bd-txt">${q[2]}</div></div>
     <div class="bd-card"><div class="bd-h">상담원 답변 <small>1건</small></div>${ans}</div>${rate}`;
-  $('bdView').innerHTML=web?`<div class="bd-web"><div class="bar"><i></i><i></i><i></i><span>(파트너센터 웹 주소)/inquiries/58123</span></div><div class="gnb"><span class="lg"></span>오늘의집<small>파트너센터</small></div><div class="sc bd"><div class="in">${inner}</div></div></div>`
-    :`<div class="bd-app"><div class="sb"><span>10:12</span><span>LTE ▮</span></div><div class="nav"><i>←</i>파트너센터</div><div class="sc bd">${inner}</div></div>`;
+  siteFill(bdS,{url:'partner.ohou.se/inquiry/58123',nav:'my',main:`<div class="s-page bd">${inner}</div>`});
   $('bdNote').textContent=done?(sc==='ai'?'AI 자동답변이 「답변완료」로 끝난 건은 답변 아래에 평가 영역이 열립니다. 평가 대상은 AI 응대입니다.':'상담원이 답변을 마치면 평가 영역이 열립니다. AI 1차 답변이 있었다면 데이터에 「AI 1차 답변 있음」을 함께 저장합니다.'):'확인중·후처리 상태에서는 평가 영역을 보여 주지 않습니다. 상담원 답변이 끝나 「답변완료」가 되면 열립니다.';
   const r=$('bdRate');if(!r)return;const A={},st=k=>r.querySelector(`[data-s="${k}"]`);
   r.querySelectorAll('.ropt').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));A[g.dataset.k]=b.dataset.v;
@@ -1013,7 +1163,9 @@ function view(){
   r.querySelector('.bd-go').onclick=()=>r.classList.add('sent');
 }
 const seg=(id,fn)=>$(id).querySelectorAll('button').forEach(b=>b.onclick=()=>{$(id).querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));fn(b.dataset.v);view()});
-seg('bdMode',v=>mode=v);seg('bdScn',v=>sc=v);$('bdReset').onclick=view;view();
+const bdS=$('bdView');siteMount(bdS,'');
+bdS.onGo=g=>{if(g==='chat'){document.querySelector('.tabs [data-t="p1"]').click();siteOpen($('chSite'),true)}};
+SITE_ON.push(view);seg('bdScn',v=>sc=v);$('bdReset').onclick=view;view();
 // 이메일 설문 링크 → 설문 페이지
 const LB=$('landBody'),LS=k=>LB.querySelector(`[data-s="${k}"]`),LA={};
 LB.querySelectorAll('.lopt').forEach(g=>g.querySelectorAll('button').forEach(b=>b.onclick=()=>{g.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b));LA[g.dataset.k]=b.dataset.v;
