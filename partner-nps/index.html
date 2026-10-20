@@ -959,14 +959,14 @@ const L1={'1':'추천','2':'보통','3':'비추천'},LA={'1':'좋았어요','2':
 function rec(){
   const S=SC[sc],v=x=>x==null||x===''?'<span class="n">null</span>':`<span class="s">"${String(x).replace(/</g,'&lt;')}"</span>`;
   const row=(k,x)=>`  <span class="k">${k}</span>: ${x}`;
-  const D={ai:['ai',null,'','C88123501','T5512301','취소/반품/교환 기타',''],
-   hu:['agent','1042','상담원 B','C88123522','T5512322','클레임 상태 변경','추가안 · ECA 등록 전에는 기타로 들어감'],
-   ag:['agent','1017','상담원 A','C88123517','T5512317','품절·재고부족 취소','추가안 · ECA 등록 전에는 기타로 들어감']}[sc];
+  const D={ai:['ai',null,'','C88123501','T5512301','반품/교환 기타','추가안 · ECA 등록 전에는 기타로 들어감','반품/교환'],
+   hu:['agent','1042','상담원 B','C88123522','T5512322','클레임 상태 변경','추가안 · ECA 등록 전에는 기타로 들어감','반품/교환'],
+   ag:['agent','1017','상담원 A','C88123517','T5512317','품절·재고부족 취소','추가안 · ECA 등록 전에는 기타로 들어감','주문/취소']}[sc];
   const c=(x,t)=>`${v(x)} <span class="n">// ${t}</span>`;
   const lines=[row('service',v('partner')),row('channel',v('chat')),row('flow',v(S.flow)),row('target',v(D[0])),
    row('consult_id',v(D[3])),row('ticket_id',c(D[4],'ECA 티켓 ID')),row('shop_id',v('1203389')),row('partner_id',v('58211')),
    row('agent_id',D[1]?c(D[1],D[2]):v(null)),
-   row('consult_type_large',v('파트너센터')),row('consult_type_medium',v('취소/반품/교환')),row('consult_type_small',D[6]?c(D[5],D[6]):v(D[5])),
+   row('consult_type_large',v('파트너센터')),row('consult_type_medium',c(D[7],'추가안 중분류 · ECA 등록 필요')),row('consult_type_small',D[6]?c(D[5],D[6]):v(D[5])),
    row('template_id',v('partner_v1')),row('template_version','1'),
    row('q1',A.q1?`${A.q1} <span class="n">// ${L1[A.q1]}</span>`:v(null)),row('q2',v(A.q2))];
   if(sc==='ag')lines.push(row('ai_rating',A.ai?`${A.ai} <span class="n">// ${LA[A.ai]}</span>`:v(null)));
@@ -983,7 +983,7 @@ render();
 (()=>{
 const $=id=>document.getElementById(id);let mode='app',sc='ai';
 const Q3B=['답변이 정확하지 않아요','원하는 처리를 못 했어요','답변이 늦었어요','안내가 어려웠어요','기타'];
-const QI={ai:['반품비 차감 여부 확인','취소/반품/교환 기타','반품 건에서 반품비가 차감됐는지 어디서 확인할 수 있나요?','반품번호 R20261018-0031'],
+const QI={ai:['반품비 차감 여부 확인','반품/교환 기타','반품 건에서 반품비가 차감됐는지 어디서 확인할 수 있나요?','반품번호 R20261018-0031'],
  hu:['품절 상품 주문 취소 요청','품절·재고부족 취소','재고가 소진되어 주문 2건(20261019-0012, 20261019-0047)을 취소하고 싶습니다. 고객님과는 통화로 협의를 마쳤습니다.','주문번호 20261019-0012']};
 QI.chk=QI.hu;
 const ANS={ai:['AI 상담원','2026.10.20 10:12','파트너님, 반품비 차감 여부는 [오로라] &gt; [취소/반품/교환] &gt; [반품관리]에서 해당 반품번호를 클릭하면 반품 상세내역의 환불정보와 반품비용에서 확인하실 수 있습니다.',true],
@@ -1001,7 +1001,7 @@ function view(){
     <div class="rdone"><b>평가해 주셔서 감사합니다</b><div class="rhint">더 나은 답변을 위해 참고하겠습니다.</div></div></div>`:'';
   const inner=`<div class="bd-card"><div class="bd-top"><span class="bd-back">‹</span><span class="bd-title">${q[0]}</span><span class="bd-st ${done?'done':'chk'}">${done?'답변완료':'확인중'}</span></div>
     <div class="bd-chips"><span>1:1 문의</span><span>2026.10.20 10:11</span><span>${q[3]}</span></div></div>
-    <div class="bd-card"><div class="bd-h">문의 정보</div><div class="bd-row"><b>카테고리</b><span>취소/반품/교환</span></div><div class="bd-row"><b>세부 유형</b><span>${q[1]}</span></div></div>
+    <div class="bd-card"><div class="bd-h">문의 정보</div><div class="bd-row"><b>카테고리</b><span>${q[1]==='품절·재고부족 취소'?'주문·취소':'반품·교환'}</span></div><div class="bd-row"><b>세부 유형</b><span>${q[1]}</span></div></div>
     <div class="bd-card"><div class="bd-h">문의 내용</div><div class="bd-txt">${q[2]}</div></div>
     <div class="bd-card"><div class="bd-h">상담원 답변 <small>1건</small></div>${ans}</div>${rate}`;
   $('bdView').innerHTML=web?`<div class="bd-web"><div class="bar"><i></i><i></i><i></i><span>(파트너센터 웹 주소)/inquiries/58123</span></div><div class="gnb"><span class="lg"></span>오늘의집<small>파트너센터</small></div><div class="sc bd"><div class="in">${inner}</div></div></div>`
@@ -1091,14 +1091,15 @@ const DS={
   side:['답변 소요 시간별',['답변까지','응답','NPS','해결률','AI 답변 비중'],[['1시간 이내',84,52,'81%','88%'],['당일',41,41,'75%','24%'],['다음 영업일 이후',27,29,'68%','4%']],'게시판 응답에는 예비파트너 이메일 설문 21건이 포함됩니다.']}};
 let dtab='all';
 const COL={g:'var(--c-green)',y:'var(--c-yel)',r:'var(--c-red)',n:''};
-const TY=[['취소/반품/교환',[['품절·재고부족 취소',142,50,24,26,58,12],['취소/반품/교환 기타',40,68,19,13,83,78]]],
+const TY=[['주문/취소',[['품절·재고부족 취소',142,50,24,26,58,12]]],
+ ['반품/교환',[['반품/교환 기타',40,68,19,13,83,78]]],
  ['배송',[['배송상태 변경',88,54,27,19,66,41],['배송기타',36,58,26,16,72,52]]],
  ['상품',[['상품등록검수',51,60,26,14,72,55],['상품 관리',29,63,24,13,76,69]]],
  ['정산',[['정산/매출 현황',33,66,20,14,79,61],['세금계산서 / 부가세신고',22,72,18,10,86,82]]],
  ['입점',[['입점 현황',18,50,30,20,61,33]]],
  ['기타',[['기타',95,70,20,10,69,47]]]];
 const AG=[['상담원 A',58,66,22,12,84],['상담원 B',51,61,25,14,80],['상담원 C',44,59,25,16,77],['상담원 D',37,57,24,19,75],['상담원 E',22,64,23,13,82]];
-const open=new Set(['취소/반품/교환']);
+const open=new Set(['주문/취소']);
 const stack=(g,m,b)=>`<span class="stack" title="추천 ${g}% · 보통 ${m}% · 비추천 ${b}%"><i style="width:${g}%;background:var(--c-green)"></i><i style="width:${m}%;background:#F5C451"></i><i style="width:${b}%;background:var(--c-red)"></i></span>`;
 function drawChart({A,H,T}){const W=['8/25','9/1','9/8','9/15','9/22','9/29','10/6','10/13'],tg=M.tg.all[0];
  const w=620,h=220,pl=30,pr=10,pt=12,pb=26,x=i=>pl+i*(w-pl-pr)/(W.length-1),y=v=>pt+(70-v)*(h-pt-pb)/50;
@@ -1154,7 +1155,7 @@ const DATA=Array.from({length:64},(_,i)=>{
   const r=rnd(),q1=r<.55?1:r<.8?2:3,q2=(q1===1?rnd()<.88:rnd()<.45)?'Y':'N',cm=i<4?CM[i]:(q1>1||q2==='N')?CM[Math.floor(rnd()*CM.length)]:'';
   const d=20-Math.floor(i/3.4),hh=9+Math.floor(rnd()*9),mm=Math.floor(rnd()*60);
   const ag=fl==='AI 단독'?'-':'상담원 '+'ABCDE'[Math.floor(rnd()*5)];
-  return{id:'R'+(26102000-i),t:`10/${String(Math.max(d,1)).padStart(2,'0')} ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`,ch,fl,type:i===0?'배송 > 배송상태 변경':i===1?'취소/반품/교환 > 품절·재고부족 취소':TYP[Math.floor(rnd()*TYP.length)],
+  return{id:'R'+(26102000-i),t:`10/${String(Math.max(d,1)).padStart(2,'0')} ${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`,ch,fl,type:i===0?'배송 > 배송상태 변경':i===1?'주문/취소 > 품절·재고부족 취소':TYP[Math.floor(rnd()*TYP.length)],
     fl:i===0?'AI 단독':i===1?'AI → 상담원':fl,ag:i===0?'-':i===1?'상담원 A':ag,shop:String(120000+Math.floor(rnd()*880000)),sid:'C'+(88123400+i*7),tk:'T'+(5512300+i*3),q1:i<2?[3,2][i]:q1,q2:i<2?['N','Y'][i]:q2,
     q3:(q1>1||q2==='N')?RS[Math.floor(rnd()*5)][0]:'',cm,ver:'partner_v1',sum:SUM[i%SUM.length],st:(i<2?'확인 필요':(q1===3&&cm?(rnd()<.5?'확인 필요':'조치 완료'):'-')),memo:''}});
 const Q1L=['','추천','보통','비추천'],Q1C=['','g','y','r'];
@@ -1290,7 +1291,7 @@ function renderRule(){
   $$('#ruBody [data-rqa]').forEach(a=>a.onclick=e=>{e.preventDefault();go('qm');selectTpl('ai_rating_v1')});
   $$('#ruBody [data-rq]').forEach(a=>a.onclick=e=>{e.preventDefault();go('qm');selectTpl(RU[+a.dataset.rq][3])});
 }
-const ECA=[["배송", ["배송기타", "배송상태 변경"]], ["취소/반품/교환", ["취소/반품/교환 기타", "주문·결제 금액 조회", "부분취소 처리", "대량취소 처리", "품절·재고부족 취소", "기타 사유 취소", "반품 대리접수", "클레임 상태 변경", "구매확정 후 취소·환불"]], ["상품", ["상품등록검수", "상품 관리", "지식재산권 및 도용", "검수 반려·판매정지 사유", "상품명·옵션명 수정 요청", "상품 미노출·수정 미반영", "카테고리 추가·변경"]], ["문의/리뷰", ["문의게시판", "고객리뷰"]], ["입점", ["입점 문의", "입점 현황", "입점 이슈"]], ["시스템", ["스토어관리 문의", "스토어관리 이슈", "연동프로그램"]], ["정산", ["정산 수수료", "세금계산서 / 부가세신고", "정산/매출 현황"]], ["정보변경", ["단순 정보변경", "서류 정보변경"]], ["고객 OB", ["고객 OB"]], ["기타", ["기타"]], ["운영", ["담당 MD 관련", "표준 수수료", "프로모션·광고"]]];
+const ECA=[["배송", ["배송기타", "배송상태 변경"]], ["주문/취소", ["주문/취소 기타", "주문·결제 금액 조회", "부분취소 처리", "대량취소 처리", "품절·재고부족 취소", "기타 사유 취소"]], ["반품/교환", ["반품/교환 기타", "반품 대리접수", "클레임 상태 변경", "구매확정 후 취소·환불"]], ["상품", ["상품등록검수", "상품 관리", "지식재산권 및 도용", "검수 반려·판매정지 사유", "상품명·옵션명 수정 요청", "상품 미노출·수정 미반영", "카테고리 추가·변경"]], ["문의/리뷰", ["문의게시판", "고객리뷰"]], ["입점", ["입점 문의", "입점 현황", "입점 이슈"]], ["시스템", ["스토어관리 문의", "스토어관리 이슈", "연동프로그램"]], ["정산", ["정산 수수료", "세금계산서 / 부가세신고", "정산/매출 현황"]], ["정보변경", ["단순 정보변경", "서류 정보변경"]], ["고객 OB", ["고객 OB"]], ["기타", ["기타"]], ["운영", ["담당 MD 관련", "표준 수수료", "프로모션·광고"]]];
 const EX=new Set(['상품 > 지식재산권 및 도용']);
 function renderEx(){
   $('#exChips').innerHTML=[...EX].map(x=>`<span class="cx-xchip">${x}<button data-exd="${x}" title="빼기">×</button></span>`).join('')||'<span class="cx-note">제외한 상담유형이 없습니다</span>';
