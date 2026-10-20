@@ -862,7 +862,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
         <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용. 조회 기간은 응답 시각 기준)</td></tr>
       </tbody>
     </table>
-    <div class="note">파트너센터 NPS는 AICX에, 고객센터 NPS는 ECA에 쌓이므로 값의 형식을 맞춥니다. 추천 점수는 고객센터 문자 설문과 같은 1(추천) / 2 / 3(비추천)으로 저장해 같은 방식으로 NPS를 계산하고, 상담유형은 ECA에 등록된 대·중·소 이름 그대로 저장해 ECA 데이터와 이어 볼 수 있게 합니다. 각 항목이 ECA 설문 표의 어느 칸과 짝인지는 <a class="link" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2032552144" target="_blank" rel="noopener">구현 요건 시트 「3. 저장 데이터」</a>에 정리했습니다.</div>
+    <div class="note">ECA를 종료하면 고객센터 NPS도 이 체계로 옮겨 올 예정이라, 그때 ECA에 쌓인 고객센터 NPS 이력과 끊기지 않고 이어지도록 처음부터 ECA와 같은 형식으로 저장합니다. 추천 점수는 1(추천) / 2 / 3(비추천), 상담유형은 ECA에 등록된 대·중·소 이름 그대로입니다. 각 항목이 ECA 설문 표의 어느 칸과 짝인지는 <a class="link" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2032552144" target="_blank" rel="noopener">구현 요건 시트 「3. 저장 데이터」</a>에 정리했습니다.</div>
   </div>
 </div>
 <div class="card" style="margin-top:18px">
