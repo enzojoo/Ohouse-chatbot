@@ -469,7 +469,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     </div>
     <div class="card" style="margin-top:14px">
       <h3>AICX에 저장되는 값 <span class="badge" id="recState">응답 대기</span></h3>
-      <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다. 필드는 구현 요건 시트 「3. 저장 데이터」와 같습니다. 상담유형은 AICX 텍스트로 저장하고, ECA 코드는 ECA가 티켓을 만들 때 변환한 값을 티켓 ID로 가져옵니다. 채팅에 해당하지 않는 token(이메일 설문)·ai_first_answer(게시판)와 콘솔에서 입력하는 후속 조치는 빠져 있습니다.</p>
+      <p class="desc">평가 카드를 누르면 실시간으로 채워집니다. 「평가 보내기」를 누를 때 한 번에 저장됩니다. 필드는 구현 요건 시트 「3. 저장 데이터」와 같습니다. 상담유형은 ECA에 등록된 이름과 똑같은 대·중·소 텍스트로 저장하고, ECA가 티켓을 만들 때 같은 이름의 코드로 바꿉니다. 채팅에 해당하지 않는 token(이메일 설문)·ai_first_answer(게시판)와 콘솔에서 입력하는 후속 조치는 빠져 있습니다.</p>
       <pre class="rec" id="chRec"></pre>
     </div>
     <div class="note"><b>평가 카드 공통 규칙</b><br>• 한 상담에 한 번만 응답하고, 응답 후에는 수정할 수 없습니다<br>• Q1·Q2를 고르면 다음 문항이 열리고, Q3은 Q1이 「보통·추천하지 않아요」이거나 Q2가 「해결되지 않았어요」일 때만 보입니다<br>• 다시 「추천해요」와 「해결됐어요」로 바꾸면 Q3은 닫히고 골랐던 값도 지워집니다 (Q3은 빈 값으로 저장)<br>• 카드를 닫거나 무시해도 상담 이용에는 영향이 없고, 미응답은 응답률 계산에만 쓰입니다<br>• 평가 카드는 본인 상담 화면에서만 보이고, 제출 후에는 고른 점수를 다시 보여 주지 않습니다</div>
@@ -855,14 +855,14 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
       <tbody>
         <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원)</td></tr>
         <tr><td style="white-space:nowrap"><b>연결값</b></td><td>상담 ID, 티켓 ID(ECA 티켓 ID), 설문 링크 토큰(이메일 설문), 샵ID, 파트너ID, 상담원 ID</td></tr>
-        <tr><td><b>유형</b></td><td>AICX 상담유형 텍스트 (콘솔 표기 「중 > 소」 그대로, 상담 종료 시점 기준). ECA 코드는 ECA가 티켓을 만들 때 변환하므로 티켓 ID로 연결해 확인</td></tr>
+        <tr><td><b>유형</b></td><td>상담유형 대·중·소 텍스트 (ECA에 등록된 이름과 띄어쓰기까지 똑같이, 상담 종료 시점 기준). ECA가 티켓을 만들 때 이름이 같은 유형의 코드로 바꾸고, 다르면 기타로 넣음</td></tr>
         <tr><td><b>설문</b></td><td>템플릿 ID·버전</td></tr>
         <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트, AI 응대 평가(1/2/3, AI → 상담원 흐름만)</td></tr>
         <tr><td><b>표시</b></td><td>AI 1차 답변 있음 (게시판에서 AI 자동답변 후 상담원이 답변한 건), 후속 조치 상태·메모 (콘솔에서 입력)</td></tr>
         <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용. 조회 기간은 응답 시각 기준)</td></tr>
       </tbody>
     </table>
-    <div class="note">점수(1/2/3)는 고객센터 ECA 설문과 같은 값으로 저장하고, 상담유형 코드는 ECA 티켓에서 가져와 두 센터 NPS를 합쳐 볼 수 있게 합니다. 필드별 ECA 대응 컬럼은 <a class="link" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2032552144" target="_blank" rel="noopener">구현 요건 시트 「3. 저장 데이터」</a>를 참고해 주세요.</div>
+    <div class="note">점수(1/2/3)는 고객센터 ECA 설문과 같은 값으로 저장하고, 상담유형은 ECA와 같은 이름으로 저장해 두 센터 NPS를 합쳐 볼 수 있게 합니다. 필드별 ECA 대응 컬럼은 <a class="link" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2032552144" target="_blank" rel="noopener">구현 요건 시트 「3. 저장 데이터」</a>를 참고해 주세요.</div>
   </div>
 </div>
 <div class="card" style="margin-top:18px">
@@ -949,14 +949,14 @@ const L1={'1':'추천','2':'보통','3':'비추천'},LA={'1':'좋았어요','2':
 function rec(){
   const S=SC[sc],v=x=>x==null||x===''?'<span class="n">null</span>':`<span class="s">"${String(x).replace(/</g,'&lt;')}"</span>`;
   const row=(k,x)=>`  <span class="k">${k}</span>: ${x}`;
-  const D={ai:['ai',null,'','C88123501','T5512301','취소/반품/교환 > 취소/반품/교환 기타'],
-   hu:['agent','1042','상담원 B','C88123522','T5512322','취소/반품/교환 > 클레임 상태 변경'],
-   ag:['agent','1017','상담원 A','C88123517','T5512317','취소/반품/교환 > 품절·재고부족 취소']}[sc];
+  const D={ai:['ai',null,'','C88123501','T5512301','취소/반품/교환 기타',''],
+   hu:['agent','1042','상담원 B','C88123522','T5512322','클레임 상태 변경','추가안 · ECA 등록 전에는 기타로 들어감'],
+   ag:['agent','1017','상담원 A','C88123517','T5512317','품절·재고부족 취소','추가안 · ECA 등록 전에는 기타로 들어감']}[sc];
   const c=(x,t)=>`${v(x)} <span class="n">// ${t}</span>`;
   const lines=[row('service',v('partner')),row('channel',v('chat')),row('flow',v(S.flow)),row('target',v(D[0])),
    row('consult_id',v(D[3])),row('ticket_id',c(D[4],'ECA 티켓 ID')),row('shop_id',v('1203389')),row('partner_id',v('58211')),
    row('agent_id',D[1]?c(D[1],D[2]):v(null)),
-   row('consult_type',c(D[5],'ECA 코드는 ticket_id로 ECA 티켓에서 확인')),
+   row('consult_type_large',v('파트너센터')),row('consult_type_medium',v('취소/반품/교환')),row('consult_type_small',D[6]?c(D[5],D[6]):v(D[5])),
    row('template_id',v('partner_v1')),row('template_version','1'),
    row('q1',A.q1?`${A.q1} <span class="n">// ${L1[A.q1]}</span>`:v(null)),row('q2',v(A.q2))];
   if(sc==='ag')lines.push(row('ai_rating',A.ai?`${A.ai} <span class="n">// ${LA[A.ai]}</span>`:v(null)));
