@@ -881,7 +881,7 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <tr><td style="white-space:nowrap"><b>이어 보기</b></td><td>점수 1/2/3과 상담유형 이름을 ECA와 같게 저장해, 고객센터를 옮긴 뒤에도 ECA 시절 NPS 이력과 추이가 이어지게 합니다</td></tr>
   </tbody></table>
 </div>
-<div class="note" style="margin-top:18px"><b>확정</b><br>• 같은 샵 중복 노출 제한: 기존 NPS 규칙 동일하게 적용 (10/20)</div>
+<div class="note" style="margin-top:18px"><b>확정</b><br>• 같은 샵 중복 노출 제한: 기존 NPS 규칙 동일하게 적용 (10/20)<br>• Q3 규칙: Q1 보통·비추천 또는 Q2 해결 안 됨일 때만 보여 주고, 조건이 풀리면 지우고 빈 값으로 저장 (10/20)</div>
 <div class="sectitle">결정 필요</div>
 <div class="decide">
   <ol>
@@ -890,6 +890,8 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <li>Q1 선택지(추천 / 중간 / 비추천) 중 중간 답변 문구를 목업처럼 「보통이에요」로 할지, 고객센터 문자 설문처럼 「모르겠다」로 할지</li>
     <li>게시판·이메일 응답 기한</li>
     <li>노출 제외 상담유형 초기값</li>
+    <li>예비파트너 이메일 설문을 1차에 받을지 (받지 않더라도 링크형 설문 구조는 1차에 설계)</li>
+    <li>고객센터 적용 시점</li>
     <li>Q1이 긍정일 때 「좋았던 점」 선택지를 짧게 받을지, 지금처럼 자유 의견(Q4)으로 바로 보낼지</li>
     <li>AICX 콘솔 응답 조회 권한 범위</li>
   </ol>
