@@ -853,15 +853,16 @@ table.kv td:first-child{width:96px;color:var(--sub);font-weight:600;white-space:
     <h3>저장할 데이터 (응답 1건 기준)</h3>
     <table>
       <tbody>
-        <tr><td><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원)</td></tr>
-        <tr><td><b>연결값</b></td><td>상담 ID, 티켓 ID(이메일 설문은 링크의 문의 번호), 샵ID, 파트너ID, 상담원 ID</td></tr>
-        <tr><td><b>유형</b></td><td>ECA 상담유형 중분류·소분류</td></tr>
+        <tr><td style="white-space:nowrap"><b>구분</b></td><td>서비스(파트너센터/고객센터), 채널, 응대 흐름, 평가 대상(AI/상담원)</td></tr>
+        <tr><td><b>연결값</b></td><td>상담 ID, 티켓 ID, 설문 링크 토큰(이메일 설문), 샵ID, 파트너ID, 상담원 ID</td></tr>
+        <tr><td><b>유형</b></td><td>ECA 상담유형 대·중·소 코드 (3개 필드로 나눠 저장, 상담 종료 시점 기준)</td></tr>
         <tr><td><b>설문</b></td><td>템플릿 ID·버전</td></tr>
         <tr><td><b>응답</b></td><td>Q1(1/2/3), Q2(Y/N), Q3 선택값, Q4 텍스트, AI 응대 평가(1/2/3, AI → 상담원 흐름만)</td></tr>
-        <tr><td><b>표시</b></td><td>AI 1차 답변 있음 (게시판에서 AI 자동답변 후 상담원이 답변한 건)</td></tr>
-        <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용)</td></tr>
+        <tr><td><b>표시</b></td><td>AI 1차 답변 있음 (게시판에서 AI 자동답변 후 상담원이 답변한 건), 후속 조치 상태·메모 (콘솔에서 입력)</td></tr>
+        <tr><td><b>시각</b></td><td>노출 시각, 응답 시각 (응답률 계산용. 조회 기간은 응답 시각 기준)</td></tr>
       </tbody>
     </table>
+    <div class="note">점수(1/2/3)와 상담유형 코드는 고객센터 ECA 설문과 같은 값으로 저장해 두 센터 NPS를 합쳐 볼 수 있게 합니다. 필드별 ECA 대응 컬럼은 <a class="link" href="https://docs.google.com/spreadsheets/d/1tNtOlKtLuZSFY8nusvKJzrSgY5Bwz2xFvE3JRtXI51U/edit?gid=2032552144" target="_blank" rel="noopener">구현 요건 시트 「3. 저장 데이터」</a>를 참고해 주세요.</div>
   </div>
 </div>
 <div class="note" style="margin-top:18px"><b>확정</b><br>• 같은 샵 중복 노출 제한: 기존 NPS 규칙 동일하게 적용 (10/20)</div>
