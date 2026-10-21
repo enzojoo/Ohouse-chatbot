@@ -757,13 +757,9 @@ document.querySelectorAll('.tbtn button').forEach(b => b.onclick = () => { if (C
 function quickTest(t){
   body().querySelectorAll('.opts:not(.done)').forEach(x => x.classList.add('done'));
   if (t === 'T2') {
-    addUser('그게 아니라요'); addUser('그게 아니라 제 주문 건 얘기예요'); addSys('같은 질문 반복·「그게 아니라」 2회 → T2 (바로 넘기지 않고 버튼으로 제안)');
-    addBot('제가 정확히 도와드리지 못한 것 같습니다. 상담원에게 연결해 드릴까요?', '공통-3 1-3');
-    addOpts([{label:'상담원 연결'}, {label:'다시 질문할게요'}], o => {
-      addUser(o.label);
-      if (o.label === '상담원 연결') handoff('T2');
-      else { addBot('네, 파트너님. 궁금하신 내용을 다시 말씀해 주세요.', '공통-1 2'); addSys('같은 상담에서 같은 사유로는 다시 제안하지 않음 (억제 3)'); }
-    });
+    addUser('그게 아니라요'); addUser('그게 아니라 제 주문 건 얘기예요'); addSys('같은 질문 반복·「그게 아니라」 2회 → T2 (연결 여부를 묻지 않고 버튼만 노출, 파트너가 직접 눌러야 연결 · 10/21)');
+    addBot('제가 정확히 도와드리지 못한 것 같습니다. 궁금하신 내용을 다시 말씀해 주시거나, 상담원 상담이 필요하시면 아래 버튼을 눌러 주세요.', '공통-3 1-3');
+    addOpts([{label:'상담원 연결'}], o => { addUser(o.label); handoff('T2'); });
   }
   if (t === 'T4') { addUser('아니 몇 번을 말해요? 진짜 너무하네요. 소비자원에 신고할게요'); addSys('욕설·강한 불만·대외기관 언급 → T4'); handoff('T4'); }
   if (t === 'T7') { addUser('품절 취소 건이랑 정산 금액도 같이 물어볼게요'); addBot('두 가지 문의를 남겨주셨네요. 먼저 [첫 번째 용건]부터 확인해 드릴게요.', '공통-1 2-1'); addSys('첫 용건 처리 후 두 번째 용건으로 이동합니다. 둘 중 하나라도 인계 대상이면 모아서 인계합니다(T7).'); }
