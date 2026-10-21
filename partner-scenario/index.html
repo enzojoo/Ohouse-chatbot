@@ -609,7 +609,7 @@ function greetRaw(){
   resetChat();
   greetLine();
   showMenu();
-  setInput({hint:'용건을 직접 입력할 수도 있어요', sample:'', onSubmit: v => { addSys('입력 문장으로 ECA 소분류를 판별합니다. 목업에서는 왼쪽 목록에서 유형을 고르면 해당 시나리오가 이어집니다.'); }});
+  setInput({hint:'용건을 직접 입력할 수도 있어요', sample:'', onSubmit: v => runGuess(v, Object.keys(DATA.types))});
   renderInfo();
 }
 function greetLine(){
@@ -637,10 +637,23 @@ function guestGate(code, then){
 function showMenu(){
   addOpts(MENU.map(m => ({label:m[0], list:m[1]})), o => {
     addUser(o.label);
-    addSys('버튼을 누른 뒤 파트너가 용건을 입력하면 ECA 소분류를 판별해 해당 시나리오로 이동합니다. 아래는 이 버튼에 속한 유형의 대표 발화입니다.');
     addBot('네, 파트너님. 어떤 내용이 궁금하신가요?');
-    addOpts(o.list.filter(c => DATA.types[c]).map(c => ({label: DATA.types[c].utter[0] || DATA.types[c].name, code:c})), p => { addUser(p.label); guestGate(p.code, () => runType(p.code, true)); });
+    // 1차 메뉴만 버튼, 그다음은 자연어로만 진입 (10/21 결정)
+    const L = o.list.filter(c => DATA.types[c]);
+    setInput({hint:'궁금한 내용을 직접 입력해 주세요', sample: DATA.types[L[0]].utter[0] || '', onSubmit: v => runGuess(v, L)});
   }).classList.add('col'); // 첫 화면 메뉴는 세로 배열
+}
+// 목업용 자연어 판별: 대표 발화와 글자 2개 단위로 가장 많이 겹치는 유형을 고름 (실제는 AI가 ECA 소분류 판별)
+function guessType(v, list){
+  const bg = s => { const a = new Set(); s = s.replace(/\s+/g, ''); for (let i = 0; i < s.length - 1; i++) a.add(s.slice(i, i + 2)); return a; };
+  const q = bg(v); let best = list[0], top = -1;
+  list.forEach(c => { const t = DATA.types[c]; const n = [...bg([t.name, ...(t.utter || [])].join(' '))].filter(x => q.has(x)).length; if (n > top) { top = n; best = c; } });
+  return best;
+}
+function runGuess(v, list){
+  const c = guessType(v, list);
+  addSys(`입력 문장으로 ECA 소분류를 판별합니다 → ${c} ${DATA.types[c].name} (목업은 대표 발화와 가장 비슷한 유형으로 이어집니다. 다른 유형은 왼쪽 목록에서 고르세요)`);
+  guestGate(c, () => runType(c, true));
 }
 function startType(code){ H = {start:code, acts:[]}; startTypeRaw(code); undoState(); }
 function startTypeRaw(code){
