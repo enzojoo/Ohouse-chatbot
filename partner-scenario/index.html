@@ -90,6 +90,8 @@ header.top p{margin:0;color:var(--sub);font-size:13px}
 .opts{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
 .opts button{border:1.5px solid #4A9CFF;background:#fff;color:#4A9CFF;border-radius:99px;padding:8px 15px;font-size:13.5px;font-weight:600;line-height:1.35;text-align:left}
 .opts button:hover{background:#F4F9FF}
+.opts.col{flex-direction:column;align-items:stretch}
+.opts.col button{border-radius:12px;padding:11px 16px}
 .opts button.sysb{border:1.5px dashed #B9C0CA;color:#6B727B;background:#FAFBFC;font-weight:500}
 .opts button.sysb::before{content:"시스템 판단 · ";font-weight:700;font-size:11px}
 .opts.done button{opacity:.4;cursor:default}
@@ -638,7 +640,7 @@ function showMenu(){
     addSys('버튼을 누른 뒤 파트너가 용건을 입력하면 ECA 소분류를 판별해 해당 시나리오로 이동합니다. 아래는 이 버튼에 속한 유형의 대표 발화입니다.');
     addBot('네, 파트너님. 어떤 내용이 궁금하신가요?');
     addOpts(o.list.filter(c => DATA.types[c]).map(c => ({label: DATA.types[c].utter[0] || DATA.types[c].name, code:c})), p => { addUser(p.label); guestGate(p.code, () => runType(p.code, true)); });
-  });
+  }).classList.add('col'); // 첫 화면 메뉴는 세로 배열
 }
 function startType(code){ H = {start:code, acts:[]}; startTypeRaw(code); undoState(); }
 function startTypeRaw(code){
