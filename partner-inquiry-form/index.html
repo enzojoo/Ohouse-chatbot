@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>파트너센터 1:1 문의 템플릿</title>
+<style>
+  :root{
+    --bg:#EEF1F7; --card:#FFFFFF;
+    --ink:#1E2330; --ink-2:#4B5468; --ink-3:#8A93A6;
+    --line:#E5E8F0; --line-2:#F4F6FA;
+    --brand:#35A4F4; --brand-soft:#E7F4FE; --brand-deep:#1E7FC7;
+    --green:#21A36A; --green-soft:#DFF7EC;
+    --amber:#E09412; --amber-soft:#FFF1D9;
+    --pink:#E94668; --pink-soft:#FCE3E9;
+    --violet:#7A5CFF; --violet-soft:#EFEAFF;
+    --shadow:0 1px 2px rgba(20,30,60,.04), 0 4px 12px rgba(20,30,60,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0E1424; --card:#171E31;
+      --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+      --line:#28304A; --line-2:#1F2740;
+      --brand:#5DB8FF; --brand-soft:#16304A; --brand-deep:#9AD3FF;
+      --green:#3ED79A; --green-soft:#16351F;
+      --amber:#F2B857; --amber-soft:#3A2C13;
+      --pink:#FF7793; --pink-soft:#3A1B24;
+      --violet:#A48CFF; --violet-soft:#241E42;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0E1424; --card:#171E31;
+    --ink:#E8ECF5; --ink-2:#AAB3C7; --ink-3:#7A8399;
+    --line:#28304A; --line-2:#1F2740;
+    --brand:#5DB8FF; --brand-soft:#16304A; --brand-deep:#9AD3FF;
+    --green:#3ED79A; --green-soft:#16351F;
+    --amber:#F2B857; --amber-soft:#3A2C13;
+    --pink:#FF7793; --pink-soft:#3A1B24;
+    --violet:#A48CFF; --violet-soft:#241E42;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font:14px/1.6 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .doc{max-width:1240px;margin:0 auto;padding:32px 16px 96px}
+  h1{margin:0;font-size:24px;letter-spacing:-.01em}
+  .sub{color:var(--ink-2);margin:8px 0 0;font-size:13px}
+  h2{font-size:17px;margin:36px 0 12px}
+  .notice{background:var(--amber-soft);border:1px solid var(--amber);border-radius:12px;padding:12px 16px;margin:18px 0 0;font-size:13px}
+
+  /* flow */
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+  .step b{display:block;font-size:12px;color:var(--brand-deep);margin-bottom:4px}
+  .step p{margin:0;font-size:13px;color:var(--ink-2)}
+
+  /* overview */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .tcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;box-shadow:var(--shadow);transition:border-color .15s}
+  .tcard:hover,.tcard.on{border-color:var(--brand)}
+  .tcard .hd{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+  .tcard .nm{font-weight:700}
+  .tcard .pct{font-size:12px;color:var(--ink-3);white-space:nowrap}
+  .bar{height:4px;background:var(--line-2);border-radius:4px;margin:8px 0 10px;overflow:hidden}
+  .bar i{display:block;height:100%;background:var(--brand)}
+  .chips{display:flex;flex-wrap:wrap;gap:5px}
+  .chip{font-size:11.5px;border:1px solid var(--line);border-radius:999px;padding:2px 9px;color:var(--ink-2);background:var(--line-2);cursor:pointer}
+  .chip:hover{border-color:var(--brand);color:var(--brand-deep)}
+  .tag{display:inline-block;font-size:11px;border-radius:6px;padding:1px 7px;font-weight:600}
+  .tag.new{background:var(--violet-soft);color:var(--violet)}
+  .tag.ch{background:var(--amber-soft);color:var(--amber)}
+
+  /* workbench */
+  .bench{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);gap:18px;align-items:start}
+  .modal{background:var(--card);border-radius:18px;box-shadow:0 8px 30px rgba(20,30,60,.12);border:1px solid var(--line);overflow:hidden}
+  .mhead{padding:22px 24px 14px;border-bottom:1px solid var(--line);position:relative}
+  .mhead .k{color:var(--brand);font-size:13px;font-weight:600}
+  .mhead .t{font-size:21px;font-weight:700;margin-top:2px}
+  .mhead .x{position:absolute;right:18px;top:18px;width:32px;height:32px;border-radius:50%;background:var(--line-2);display:grid;place-items:center;color:var(--ink-2)}
+  .mbody{padding:16px 24px 8px}
+  .auto{background:var(--line-2);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--ink-2);margin-bottom:14px}
+  .auto b{color:var(--ink)}
+  .sec{font-size:12px;color:var(--ink-3);font-weight:600;margin:16px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+  .f{margin:0 0 14px;position:relative}
+  .f label.l{display:flex;gap:6px;align-items:center;font-weight:600;font-size:13.5px;margin-bottom:6px;flex-wrap:wrap}
+  .req{color:var(--pink)}
+  .fmt{font-size:10.5px;font-weight:600;border-radius:5px;padding:0 6px;background:var(--line-2);color:var(--ink-3);border:1px solid var(--line)}
+  .fmt.dd{background:var(--brand-soft);color:var(--brand-deep);border-color:transparent}
+  .cond{font-size:10.5px;font-weight:600;border-radius:5px;padding:0 6px;background:var(--violet-soft);color:var(--violet)}
+  .f.added{animation:pop .5s ease}
+  @keyframes pop{from{background:var(--brand-soft)}to{background:transparent}}
+  .f.typed{border-left:3px solid var(--brand);padding-left:10px;margin-left:-13px}
+  .f.dep{border-left:3px solid var(--violet);padding-left:10px;margin-left:-13px}
+  input[type=text],input[type=date],input[type=number],input[type=email],input[type=tel],input[type=url],select,textarea{
+    width:100%;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;color:var(--ink);background:var(--card)}
+  select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);
+    background-position:calc(100% - 18px) 50%,calc(100% - 13px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}
+  select:focus,input:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+  textarea{min-height:80px;resize:vertical}
+  .hint{font-size:12px;color:var(--ink-3);margin-top:4px}
+  .drop{border:1.5px dashed var(--line);border-radius:10px;padding:16px;text-align:center;color:var(--ink-3);font-size:12.5px}
+  .cbx{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px}
+  .cbx label{display:flex;gap:6px;align-items:center}
+  .mfoot{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 24px 20px;border-top:1px solid var(--line)}
+  .btn{border-radius:10px;padding:12px;text-align:center;font-weight:600;border:1px solid var(--line)}
+  .btn.p{background:var(--brand);border-color:var(--brand);color:#fff}
+  .empty{color:var(--ink-3);font-size:13px;padding:6px 0 10px}
+
+  .spec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow);position:sticky;top:12px}
+  .spec h3{margin:0 0 4px;font-size:15px}
+  .spec .crumb{font-size:12.5px;color:var(--ink-2);margin-bottom:10px}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11.5px;color:var(--ink-2);margin:6px 0 12px}
+  .legend span{display:flex;gap:5px;align-items:center}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+  td:nth-child(2),td:nth-child(3),th:nth-child(2),th:nth-child(3){white-space:nowrap}
+  th{color:var(--ink-3);font-weight:600;font-size:11.5px;background:var(--line-2)}
+  tr.hid td{color:var(--ink-3)}
+  tr.hid td:first-child::before{content:"숨김 · ";font-size:10.5px}
+  .opts{font-size:11.5px;color:var(--ink-3)}
+  .note{font-size:12.5px;color:var(--ink-2);background:var(--brand-soft);border-radius:10px;padding:10px 12px;margin-top:12px}
+
+  .issues{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px;box-shadow:var(--shadow)}
+  .issues li{margin:10px 0;font-size:13px}
+  .tw{overflow-x:auto}
+
+  @media (max-width:900px){
+    .bench{grid-template-columns:1fr}
+    .spec{position:static}
+    .grid{grid-template-columns:1fr 1fr}
+    .flow{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:560px){
+    .grid,.flow{grid-template-columns:1fr}
+    .mbody,.mhead,.mfoot{padding-left:16px;padding-right:16px}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+  <h1>파트너센터 1:1 문의 유형별 입력 템플릿</h1>
+  <p class="sub">문의 유형을 고르면 요청 구분 드롭다운이 붙고, 요청 구분에 따라 받는 항목이 바뀌는 구조입니다. 아래 화면에서 직접 골라 보면서 확인할 수 있습니다.</p>
+  <div class="notice">콘솔 기능(드롭다운 선택지 직접 설정, 선택값에 따른 항목 표시·숨김)이 모두 된다고 가정한 초안입니다. 확인이 필요한 사항은 맨 아래에 정리했습니다. 비중은 Zendesk Q3(7~9월) 게시판 6,372건 전수 분류 기준입니다.</div>
+
+  <h2>1. 입력 흐름</h2>
+  <div class="flow">
+    <div class="step"><b>STEP 1 · 문의 유형</b><p>9개 중 1개 선택 (드롭다운)</p></div>
+    <div class="step"><b>STEP 2 · 요청 구분</b><p>유형마다 다른 선택지가 나옴. 목록 끝은 「잘 모르겠어요」</p></div>
+    <div class="step"><b>STEP 3 · 유형별 항목</b><p>요청 구분에 맞는 항목만 표시. 앞 항목 선택값에 따라 추가 항목이 더 나오기도 함</p></div>
+    <div class="step"><b>STEP 4 · 공통 항목</b><p>제목, 문의 내용, 첨부, 회신 이메일, 연락처 (현재 화면 그대로)</p></div>
+  </div>
+
+  <h2>2. 문의 유형 전체 (카드나 요청 구분을 누르면 아래 화면에 바로 적용됨)</h2>
+  <div class="grid" id="overview"></div>
+
+  <h2>3. 화면 미리보기</h2>
+  <div class="bench">
+    <div class="modal">
+      <div class="mhead"><div class="k">파트너센터</div><div class="t">1:1 문의하기</div><div class="x">✕</div></div>
+      <div class="mbody">
+        <div class="auto">로그인 정보로 자동 첨부 (입력받지 않음): <b>샵명 · 샵ID · 사업자등록번호 · 로그인 계정</b></div>
+        <div class="f">
+          <label class="l">문의 유형 <span class="req">*</span><span class="fmt dd">단일 선택</span></label>
+          <select id="typeSel"></select>
+        </div>
+        <div id="subWrap"></div>
+        <div id="typed"></div>
+        <div class="sec">공통 항목</div>
+        <div class="f"><label class="l">제목 <span class="req">*</span><span class="fmt">한 줄 입력</span></label><input type="text" placeholder="문의 제목을 입력해 주세요."></div>
+        <div class="f"><label class="l">문의 내용 <span class="req">*</span><span class="fmt">여러 줄 입력</span></label><textarea id="body" placeholder="문의 내용을 입력해 주세요."></textarea></div>
+        <div class="f"><label class="l">첨부 <span class="fmt">이미지·영상 첨부</span></label><div class="drop">이미지·영상을 끌어 놓거나 눌러서 추가</div></div>
+        <div class="f"><label class="l">회신 이메일 <span class="req">*</span><span class="fmt">이메일</span></label><input type="email" value="partner@example.com"><div class="hint">로그인 계정 이메일을 기본값으로 채움</div></div>
+        <div class="f"><label class="l">연락 가능한 휴대폰번호 <span class="req">*</span><span class="fmt">전화번호</span></label><input type="tel" value="010-0000-0000"><div class="hint">오로라 담당자 정보를 기본값으로 채움</div></div>
+      </div>
+      <div class="mfoot"><div class="btn">취소</div><div class="btn p">접수하기</div></div>
+    </div>
+
+    <div class="spec">
+      <h3>지금 화면의 템플릿 명세</h3>
+      <div class="crumb" id="crumb"></div>
+      <div class="legend">
+        <span><i style="background:var(--brand)"></i>요청 구분에 따라 나오는 항목</span>
+        <span><i style="background:var(--violet)"></i>앞 항목 선택값에 따라 추가로 나오는 항목</span>
+      </div>
+      <div class="tw"><table><thead><tr><th>항목</th><th>입력 형식</th><th>필수</th><th>나오는 조건</th></tr></thead><tbody id="specBody"></tbody></table></div>
+      <div class="note" id="typeNote"></div>
+    </div>
+  </div>
+
+  <h2>4. AICX 확인 필요 사항</h2>
+  <div class="issues"><ol>
+    <li><b>드롭다운 선택지 직접 설정</b>: 「요청 구분」과 각 단일 선택 항목의 선택지를 우리가 정할 수 있는지</li>
+    <li><b>조건부 표시</b>: 요청 구분이나 앞 항목 선택값에 따라 항목을 보이거나 숨길 수 있는지. 안 되면 유형별 공통 항목(주문번호·사유·첨부)만 두고 나머지는 문의 내용 안내문으로 돌려야 함</li>
+    <li><b>입력값 전달</b>: 요청 구분과 항목 입력값이 상담사 화면과 LLM 상담유형 분류에 같이 넘어가는지. 넘어가야 ECA 소분류가 정확하게 찍힘</li>
+    <li><b>문서 첨부</b>: 입력 형식에 이미지·영상 첨부만 있고 엑셀 등 문서 첨부가 없음. 대량 취소·배송상태 일괄 변경 때 주문번호 목록을 엑셀로 받던 건은 지금은 「여러 줄 입력」에 붙여넣는 방식으로 잡음</li>
+    <li><b>체크박스 다중 선택</b>: 「이미 해 본 조치」처럼 여러 개를 고르는 항목이 되는지</li>
+    <li><b>유형 이름 변경</b>: 「광고 관리」를 「광고/프로모션 관리」로 바꾸면 ECA 상담유형 이름도 맞춰야 하는지 (AICX→ECA 매칭은 이름 완전 일치 기준)</li>
+    <li><b>입점 전 문의</b>: 1:1 문의는 로그인한 파트너만 쓸 수 있어서 유형에 넣지 않음. 입점 신청 후 서류를 고치려는 예비 파트너가 로그인할 수 있는지만 확인 필요</li>
+  </ol></div>
+</div>
+
+<script>
+const DD='단일 선택';
+// field: id,label,fmt,req(true|false|{except:[subs]}),opts,subs(null=전부|[..]|{not:[..]}),dep:{id,in:[..]},hint
+const TYPES=[
+ {name:'취소/교환/반품',share:45.3,note:'전체 문의의 절반이고 1위가 품절·재고부족 취소(27%)라서, 요청 구분으로 처리 종류를 먼저 나누는 것이 핵심임',
+  subs:['품절·재고부족 취소','그 밖의 사유로 취소','주문 일부(옵션·수량)만 취소','일괄 취소(가격·쿠폰 오등록, 리콜)','반품 대신 접수','접수된 취소·반품·교환 변경·철회','구매확정 후 취소·환불','처리 방법·기준 문의'],
+  fields:[
+   {id:'ord',label:'주문번호·주문옵션번호',fmt:'여러 줄 입력',req:{except:['처리 방법·기준 문의']},hint:'여러 건이면 한 줄에 하나씩'},
+   {id:'cnt',label:'건수',fmt:'정수',req:false,subs:['품절·재고부족 취소','그 밖의 사유로 취소','일괄 취소(가격·쿠폰 오등록, 리콜)']},
+   {id:'rs1',label:'취소 사유',fmt:DD,req:true,opts:['품절','재고부족','단종','입고지연'],subs:['품절·재고부족 취소']},
+   {id:'rs2',label:'취소 사유',fmt:'여러 줄 입력',req:true,subs:['그 밖의 사유로 취소','일괄 취소(가격·쿠폰 오등록, 리콜)']},
+   {id:'part',label:'부분 취소 방식',fmt:DD,req:true,opts:['특정 옵션 전체','같은 옵션의 수량 일부','본상품만(추가옵션 유지)','추가옵션만'],subs:['주문 일부(옵션·수량)만 취소']},
+   {id:'qty',label:'고객이 실제 필요한 수량',fmt:'정수',req:false,dep:{id:'part',in:['같은 옵션의 수량 일부']}},
+   {id:'st',label:'현재 주문 상태',fmt:DD,req:true,opts:['결제완료·배송준비중','송장만 먼저 등록해 배송중(실제 미출고)','배송완료','구매확정','고객님이 이미 취소·반품을 요청함','모름'],subs:{not:['처리 방법·기준 문의','접수된 취소·반품·교환 변경·철회']}},
+   {id:'agr',label:'고객 안내·동의',fmt:DD,req:true,opts:['동의받음','안내했으나 연락 안 됨','안내했으나 동의하지 않음','아직 안내 전'],subs:{not:['처리 방법·기준 문의']}},
+   {id:'agr2',label:'고객님 의견과 파트너님 입장',fmt:'여러 줄 입력',req:true,dep:{id:'agr',in:['안내했으나 동의하지 않음']}},
+   {id:'try',label:'연락 시도 일시·횟수',fmt:'한 줄 입력',req:false,dep:{id:'agr',in:['안내했으나 연락 안 됨']}},
+   {id:'price',label:'정상 판매가와 잘못 등록된 가격·쿠폰',fmt:'한 줄 입력',req:true,subs:['일괄 취소(가격·쿠폰 오등록, 리콜)']},
+   {id:'so',label:'추가 주문을 막도록 품절 처리함',fmt:'체크박스',req:false,subs:['일괄 취소(가격·쿠폰 오등록, 리콜)']},
+   {id:'rr',label:'반품 사유',fmt:DD,req:true,opts:['상품 불량·파손','오배송','상품 누락','단순변심','사이즈·색상 선택 착오','기타'],subs:['반품 대신 접수']},
+   {id:'col',label:'회수 상태',fmt:DD,req:true,opts:['회수 전','회수 완료','회수 불필요'],subs:['반품 대신 접수','구매확정 후 취소·환불']},
+   {id:'stage',label:'현재 진행 단계',fmt:DD,req:true,opts:['요청됨·수거 전','수거중','수거완료','교환 재배송중','완료','모름'],subs:['접수된 취소·반품·교환 변경·철회']},
+   {id:'chg',label:'변경·철회할 내용과 사유',fmt:'여러 줄 입력',req:true,subs:['접수된 취소·반품·교환 변경·철회']},
+   {id:'fault',label:'귀책',fmt:DD,req:true,opts:['구매자','파트너','고객님과 의견이 다름'],subs:['반품 대신 접수','접수된 취소·반품·교환 변경·철회','구매확정 후 취소·환불']},
+   {id:'claim',label:'고객님 주장과 파트너님 입장',fmt:'여러 줄 입력',req:true,dep:{id:'fault',in:['고객님과 의견이 다름']}},
+   {id:'fee',label:'배송비 수취 여부',fmt:DD,req:true,opts:['수취 완료','수취 불필요','아직 못 받음'],subs:['구매확정 후 취소·환불']},
+   {id:'err',label:'오류 화면',fmt:'이미지 첨부',req:false,subs:['구매확정 후 취소·환불']}
+  ]},
+ {name:'주문/배송',share:19.2,note:'「고객 연락 요청」은 Zendesk에 별도 유형이 없던 고객 연락 대행 문의(3.3%)를 받는 자리임',
+  subs:['배송상태 변경','송장 등록·수정','배송지연·출고소요일 문의','주문·결제·환불 금액 확인','고객 연락 요청'],
+  fields:[
+   {id:'ord',label:'주문번호·주문옵션번호',fmt:'여러 줄 입력',req:{except:['배송지연·출고소요일 문의']},hint:'여러 건이면 한 줄에 하나씩'},
+   {id:'cnt',label:'건수',fmt:'정수',req:false,subs:['배송상태 변경']},
+   {id:'st',label:'현재 주문 상태',fmt:DD,req:true,opts:['결제완료','배송준비중','배송중','배송완료','구매확정'],subs:['배송상태 변경','송장 등록·수정']},
+   {id:'to',label:'바꾸고 싶은 상태',fmt:DD,req:true,opts:['배송준비중','배송중','배송완료'],subs:['배송상태 변경']},
+   {id:'set',label:'상품에 설정된 배송방법',fmt:DD,req:true,opts:['업체직접배송','일반택배','화물택배','모름'],subs:['배송상태 변경','송장 등록·수정']},
+   {id:'real',label:'실제 배송한 방법',fmt:DD,req:true,opts:['업체직접배송','택배'],subs:['배송상태 변경']},
+   {id:'why',label:'설정과 실제 배송방법이 다른 사유',fmt:'여러 줄 입력',req:false,subs:['배송상태 변경']},
+   {id:'err',label:'오로라에서 변경이 안 될 때 오류 화면',fmt:'이미지 첨부',req:false,subs:['배송상태 변경','송장 등록·수정']},
+   {id:'amt',label:'확인할 금액 항목',fmt:'한 줄 입력',req:true,subs:['주문·결제·환불 금액 확인']},
+   {id:'purp',label:'요청 목적',fmt:DD,req:true,opts:['배송 일정 안내','반품·교환 협의','연락 두절','리뷰 관련','기타'],subs:['고객 연락 요청']},
+   {id:'msg',label:'고객님께 안내·확인할 내용',fmt:'여러 줄 입력',req:true,subs:['고객 연락 요청']},
+   {id:'tries',label:'연락 시도 내역 (일시·횟수·결과)',fmt:'여러 줄 입력',req:true,dep:{id:'purp',in:['연락 두절']}},
+   {id:'rv',label:'리뷰번호',fmt:'한 줄 입력',req:true,dep:{id:'purp',in:['리뷰 관련']}}
+  ]},
+ {name:'상품관리',share:10.0,note:'상품 미노출·수정 미반영은 유형 이름에 「상품노출」이 들어간 「전산 문의」로 보냄',
+  subs:['검수 진행 상황','검수 반려·판매정지 사유 확인·재검토','상품명·옵션명·브랜드명 변경','카테고리 추가·변경','권리침해 신고·도용','상품 등록·수정 방법'],
+  fields:[
+   {id:'pid',label:'상품번호 또는 판매신청서 번호',fmt:'한 줄 입력',req:{except:['카테고리 추가·변경']},subs:{not:['상품 등록·수정 방법']}},
+   {id:'kind',label:'구분',fmt:DD,req:true,opts:['신규 등록','판매중 상품 수정'],subs:['검수 진행 상황','검수 반려·판매정지 사유 확인·재검토']},
+   {id:'rd',label:'검수 요청일',fmt:'날짜',req:false,subs:['검수 진행 상황']},
+   {id:'rq',label:'요청',fmt:DD,req:true,opts:['사유 확인','재검토 요청','소명 자료 전달'],subs:['검수 반려·판매정지 사유 확인·재검토']},
+   {id:'memo',label:'오로라 검수이력에 적힌 사유',fmt:'여러 줄 입력',req:false,subs:['검수 반려·판매정지 사유 확인·재검토']},
+   {id:'doc',label:'전달할 의견·자료',fmt:'이미지 첨부',req:true,dep:{id:'rq',in:['재검토 요청','소명 자료 전달']}},
+   {id:'item',label:'변경 항목',fmt:DD,req:true,opts:['상품명','옵션명','옵션값','브랜드명'],subs:['상품명·옵션명·브랜드명 변경']},
+   {id:'diff',label:'현재 내용 → 바꿀 내용',fmt:'여러 줄 입력',req:true,subs:['상품명·옵션명·브랜드명 변경']},
+   {id:'ban',label:'상세페이지에 바꿀 브랜드임을 알 수 있는 배너·문구',fmt:DD,req:true,opts:['있음','없음'],dep:{id:'item',in:['브랜드명']}},
+   {id:'proof',label:'브랜드 권리 증빙 (상표 등록증·사용 허가 계약서·정품 유통 증빙 중 1개)',fmt:'이미지 첨부',req:true,dep:{id:'ban',in:['없음']}},
+   {id:'crq',label:'요청',fmt:DD,req:true,opts:['카테고리 추가 신청','신청 진행 상황','관리 카테고리 변경','검색 필터 변경'],subs:['카테고리 추가·변경']},
+   {id:'cat',label:'현재 카테고리 → 바꿀 카테고리 (최하위 단계까지)',fmt:'한 줄 입력',req:true,dep:{id:'crq',in:['관리 카테고리 변경','검색 필터 변경']}},
+   {id:'capp',label:'신청 카테고리와 신청일',fmt:'한 줄 입력',req:true,dep:{id:'crq',in:['신청 진행 상황']}},
+   {id:'ip',label:'상황',fmt:DD,req:true,opts:['판매정지됨','신고 진행 상황 확인'],subs:['권리침해 신고·도용']},
+   {id:'ipd',label:'소명 자료 제출일',fmt:'날짜',req:false,dep:{id:'ip',in:['판매정지됨']}},
+   {id:'url',label:'신고 대상 상품 링크',fmt:'URL',req:false,dep:{id:'ip',in:['신고 진행 상황 확인']}}
+  ]},
+ {name:'판매활동 관리 (샵/휴퇴점)',share:7.0,note:'로그인·계정·관리자 추가 문의(1.4%)를 이 유형의 요청 구분으로 받음',
+  subs:['사업자·샵 정보 변경','양도양수','휴점','퇴점·퇴점 철회','브랜드홈·셀러샵 설정','담당 MD 확인·연결','계정·관리자 추가'],
+  fields:[
+   {id:'chg',label:'변경 항목과 내용',fmt:'여러 줄 입력',req:true,subs:['사업자·샵 정보 변경']},
+   {id:'rqd',label:'정보 수정 요청일',fmt:'날짜',req:false,subs:['사업자·샵 정보 변경']},
+   {id:'ps',label:'처리 현황 상태',fmt:DD,req:false,opts:['요청중','승인(수정대기)','수정완료','거절','모름'],subs:['사업자·샵 정보 변경']},
+   {id:'tr',label:'양도양수 경우와 진행 상황',fmt:'여러 줄 입력',req:true,subs:['양도양수']},
+   {id:'trd',label:'내용증명 발송일',fmt:'날짜',req:false,subs:['양도양수']},
+   {id:'h1',label:'휴점 시작일',fmt:'날짜',req:true,subs:['휴점']},
+   {id:'h2',label:'휴점 종료일',fmt:'날짜',req:true,subs:['휴점']},
+   {id:'orq',label:'요청',fmt:DD,req:true,opts:['진행 상황 확인','퇴점 철회'],subs:['퇴점·퇴점 철회']},
+   {id:'od',label:'퇴점 신청일',fmt:'날짜',req:false,subs:['퇴점·퇴점 철회']},
+   {id:'ow',label:'철회 사유',fmt:'여러 줄 입력',req:true,dep:{id:'orq',in:['퇴점 철회']}},
+   {id:'br',label:'브랜드명',fmt:'한 줄 입력',req:false,subs:['브랜드홈·셀러샵 설정']},
+   {id:'md',label:'카테고리 또는 상품번호',fmt:'한 줄 입력',req:false,subs:['담당 MD 확인·연결']},
+   {id:'mdh',label:'MD에게 요청한 내용, 연락한 날짜와 방법',fmt:'여러 줄 입력',req:false,subs:['담당 MD 확인·연결']},
+   {id:'em',label:'추가할 담당자 이메일',fmt:'이메일',req:true,subs:['계정·관리자 추가']},
+   {id:'ph',label:'연락 가능한 대표자·담당자 연락처',fmt:'전화번호',req:false,subs:['계정·관리자 추가']}
+  ]},
+ {name:'리뷰/문의',share:4.5,note:'',
+  subs:['리뷰 답글 등록·수정','리뷰 블라인드·비구매 리뷰 신고','리뷰 이관','상품문의 답변 수정·삭제'],
+  fields:[
+   {id:'rv',label:'리뷰번호',fmt:'한 줄 입력',req:true,subs:['리뷰 답글 등록·수정','리뷰 블라인드·비구매 리뷰 신고']},
+   {id:'nick',label:'작성자 닉네임',fmt:'한 줄 입력',req:false,subs:['리뷰 블라인드·비구매 리뷰 신고']},
+   {id:'qn',label:'상품문의 번호',fmt:'한 줄 입력',req:true,subs:['상품문의 답변 수정·삭제']},
+   {id:'qrq',label:'요청',fmt:DD,req:true,opts:['답변 수정','답변 삭제'],subs:['상품문의 답변 수정·삭제']},
+   {id:'txt',label:'등록·수정할 답글·답변 내용',fmt:'여러 줄 입력',req:true,subs:['리뷰 답글 등록·수정'],dep2:{id:'qrq',in:['답변 수정']}},
+   {id:'why',label:'요청 사유',fmt:'여러 줄 입력',req:true,subs:['리뷰 블라인드·비구매 리뷰 신고','리뷰 이관'],dep2:{id:'qrq',in:['답변 삭제']}},
+   {id:'mv',label:'기존 상품번호 → 새 상품번호',fmt:'한 줄 입력',req:true,subs:['리뷰 이관']},
+   {id:'md',label:'담당 MD 유무',fmt:DD,req:true,opts:['있음','없음','모름'],subs:['리뷰 이관']},
+   {id:'ok',label:'이관 후 기존 상품 판매정지에 동의함',fmt:'체크박스',req:true,subs:['리뷰 이관']}
+  ]},
+ {name:'광고/프로모션 관리',share:2.7,renamed:'광고 관리',note:'쿠폰·기획전·특가뱃지·검색 키워드 문의(1.8%)가 광고 문의(0.9%)보다 많아서 이름에 프로모션을 넣는 안을 제안함',
+  subs:['상품광고·오감리뷰','네이버 등 외부 광고 중단','쿠폰','기획전·모음전','특가뱃지','검색 키워드'],
+  fields:[
+   {id:'pid',label:'상품번호',fmt:'여러 줄 입력',req:false,hint:'여러 건이면 한 줄에 하나씩'},
+   {id:'md',label:'담당 MD 유무',fmt:DD,req:true,opts:['있음','없음','모름'],subs:['상품광고·오감리뷰','기획전·모음전']},
+   {id:'ad',label:'중단 범위',fmt:DD,req:true,opts:['브랜드 전체','개별 키워드'],subs:['네이버 등 외부 광고 중단']},
+   {id:'kw',label:'브랜드명과 검색 키워드',fmt:'한 줄 입력',req:true,subs:['네이버 등 외부 광고 중단']},
+   {id:'cp',label:'쿠폰명·쿠폰ID',fmt:'한 줄 입력',req:true,subs:['쿠폰']},
+   {id:'mo',label:'모음전 코드',fmt:'한 줄 입력',req:false,subs:['기획전·모음전']},
+   {id:'bd',label:'뱃지 요청',fmt:DD,req:true,opts:['재부착','제거'],subs:['특가뱃지']},
+   {id:'krq',label:'요청',fmt:DD,req:true,opts:['모음전 키워드 등록','관련 없는 상품이 검색됨'],subs:['검색 키워드']},
+   {id:'nk',label:'등록할 키워드 (띄어쓰기 포함 100자 이내)',fmt:'한 줄 입력',req:true,dep:{id:'krq',in:['모음전 키워드 등록']}},
+   {id:'wk',label:'검색한 키워드와 노출된 상품번호',fmt:'한 줄 입력',req:true,dep:{id:'krq',in:['관련 없는 상품이 검색됨']}},
+   {id:'why',label:'요청 사유',fmt:'여러 줄 입력',req:true,subs:['네이버 등 외부 광고 중단','특가뱃지']}
+  ]},
+ {name:'정산 관리',share:2.1,note:'',
+  subs:['정산 일정·내역','정산 보류·미입금','수수료','세금계산서·부가세','증빙 서류 발급'],
+  fields:[
+   {id:'dt',label:'구매확정일 또는 귀속월',fmt:'날짜',req:false,subs:['정산 일정·내역','정산 보류·미입금','세금계산서·부가세']},
+   {id:'ord',label:'주문번호',fmt:'한 줄 입력',req:false,subs:{not:['증빙 서류 발급']}},
+   {id:'ps',label:'오로라 정산내역 상태',fmt:DD,req:true,opts:['지급확정','지급완료','지급이월_마이너스정산','지급이월_보류','지급이월_실패','모름'],subs:['정산 보류·미입금']},
+   {id:'tr',label:'양도양수 진행 중',fmt:'체크박스',req:false,dep:{id:'ps',in:['지급이월_보류']}},
+   {id:'pid',label:'상품번호',fmt:'한 줄 입력',req:false,subs:['수수료']},
+   {id:'rate',label:'합의한 수수료율과 합의 방식',fmt:'여러 줄 입력',req:false,subs:['수수료']},
+   {id:'docs',label:'필요한 서류',fmt:DD,req:true,opts:['거래명세서','사업자등록증','통장사본'],subs:['증빙 서류 발급']},
+   {id:'why',label:'필요 사유',fmt:'여러 줄 입력',req:true,subs:['증빙 서류 발급']}
+  ]},
+ {name:'전산 문의 (오로라/상품노출)',share:1.5,note:'유형 이름에 「상품노출」이 있어서 상품 미노출·수정 미반영을 상품관리가 아니라 이 유형에 둠',
+  subs:['오로라 화면·기능 오류','상품이 안 보이거나 수정이 반영되지 않음','가격·주문 정보가 다르게 보임','외부 연동(API·연동 솔루션)','네이버 가격비교·원부 매칭'],
+  fields:[
+   {id:'sym',label:'증상',fmt:'여러 줄 입력',req:true},
+   {id:'menu',label:'발생 메뉴(경로)',fmt:'한 줄 입력',req:false,subs:['오로라 화면·기능 오류']},
+   {id:'cap',label:'화면 캡처·녹화',fmt:'이미지·영상 첨부',req:false,subs:['오로라 화면·기능 오류','가격·주문 정보가 다르게 보임']},
+   {id:'done',label:'이미 해 본 조치',fmt:'체크박스',req:false,opts:['쿠키·캐시 삭제','시크릿 창','다른 PC'],subs:['오로라 화면·기능 오류']},
+   {id:'pid',label:'상품번호',fmt:'한 줄 입력',req:true,subs:['상품이 안 보이거나 수정이 반영되지 않음','네이버 가격비교·원부 매칭']},
+   {id:'sit',label:'상황',fmt:DD,req:true,opts:['신규 상품이 안 보임','수정 내용이 반영 안 됨','검색 순위가 낮음'],subs:['상품이 안 보이거나 수정이 반영되지 않음']},
+   {id:'ss',label:'오로라 판매 상태',fmt:DD,req:true,opts:['판매중','판매대기','일시품절','판매정지','검수 중','모름'],dep:{id:'sit',in:['신규 상품이 안 보임']}},
+   {id:'ed',label:'수정한 날짜',fmt:'날짜',req:false,dep:{id:'sit',in:['수정 내용이 반영 안 됨']}},
+   {id:'ord',label:'주문번호·주문옵션번호',fmt:'한 줄 입력',req:true,subs:['가격·주문 정보가 다르게 보임']},
+   {id:'sol',label:'솔루션명과 솔루션 측 답변',fmt:'여러 줄 입력',req:true,subs:['외부 연동(API·연동 솔루션)']},
+   {id:'nv',label:'원부번호',fmt:'한 줄 입력',req:true,subs:['네이버 가격비교·원부 매칭']},
+   {id:'nvq',label:'요청',fmt:DD,req:true,opts:['매칭','해제'],subs:['네이버 가격비교·원부 매칭']}
+  ]},
+ {name:'기타',share:1.4,note:'요청 구분 없이 공통 항목만 나옴. 문의 내용 칸에 「주문 관련이면 주문번호, 상품 관련이면 상품번호를 함께 적어 주세요」 안내문을 넣음',subs:[],fields:[]}
+];
+const UNK='잘 모르겠어요';
+const $=s=>document.querySelector(s);
+const state={t:0,sub:'',vals:{}};
+
+function inSubs(f,sub){
+  if(sub===UNK) return false;
+  if(!f.subs) return true;
+  if(Array.isArray(f.subs)) return f.subs.includes(sub);
+  return !f.subs.not.includes(sub);
+}
+function visible(f,sub){
+  if(f.dep) return state.vals[f.dep.id]!==undefined && f.dep.in.includes(state.vals[f.dep.id]) && isShown(f.dep.id,sub);
+  if(f.dep2 && state.vals[f.dep2.id]!==undefined && f.dep2.in.includes(state.vals[f.dep2.id]) && sub==='상품문의 답변 수정·삭제') return true;
+  return inSubs(f,sub);
+}
+function isShown(id,sub){const f=TYPES[state.t].fields.find(x=>x.id===id);return f?visible(f,sub):false}
+function reqOf(f,sub){if(typeof f.req==='object') return !f.req.except.includes(sub);return f.req}
+function condText(f,T){
+  if(f.dep){const p=T.fields.find(x=>x.id===f.dep.id);return `「${p.label}」= ${f.dep.in.join(', ')}`}
+  let s;
+  if(!f.subs) s='요청 구분 전부';
+  else if(Array.isArray(f.subs)) s=f.subs.join(', ');
+  else s=`${f.subs.not.join(', ')} 빼고 전부`;
+  if(f.dep2){s+=` / 상품문의 답변 ${f.dep2.in[0].replace('답변 ','')}`}
+  if(typeof f.req==='object') s+=` (${f.req.except.join(', ')}는 선택)`;
+  return s;
+}
+
+function renderOverview(){
+  const max=Math.max(...TYPES.map(t=>t.share));
+  $('#overview').innerHTML=TYPES.map((t,i)=>`
+    <div class="tcard ${i===state.t?'on':''}" data-t="${i}">
+      <div class="hd"><span class="nm">${t.name}</span><span class="pct">${t.share}%</span></div>
+      ${t.renamed?`<div style="margin-top:4px"><span class="tag ch">이름 변경 제안 · 현재 「${t.renamed}」</span></div>`:''}
+      <div class="bar"><i style="width:${t.share/max*100}%"></i></div>
+      <div class="chips">${t.subs.length?t.subs.map(s=>`<span class="chip" data-t="${i}" data-s="${s}">${s}</span>`).join(''):'<span style="font-size:12px;color:var(--ink-3)">요청 구분 없음 · 공통 항목만</span>'}</div>
+    </div>`).join('');
+}
+function fieldHTML(f,sub){
+  const req=reqOf(f,sub);
+  const cls=f.dep?'dep':(f.subs?'typed':'');
+  const badge=`<span class="fmt ${f.fmt===DD?'dd':''}">${f.fmt}</span>${f.dep?'<span class="cond">추가 표시</span>':''}`;
+  let ctl='';
+  const v=state.vals[f.id];
+  if(f.fmt===DD) ctl=`<select data-id="${f.id}"><option value="">선택해 주세요</option>${f.opts.map(o=>`<option ${v===o?'selected':''}>${o}</option>`).join('')}</select>`;
+  else if(f.fmt==='여러 줄 입력') ctl=`<textarea></textarea>`;
+  else if(f.fmt==='날짜') ctl=`<input type="date">`;
+  else if(f.fmt==='정수') ctl=`<input type="number" min="0" step="1">`;
+  else if(f.fmt==='이메일') ctl=`<input type="email">`;
+  else if(f.fmt==='전화번호') ctl=`<input type="tel">`;
+  else if(f.fmt==='URL') ctl=`<input type="url" placeholder="https://">`;
+  else if(f.fmt.includes('첨부')) ctl=`<div class="drop">${f.fmt.replace(' 첨부','')}을 끌어 놓거나 눌러서 추가</div>`;
+  else if(f.fmt==='체크박스') ctl=f.opts?`<div class="cbx">${f.opts.map(o=>`<label><input type="checkbox">${o}</label>`).join('')}</div>`:`<div class="cbx"><label><input type="checkbox">${f.label}</label></div>`;
+  else ctl=`<input type="text">`;
+  const label=f.fmt==='체크박스'&&!f.opts?'확인':f.label;
+  return `<div class="f ${cls}" data-f="${f.id}"><label class="l">${label} ${req?'<span class="req">*</span>':''}${badge}</label>${ctl}${f.hint?`<div class="hint">${f.hint}</div>`:''}</div>`;
+}
+function render(prev){
+  const T=TYPES[state.t];
+  $('#typeSel').innerHTML=TYPES.map((t,i)=>`<option value="${i}" ${i===state.t?'selected':''}>${t.name}</option>`).join('');
+  const sub=state.sub;
+  $('#subWrap').innerHTML=T.subs.length?`<div class="f typed"><label class="l">요청 구분 <span class="req">*</span><span class="fmt dd">단일 선택</span><span class="tag new">신규 드롭다운</span></label>
+    <select id="subSel"><option value="">선택해 주세요</option>${[...T.subs,UNK].map(s=>`<option ${s===sub?'selected':''}>${s}</option>`).join('')}</select>
+    <div class="hint">문의 유형마다 선택지가 다름</div></div>`:'';
+  let html='';
+  if(T.subs.length && !sub) html='<div class="empty">요청 구분을 고르면 필요한 항목이 여기에 나옵니다.</div>';
+  else if(sub===UNK) html='<div class="empty">「잘 모르겠어요」를 고르면 유형별 항목 없이 공통 항목만 나옵니다.</div>';
+  else {
+    const vis=T.fields.filter(f=>visible(f,sub));
+    if(vis.length) html='<div class="sec">'+(sub||T.name)+' 항목</div>'+vis.map(f=>fieldHTML(f,sub)).join('');
+  }
+  $('#typed').innerHTML=html;
+  $('#body').placeholder=T.name==='기타'?'주문 관련이면 주문번호, 상품 관련이면 상품번호를 함께 적어 주세요.':'문의 내용을 입력해 주세요.';
+  if(prev) document.querySelectorAll('#typed .f').forEach(el=>{if(!prev.has(el.dataset.f)) el.classList.add('added')});
+  // spec
+  $('#crumb').innerHTML=`문의 유형 <b>${T.name}</b>${T.subs.length?` › 요청 구분 <b>${sub||'(미선택)'}</b>`:''}`;
+  const rows=T.fields.map(f=>{
+    const on=sub && sub!==UNK && visible(f,sub);
+    const rel=x=>x.dep?rel(T.fields.find(y=>y.id===x.dep.id)):(inSubs(x,sub)||(x.dep2&&sub==='상품문의 답변 수정·삭제'));
+    const relevant=!sub||sub===UNK?true:rel(f);
+    if(!relevant) return '';
+    return `<tr class="${on?'':'hid'}"><td>${f.label}${f.opts?`<div class="opts">${f.opts.join(' / ')}</div>`:''}</td><td>${f.fmt}</td><td>${sub&&sub!==UNK?(reqOf(f,sub)?'필수':'선택'):(typeof f.req==='object'?'조건부':(f.req?'필수':'선택'))}</td><td>${condText(f,T)}</td></tr>`;
+  }).join('');
+  $('#specBody').innerHTML=(T.subs.length?`<tr><td>요청 구분<div class="opts">${[...T.subs,UNK].join(' / ')}</div></td><td>단일 선택</td><td>필수</td><td>문의 유형 선택 시</td></tr>`:'')+(rows||'<tr><td colspan="4" style="color:var(--ink-3)">유형별 항목 없음 · 공통 항목만</td></tr>');
+  $('#typeNote').style.display=T.note?'block':'none';
+  $('#typeNote').textContent=T.note;
+  renderOverview();
+}
+function current(){return new Set([...document.querySelectorAll('#typed .f')].map(e=>e.dataset.f))}
+document.addEventListener('change',e=>{
+  const p=current();
+  if(e.target.id==='typeSel'){state.t=+e.target.value;state.sub='';state.vals={};render(p)}
+  else if(e.target.id==='subSel'){state.sub=e.target.value;state.vals={};render(p)}
+  else if(e.target.dataset.id){state.vals[e.target.dataset.id]=e.target.value||undefined;render(p)}
+});
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.chip'), card=e.target.closest('.tcard');
+  if(!c&&!card) return;
+  const p=current();
+  state.t=+(c||card).dataset.t; state.sub=c?c.dataset.s:''; state.vals={};
+  render(p);
+  document.querySelector('.bench').scrollIntoView({behavior:'smooth',block:'start'});
+});
+render();
+</script>
+</body>
+</html>
